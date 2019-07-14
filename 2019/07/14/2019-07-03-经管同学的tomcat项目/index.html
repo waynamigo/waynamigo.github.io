@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>用了个bash手动打包java项目并在tomcat中运行 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用了个bash手动打包java项目并在tomcat中运行">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-08T15:51:34.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用了个bash手动打包java项目并在tomcat中运行">
+<meta name="twitter:description" content="帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">John Doe</h5>
+          <a href="mailto:634206017@qq.com" title="634206017@qq.com" class="mail">634206017@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">用了个bash手动打包java项目并在tomcat中运行</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">用了个bash手动打包java项目并在tomcat中运行</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-13T16:20:46.355Z" itemprop="datePublished" class="page-time">
+  2019-07-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#jdbc和tomcat和手写的DAO，怀旧。"><span class="post-toc-number">1.</span> <span class="post-toc-text">jdbc和tomcat和手写的DAO，怀旧。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#然后手动打包了，（写了个循环shellfor-javac）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">然后手动打包了，（写了个循环shellfor javac）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#把war烤到webapps执行startup-sh就可以运行了"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">把war烤到webapps执行startup.sh就可以运行了</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-07-03-经管同学的tomcat项目"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">用了个bash手动打包java项目并在tomcat中运行</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-14 00:20:46" datetime="2019-07-13T16:20:46.355Z"  itemprop="datePublished">2019-07-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="jdbc和tomcat和手写的DAO，怀旧。"><a href="#jdbc和tomcat和手写的DAO，怀旧。" class="headerlink" title="jdbc和tomcat和手写的DAO，怀旧。"></a>jdbc和tomcat和手写的DAO，怀旧。</h2><p>用idea打包：</p>
+<p>先是在idea里面配置的Webapplication的archive，里面要选一个WEB-INF和META-INF。</p>
+<p>将avaliavle elements进行put into outputroot操作，左边的out layout栏里，出现META-INF<br>build project 再 build artifacts</p>
+<p>好了<br><strong>但是我没成功</strong>，不知道为啥，war包也导出来了，tomcat运行出错？？？？nmd</p>
+<p>项目结构这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">├── bin</span><br><span class="line">│   └── out.jar</span><br><span class="line">├── build</span><br><span class="line">│   └── source.txt</span><br><span class="line">├── build.sh</span><br><span class="line">├── classdesign.war</span><br><span class="line">├── out</span><br><span class="line">│   ├── artifacts</span><br><span class="line">│   └── production</span><br><span class="line">├── src</span><br><span class="line">│   ├── com</span><br><span class="line">│   └── MANIFEST.MF</span><br><span class="line">└── web</span><br><span class="line">    ├── commom</span><br><span class="line">    ├── css</span><br><span class="line">    ├── iconfont</span><br><span class="line">    ├── images</span><br><span class="line">    ├── js</span><br><span class="line">    └── WEB-INF</span><br></pre></td></tr></table></figure>
+
+<h3 id="然后手动打包了，（写了个循环shellfor-javac）"><a href="#然后手动打包了，（写了个循环shellfor-javac）" class="headerlink" title="然后手动打包了，（写了个循环shellfor javac）"></a>然后手动打包了，（写了个循环shellfor javac）</h3><p><a href="https://github.com/waynamigo/templates/blob/master/bashs/build.sh" target="_blank" rel="noopener">代码在这</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">path=$(<span class="built_in">pwd</span>)</span><br><span class="line"><span class="function"><span class="title">dependence</span></span>()&#123;</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> `ls <span class="variable">$1</span>|grep -v <span class="string">".bak"</span>`</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="variable">$1</span><span class="string">"/"</span><span class="variable">$file</span> ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">      dependence <span class="variable">$1</span><span class="string">"/"</span><span class="variable">$file</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">local</span> file_path=<span class="variable">$1</span><span class="string">"/"</span><span class="variable">$file</span> </span><br><span class="line">      <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$file_path</span>|grep <span class="string">"MANIFEST.MF"</span>&gt;/dev/null;<span class="keyword">then</span></span><br><span class="line">      c=c</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">          <span class="built_in">echo</span> <span class="variable">$file_path</span> &gt;&gt; <span class="variable">$path</span>/build/source.txt</span><br><span class="line">      <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependence <span class="variable">$path</span>/src</span><br><span class="line">libs=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> java_lib <span class="keyword">in</span> $(ls <span class="variable">$path</span>/web/WEB-INF/lib);<span class="keyword">do</span></span><br><span class="line"><span class="keyword">if</span> [[ libs != <span class="string">""</span> ]];<span class="keyword">then</span></span><br><span class="line">libs=<span class="variable">$libs</span>:<span class="variable">$path</span>/web/WEB-INF/lib/<span class="variable">$java_lib</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">libs=<span class="variable">$path</span>/web/WEB-INF/lib/<span class="variable">$java_lib</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">javac -encoding utf-8 -Xlint:unchecked -d <span class="variable">$path</span>/build -classpath <span class="variable">$path</span>/web/WEB-INF/lib @<span class="variable">$path</span>/build/source.txt</span><br><span class="line">jar cvf  <span class="variable">$path</span>/src/MANIFEST.MF  <span class="variable">$path</span>/bin/classdesign.war ./*</span><br></pre></td></tr></table></figure>
+
+<h3 id="把war烤到webapps执行startup-sh就可以运行了"><a href="#把war烤到webapps执行startup-sh就可以运行了" class="headerlink" title="把war烤到webapps执行startup.sh就可以运行了"></a>把war烤到webapps执行startup.sh就可以运行了</h3>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2019-07-08T15:51:34.093Z" itemprop="dateUpdated">2019-07-08 23:51:34</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/07/14/2019-07-03-经管同学的tomcat项目/" target="_blank" rel="external">http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="John Doe">
+            John Doe
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/&title=《用了个bash手动打包java项目并在tomcat中运行》 — Hexo&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/&title=《用了个bash手动打包java项目并在tomcat中运行》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用了个bash手动打包java项目并在tomcat中运行》 — Hexo&url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/14/2019-03-02-强化学习初步/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">强化学习DQN简介</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/14/2019-07-09-我的ubuntu设置界面风格/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">部分MACOS风格的ubuntu</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>John Doe &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/&title=《用了个bash手动打包java项目并在tomcat中运行》 — Hexo&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/&title=《用了个bash手动打包java项目并在tomcat中运行》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用了个bash手动打包java项目并在tomcat中运行》 — Hexo&url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/14/2019-07-03-经管同学的tomcat项目/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACnklEQVR42u3aQY7jMAwEwPz/0zPA3mN3k1YmC5RPgZE4Kh8kosnXK75+/l3v7vxcXtdPaJ/8OnHh4eHhjZaeL27GuL6TrKR9oXh4eHinedeHQf7oZFuffb5+iW/v4+Hh4f0p77qozY+E2Tfx8PDw/kfedRGc35k9Hw8PD+/beLPieBYo5Iv7aNaCh4eH1z25aIB9w+eD/T08PDy8RVd9duXhxSyMKFaCh4eHd4A3W8pmH07+MYktigMDDw8P71Fe29ZqAXksmwS+9QgCHh4e3gFevovmDa32gMnj3RaJh4eHd46Xb8cbZHInP4qioQE8PDy8A7z2TWzAs1GATUiBh4eHd5qXL7oNZNv2fz7UdXMfDw8P7xjvqfh1Flsk5fIQiYeHh3eM1x4Mm5GC9qXMImM8PDy8c7xZiTxrTW1aWe3QFR4eHt453qZNlZfIsyGtzZGAh4eH93le3tTPo9ikaG5fwU1QgoeHh3eAd5o0CyM2/4uHh4d3mpfEuJs4oF3WbJDr7RPw8PDwjvHa6DZnt6HG7JC4iXHx8PDwHuW1W39e5uahw2YEIfmMh4eHd4KXlLOzsYBnQ4o8LsHDw8M7x2ubT5uWVX4Y5CuJ+nt4eHh4j/I2JWx7qGxaX/tRLTw8PLwTvGRB7UZ/ukwvwhE8PDy8R3l5KXxisGBfNN+sEA8PD+8Yrx1ymuHb37ZX3dnDw8PDK3mbcLZdXB7vtgHH26MIDw8P7wBvtuHmwUQbVbQvJQ9T8PDw8J7l7YcAZt/PR6nagyGq3PHw8PDWvNmm3L6a2YDC7OjCw8PD+zZe3gZrBwU2BfRNSo2Hh4f3cd7+qJgFGW2sjIeHh/cZ3uYRzxbfxdKTyBgPDw/vAG84q1XCktbXBjzs7OHh4eF1vF+2Rl/0okmQYwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

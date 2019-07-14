@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>解决软件源更新，旧版本软件应用无法使用的问题 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="一次简单的修改官方deb依赖的操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决软件源更新，旧版本软件应用无法使用的问题">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一次简单的修改官方deb依赖的操作">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-03T11:53:49.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决软件源更新，旧版本软件应用无法使用的问题">
+<meta name="twitter:description" content="一次简单的修改官方deb依赖的操作">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">John Doe</h5>
+          <a href="mailto:634206017@qq.com" title="634206017@qq.com" class="mail">634206017@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">解决软件源更新，旧版本软件应用无法使用的问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">解决软件源更新，旧版本软件应用无法使用的问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-13T16:20:46.367Z" itemprop="datePublished" class="page-time">
+  2019-07-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#以修改网易云音乐debian包为例"><span class="post-toc-number">1.</span> <span class="post-toc-text">以修改网易云音乐debian包为例</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查看软件包里的文件内容-不必要，只是避免好久不用忘了参数"><span class="post-toc-number"></span> <span class="post-toc-text">查看软件包里的文件内容(不必要，只是避免好久不用忘了参数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#用dpkg解压"><span class="post-toc-number"></span> <span class="post-toc-text">用dpkg解压</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解压deb包中DEBIAN目录下的文件"><span class="post-toc-number"></span> <span class="post-toc-text">解压deb包中DEBIAN目录下的文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建debian软件包"><span class="post-toc-number"></span> <span class="post-toc-text">创建debian软件包</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参数如下"><span class="post-toc-number"></span> <span class="post-toc-text">参数如下</span></a>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-01-17-网易云音乐修改deb依赖"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">解决软件源更新，旧版本软件应用无法使用的问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-14 00:20:46" datetime="2019-07-13T16:20:46.367Z"  itemprop="datePublished">2019-07-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <!--description-->
+<h2 id="以修改网易云音乐debian包为例"><a href="#以修改网易云音乐debian包为例" class="headerlink" title="以修改网易云音乐debian包为例"></a>以修改网易云音乐debian包为例</h2><h1 id="查看软件包里的文件内容-不必要，只是避免好久不用忘了参数"><a href="#查看软件包里的文件内容-不必要，只是避免好久不用忘了参数" class="headerlink" title="查看软件包里的文件内容(不必要，只是避免好久不用忘了参数"></a>查看软件包里的文件内容(不必要，只是避免好久不用忘了参数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -c neteasemusic.deb</span><br></pre></td></tr></table></figure>
+
+<h1 id="用dpkg解压"><a href="#用dpkg解压" class="headerlink" title="用dpkg解压"></a>用dpkg解压</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将软件包中的文件释放到extracted目录下</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-deb -x neteasemusic.deb extracted/</span><br></pre></td></tr></table></figure>
+
+<h1 id="解压deb包中DEBIAN目录下的文件"><a href="#解压deb包中DEBIAN目录下的文件" class="headerlink" title="解压deb包中DEBIAN目录下的文件"></a>解压deb包中DEBIAN目录下的文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将主控信息解压，control中包括了所有依赖</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dpkg创建包的时候，依赖的控制信息在DEBIAN文件夹中，所以首先要创建一个DEBIAN文件夹（大写</li>
+</ul>
+<p>否则会出现错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-deb: error: failed to open package info file <span class="string">'build//DEBIAN/control'</span> <span class="keyword">for</span> reading: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-deb -e neteasemusic.deb extracted/DEBIAN</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建debian软件包"><a href="#创建debian软件包" class="headerlink" title="创建debian软件包"></a>创建debian软件包</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-deb -b extract/ ./</span><br></pre></td></tr></table></figure>
+
+<h1 id="参数如下"><a href="#参数如下" class="headerlink" title="参数如下"></a>参数如下</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">* -c：显示软件包中的文件列表；</span><br><span class="line">* -e：将主控信息解压；</span><br><span class="line">* -f：把字段内容打印到标准输出；</span><br><span class="line">* -x：将软件包中的文件释放到指定目录下；</span><br><span class="line">* -X：将软件包中的文件释放到指定目录下，并显示释放文件的详细过程；</span><br><span class="line">* -w：显示软件包的信息；</span><br><span class="line">* -l：显示软件包的详细信息；</span><br><span class="line">* -R：提取控制信息和存档的清单文件；</span><br><span class="line">* -b：创建debian软件包。</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2019-03-03T11:53:49.316Z" itemprop="dateUpdated">2019-03-03 19:53:49</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/07/14/2019-01-17-网易云音乐修改deb依赖/" target="_blank" rel="external">http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="John Doe">
+            John Doe
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/&title=《解决软件源更新，旧版本软件应用无法使用的问题》 — Hexo&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/&title=《解决软件源更新，旧版本软件应用无法使用的问题》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决软件源更新，旧版本软件应用无法使用的问题》 — Hexo&url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/14/2019-02-09-nmap&zmap/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">nmap zmap使用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/14/2019-01-08-云计算/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">云计算复习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>John Doe &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/&title=《解决软件源更新，旧版本软件应用无法使用的问题》 — Hexo&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/&title=《解决软件源更新，旧版本软件应用无法使用的问题》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决软件源更新，旧版本软件应用无法使用的问题》 — Hexo&url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/14/2019-01-17-网易云音乐修改deb依赖/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACoElEQVR42u3a0W7jMAwEwP7/T/deD2iT7IpiLgeMn4zAljUqILEkv77i6/vH9ej3R9ffz/+8b797+cLDw8MbT/0549G7z0fO35ovKx4eHt57eI+Gbp/JlyZZ4sl88PDw8D6H9/zDE1LyJB4eHt7/yIsGDSY3OSrw8PDwPoHXDpckCDbC7sVcCx4eHl7My6tIn3O/Ut/Dw8PDG1fV8+JTXu6abOj1bPHw8PAWeGfNT2c7c54Cfh5A1/PEw8PDW+MVidGjSSTHwFnj14vgGw8PD2+Bl3y+bYdq08H5ciTBfd2ngIeHhxfzzgpd80mctXDVo+Hh4eEt8ObTbQv5+URz8KgkhoeHh1fyzlIDSXoiH7md2yikxsPDwxvz5knbSYp2O3DHw8PD2+DNg+Nk+77bUlAU3vDw8PDWeHkge5bhSJbsrKHqxeLi4eHhLfDy4n2bbpgUt5ImqiStjIeHh/ce3iTxOtnQ29C8mAkeHh7eVV4SOk+Oh1tls0M2Hh4e3gJvY+POD4+2SetwHDw8PLyrvGS7zwPudpx5ae3FPR4eHt4aLyrDBwnTdkJnaY4ifMfDw8Nb4LWJ3Tx58Z4DoE1G4+Hh4c15ScibTHrefJAsSp2wwMPDw1vgJdtrm5LIMXlSeBL04+Hh4W3wzl4+OzbO7tujK/qL4eHh4V3i3d3QJ+X/Nol8Ie+Lh4eHd4l3K1xu37rWvIWHh4d3lfddXpMSfj71s4LZL+/i4eHhLfDya158mjcKtAuEh4eHt8c7C3Db0tT8eDg7qPDw8PD2eJOptC0Il1upkoMBDw8P75/y2q2/TWRMnvzleTw8PLyP4bWtWmeBcnvMXAip8fDw8GLeRuDbNhO0h0H0Lh4eHt4Cr/73/tIvSXvB3SQFHh4e3pj3B8j4992vMpbSAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

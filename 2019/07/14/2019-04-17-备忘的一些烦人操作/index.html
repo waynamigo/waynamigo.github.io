@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>备忘的一些操作 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="包括用linux自带openssl签postfix证书、流媒体证书按网上教程（百度找了九篇都是一样的还都没用，还转载转你🐴呢）找不到之类的问题，最后自己把证书试出来了，见第一部分，博客cdn换成tx云因为配置不一样导致好久没发现cdn没启用等尴尬的问题；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="备忘的一些操作">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="包括用linux自带openssl签postfix证书、流媒体证书按网上教程（百度找了九篇都是一样的还都没用，还转载转你🐴呢）找不到之类的问题，最后自己把证书试出来了，见第一部分，博客cdn换成tx云因为配置不一样导致好久没发现cdn没启用等尴尬的问题；">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-16T07:19:10.353Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="备忘的一些操作">
+<meta name="twitter:description" content="包括用linux自带openssl签postfix证书、流媒体证书按网上教程（百度找了九篇都是一样的还都没用，还转载转你🐴呢）找不到之类的问题，最后自己把证书试出来了，见第一部分，博客cdn换成tx云因为配置不一样导致好久没发现cdn没启用等尴尬的问题；">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">John Doe</h5>
+          <a href="mailto:634206017@qq.com" title="634206017@qq.com" class="mail">634206017@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">备忘的一些操作</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">备忘的一些操作</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-13T16:20:46.355Z" itemprop="datePublished" class="page-time">
+  2019-07-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#证书"><span class="post-toc-number">1.</span> <span class="post-toc-text">证书</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怪事情，opencv的cvtColor突然不能用，但是服务器上没问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">怪事情，opencv的cvtColor突然不能用，但是服务器上没问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shell以前记的笔记"><span class="post-toc-number">3.</span> <span class="post-toc-text">shell以前记的笔记(_ _)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装lua的时候-readline缺失"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装lua的时候 readline缺失</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#树莓派摄像头（非dsi口）"><span class="post-toc-number">5.</span> <span class="post-toc-text">树莓派摄像头（非dsi口）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tx云cdn"><span class="post-toc-number">6.</span> <span class="post-toc-text">tx云cdn</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#发现使用shadowsocks还行，那个ssr扔了"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">发现使用shadowsocks还行，那个ssr扔了</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用的"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">使用的</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#流媒体搭建"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">流媒体搭建</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#git配置多用户"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">git配置多用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作死小能手"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">作死小能手</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-04-17-备忘的一些烦人操作"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">备忘的一些操作</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-14 00:20:46" datetime="2019-07-13T16:20:46.355Z"  itemprop="datePublished">2019-07-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h2><p>ubuntu自带的openssl包含的证书和RSA密钥等，相当于一套封装的加密套件。</p>
+<ul>
+<li>based on SSL&amp;TLS</li>
+<li>生成常用key的指令如下（很久远了，之前记下的只有几个，以后更新）</li>
+<li>如果没有的话可以下载包ca-certificates</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public:</span><br><span class="line">openssl rsa -in rsa_private.key -pubout -out rsa_public.key</span><br><span class="line"></span><br><span class="line">private ase256加密:</span><br><span class="line">openssl genrsa -aes256 -passout pass:111111 -out rsa_aes_private.key 2048</span><br><span class="line"></span><br><span class="line">签postfix实现加密，关键的两步:</span><br><span class="line">由于Thawte_Premium_Server_CA.pem证书失效，在新的cacert包里面更换成thawte_Primary_Root_CA.pem</span><br><span class="line">cat /etc/ssl/certs/thawte_Primary_Root_CA.pem | sudo tee -a /etc/postfix/cacert.pem</span><br><span class="line">修改main.cf的smtp_tls_CAfile = /etc/postfix/cacert.pem，</span><br><span class="line">使用postmap生成用户名和密码的hash表</span><br><span class="line">重新加载/etc/init.d/postfix（postfix服务的jio本）就可以使用了</span><br></pre></td></tr></table></figure>
+
+<h2 id="怪事情，opencv的cvtColor突然不能用，但是服务器上没问题"><a href="#怪事情，opencv的cvtColor突然不能用，但是服务器上没问题" class="headerlink" title="怪事情，opencv的cvtColor突然不能用，但是服务器上没问题"></a>怪事情，opencv的cvtColor突然不能用，但是服务器上没问题</h2><ul>
+<li>解决方法找了其他源。。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install --channel https://conda.anaconda.org/menpo opencv3</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="shell以前记的笔记"><a href="#shell以前记的笔记" class="headerlink" title="shell以前记的笔记(_ _)"></a>shell以前记的笔记(_ _)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">开头加一句#!/bin/bash 说明是一个脚本</span><br><span class="line">变量不需要声明可以直接用</span><br><span class="line">变量取值的话加美元</span><br><span class="line">If while中条件注意空格</span><br><span class="line">变量赋值不加空格</span><br><span class="line">Echo重定向：如果需要变量值和字符串相连，加大括号。</span><br><span class="line">没写i自增导致死循环</span><br><span class="line">If后一定要写fi代表结束，汇编格式吼啊</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一个技巧，似乎是以前在用别人写的caffe库的时候出现了这个问题，忘了报什么错了，不是记得很清楚</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    在Linux下编程时，或者说在一个有很多头文件互相 include 的场景中，经常会遇到不清楚一个变量</span><br><span class="line">的完整类型定义的情况（因为有用 <span class="keyword">typedef</span> 封装），从而有可能遇到编译出错。</span><br><span class="line">    例如在使用 stat 来读取文件属性的 i-node number 时，查看 stat 的手册，得知这个变量 st_ino 的变量类型是 <span class="keyword">ino_t</span>，而我们不清楚 <span class="keyword">ino_t</span>的准确定义究竟是什么。</span><br><span class="line">可以用如下方法：声明一个这样的变量即可。</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">ino_t</span> blah;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">然后运行如下指令：</span><br><span class="line"></span><br><span class="line">gcc -E test.c | grep <span class="keyword">ino_t</span></span><br><span class="line">-E 选项的意思是：在预处理过程后结束并输出到标准输出。</span><br><span class="line">文档原文如下</span><br><span class="line">-E Stop after the preprocessing stage; <span class="keyword">do</span> <span class="keyword">not</span> run the compiler proper. </span><br><span class="line">The output is in the form of preprocessed source code, which is sent to the standard output.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>c文件生成的步骤</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C/C++文件经过预处理(preprocessing)、编译(compilation)、汇编(assembly)、和连接(linking)才能变成可执行文件。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看已经建立的tcp链接数量，包括close_waite ,established,time_wait状态，</li>
+<li>不会awk的时候感觉这是个什么东西orz</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -n | awk &apos;/^tcp/ &#123;++S[$NF]&#125; END &#123;for(a in S) print a, S[a]&#125;&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装lua的时候-readline缺失"><a href="#安装lua的时候-readline缺失" class="headerlink" title="安装lua的时候 readline缺失"></a>安装lua的时候 readline缺失</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装一下 libreadline-dev，或者readline-dev，版本不一样有哪个装哪个</span><br></pre></td></tr></table></figure>
+
+<h2 id="树莓派摄像头（非dsi口）"><a href="#树莓派摄像头（非dsi口）" class="headerlink" title="树莓派摄像头（非dsi口）"></a>树莓派摄像头（非dsi口）</h2><ul>
+<li><p>可以这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mplayer -tv driver=v4l2:width=800:height=700:device=/dev/video1 tv://</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>python调用的时候使用PiCamera库或者cv库，PiCamera可以测试下能不能用，毕竟两行代码，做视觉还是用cv了</p>
+<h2 id="tx云cdn"><a href="#tx云cdn" class="headerlink" title="tx云cdn"></a>tx云cdn</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">配置cdn</span><br><span class="line">源站信息： 自有源站，waynamigo.github.io</span><br><span class="line">回源配置： 回源host，waynamigo.cn</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="发现使用shadowsocks还行，那个ssr扔了"><a href="#发现使用shadowsocks还行，那个ssr扔了" class="headerlink" title="发现使用shadowsocks还行，那个ssr扔了"></a>发现使用shadowsocks还行，那个ssr扔了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sslocal -c /etc/shadowsocks/config.json -d start</span><br></pre></td></tr></table></figure>
+
+<p>sslocal 直接用apt安装shadowsocks</p>
+<h3 id="使用的"><a href="#使用的" class="headerlink" title="使用的"></a>使用的</h3><h3 id="流媒体搭建"><a href="#流媒体搭建" class="headerlink" title="流媒体搭建"></a>流媒体搭建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/arut/nginx-rtmp-module.git</span><br><span class="line"></span><br><span class="line">wget http://nginx.org/download/nginx-1.8.1.tar.gz </span><br><span class="line">tar -zxvf nginx-1.8.1.tar.gz </span><br><span class="line">cd nginx-1.8.1 </span><br><span class="line">先安装一下依赖</span><br><span class="line">yum install pcre-devel</span><br><span class="line">yum install zlib zlib-devel</span><br><span class="line">yum install openssl openssl-devel</span><br><span class="line"></span><br><span class="line">./configure --prefix=/usr/local/nginx  --add-module=../nginx-rtmp-module  --with-http_ssl_module   </span><br><span class="line">make </span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>/usr/local/nginx/conf/nginx.conf</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rtmp &#123;   </span><br><span class="line">     </span><br><span class="line">    server &#123;   </span><br><span class="line">     </span><br><span class="line">        listen 1935;  #监听的端口 </span><br><span class="line">     </span><br><span class="line">        chunk_size 4000;   </span><br><span class="line">           </span><br><span class="line">            </span><br><span class="line">        application hls &#123;  #rtmp推流请求路径 </span><br><span class="line">            live on;   </span><br><span class="line">            hls on;   </span><br><span class="line">            hls_path /usr/share/nginx/html/hls;   </span><br><span class="line">            hls_fragment 5s;   </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125; </span><br><span class="line">修改server模块的</span><br><span class="line">location / &#123; </span><br><span class="line">        root   /usr/share/nginx/html; </span><br><span class="line">        index  index.html index.htm; </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="git配置多用户"><a href="#git配置多用户" class="headerlink" title="git配置多用户"></a>git配置多用户</h3><p>.ssh/config</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_qq</span><br><span class="line">    User nanamya</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd  .git</span><br><span class="line">设置本项目的用户名和邮箱</span><br><span class="line">git config user.name <span class="string">"yourname"</span></span><br><span class="line">git config user.email <span class="string">"youremail"</span></span><br><span class="line">如果重设 则：</span><br><span class="line">git config --global --unset user.name</span><br><span class="line">git config --global --unset user.email</span><br></pre></td></tr></table></figure>
+
+<p>如果还是8行，检查一下，正常的话会有如下提示，否则会有debug的信息<br>ssh -vT <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
+<ul>
+<li>提示Hi waynamigo! You’ve successfully authenticated, but GitHub does not provide shell access.</li>
+</ul>
+<h3 id="作死小能手"><a href="#作死小能手" class="headerlink" title="作死小能手"></a>作死小能手</h3><ul>
+<li>:() { function :|:&amp; }; :</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2019-05-16T07:19:10.353Z" itemprop="dateUpdated">2019-05-16 15:19:10</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/07/14/2019-04-17-备忘的一些烦人操作/" target="_blank" rel="external">http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="John Doe">
+            John Doe
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/&title=《备忘的一些操作》 — Hexo&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/&title=《备忘的一些操作》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《备忘的一些操作》 — Hexo&url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/14/2019-05-04-软件工程经济学/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">软件工程经济学基础</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/14/2019-03-27-docker笔记二/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">docker笔记整理（二）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>John Doe &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/&title=《备忘的一些操作》 — Hexo&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/&title=《备忘的一些操作》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《备忘的一些操作》 — Hexo&url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/14/2019-04-17-备忘的一些烦人操作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3awWojMRAE0Pz/T2dhb3uYpKpbsr3w5hQGO9KTQWqq9fUVP99/n/zNd/wkIyafXz14eHh4o6n/PHyOycFPc9gvHx4eHt5reO3WnJB+fpOAc/zjezw8PLy38pICdzbppLzGw8PD+x95eeGbTKVdFDw8PLxP4yVhRFIcb5LV2XyOZS14eHh4k65T1AD7hL8v9vfw8PDwFl31/cY9Cx2S4DiaLR4eHt4FXt6ySrbpvMzNC/Q8Sn5cODw8PLyjvHYj3rS7krJ4H4j8MwoeHh7eNV67oecXqtqrV7NA5HF0PDw8vGu8/UWB/FunItroGMPDw8O7wEu+NiuIT30+P2aGq4KHh4dX8toitR1sRt0s7i9ZCx4eHt6ad6oBlrf5Z42uWZMMDw8P7128drC2zT+LjIsYAg8PD+8CbxPR5iHCLORty+vVb4iHh4dX8mabeF4ot/j8SsEqpcbDw8O7QGqr03y6p65wrQ4DPDw8vJI3a4AVEcAoCG6PjUc8Hh4e3gXeLAJIJjG7OtDGInXKgoeHh3eIl5fCp5r6ybaeF9N1GwwPDw9vwZsdCXmpffbgycv91YmHh4eHV95HmrWm2mMjP4Taywd1GIGHh4e34LWTSyKG2YWDZDmGAQQeHh7emjc7EvLgtd3W87+L3w0PDw/vMq+9StVGwPsmWRHv4uHh4V3gtUVt+z7avuP2/7D0x8PDwzvKmwWjeWsqn3Tyf/KlwcPDw3slLymC21BgdrFgdlnhlxMPDw8Pb83Ln32ZO2v/b2ILPDw8vHu8NmzdrN9mW88PBjw8PLzX8GaBwjA5Lgv6TfiLh4eH917erB7fX96azRkPDw/v03j7Q6INbWfhLx4eHt493qb5NAtt98sRNeTw8PDwLvDaBlgbue6vEQy7dnh4eHjneX8AzCcYPNcR/M8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
