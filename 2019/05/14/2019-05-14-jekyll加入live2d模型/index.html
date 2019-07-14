@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>jekyll加入live2d的模型 | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="live2d">
+    <meta name="description" content="由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下迁hexo了草。">
+<meta name="keywords" content="live2d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jekyll加入live2d的模型">
+<meta property="og:url" content="http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/index.html">
+<meta property="og:site_name" content="Home">
+<meta property="og:description" content="由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下迁hexo了草。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-14T10:03:35.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jekyll加入live2d的模型">
+<meta name="twitter:description" content="由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下迁hexo了草。">
+    
+        <link rel="alternate" type="application/atom+xml" title="Home" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">jekyll加入live2d的模型</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">jekyll加入live2d的模型</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-05-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装hexo"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装hexo</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在hexo安装live2d插件"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">在hexo安装live2d插件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在hexo配置一下"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">在hexo配置一下</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动hexo，会自动编译生成可用的模型文件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">启动hexo，会自动编译生成可用的模型文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在index中找一个js标签，加入到jekyll的需要加的layout文件中就可以直接用了"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">在index中找一个js标签，加入到jekyll的需要加的layout文件中就可以直接用了</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-05-14-jekyll加入live2d模型"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">jekyll加入live2d的模型</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-14 00:00:00" datetime="2019-05-13T16:00:00.000Z"  itemprop="datePublished">2019-05-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><del>由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下</del><br>迁hexo了草。</p>
+<a id="more"></a>
+<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>npm install hexo-cli</p>
+<p>使用hexo初始化一个本地的博客文件夹 hexo init</p>
+<p>安装需要的依赖 npm install就可以了</p>
+<h3 id="在hexo安装live2d插件"><a href="#在hexo安装live2d插件" class="headerlink" title="在hexo安装live2d插件"></a>在hexo安装live2d插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add hexo-helper-live2d</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>详见 <a href="https://github.com/EYHN/hexo-helper-live2d" target="_blank" rel="noopener">hexo-helper-live2d</a></li>
+</ul>
+<h3 id="在hexo配置一下"><a href="#在hexo配置一下" class="headerlink" title="在hexo配置一下"></a>在hexo配置一下</h3><p>在config里面加入live2d的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">hexo-helper-live2d项目给的配置文件例子</span><br><span class="line">live2d:</span><br><span class="line">  model:</span><br><span class="line">    scale: 1</span><br><span class="line">    hHeadPos: 0.5</span><br><span class="line">    vHeadPos: 0.618</span><br><span class="line">  display:</span><br><span class="line">    superSample: 2</span><br><span class="line">    width: 150</span><br><span class="line">    height: 300</span><br><span class="line">    position: right</span><br><span class="line">    hOffset: 0</span><br><span class="line">    vOffset: -20</span><br><span class="line">  mobile:</span><br><span class="line">    show: true</span><br><span class="line">    scale: 0.5</span><br><span class="line">  react:</span><br><span class="line">    opacityDefault: 0.7</span><br><span class="line">    opacityOnHover: 0.2</span><br></pre></td></tr></table></figure>
+
+<p>找你要加入的live2d模型（有钱的可以去订做，把widget替换掉。</p>
+<p><strong>koharu在这里面<a href="https://github.com/xiazeyu/live2d-widget-models" target="_blank" rel="noopener">live2d-widget-model</a></strong></p>
+<p>clone所需要的live2d模型后，还需要在config里面加入一个live2d配置。</p>
+<p>配置文件如下<del>（注释是wife还行）</del></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#wife</span><br><span class="line">live2d:</span><br><span class="line">  enable: true</span><br><span class="line">  pluginModelPath: assets/</span><br><span class="line">  model:</span><br><span class="line">    use: koharu  #模板目录，在node_modules里</span><br><span class="line">  display:</span><br><span class="line">    position: right</span><br><span class="line">    width: 150 </span><br><span class="line">    height: 300</span><br><span class="line">  mobile:</span><br><span class="line">    show: false</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动hexo，会自动编译生成可用的模型文件"><a href="#启动hexo，会自动编译生成可用的模型文件" class="headerlink" title="启动hexo，会自动编译生成可用的模型文件"></a>启动hexo，会自动编译生成可用的模型文件</h3><p>目的文件live2d文件夹，编译后的文件目录如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_config.yml  live2d_models  package.json  scaffolds  themes</span><br><span class="line">db.json      node_modules   public        <span class="built_in">source</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在index中找一个js标签，加入到jekyll的需要加的layout文件中就可以直接用了"><a href="#在index中找一个js标签，加入到jekyll的需要加的layout文件中就可以直接用了" class="headerlink" title="在index中找一个js标签，加入到jekyll的需要加的layout文件中就可以直接用了"></a>在index中找一个js标签，加入到jekyll的需要加的layout文件中就可以直接用了</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;L2Dwidget.init(&#123;<span class="string">"pluginModelPath"</span>:<span class="string">"assets/"</span>,<span class="string">"model"</span>:&#123;<span class="string">"jsonPath"</span>:<span class="string">"/live2dw/assets/koharu.model.json"</span>&#125;,<span class="string">"display"</span>:&#123;<span class="string">"position"</span>:<span class="string">"right"</span>,<span class="string">"width"</span>:<span class="number">150</span>,<span class="string">"height"</span>:<span class="number">300</span>&#125;,<span class="string">"mobile"</span>:&#123;<span class="string">"show"</span>:<span class="literal">false</span>&#125;,<span class="string">"log"</span>:<span class="literal">false</span>,<span class="string">"pluginJsPath"</span>:<span class="string">"lib/"</span>,<span class="string">"pluginRootPath"</span>:<span class="string">"live2dw/"</span>,<span class="string">"tagMode"</span>:<span class="literal">false</span>&#125;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-14T10:03:35.142Z" itemprop="dateUpdated">2019-07-14 18:03:35</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/05/14/2019-05-14-jekyll加入live2d模型/" target="_blank" rel="external">http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/live2d/">live2d</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/&title=《jekyll加入live2d的模型》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/&title=《jekyll加入live2d的模型》 — Home&source=由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下迁hexo了草。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《jekyll加入live2d的模型》 — Home&url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/06/12/2019-06-12-踩坑集锦/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">这学期项目中的坑</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/04/2019-05-04-软件工程经济学/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">软件工程经济学</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2019</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/&title=《jekyll加入live2d的模型》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/&title=《jekyll加入live2d的模型》 — Home&source=由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下迁hexo了草。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《jekyll加入live2d的模型》 — Home&url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/14/2019-05-14-jekyll加入live2d模型/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuElEQVR42u3aQW4bMQwF0Nz/0inQXdFq/L8opbN4szIcW8M3ASSa5NdXfH3/vp7fX71efet5zb8/87zm6MLDw8PbCn11rUJP/pqHOIlh9Xk8PDy827x808839+eNPj9a2seEh4eH9x7e6jZtYp0kx8dWxsPDw/uvvLbo8HyX9kjAw8PDexsvKQTshbi33efxHKu14OHh4cW8dlt/w+uL/T08PDy8QVe9bWU9Hx75UZEXRD7EiYeHh3eBl9wgDyhJu9siRZuU1xNeeHh4eANenpHuUSel2Lwk8Y8V8PDw8I7y2i/kW3/LnjzoD/83PDw8vKO8/JZ5A2zS0MoPhuJnAB4eHt5R3qRjlg8ZtAn33vGzLODi4eHhHeVNCgHtdn9q0iGPBA8PD+8eL09Y94YD2qR5gqxHr/Dw8PCO8nL8BLw3koWHh4f3Hl5bon1+ZzKSNW+G4eHh4d3gtcXTPPT8dcLLH/0fa+Lh4eFd4OWL5pt+u8LkyInOPTw8PLxrvLPDUt/xlW/3Scx4eHh4t3n1uTFoeu21wSYDWHh4eHj3eO0wU/HjfzAWMC9M4OHh4d3j5YnspNSbJ8oJY5RS4+Hh4Q14OalIZOPg2pQ9HzL4MECAh4eHN+Dl4eYDAZOg9x7T8lt4eHh4F3hJyts2w/JS7N4B0BaC8fDw8H6Gt5dM5+n1Xme/mIPIl8DDw8Pb4rXtqzYhng9m5cXfZa0FDw8P7zKvbX3lB8O89FBfeHh4eEd5e9txu2W3RY12rOFDlRoPDw/vKO9skaId4bpXHPm6cRs8PDy8QVo8HyZIDpIkQx719PDw8PDGvDb0sy2xee9uuT4eHh7eK3ltGXdy/OTNNjw8PLw38PIj4VSiPCn74uHh4d3mnWp6Pb/ffjIvBB+oteDh4eHFvL3BrHbLbg+YSVqPh4eHd433C5Bfc6hGY8EzAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

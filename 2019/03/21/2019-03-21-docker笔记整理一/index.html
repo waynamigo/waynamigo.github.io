@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>docker笔记整理（一） | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="docker">
+    <meta name="description" content="基本使用方法">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker笔记整理（一）">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/index.html">
+<meta property="og:site_name" content="Home">
+<meta property="og:description" content="基本使用方法">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-14T10:01:13.427Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker笔记整理（一）">
+<meta name="twitter:description" content="基本使用方法">
+    
+        <link rel="alternate" type="application/atom+xml" title="Home" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">docker笔记整理（一）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">docker笔记整理（一）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-20T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-03-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用docker仓库"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用docker仓库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本操作，搜索，删除，清理本地遗留文件，创建自己的镜像等"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本操作，搜索，删除，清理本地遗留文件，创建自己的镜像等</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">创建</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保存镜像"><span class="post-toc-number">3.</span> <span class="post-toc-text">保存镜像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#上传镜像"><span class="post-toc-number">4.</span> <span class="post-toc-text">上传镜像</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-03-21-docker笔记整理一"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">docker笔记整理（一）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-21 00:00:00" datetime="2019-03-20T16:00:00.000Z"  itemprop="datePublished">2019-03-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>基本使用方法</p>
+<a id="more"></a>
+<h2 id="使用docker仓库"><a href="#使用docker仓库" class="headerlink" title="使用docker仓库"></a>使用docker仓库</h2><ul>
+<li><p>首先，docker的一个镜像是由多层组成的，每一层一个id，在pull的时候可以看到</p>
+</li>
+<li><p>以下面为例，imageID是镜像的唯一id，但是镜像的完整id是第三行的sha256哈希值，使用docker images 指令的时候，默认id的位数显示是截断的，可以后跟参数<strong>–no-trunc=true</strong>来显示全部</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID</span><br><span class="line">ubuntu              latest              94e814e2efa8</span><br><span class="line">Digest: sha256:94e814e2efa8845d95b2112d54497fbad173e45121ce9255b93401392f538499</span><br><span class="line">从官方下载，默认  docker pull &lt;image&gt;:&lt;tag&gt;</span><br><span class="line">如果从第三方下载，需要在仓库前指定完整仓库地址（例如hub.c.163.com/public/&lt;image&gt;:&lt;tag&gt;）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果感觉DockerHub慢的话，可以使用镜像代理 <a href="https://registry.docker-cn.com。" target="_blank" rel="noopener">https://registry.docker-cn.com。</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/etc/systemd/system/docker.service.d/http_proxy.conf </span><br><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">"HTTPS_PROXY=https://registry.docker-cn.com"</span></span><br><span class="line">然后</span><br><span class="line">systemctl daemon-reload，先reload units，重新加载一下配置单元，再重启docker服务</span><br><span class="line">systemctlrestart docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了docker images，还有一个docker inspect &lt;image&gt;:&lt;tag&gt; 查看详细信息(json)</p>
+</li>
+<li><p>docker history &lt;image&gt;:&lt;tag&gt;查看历史信息</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="attr">"Id"</span>: <span class="string">"sha256:94e814e2efa8845d95b2112d54497fbad173e45121ce9255b93401392f538499"</span>,</span><br><span class="line">        <span class="attr">"RepoTags"</span>: [</span><br><span class="line">       		<span class="string">"ubuntu:latest"</span></span><br><span class="line">       ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="基本操作，搜索，删除，清理本地遗留文件，创建自己的镜像等"><a href="#基本操作，搜索，删除，清理本地遗留文件，创建自己的镜像等" class="headerlink" title="基本操作，搜索，删除，清理本地遗留文件，创建自己的镜像等"></a>基本操作，搜索，删除，清理本地遗留文件，创建自己的镜像等</h2><ul>
+<li>docker search搜索镜像，也是按关键字来的。（你搜docker search mysql可以搜到MariaDB</li>
+<li>docker image prune -f，强删本地垃圾。<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3></li>
+<li>基于本地已有镜像创建，docker commit，和git格式差不多</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">格式：docker commit -m <span class="string">'message'</span> -a <span class="string">'authorname'</span> &lt;changed imageid or name&gt; &lt;yourimage&gt;:&lt;tag&gt;</span><br><span class="line">docker commit -m <span class="string">'add one file'</span> -a <span class="string">'waynamigo'</span> c4b6b5b3e7d8 myimage:waynamigo</span><br><span class="line"></span><br><span class="line">ps:另外两个参数为</span><br><span class="line">-c 执行dockerfile，在后面整理</span><br><span class="line">-p 提交时暂停容器的进程</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>基于本地模板导入（只用了OpenVZ提供的一个linux模板搞了一下，准备有时间拿上学期的floppylinux的文件弄一个镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;filename&gt; | docker import - &lt;image&gt;:&lt;tag&gt;,后者为自定义的名字，导入成功后会显示镜像id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>基于dockerfile创建镜像，下面是一个demo</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM centos #指定基镜像 </span><br><span class="line"></span><br><span class="line">MAINTAINER waynamigo #该镜像维护者的信息（我）</span><br><span class="line"></span><br><span class="line">COPY jdk1.8.0_79 jdk1.8.0_79 #从centos复制jdk，（竟然没有openjdk。。。还得配置环境变量</span><br><span class="line">ADD &lt;localfile&gt; # 跑了一个jar。。</span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME=/jdk1.8.0_79</span><br><span class="line">ENV PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">ENV CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"></span><br><span class="line">EXPOSE 8080 #开放8080端口，其实不用写，因为jar里面已经把yml的配置打包好了</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>,<span class="string">"-jar"</span>,<span class="string">"/filename"</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t waynamigo:webapp .</span><br><span class="line">生成后就可以创建容器并运行了</span><br><span class="line">docker run -p localhost:8080:8080 --name webapp_running  waynamigo:webapp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不放心的话可以进去康康<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -it waynamigo:webapp<span class="comment"># 运行这个docker容器</span></span><br><span class="line">top <span class="comment"># 看进程</span></span><br><span class="line">lsof -i:8080 <span class="comment"># 或者看端口占用</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="保存镜像"><a href="#保存镜像" class="headerlink" title="保存镜像"></a>保存镜像</h2><ul>
+<li><p>导出到本地，格式类似gcc++</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save &lt;image&gt;:&lt;tag&gt; -o xxx.tar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果要重新导入，使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker load -i xxx.tar</span><br><span class="line">docker load &lt; xxx.tar</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="上传镜像"><a href="#上传镜像" class="headerlink" title="上传镜像"></a>上传镜像</h2><ul>
+<li><del>还是git</del>，docker push</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">先上传到本地仓库（误</span><br><span class="line">docker tag &lt;image&gt;:&lt;tag&gt; waynamigo/&lt;image&gt;:&lt;tag&gt;</span><br><span class="line">然后push</span><br><span class="line">docker push waynamigo/&lt;image&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-14T10:01:13.427Z" itemprop="dateUpdated">2019-07-14 18:01:13</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/03/21/2019-03-21-docker笔记整理一/" target="_blank" rel="external">http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/&title=《docker笔记整理（一）》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/&title=《docker笔记整理（一）》 — Home&source=基本使用方法" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker笔记整理（一）》 — Home&url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/03/27/2019-03-27-docker笔记二/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">docker笔记整理（二）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/03/06/2019-03-06-学期项目启动/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">学期项目-begining</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2019</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/&title=《docker笔记整理（一）》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/&title=《docker笔记整理（一）》 — Home&source=基本使用方法" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker笔记整理（一）》 — Home&url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/21/2019-03-21-docker笔记整理一/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpElEQVR42u3aQY7jMAwEwPz/07PXOew43aSUnQXKpyCwFZYDiALJ1yu+vn64knva6/nXXzcuPDw8vEOhf19uFtb3Z58/z56NIsHDw8O7xtuEdep1JK84jxkPDw/v9/DaE+zzmnl6wMPDw/vfeXlhon1Z+REfDw8P79/yZsu1h9328J0klWO1Fjw8PLxJxXVYTv385yv9PTw8PLx1Vz0vvG6O2s/rrKLFw8PDu8BrW/jPB+I2rOSgvC/44uHh4d3gJUvvD99tybhFvokZDw8P7xAvKYy2W3D7TV7erePEw8PDu8DbbND5aFSyoW+abQUVDw8P7yhvPygwC3RTLD7QwcPDw8MrefmAVN7oap/NS8Z5YvhLMQIPDw/vEG8/2JQ3wPYl2qR5tsp4eHh4eKPIZ0tsRgFm5eDhUR4PDw/vEC9fuh26akvAs139Tfx4eHh413jtJt6WVk+NCORjDXh4eHif4bVbcJ5I2jXbHtYqn+Dh4eGVvPwguxmimj07ixAPDw/vHi8/Fm+KuUkzbNZ+e/OC8PDw8C7z8iGndkRgts4sHjw8PLzP8+rNNyjFJq8vj6RooeHh4eFd4LXlg01iSF5ZslpdyMDDw8O7zJsB8qGBfcKoSxh4eHh413jtou0AQVuS2ET4YxsMDw8P7wJv1tDK08ls018NHODh4eFd5uUbbg7bF4iHKQEPDw/vMm8z/LRhzA7ZRQLDw8PDO8r7Kq/ZoECSVNrSRnS8xsPDw7vAm239bdBtGfds2sDDw8O7wduMWM3unG3xz0+9KePi4eHhXeC1naMW0/7WJrOtRgfw8PDwPsh73rJn4CS2N/fj4eHh/QLerJTQ3rl/Cg8PD+82b9/0yosI7fDW5m/Aw8PDu8E7MLcVMPbjBYd7enh4eHgT3h8yHVS5rURXRgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

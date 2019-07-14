@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>网络原理运输层复习 | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="review,network">
+    <meta name="description" content="运输层是两个进程之间的逻辑通信，网络层是为主机之间提供逻辑通信，运输层负责对报文差错检测">
+<meta name="keywords" content="review,network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络原理运输层复习">
+<meta property="og:url" content="http://yoursite.com/2019/01/06/2019-01-06-传输层/index.html">
+<meta property="og:site_name" content="Home">
+<meta property="og:description" content="运输层是两个进程之间的逻辑通信，网络层是为主机之间提供逻辑通信，运输层负责对报文差错检测">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/assets/images/UDP.png">
+<meta property="og:updated_time" content="2019-07-14T10:11:19.688Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络原理运输层复习">
+<meta name="twitter:description" content="运输层是两个进程之间的逻辑通信，网络层是为主机之间提供逻辑通信，运输层负责对报文差错检测">
+<meta name="twitter:image" content="http://yoursite.com/assets/images/UDP.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Home" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">网络原理运输层复习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">网络原理运输层复习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-01-05T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-01-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/复习/">复习</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP-UDP"><span class="post-toc-number">1.</span> <span class="post-toc-text">TCP  UDP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户数据报协议UDP-User-Datagram-Protocol"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">用户数据报协议UDP (User Datagram Protocol)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特点"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#传输控制协议-TCP-Transmission-Control-Protocol"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">传输控制协议 TCP (Transmission Control Protocol)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特点-1"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可靠传输"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">可靠传输</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GBN重传"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">GBN重传</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#例题："><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text">例题：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TCP可靠重传"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">TCP可靠重传</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-01-06-传输层"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">网络原理运输层复习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-01-06 00:00:00" datetime="2019-01-05T16:00:00.000Z"  itemprop="datePublished">2019-01-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/复习/">复习</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>运输层是两个进程之间的逻辑通信，网络层是为主机之间提供逻辑通信，运输层负责对报文差错检测</p>
+<a id="more"></a>
+<ul>
+<li>用户数据报协议 UDP</li>
+<li>传输控制协议 TCP</li>
+<li>可靠传输的工作原理</li>
+<li>TCP 报文段的首部格式</li>
+<li>TCP 的流量控制、拥塞控制</li>
+<li>TCP 的运输连接管理</li>
+</ul>
+<hr>
+<h1 id="TCP-UDP"><a href="#TCP-UDP" class="headerlink" title="TCP  UDP"></a>TCP  UDP</h1><ul>
+<li>传输的数据单位：运输协议数据单元 TPDU (Transport Protocol Data Unit)</li>
+</ul>
+<h2 id="用户数据报协议UDP-User-Datagram-Protocol"><a href="#用户数据报协议UDP-User-Datagram-Protocol" class="headerlink" title="用户数据报协议UDP (User Datagram Protocol)"></a>用户数据报协议UDP (User Datagram Protocol)</h2><ul>
+<li><strong>无连接</strong> </li>
+<li>├── 在传送数据之前不需要先建立连接</li>
+<li>├── 对方的运输层在收到 UDP 报文后,不需要给出任何确认。</li>
+<li>└── 不提供可靠交付<br>与IP数据报的区别：IP需要经过存储转发过程、UDP在运输层的端到端（进程）的逻辑信道中传送，只比IP数据报服务多了</li>
+<li>复用分用</li>
+<li>差错检测<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3></li>
+<li>UDP 是无连接的,发送数据之前不需要建立连接,因此减少了开销和发送数据之前的时延</li>
+<li>UDP 使用尽最大努力交付,即不保证可靠交付</li>
+<li>UDP 是面向报文的,UDP 一次交付一个完整的报文。</li>
+<li>UDP 没有拥塞控制</li>
+<li>UDP 支持一对一、一对多、多对一和多对多的交互通信,全双工</li>
+<li>UDP 的首部开销小,<strong>只有 8 个字节</strong>,比TCP 的 20 个字节的首部要短。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/UDP.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="传输控制协议-TCP-Transmission-Control-Protocol"><a href="#传输控制协议-TCP-Transmission-Control-Protocol" class="headerlink" title="传输控制协议 TCP (Transmission Control Protocol)"></a>传输控制协议 TCP (Transmission Control Protocol)</h2></li>
+<li>面向连接的运输层协议</li>
+<li>TCP 连接只能有两个端点</li>
+<li>提供可靠交付</li>
+<li>提供全双工通信</li>
+<li>面向字节流<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3>根据对方给出的窗口值和当前网络拥塞的程度来决定一个报文段应包含多少个字节<br>(UDP 发送的报文长度是应用进程给出的)</li>
+</ul>
+<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><ul>
+<li><p>停止等待协议</p>
+</li>
+<li><p>连续ARQ协议</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">发送方维持的发送窗口,它的意义是:</span><br><span class="line">位于发送窗口内的分组都可连续发送出去,而不需要等待对方的确认。</span><br><span class="line">这样,信道利用率就提高了。</span><br><span class="line">连续 ARQ 协议规定,发送方每收到一个确认,就把发送窗口向前滑动一个分组的位置。</span><br><span class="line"></span><br><span class="line">接收方一般采用累积确认的方式。</span><br><span class="line">即不必对收到的分组逐个发送确认,而是对按序到达的最</span><br><span class="line">后一个分组发送确认,</span><br><span class="line">这样就表示:到这个分组为止的所有分组都已正确收到了。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>确认丢失<strong>不必重传</strong></p>
+</li>
+<li><p>不能向发送方反映出接收方已经正确收到的所有分组的信息</p>
+<h3 id="GBN重传"><a href="#GBN重传" class="headerlink" title="GBN重传"></a>GBN重传</h3></li>
+<li><p>可以在连续收到好几个正确的确认帧后，才对最后一个数据帧发确认信息</p>
+</li>
+<li><p>这就是说，对某一数据帧的确认就表明该数据帧和这以前所有的数据帧均已正确无误地收到了。</p>
+</li>
+<li><p>后退N帧协议的接受窗口为1，可以保证按序接受数据帧。若采用n个比特对帧编号，则其发送窗口的尺寸Wt应满足：1&lt;=Wt&lt;=2^n-1</p>
+</li>
+<li><p>ACK(n+1)表示对第n号帧的确认，表明接受方已正确收到第n帧及以前的所有帧</p>
+<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><p>数据链路层采用了后退N帧(GBN)协议，发送方已经发送了编号为0～7的帧。当计时器超时时，若发送方只收到0、2、3号帧的确认，则发送方需要重发的帧数是( )。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解析：根据后退N帧协议，接收方的窗口为“<span class="number">1</span>”，如果发送方收到了<span class="number">3</span>号帧的确认，则说明<span class="number">0</span>、<span class="number">1</span>、<span class="number">2</span>、<span class="number">3</span>号帧都已经发送成功，所以只需要重发<span class="number">4</span>、<span class="number">5</span>、<span class="number">6</span>、<span class="number">7</span>号帧即可。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="TCP可靠重传"><a href="#TCP可靠重传" class="headerlink" title="TCP可靠重传"></a>TCP可靠重传</h2><ul>
+<li>字节为单位的滑动窗口 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">发送缓存：存放①发送应用程序传送给发送方 TCP 准备发送的数据</span><br><span class="line">	        ②TCP 已发送出但尚未收到确认的数据</span><br><span class="line">* 超时重传时间</span><br><span class="line">* 选择确认SACK</span><br><span class="line">## TCP流量控制</span><br><span class="line">出现拥塞的原因:</span><br><span class="line">∑对资源需求 &gt; 可用资源</span><br><span class="line"></span><br><span class="line">* 增加资源不能解决拥塞，重传也不行，反而可能加剧</span><br><span class="line">* 拥塞控制：为了防止过多数据注入到网络中，一个全局性的过程</span><br><span class="line">* 流量控制：点对通信量的控制，一个端到端的过程，抑制发送端发送数据的速率,以便使接收端来得及接收</span><br><span class="line">开环控制、闭环控制。</span><br><span class="line">### tcp拥塞控制方法（闭环控制</span><br><span class="line">TCP发送方维持一个拥塞窗口 CWND(Congestion Window)</span><br><span class="line">*判断方式 有两个：*</span><br><span class="line">* 使用**重传定时器**定时，若超时，重传；</span><br><span class="line">* 收到三个重复的ACK</span><br><span class="line">算法有四种，慢开始，&lt;blue&gt;拥塞避免&lt;/blue&gt;、快重传、快恢复</span><br><span class="line">* 拥塞窗口 cwnd 设置：最大报文段 SMSS 窗口数值</span><br><span class="line">* 慢开始门限 ssthresh(状态变量):防止拥塞窗口cwnd 增长过大引起网络拥塞。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>当 cwnd &lt; ssthresh 时,使用慢开始算法。<br>当 cwnd &gt; ssthresh 时,停止使用慢开始算法而改<br>用拥塞避免算法。<br>当 cwnd = ssthresh 时,既可使用慢开始算法,也<br>可使用拥塞避免算法。</p>
+<pre><code>
+* 3ACK  拥塞避免，变成一半，然后拥塞避免，线性增加
+* 超时  cwnd=1，慢开始，从1开始增加
+
+### 快重传：让发送方尽早知道发生了个别报文段的丢失
+
+发送方只要一连收到三个重复确认,就知道接
+收方确实没有收到报文段,因而应当立即进行
+重传(即“快重传”),这样就不会出现超时,
+发送方也不就会误认为出现了网络拥塞
+{% image {{site.baseurl}}/assets/img/FN.png '' '' %}
+
+## TCP三次握手
+发送链接请求报文段
+* A ---------------------------------------- B
+* A发请求报文段，同步位SYN=1，选择序号seq=x表示第一个数据字节的序号为x
+* B发确认报文段，同步位SYN=1，确认位ACK=1，确认号ack=x+1，自己的数据序号seq=y
+* A发确认报文段，确认位ACK=1，数据序号seq=x+1，确认号ack=y+1
+发送链接释放报文段
+* A ---------------------------------------- B
+* A发请求报文段，FIN=1，选择序号seq=u
+* B发确认报文段，ACK=1，确认号ack=u+1，数据序号seq=v，A半关闭
+* B发确认报文段，FIN=1，ACK=1，确认号ack=u+1，数据序号seq=w
+* A发确认报文段，ACK=1，确认号ack=w+1，数据序号seq=u+1，A关闭
+
+
+**其中，A 必须等待 2MSL 的时间**
+* 保证 A 发送的最后一个 ACK 报文段能够到达 B。
+* A 在发送完最后一个 ACK 报文段后,再经过时间 2MSL,就可以使本连接持续的
+时间内所产生的所有报文段,都从网络中消失。这样就可以使下一个新的连接中不会出现这种
+旧的连接请求报文段。
+
+
+
+
+
+
+
+
+
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-14T10:11:19.688Z" itemprop="dateUpdated">2019-07-14 18:11:19</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/01/06/2019-01-06-传输层/" target="_blank" rel="external">http://yoursite.com/2019/01/06/2019-01-06-传输层/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/01/06/2019-01-06-传输层/&title=《网络原理运输层复习》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/01/06/2019-01-06-传输层/&title=《网络原理运输层复习》 — Home&source=运输层是两个进程之间的逻辑通信，网络层是为主机之间提供逻辑通信，运输层负责对报文差错检测" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/01/06/2019-01-06-传输层/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《网络原理运输层复习》 — Home&url=http://yoursite.com/2019/01/06/2019-01-06-传输层/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/01/06/2019-01-06-传输层/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/01/07/2019-01-07-应用层/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">网络原理应用层复习</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/01/05/2019-01-05-网络层复习/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">网络原理网络层复习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2019</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/01/06/2019-01-06-传输层/&title=《网络原理运输层复习》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/01/06/2019-01-06-传输层/&title=《网络原理运输层复习》 — Home&source=运输层是两个进程之间的逻辑通信，网络层是为主机之间提供逻辑通信，运输层负责对报文差错检测" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/01/06/2019-01-06-传输层/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《网络原理运输层复习》 — Home&url=http://yoursite.com/2019/01/06/2019-01-06-传输层/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/01/06/2019-01-06-传输层/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3aQW7DMAwF0dz/0u62QBt5PukEEDVaGY5j6XlBkJReLzyuX+PdHfL83+v1vx4eMmTI2JZxLcd6gvWU796wvk9+/WdeGTJkHMAgi1g/UwusndAsQ4YMGbUF1XK2/ueTIUOGjPU1TyjX4VWGDBky1oxaukZaY/3nH67FZciQsSGDd92/f/2R/Q0ZMmRsxbjCwf/FtySv9pAhQ8ZsRpqudVr5qBAtrUeGDBmzGaTtlYbaWsjma4irZBkyZGzO6MD4lP13rttwMmTIOIHx1FGJ9MvxeYMMV4YMGeMYnXI0TRxrLTZ0EE2GDBmjGSQ4poGVg2t7lPEZDRkyZAxi1JI/HkzTTU2eIMqQIWM2g5Sd6bL4HR6Ub94pQ4aMAxidIMi3J2sfKO4XypAhYxyDB7ta5cgDOt8EDSpdGTJkjGDwcJkG1s7HSj+EDBkyZjPSoxJBDw9vKpD0kcwlQ4aMqQzeFKsVnP1WGkLKkCFjNKN28KLWpONL5KVy6/yIDBkytmLwlI4Xq3xxtSdvEkQZMmQMZaTN+k5Cmbbt0KpkyJBxAIOH0Rq4tp3AP5kMGTKmMq5w8Gk+UejeNNdkyJAxlFELdrxZVjswkR7IkCFDxgkMXmqmzf2ntgFQwJUhQ8YBDFK48gZc7Uke+mXIkCEjnYY8SRK+znamDBkyZKRNMZLY9Q9woP0NGTJkDGJ0jlzwVLJ2aOPhdpsMGTI2ZNRKRx6C01ZaPw2VIUPGIMYPXd3RPyLlWlEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

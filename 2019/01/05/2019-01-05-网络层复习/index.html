@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>网络原理网络层复习 | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="review,network">
+    <meta name="description" content="限于IP层">
+<meta name="keywords" content="review,network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络原理网络层复习">
+<meta property="og:url" content="http://yoursite.com/2019/01/05/2019-01-05-网络层复习/index.html">
+<meta property="og:site_name" content="Home">
+<meta property="og:description" content="限于IP层">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/assets/images/IPands.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/IPandHard.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/IPziduan.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/ICMP.png">
+<meta property="og:updated_time" content="2019-07-14T10:11:15.144Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络原理网络层复习">
+<meta name="twitter:description" content="限于IP层">
+<meta name="twitter:image" content="http://yoursite.com/assets/images/IPands.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Home" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">网络原理网络层复习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">网络原理网络层复习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-01-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-01-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/复习/">复习</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面向连接-无连接"><span class="post-toc-number">1.</span> <span class="post-toc-text">面向连接  无连接</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IP协议"><span class="post-toc-number"></span> <span class="post-toc-text">IP协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IP地址分类"><span class="post-toc-number">1.</span> <span class="post-toc-text">IP地址分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他分类方式"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">其他分类方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ARP协议-解决同一个局域网的主机或路由器的IP：MAC问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">ARP协议,解决同一个局域网的主机或路由器的IP：MAC问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IP数据报分片"><span class="post-toc-number">3.</span> <span class="post-toc-text">IP数据报分片</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#划分子网"><span class="post-toc-number">4.</span> <span class="post-toc-text">划分子网</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CIDR"><span class="post-toc-number">5.</span> <span class="post-toc-text">CIDR</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构成超网"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">构成超网</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最长前缀匹配"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">最长前缀匹配</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ICMP"><span class="post-toc-number">6.</span> <span class="post-toc-text">ICMP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#路由选择协议"><span class="post-toc-number">7.</span> <span class="post-toc-text">路由选择协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#隧道技术"><span class="post-toc-number">8.</span> <span class="post-toc-text">隧道技术</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NAT技术-网络地址转换-Network-Address-Translation"><span class="post-toc-number">9.</span> <span class="post-toc-text">NAT技术 网络地址转换(Network Address Translation)</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-01-05-网络层复习"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">网络原理网络层复习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-01-05 00:00:00" datetime="2019-01-04T16:00:00.000Z"  itemprop="datePublished">2019-01-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/复习/">复习</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>限于IP层</p>
+<a id="more"></a>
+<p>网络层向运输层提供的服务</p>
+<h2 id="面向连接-无连接"><a href="#面向连接-无连接" class="headerlink" title="面向连接  无连接"></a>面向连接  无连接</h2><h1 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 地址解析协议 ARP(Address Resolution Protocol)** </span><br><span class="line">* 网际控制报文协议 ICMP(Internet Control Message Protocol)**</span><br><span class="line">* 网际组管理协议 IGMP(Internet Group Management Protocol)**</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/IPands.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p><strong>互联时使用中间设备</strong></p>
+<ul>
+<li>物理层中继系统:转发器 (repeater)。</li>
+<li>数据链路层中继系统:网桥 或 桥接器 (bridge)。</li>
+<li>网络层中继系统:路由器 (router)。</li>
+<li>网桥和路由器的混合物:桥路器 (brouter)。</li>
+<li>网络层以上的中继系统:网关 (gateway)。<h2 id="IP地址分类"><a href="#IP地址分类" class="headerlink" title="IP地址分类"></a>IP地址分类</h2></li>
+<li><em>A B C三类*</em><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">网络号|主机号  一共<span class="number">32</span>位</span><br><span class="line">IPv6 <span class="number">128</span>位</span><br><span class="line">IP 地址 ::= &#123; &lt;网络号&gt;, &lt;主机号&gt;&#125;</span><br><span class="line">A类地址 <span class="number">8</span> ，<span class="number">24</span> [最大可指派网络<span class="number">126</span> (<span class="number">2</span>^<span class="number">7</span> -<span class="number">1</span> -<span class="number">1</span>)]</span><br><span class="line">B类地址 <span class="number">16</span>，<span class="number">16</span> [最大可指派网络(<span class="number">2</span>^<span class="number">14</span> -<span class="number">1</span> -<span class="number">1</span>)]</span><br><span class="line">C类地址 <span class="number">24</span>, <span class="number">8</span>  [最大可指派网络(<span class="number">2</span>^<span class="number">21</span> -<span class="number">1</span> -<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>IP地址与硬件地址报文、数据帧的区别</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/IPandHard.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="其他分类方式"><a href="#其他分类方式" class="headerlink" title="其他分类方式"></a>其他分类方式</h3><ul>
+<li><p>子网划分</p>
+</li>
+<li><p>构成超网</p>
+<h2 id="ARP协议-解决同一个局域网的主机或路由器的IP：MAC问题"><a href="#ARP协议-解决同一个局域网的主机或路由器的IP：MAC问题" class="headerlink" title="ARP协议,解决同一个局域网的主机或路由器的IP：MAC问题"></a>ARP协议,解决同一个局域网的主机或路由器的IP：MAC问题</h2></li>
+<li><p>不管网络层使用的是什么协议,在实际网络的链路上传送数据帧时,最终还是必须使用<strong>硬件地址</strong>。</p>
+</li>
+<li><p>ARP 高速缓存 (ARPcache),里面有所在的局域网上的各主机和路由器的 IP 地址到硬件地址的映射表。<br>格式 &lt; IP address;MAC address;TTL &gt; TTL (Time To Live):地址映射有效时间 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">存放最近获得的 IP 地址到 MAC 地址的绑定,以减少 ARP 广播的数量。</span><br><span class="line">为了减少网络上的通信量,主机 A 在发送其ARP请求分组时,就将自己的 IP 地址</span><br><span class="line">到硬件地址的映射写入 ARP 请求分组。</span><br><span class="line">当主机 B 收到 A 的 ARP 请求分组时,就将主机 A的这一地址映射写入</span><br><span class="line">主机 B 自己的 ARP高速缓存中。这对主机 B 以后向 A 发送数据报时就更方便了。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ARP请求分组<br>包含发送方硬件地址 / 发送方IP 地址/目标方硬件地址(未知时填 0)/ 目标方IP 地址。</p>
+</li>
+<li><p>本地广播 ARP 请求</p>
+</li>
+<li><p>ARP 响应分组 包含发送方硬件地址/发送方IP地址/目标方硬件地址/目标方 IP 地址。</p>
+</li>
+</ul>
+<h2 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h2><p>数据报字段格式</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/IPziduan.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>转发过程：根据IP数据报的目的地址就可以确定下一跳路由器<br>分组转发算法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>) 从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址为 N。</span><br><span class="line">(<span class="number">2</span>) 若网络 N 与此路由器直接相连,则把数据报直接交付目的主机D;</span><br><span class="line">否则是间接交付,执行(<span class="number">3</span>)。</span><br><span class="line">(<span class="number">3</span>) 若路由表中有目的地址为 D 的特定主机路由,则把数据报传送给</span><br><span class="line">路由表中所指明的下一跳路由器;否则,执行(<span class="number">4</span>)。</span><br><span class="line">(<span class="number">4</span>) 若路由表中有到达网络 N 的路由,则把数据报传送给路由表指</span><br><span class="line">明的下一跳路由器;否则,执行(<span class="number">5</span>)。</span><br><span class="line">(<span class="number">5</span>) 若路由表中有一个默认路由,则把数据报传送给路由表中所指</span><br><span class="line">明的默认路由器;否则,执行(<span class="number">6</span>)。</span><br><span class="line">(<span class="number">6</span>) 报告转发分组出错。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="划分子网"><a href="#划分子网" class="headerlink" title="划分子网"></a>划分子网</h2><p>从 主机号借用几位 划分子网号</p>
+<ul>
+<li>IP地址 ::= {&lt;网络号&gt;, &lt;子网号&gt;, &lt;主机号&gt;}<br>与上述转发过程不同点：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>)路由器在收到 IP 数据报后,再按目的网络号 net-id 和子网号 subnet-id 找到目的子网</span><br><span class="line"><span class="number">2</span>)通过子网掩码与IP地址进行&amp;操作，匹配，则说明子网掩码代表的这个子网就是目的网络。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><ul>
+<li>无分类编址 CIDR，IP地址 ::= {&lt;网络前缀&gt;, &lt;主机号&gt;},中间使用符号‘/’来表示网络前缀<h3 id="构成超网"><a href="#构成超网" class="headerlink" title="构成超网"></a>构成超网</h3>路由聚合 有利于减少路由器之间选择的次数，从而提高性能。</li>
+<li>CIDR记法 0 可以省略</li>
+</ul>
+<h3 id="最长前缀匹配"><a href="#最长前缀匹配" class="headerlink" title="最长前缀匹配"></a>最长前缀匹配</h3><p><strong>原因</strong>：使用 CIDR 时,路由表中的每个项目由“网络前缀”和“下一跳地址”组成。<br>在查找路由表时可能会得到不止一个匹配结果<br><strong>方案</strong>：在匹配结果中选择最长网络前缀的路由。</p>
+<h2 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h2><ul>
+<li>报文格式</li>
+<li>ICMP首部检验和<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/ICMP.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h2></li>
+<li>内部网关协议　RIP   ———|</li>
+<li>内部网关协议　OSPF  ———|–IGP</li>
+<li>外部网关协议  BGP 将路由选择协议传递到另一个自制系统中<br>使用4种报文<br>打开 更新 保活 keepalive  通知 notification</li>
+</ul>
+<p>RIP<br>(1)仅和相邻路由器交换信息。<br>(2)交换的信息是当前本路由器所知道的全部信息,即自己的路由表。<br>(3)按固定的时间间隔交换路由信息,例如,每隔30秒。<br>当网络拓扑发生变化时,路由器也及时向相邻路由器通告拓扑变化后的路由信息。</p>
+<h2 id="隧道技术"><a href="#隧道技术" class="headerlink" title="隧道技术"></a>隧道技术</h2><ul>
+<li><p>在 IPv6 数据报要进入IPv4网络时,把 IPv6 数据报封装成为 IPv4 数据报,<br>整个的 IPv6 数据报变成了 IPv4 数据报的数据部分。</p>
+</li>
+<li><p>当 IPv4 数据报离开 IPv4 网络中的隧道时,再把数据部分(即原来的 IPv6 数据报)<br>交给主机的 IPv6 协议栈。</p>
+</li>
+</ul>
+<h2 id="NAT技术-网络地址转换-Network-Address-Translation"><a href="#NAT技术-网络地址转换-Network-Address-Translation" class="headerlink" title="NAT技术 网络地址转换(Network Address Translation)"></a>NAT技术 网络地址转换(Network Address Translation)</h2><p><strong>解决</strong>：在专用网上使用专用地址的主机如何与互联网上的主机通信(并不需要加密)的问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">内部主机 A 用本地地址 IP A 和互联网上主机 B 通信所</span><br><span class="line">发送的数据报必须经过 NAT 路由器。</span><br><span class="line"></span><br><span class="line">NAT 路由器将数据报的源地址 IP A 转换成全球地址IP G ,</span><br><span class="line">并把转换结果记录到NAT地址转换表中,目的地址 IP B 保持不变,然后发送到互联网。</span><br><span class="line"></span><br><span class="line">NAT 路由器收到主机 B 发回的数据报时,知道数据报中的源地址是 IP B 而目的地址是 IP G 。</span><br><span class="line"></span><br><span class="line">根据 NAT 转换表,NAT 路由器将目的地址 IP G 转换为IP A ,转发给最终的内部主机 A。</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-14T10:11:15.144Z" itemprop="dateUpdated">2019-07-14 18:11:15</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/01/05/2019-01-05-网络层复习/" target="_blank" rel="external">http://yoursite.com/2019/01/05/2019-01-05-网络层复习/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/review/">review</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/&title=《网络原理网络层复习》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/&title=《网络原理网络层复习》 — Home&source=限于IP层" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《网络原理网络层复习》 — Home&url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/01/06/2019-01-06-传输层/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">网络原理运输层复习</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/01/05/2019-01-05-物理层链路层/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">网络原理物理层链路层复习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2019</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/&title=《网络原理网络层复习》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/&title=《网络原理网络层复习》 — Home&source=限于IP层" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《网络原理网络层复习》 — Home&url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/01/05/2019-01-05-网络层复习/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3aQY6DMBAEwPz/0+x1pSzQbcNKmPIJJcF25TDyzPjzicf2a7S//353b552lXpgYGA8lrEdjr3ffM9w1czJt3+siIGB8QLG3ib2ntu3jgNr8nyyZwwMDIydINsumQRuDAwMjKsC7vER8Dg0H/8GAwMDYyaJvewYFxf1bsnFMTAwHsjIF/j/51v6GxgYGI9ibOVIwmKblG7TAwMDY21GHuCmCmFDbYP68gcGBsaijLb03xb95w+FUcqKgYGxNCMv1relsbxt0LYQTnaIgYGxKGPmUkUbOttDZH6xDAMD4w2MsWWSwll+iEyalCflNgwMjEUZ+VbGWozzndXBVBYDA2MhxliYy9uc+R+RJ8Z/zIOBgbE0I99oXkRLPskbFQUPAwNjUcZYQ7Euh5V/VjszBgbGqow7mpR56a2dfzBLxsDAeDgjP5wl4TJ/a+bzqACHgYGxKCN/Ob9C0X7blv+K9gAGBsZCjLaJ2CLbUloevjEwMN7AaJcZyyXnW5vF/REMDIyFGPPlszy85sfK+nMMDIwXMNqG5d1NgmTOqa4pBgbGAxmfi0a+oXbdqSwcAwPjsYytHDNFtLaEVyTPGBgYSzPuDqNjW0kaqGMhGwMD47mMNsiOlc+SdHcq4GJgYLyA0Qa+9opYPn8ejjEwMDASRtvmnAnfGBgYGO1iydFt7GiYHzpP7oxgYGAsx7jqakWSHiflvORPwcDAeA+jTR3rQ9tQKW3mWImBgbEQ4wf4NFWDnHPQKwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

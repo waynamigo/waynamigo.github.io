@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>《Computer Communications_Incorporating energy and load balance into virtual》翻译 | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="paper">
+    <meta name="description" content="张老师论文翻译，有些事情搁置了">
+<meta name="keywords" content="paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Computer Communications_Incorporating energy and load balance into virtual》翻译">
+<meta property="og:url" content="http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/index.html">
+<meta property="og:site_name" content="Home">
+<meta property="og:description" content="张老师论文翻译，有些事情搁置了">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-14T09:56:42.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Computer Communications_Incorporating energy and load balance into virtual》翻译">
+<meta name="twitter:description" content="张老师论文翻译，有些事情搁置了">
+    
+        <link rel="alternate" type="application/atom+xml" title="Home" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">《Computer Communications_Incorporating energy and load balance into virtual》翻译</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">《Computer Communications_Incorporating energy and load balance into virtual》翻译</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-02-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-02-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/翻译/">翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#p1-introduction"><span class="post-toc-number">1.</span> <span class="post-toc-text">p1-introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#p2-related-works"><span class="post-toc-number">2.</span> <span class="post-toc-text">p2-related works</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#p2-1-energy-aware-VNE-algorithms"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">p2.1-energy aware VNE algorithms</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#p2-2-load-balance-aware-VNE-algorithms"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">p2.2-load balance aware VNE algorithms</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#p3-system-model-and-problem-statement"><span class="post-toc-number">3.</span> <span class="post-toc-text">p3-system model and problem statement</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#p4-the-proposed-algorithm"><span class="post-toc-number">4.</span> <span class="post-toc-text">p4-the proposed algorithm</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#p5-evaluation-results"><span class="post-toc-number">5.</span> <span class="post-toc-text">p5-evaluation results</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#p6-conclusion"><span class="post-toc-number">6.</span> <span class="post-toc-text">p6-conclusion</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">《Computer Communications_Incorporating energy and load balance into virtual》翻译</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-02-05 00:00:00" datetime="2019-02-04T16:00:00.000Z"  itemprop="datePublished">2019-02-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/翻译/">翻译</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>张老师论文翻译，有些事情搁置了</p>
+<a id="more"></a>
+<hr>
+<h2 id="p1-introduction"><a href="#p1-introduction" class="headerlink" title="p1-introduction"></a>p1-introduction</h2><p>With the advancement of science and technology, many Internet end-users have the demand of deploying new protocols or installing new services on the existing network architecture. Unfortunately, the current Internet architecture cannot meet the increasing demands of these end-users, and the architecture of current Internet appears to be ossification. Network virtualization technique has been propounded as one of the important techniques to fend off the Internet ossification. Through the technique of network virtualization, Service Providers (SPs) can provide different services for different users by means of sliceable management of the existing substrate network resources, and can improve the resource utilization of substrate network and reduce the wasting of substrate network resources. Virtual network embedding is the core component of the network virtualization, it concerns mainly on the allocation of substrate resources and it leads to the virtual network embedding algorithm to be a hotspot of the research.<br>Due to the fact that the problem of virtual network embedding is proved to be an NP-hard problem, therefore, domestic and overseas scholars have proposed some of heuristic algorithms to address this issue or carried out the simulation under the small scale of network topology using the optimization tools. As mentioned earlier, the issue of virtual network embedding is a multi-objective optimization problem. It involves how to maximize the revenue of InPs, how to minimize the cost of accommodating virtual network requests, how to minimize the energy consumption of servers and equipment, and how to balance the workload of substrate networks. However, the prior studies concentrated primarily on the maximization of revenue by accommodating more virtual network requests or increasing the network resource utilization through optimizing virtual link mapping solutions. Fortunately,some researchers begin to study the energy-aware and security-aware virtual network embedding algorithms. In the subsequent section, we will introduce these two kinds of virtual network embedding algorithms.</p>
+<p>In recent years, energy-aware virtual network embedding algorithms [1–5] have received considerable attention because the power consumption of an average data center is the same as 25,000 households [6] and it is becoming the major energy cost of network operators which almostly account for 42% of the total operating costs. In addition, the security vulnerabilities caused by network virtualization technologies have been attracted great attention from researchers. The security-aware virtual network embedding algorithms have been deeply investigated in the literature of [7–11]. The issues of network fragmentation and load balance can affect the acceptance ratio of VN requests and the Quality of Services (QoS) of the networks, and can equally affect the revenue of SPs since some high level customers are willing to pay the extra price for high quality of services.<br>However, these aforementioned algorithms involve two objective optimization. Therefore, there are some room for improvement by consideration more objectives on virtual network embedding algorithms. The main difference between our paper and previous works is that we take into consideration of energy consumption and load balance into virtual network embedding. This involves three objective optimization including revenue/cost, energy consumption and load balance, since our work is on the foundation of the classical heuristic algorithm which is the default consideration of revenue/cost. In our work, we investigated the multi-objective virtual network embedding algorithms,especially studied the energy and load balance aware virtual network embedding algorithm. Specifically, we first incorporate the node resource utilization and node energy consumption into the node ranking method aiming to give a comprehensive node ranking approach during the node mapping process. Then we utilize an improved differentiated pricing strategy with the purpose of selecting the substrate path with the minimum link consumption for virtual links. Finally, we take into account the node resource utilization to balance the node load in the node mapping stage, and adopt the improved differentiated pricing strategy for assigning different weights to different virtual links to balance the link load in the link mapping stage.</p>
+<p>The main contributions of this paper can be summarized as follows:</p>
+<ol>
+<li>We introduce a comprehensive node ranking approach based on node available resource, node resource utilization and node energy consumption. The node ranking method not only takes into account the node energy consumption, but also takes the node resource utilization into consideration.</li>
+<li>We leverage an improved differentiated pricing strategy to set different weights for different substrate links according to their bandwidth resource utilizations with the purpose of balancing the link load of substrate network, and employ the shortest path algorithm aiming at selecting the substrate path with the minimum link consumption for each virtual link from VNRs to perform the link mapping procedure. </li>
+<li>We conduct extensive simulations and evaluate our proposed algorithm compared with the other state-of-the-art algorithms in terms of the acceptance ratio of VNRs, the long-term average revenue, the revenue to cost ratio, the standard deviation of node resource usage ratio, and the standard deviation of link resource usage ratio. The remainder of the paper is organized as follows. In Section 2, we briefly review the related works that associated with multi-objective virtual network embedding issues. We describe the system model and problem statement in Section 3. In Section 4, we elaborate our proposed algorithm E-LB-VNE in details. Experimental results and analysis are illustrated in Section 5. Section 6 concludes this paper.</li>
+</ol>
+<ul>
+<li>翻译<br>随着科学技术的进步，许多互联网终端用户需要在现有网络架构上部署新协议或安装新服务。不幸的是，当前的互联网架构无法满足这些终端用户日益增长的需求，而当前互联网的架构似乎是僵化。网络虚拟化技术已被提出作为抵御互联网僵化的重要技术之一。通过网络虚拟化技术，服务提供商（SP）可以通过现有基板网络资源的可切片管理为不同用户提供不同的服务，可以提高基板网络的资源利用率，减少基板网络资源的浪费。虚拟网络嵌入是网络虚拟化的核心组成部分，它主要关注基板资源的分配，导致虚拟网络嵌入算法成为研究的热点。<br>由于虚拟网络嵌入问题被证明是NP难问题，因此国内外学者提出了一些启发式算法来解决这个问题，或者在小规模的网络拓扑中进行仿真。优化工具。如前所述，虚拟网络嵌入问题是一个多目标优化问题。它涉及如何最大化InP的收入，如何最小化容纳虚拟网络请求的成本，如何最小化服务器和设备的能耗，以及如何平衡基板网络的工作量。然而，先前的研究主要集中在通过优化虚拟链路映射解决方案来容纳更多虚拟网络请求或增加网络资源利用率来最大化收入。幸运的是，一些研究人员开始研究能量感知和安全感知虚拟网络嵌入算法。在接下来的部分中，我们将介绍这两种虚拟网络嵌入算法。</li>
+</ul>
+<p>近年来，能量感知虚拟网络嵌入算法[1-5]受到了广泛的关注，因为平均数据中心的功耗与25,000个家庭相同[6]，并且它正成为网络运营商的主要能源成本。几乎占总运营成本的42％。此外，网络虚拟化技术带来的安全漏洞也引起了研究人员的高度重视。在[7-11]的文献中深入研究了安全感知虚拟网络嵌入算法。网络分片和负载均衡的问题会影响VN请求的接受率和网络的服务质量（QoS），并且同样会影响SP的收入，因为一些高级客户愿意支付额外的高价格服务质量。<br>然而，这些上述算法涉及两个客观优化。因此，通过考虑虚拟网络嵌入算法的更多目标，存在一些改进的空间。我们的论文与以前的工作之间的主要区别在于我们将能耗和负载平衡考虑到虚拟网络嵌入中。这包括三个客观优化，包括收入/成本，能源消耗和负载平衡，因为我们的工作是经典启发式算法的基础，这是收入/成本的默认考虑因素。在我们的工作中，我们研究了多目标虚拟网络嵌入算法，特别研究了能量和负载平衡感知虚拟网络嵌入算法。具体来说，我们首先将节点资源利用率和节点能耗纳入节点排序方法，旨在在节点映射过程中提供全面的节点排序方法。然后，我们利用改进的差异化定价策略，目的是选择虚拟链路的最小链路消耗的基板路径。最后，我们考虑节点资源利用率来平衡节点映射阶段的节点负载，并采用改进的差异化定价策略为不同的虚拟链路分配不同的权重，以平衡链路映射阶段的链路负载。</p>
+<p>本文的主要贡献可归纳如下：<br>1.我们引入了基于节点可用资源，节点资源利用率和节点能耗的综合节点排序方法。节点排序方法不仅考虑节点能耗，还考虑节点资源利用率。<br>2.我们利用改进的差异化定价策略，根据其带宽资源利用率为不同的基板链路设置不同的权重，以平衡基板网络的链路负载，</p>
+<h2 id="p2-related-works"><a href="#p2-related-works" class="headerlink" title="p2-related works"></a>p2-related works</h2><p>In recent years, the problem of virtual network embedding has received considerable attention from domestic and overseas researchers.<br>However, most of previous studies do not consider it to be a multiobjective optimization problem while at most do a tradeoff between two objectives. The main goal of prior work with single objective is to maximize the revenue of SPs by accommodating more virtual network requests and reducing the bandwidth utilization of substrate links [12–16]. The main drawback of these single-objective algorithms is that<br>they did not realize the issue of virtual network embedding is a multi-objective problem, since a large amount of energy consumption can lead to reducing the overall revenue for ISPs, high quality of QoS will<br>increase the extra incomes of ISPs. To address these issues, two-objective virtual network embedding algorithms attract great attention from many researchers. The most representatives of these algorithms with two objectives are energy aware virtual network embedding algorithms, security aware virtual network embedding algorithms, and load balance aware virtual network embedding algorithms.</p>
+<ul>
+<li>翻译<br>近年来，虚拟网络嵌入问题受到国内外研究者的广泛关注。然而，大多数先前的研究并不认为它是多目标优化问题，而最多只是在两个目标之间进行权衡。单个目标的先前工作的主要目标是通过容纳更多的虚拟网络请求和降低基板链路的带宽利用来最大化SP的收入[12-16]。这些单目标算法的主要缺点是他们没有意识到虚拟网络嵌入问题是一个多目标问题，因为大量的能耗会导致ISP的整体收入减少，高质量的QoS将会增加ISP的额外收入。为了解决这些问题，双目标虚拟网络嵌入算法引起了许多研究者的极大关注。具有两个目标的这些算法的最多代表是能量感知虚拟网络嵌入算法，安全感知虚拟网络嵌入算法和负载平衡感知虚拟网络嵌入算法。</li>
+</ul>
+<h3 id="p2-1-energy-aware-VNE-algorithms"><a href="#p2-1-energy-aware-VNE-algorithms" class="headerlink" title="p2.1-energy aware VNE algorithms"></a>p2.1-energy aware VNE algorithms</h3><p>Due to the exponentially growing amount of physical machines for service provisioning in data centers, the energy consumption caused by a large amount of servers has been becoming a crucial issue, and it has<br>attracted significant attention in recent years.<br>Two approaches with two objectives that heuristic-based algorithm and particle-swarm-optimization-based algorithm are presented in [2], the authors traded off between energy consumption that is consumed<br>by supporting VN requests and revenue that obtained from accommodating VN requests, and proposed an energy cost model and formulated the energy-aware virtual network embedding problem as an<br>integer linear programming problem. The authors formulated a discrete-time model to capture the concrete values of electricity price to deal with electricity price fluctuation issue, classified the substrate<br>nodes into active nodes and inactive nodes, and separated the substrate nodes into host nodes that can be running some computing tasks and router nodes that only perform forwarding tasks so as to further<br>quantify the server energy consumption. However, the formulated mathematical model is based on the experimental simulation system, it cannot reflect the genuine network environments.<br>The power consumption that is consumed by data centers can be decomposed of three parts: the first part is the communication energy consumption that is consumed by substrate links, the second part is the<br>server energy consumption that is consumed by substrate nodes, and the third part is the other energy consumption that caused by cooling and power distribution systems. In the literature of [1], the authors<br>formulated a power-efficient VN provisioning issue into a mixed integer linear programming problem to address the first two parts of energy consumption problems. The contributions of this paper is to give the<br>refinement of communication energy consumption by means of modeling the substrate links as wavelength-division multiplexing (WDM) network which is much closer to the genuine network environments,<br>and employed an improved differentiated pricing strategy for choosing the routing paths. The proposed framework achieved a better tradeoff between the energy consumption and the blocking ratio of virtual<br>network requests. However, the disadvantage of this paper is that the proposed algorithm is based on two steps which cannot coordinate the two mapping stages, the main improvements lies in the improved dif-<br>ferentiated pricing strategy in the link mapping stage while ignoring the enhancement of node mapping algorithm for facilitating the subsequent link mapping, and it can be further improved and intensified.<br>The author of [4] proposed a memetic multi-objective energy aware virtual network embedding algorithm, in this paper, the author formulated an energy-aware virtual network embedding model and devised some of metrics for evaluating the embedding algorithms. This paper proposed a multi-objective particle swarm optimization algorithm to do a tradeoff among all of the optimization objectives, used the local search technique to accelerate the convergence of the proposed algorithm. Extensive simulations shown that the proposed algorithm outperforms the other existing algorithms in terms of increasing revenue and decreasing energy consumption. Nevertheless, the suggested algorithm does not consider the communication energy consumption that is consumed by substrate links.<br>The main differences between the work [1] and our work are summarized as follows. The first difference is that our proposed algorithm takes into consideration of both energy consumption and load balance. The second difference is that our method improved the differentiated pricing strategy with an aim to avoid link bandwidth resource bottleneck issue. The third difference is that our method adopts the genuine model to formulate the substrate link energy consumption.</p>
+<h3 id="p2-2-load-balance-aware-VNE-algorithms"><a href="#p2-2-load-balance-aware-VNE-algorithms" class="headerlink" title="p2.2-load balance aware VNE algorithms"></a>p2.2-load balance aware VNE algorithms</h3><p>The load balance issue is an important aspect of virtual network embedding problems apart from the issues of revenue and energy consumption. The unbalanced workload in the substrate network can lead to the decreasing quality of services and quality of user experience (QoE) which does not guarantee that the offered services comply with the prescribed service level agreements (SLAs). In this section, we<br>summarize the load balance aware virtual network embedding approaches.<br>Li et al. [17] suggested a virtual network embedding algorithm from the perspective of load balance with diverse virtual network requests. In their studies, they computed the node link resource ratio and link node resource ratio of substrate network using the available resource on substrate nodes and substrate links, and computed the node link resource ratio and link node resource ratio of virtual networks using the demand requirements of virtual nodes and virtual links. In the node mapping stage, they choose substrate node with the node link resource ratio is closest to the node link resource ratio of virtual node. In the link mapping stage, they choose substrate link with the link node resource ratio is closest to the link node resource ratio of virtual link. Extensive simulation demonstrated that the proposed algorithm can achieve higher acceptance ratio, revenue, and the state of load balancing.<br>The authors of [18] presented an energy-aware virtual network embedding heuristic algorithm in their studies. They used a balancing factor to tradeoff between CPU resource of nodes and bandwidth resource of adjacent links for measuring the node importance. The proposed algorithm is based on the principle of energy consumption optimization and coordination between node mapping and link mapping, a comprehensive node ranking method is presented with the purpose of reducing the energy consumption and increasing the acceptance ratio.<br>Aim at achieving the simultaneous load balancing of the substrate node and the substrate link, Huang [19] formulated a mathematical model of virtual network embedding problem which constrained by the number of hops, and proposed a multi-objective particle swarm optimization algorithm called LB-PSO to solve it, the proposed algorithm has significantly increased the acceptance ratio and resource utilization.<br>In the study of [20], the authors formulated an integer linear programming model for the fragmentation-aware virtual network embedding problem for the first time, and carried out some simulations in three different scenarios to indicate that their algorithm outperforms the other existing algorithms.</p>
+<h2 id="p3-system-model-and-problem-statement"><a href="#p3-system-model-and-problem-statement" class="headerlink" title="p3-system model and problem statement"></a>p3-system model and problem statement</h2><p>公式整理待更新</p>
+<h2 id="p4-the-proposed-algorithm"><a href="#p4-the-proposed-algorithm" class="headerlink" title="p4-the proposed algorithm"></a>p4-the proposed algorithm</h2><h2 id="p5-evaluation-results"><a href="#p5-evaluation-results" class="headerlink" title="p5-evaluation results"></a>p5-evaluation results</h2><h2 id="p6-conclusion"><a href="#p6-conclusion" class="headerlink" title="p6-conclusion"></a>p6-conclusion</h2><p>物理网络资源（指民用网络）的能耗 由于网络用户急速增长的原因而大幅增加。<br>另外它还会导致不平衡的基础网络的负载的超重部分，并减少（virtual network embedding system)的性能。<br>所以，研究将能耗和负载均衡纳入虚拟化网络嵌入过程对多目标具有重要意义虚拟网络嵌入算法。<br>在本文中，我们首先研究了节点能量的影响<br>节点排名计算中的sumption和节点资源利用率<br>灰。然后我们提出了一种全面的节点排序方法CNRM<br>在节点期间测量衬底节点的嵌入电位<br>映射过程。此外，我们改善了差异化定价<br>为了选择的目的加权衬底链接的策略<br>基板路径，每个链路能耗最小<br>虚拟链接。仿真结果表明我们的方法可以<br>降低能耗，改善子负载平衡<br>战略网络，同时略微恶化长期平均转速<br>enue，接受率和收入与成本比率。<br>由于不同的网络拓扑结构有所不同<br>因此，我们将需要不同的映射方法<br>专注于不同的虚拟网络嵌入算法<br>我们未来工作中的各种网络拓扑。在我们的工作中，我们主要是<br>专注于启发式虚拟网络嵌入算法，<br>而确切的VNE算法超出了我们的研究工作。我们打算<br>在未来的工作中做这项工作。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-14T09:56:42.380Z" itemprop="dateUpdated">2019-07-14 17:56:42</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/" target="_blank" rel="external">http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/paper/">paper</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/&title=《《Computer Communications_Incorporating energy and load balance into virtual》翻译》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/&title=《《Computer Communications_Incorporating energy and load balance into virtual》翻译》 — Home&source=张老师论文翻译，有些事情搁置了" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《Computer Communications_Incorporating energy and load balance into virtual》翻译》 — Home&url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/03/02/2019-03-02-强化学习初步/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">强化学习DQN简介</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/01/17/2019-01-17-网易云音乐修改deb依赖/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">解决软件源更新，旧版本软件应用无法使用的问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2019</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/&title=《《Computer Communications_Incorporating energy and load balance into virtual》翻译》 — Home&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/&title=《《Computer Communications_Incorporating energy and load balance into virtual》翻译》 — Home&source=张老师论文翻译，有些事情搁置了" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《《Computer Communications_Incorporating energy and load balance into virtual》翻译》 — Home&url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEj0lEQVR42u3aS27jSBAFQN//0u7tDNCi3sukABU7uDIsiawKLvJXPz/x9Xt5vfrO9R2SX12v5L//adf584kLEyZMmDB9JVNLMNt2crf8Dq92Mfvm9d4xYcKECdMzmDYPvg7Yr+7Q3v+a9Xrb7XMxYcKECdO/zJQkAZvyeEOfh39MmDBhwoQpD8AbgrazOntuW05jwoQJE6bnMeW3S8L2XcSfSCk+3gvHhAkTJkxfxpQH5uf9/ZHzTZgwYcKE6WuYfstrU6y2B2g2SUbbgH6za0yYMGHCdCxTOxTM28FJO/Wu5ybt3eRub56LCRMmTJgOZJodfLneapJM3NtszYed+Qr/dx9MmDBhwnQ4U94M3ZfHm2FkXlrP0og3RS8mTJgwYXoE0+ym7ciw3fYecVUYY8KECROmw5nalussdWjbu3mBfb3JZA1FhwATJkyYMB3FlJe1P4vr+p4zyhaobTpjwoQJE6bnMbWhOg/Sbbl717CzHXAWApgwYcKE6SimJGDvy90ZQV5Ct0eIaixMmDBhwvRQplljdF9wbo4Q7Zu8b47vYMKECROmQ5g2I8ykoG2XmNztroSgqG0xYcKECdOxTG2wT0rZ/cGaZKw4SwiSX73ZOyZMmDBhOpApD/NFPR2ztmPOGVze5MWECRMmTE9iag+v5ElDG3rvHY7OiuqX68GECRMmTI9gylu3myVuGrubhnKSZLz8PiZMmDBhOpZp096dNXw3reQ8UUjK+/qbmDBhwoTpQKb2IM5dIXZPmSQKyX+ihjUmTJgwYXoQU5soJItIgvdmwPmJRnCRTWDChAkTpq9nagP/7HDM7Fl5sT1LEaJfYcKECROmw5muW7R5M3cWQ/ft3bua1C9TJUyYMGHCdCxTHraT8vKugWgyHM0p7/oUEyZMmDCdzpS3gNtgn3w/bxxv2rvtpwUHJkyYMGH6SqbZMHIPMUNpW72zxOIvd8OECRMmTMcyzUrTzeAw2fy9w86c4K4GMSZMmDBh+jam2WGavLBMlpWE/D19/v83BTAmTJgwYTqKqR0ltjSz4vMTR4vyAvvlszBhwoQJ01FMeXu3XfqmLTsrjNsXXLS2MWHChAnTg5jyjW2K281hnVl5PGtbD2t0TJgwYcL0NUz5EZacdZM6tKV1HdrjF48JEyZMmJ7BlATp9lhPm3AkZXb+Iu89yoMJEyZMmJ7B1LZ32zK1LWJz9FlLuk41MGHChAnT4UxJiG35PpEKzO7cjkij0hcTJkyYMB3IdFet1w5Kk+3l6Uj74qMDQ5gwYcKE6VimNjTOith943gWyNtnFb/FhAkTJkyHMP2WV1645uVrfiinLdpva1VjwoQJE6ZjmWaBORlbJsPI5NOEeHZUKP8bEyZMmDCdztQef5kta9PAnUG3ycebl4EJEyZMmA5n2gTOvLDMQ/v1CpPCe/as4ewXEyZMmDA9iGkPmofh5LkJ0+ZlYMKECROmf41pNpK8Jru3yZujJ9CYMGHChOkZTMnS84Jz86vZtu86WnTDOBMTJkyYMH0Z074szBusbWLRErRHgmYvDxMmTJgwHcL0B3dWtXbiQicxAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
