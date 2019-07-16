@@ -186,13 +186,7 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>持续更新</p>
 <a id="more"></a>
-<h2 id="抓包和浏览器-CTRL-C-搞到的一些API"><a href="#抓包和浏览器-CTRL-C-搞到的一些API" class="headerlink" title="抓包和浏览器(CTRL C)搞到的一些API"></a>抓包和浏览器<del>(CTRL C)</del>搞到的一些API</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://music.163.com/outchain/player?type=2&id=28563201&auto=1&height=66&bg=e8e8e8" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h2 id="抓包和浏览器-CTRL-C-搞到的一些API"><a href="#抓包和浏览器-CTRL-C-搞到的一些API" class="headerlink" title="抓包和浏览器(CTRL C)搞到的一些API"></a>抓包和浏览器<del>(CTRL C)</del>搞到的一些API</h2><p><img src="https://music.163.com/outchain/player?type=2&id=28563201&auto=1&height=66&bg=e8e8e8" alt></p>
 <h1 id="APIset"><a href="#APIset" class="headerlink" title="APIset"></a>APIset</h1><p>抓包和浏览器<del>(CTRL C)</del>搞到的一些API</p>
 <h1 id="教务系统API"><a href="#教务系统API" class="headerlink" title="教务系统API"></a>教务系统API</h1><p>不需要用沙雕IE登沙雕教务系统搞照片了（格式*/pic/学号.JPG</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://211.87.177.1/jwxt/uploadfile/studentphoto/pic/</span><br></pre></td></tr></table></figure>
@@ -338,6 +332,30 @@
 
 
 
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'https://github.com/waynamigo/waynamigo.github.io.git',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
 
 
 

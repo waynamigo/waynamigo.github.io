@@ -274,15 +274,7 @@
 <li>platform asa service： 软件环境</li>
 <li>software asa service：应用程序</li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/IPS.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-
-
+<p><img src="/img/IPS.png" alt></p>
 <h2 id="云存储结构-GFS-Google-File-System-HDFS-Hadoop-Distributed-File-System"><a href="#云存储结构-GFS-Google-File-System-HDFS-Hadoop-Distributed-File-System" class="headerlink" title="云存储结构 GFS (Google File System) HDFS(Hadoop Distributed File System)"></a>云存储结构 GFS (Google File System) HDFS(Hadoop Distributed File System)</h2><ul>
 <li>存储层</li>
 <li>基础管理层</li>
@@ -498,6 +490,30 @@
 
 
 
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'https://github.com/waynamigo/waynamigo.github.io.git',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
 
 
 
