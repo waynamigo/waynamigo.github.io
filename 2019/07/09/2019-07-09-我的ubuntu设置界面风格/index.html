@@ -187,10 +187,24 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>记录一下以防以后电脑崩了还得重新配,感觉撑不住了</p>
 <a id="more"></a>
-<h3 id="效果这样"><a href="#效果这样" class="headerlink" title="效果这样"></a>效果这样</h3><p><img src="/img/screenshot.png" alt></p>
+<h3 id="效果这样"><a href="#效果这样" class="headerlink" title="效果这样"></a>效果这样</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/screenshot.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnome-tweak-tool</span><br><span class="line">#extensions.gnome.org install [ User themes]</span><br><span class="line"> </span><br><span class="line">#www.gnome-look.org [ gtk-3 themes:McOS-HS]</span><br><span class="line">tar -zxvf McOS-HS-2-themes.tar.gz</span><br><span class="line">#go to tweaks and chose this theme</span><br><span class="line"></span><br><span class="line">tar -zxvf macOS11.tar.xz </span><br><span class="line">#extensions.gnome.org [dash-to-dock]</span><br><span class="line">#www.gnome-look.org [OSX.for.Dash.to.DOCK]</span><br><span class="line">#www.gnome-look.org [Icon Themes: macOS icons]</span><br><span class="line"># extensioons.gnome.org [blyr]</span><br></pre></td></tr></table></figure>
 
-<p>go to tweaks and choose them<br><img src="/img/tweaks.png" alt><br>cd ./OSX.for.Dash.to.DOCK/Dock Settings/</p>
+<p>go to tweaks and choose them</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/tweaks.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>cd ./OSX.for.Dash.to.DOCK/Dock Settings/</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true</span><br><span class="line"></span><br><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-running-dots false</span><br><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-customize-running-dots false</span><br><span class="line"></span><br><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-shrink false</span><br><span class="line"></span><br><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock transparency-mode DEFAULT</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#www.gnome-look.org [GDM themes:SetAsWallpaper]</span></span><br><span class="line"></span><br><span class="line">mv ubuntu.css /usr/share/gnome-shell/theme/</span><br><span class="line"></span><br><span class="line">sudo mv /usr/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com ~/</span><br></pre></td></tr></table></figure>
@@ -211,7 +225,7 @@
     </div>
     
     <footer>
-        <a href="http://yoursite.com">
+        <a href="https://waynamigo.cn">
             <img src="/img/avatar.jpg" alt="waynamigo">
             waynamigo
         </a>
@@ -334,7 +348,7 @@
         const gitalk = new Gitalk({
           clientID: '1c48e09d4abbbe0f86a1',
           clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
-          repo: 'https://github.com/waynamigo/waynamigo.github.io.git',
+          repo: 'waynamigo.github.io',
           owner: 'waynamigo',
           admin: ['waynamigo'],
           id: id,      // Ensure uniqueness and length less than 50

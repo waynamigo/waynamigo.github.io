@@ -29,12 +29,12 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="QLearing的算法目标是：达到reward最大的state（状态，以一个使用无监督学习环境的agent为例，自https://blog.csdn.net/qq_16234613/article/details/80268564">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/img/2-1-1.png">
+<meta property="og:image" content="http://yoursite.com/img/2-1-1.png)">
 <meta property="og:updated_time" content="2019-07-14T12:18:33.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习DQN简介">
 <meta name="twitter:description" content="QLearing的算法目标是：达到reward最大的state（状态，以一个使用无监督学习环境的agent为例，自https://blog.csdn.net/qq_16234613/article/details/80268564">
-<meta name="twitter:image" content="http://yoursite.com/img/2-1-1.png">
+<meta name="twitter:image" content="http://yoursite.com/img/2-1-1.png)">
     
         <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
     
@@ -191,7 +191,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">R+r*max_Q(<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">基本规则如下：</span><br><span class="line">Q表内容为index--state（agent的位置），columns--action(行为集)</span><br><span class="line">Q表（记录行为值）的计算规则是每次对于行为集合中的每一个action，对其进行计算、并进行选择。</span><br><span class="line">每一次episode，Q表更新一次</span><br><span class="line">定义EPSILON的目的是控制贪婪程度，其中，它可以随着时间推移 逐渐增加，贪婪)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>主循环：图示<br><img src="/img/2-1-1.png" alt>)</li>
+<li>主循环：图示<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/2-1-1.png)" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+</li>
 </ul>
 <p>首先要对其评估和更新准则进行确定，代码中表示可以直接定义在一个结构中。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_env</span><span class="params">(S, episode, step_counter)</span>:</span></span><br><span class="line">    <span class="comment"># This is how environment be updated</span></span><br><span class="line">    env_list = [<span class="string">'-'</span>]*(N_STATES<span class="number">-1</span>) + [<span class="string">'T'</span>]   <span class="comment"># '---------T' our environment</span></span><br><span class="line">    <span class="keyword">if</span> S == <span class="string">'terminal'</span>:</span><br><span class="line">        interaction = <span class="string">'Episode %s: total_steps = %s'</span> % (episode+<span class="number">1</span>, step_counter)</span><br><span class="line">        print(<span class="string">'\r&#123;&#125;'</span>.format(interaction), end=<span class="string">''</span>)</span><br><span class="line">        time.sleep(<span class="number">2</span>)</span><br><span class="line">        print(<span class="string">'\r                                '</span>, end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        env_list[S] = <span class="string">'o'</span></span><br><span class="line">        interaction = <span class="string">''</span>.join(env_list)</span><br><span class="line">        print(<span class="string">'\r&#123;&#125;'</span>.format(interaction), end=<span class="string">''</span>)</span><br><span class="line">        time.sleep(FRESH_TIME)</span><br></pre></td></tr></table></figure>
@@ -218,7 +226,7 @@
     </div>
     
     <footer>
-        <a href="http://yoursite.com">
+        <a href="https://waynamigo.cn">
             <img src="/img/avatar.jpg" alt="waynamigo">
             waynamigo
         </a>
@@ -341,7 +349,7 @@
         const gitalk = new Gitalk({
           clientID: '1c48e09d4abbbe0f86a1',
           clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
-          repo: 'https://github.com/waynamigo/waynamigo.github.io.git',
+          repo: 'waynamigo.github.io',
           owner: 'waynamigo',
           admin: ['waynamigo'],
           id: id,      // Ensure uniqueness and length less than 50
