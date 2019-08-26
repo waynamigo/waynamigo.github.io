@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="暑假开始的区块链+深度学习的小项目，关于写smart contract的阶段性记录(持续更新)ps:清收藏夹时发现的奇异AI社区，地址失效了，现在是http://talk.strangeai.pro（早期是将人工智能算法以平台的形式提供给普通开发者，让开发者来贡献、提交开源或者自有的算法。现在名字改成ManaAI了，开放的算法代码也下架了,遗憾）">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-25T09:01:16.410Z">
+<meta property="og:updated_time" content="2019-08-26T04:35:11.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Solidity编写smart contract的demo">
 <meta name="twitter:description" content="暑假开始的区块链+深度学习的小项目，关于写smart contract的阶段性记录(持续更新)ps:清收藏夹时发现的奇异AI社区，地址失效了，现在是http://talk.strangeai.pro（早期是将人工智能算法以平台的形式提供给普通开发者，让开发者来贡献、提交开源或者自有的算法。现在名字改成ManaAI了，开放的算法代码也下架了,遗憾）">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试网络Rinkeby"><span class="post-toc-number">1.</span> <span class="post-toc-text">测试网络Rinkeby</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Solidity，启动"><span class="post-toc-number">2.</span> <span class="post-toc-text">Solidity，启动</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试网络Rinkeby"><span class="post-toc-number">1.</span> <span class="post-toc-text">测试网络Rinkeby</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Solidity"><span class="post-toc-number">2.</span> <span class="post-toc-text">Solidity</span></a></li></ol>
         </nav>
     </aside>
 
@@ -188,7 +188,8 @@
 <h2 id="测试网络Rinkeby"><a href="#测试网络Rinkeby" class="headerlink" title="测试网络Rinkeby"></a>测试网络Rinkeby</h2><p>Rinkeby是以太坊官方提供的测试网络，使用PoA共识机制<br>PoA流程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">创世块中指定一组初始授权的signers,所有地址保存在创世区块(Genesis Block),并且把该区块的hash写到钱包里。</span><br><span class="line"></span><br><span class="line">启动挖矿后, 该组signers开始对生成的block进行签名并广播</span><br><span class="line"></span><br><span class="line">签名结果保存在区块头的Extra字段中</span><br><span class="line"></span><br><span class="line">Extra中更新当前高度已授权的所有signers的地址,因为有新加入或踢出的signer</span><br><span class="line"></span><br><span class="line">每一高度都有一个signer处于IN-TURN状态, 其他signer处于OUT-OF-TURN状态, IN-TURN的signer签名的block会立即广播, OUT-OF-TURN的signer签名的block会延时一段时间后再广播, 保证IN-TURN的签名block有更高的优先级上链</span><br><span class="line"></span><br><span class="line">如果需要加入一个新的signer,signer通过API接口发起一个proposal, 该proposal通过复用区块头 Coinbase(新signer地址)和Nonce(&quot;0xffffffffffffffff&quot;) 字段广播给其他节点. 所有已授权的signers对该新的signer进行&quot;加入&quot;投票, 如果赞成票超过signers总数的50%, 表示同意加入</span><br><span class="line"></span><br><span class="line">如果需要踢出一个旧的signer, 所有已授权的signers对该旧的signer进行&quot;踢出&quot;投票, 如果赞成票超过signers总数的50%, 表示同意踢出</span><br></pre></td></tr></table></figure>
 
-<h2 id="Solidity，启动"><a href="#Solidity，启动" class="headerlink" title="Solidity，启动"></a>Solidity，启动</h2>
+<h2 id="Solidity"><a href="#Solidity" class="headerlink" title="Solidity"></a>Solidity</h2><p>（考研复习太紧张了，以后要鸽到考完初试了。。</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -196,7 +197,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-25T09:01:16.410Z" itemprop="dateUpdated">2019-07-25 17:01:16</time>
+    Last updated: <time datetime="2019-08-26T04:35:11.923Z" itemprop="dateUpdated">2019-08-26 12:35:11</time>
 </span><br>
 
 
