@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>动态规划的几种问题part1 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="动态规划">
+    <meta name="description" content="Dynamic planning就是用历史记录寻找最优解一般先构造出一维或二维数组，将dp[i][j]的意义确定后，将初始值确定，再根据递推关系式求解，即得到dp[m][n]，暂时不牵扯到DPtable和备忘录等优化方式。">
+<meta name="keywords" content="动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划的几种问题part1">
+<meta property="og:url" content="http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="Dynamic planning就是用历史记录寻找最优解一般先构造出一维或二维数组，将dp[i][j]的意义确定后，将初始值确定，再根据递推关系式求解，即得到dp[m][n]，暂时不牵扯到DPtable和备忘录等优化方式。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-12-30T15:15:32.539Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划的几种问题part1">
+<meta name="twitter:description" content="Dynamic planning就是用历史记录寻找最优解一般先构造出一维或二维数组，将dp[i][j]的意义确定后，将初始值确定，再根据递推关系式求解，即得到dp[m][n]，暂时不牵扯到DPtable和备忘录等优化方式。">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">动态规划的几种问题part1</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">动态规划的几种问题part1</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-12-31T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/算法/">算法</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一维DP"><span class="post-toc-number">1.</span> <span class="post-toc-text">一维DP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二维DP"><span class="post-toc-number">2.</span> <span class="post-toc-text">二维DP</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2021-01-01-DP的几种问题part1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">动态规划的几种问题part1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-01 00:00:00" datetime="2020-12-31T16:00:00.000Z"  itemprop="datePublished">2021-01-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/算法/">算法</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Dynamic planning就是用历史记录寻找最优解<br>一般先构造出一维或二维数组，将dp[i][j]的意义确定后，将初始值确定，再根据递推关系式求解，即得到dp[m][n]，暂时不牵扯到DPtable和备忘录等优化方式。</p>
+<a id="more"></a>
+<h2 id="一维DP"><a href="#一维DP" class="headerlink" title="一维DP"></a>一维DP</h2><p>一维DP关系，例如青蛙跳问题：一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">①定义递推数组关系：设跳上n级有dp[n]种方法，由每次跳1级或2级，则跳n级要么从n-1级上来或n-2级上来，dp[n]=dp[n-1]+dp[n-2]</span><br><span class="line">②数组初值定义：dp[1]=1;dp[2]=2;dp[3]=3；要从1开始算起，0无意义。</span><br></pre></td></tr></table></figure>
+
+<h2 id="二维DP"><a href="#二维DP" class="headerlink" title="二维DP"></a>二维DP</h2><p>给定一个包含非负整数的 m x n 的初始矩阵arr[m][n]，找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。<a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">Minium Path Sum</a>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">①递推数组关系：由每次只能向下或者向右移动一步，设从[<span class="number">0</span>][<span class="number">0</span>]走到[i][j]的最短路为dp[i][j]，</span><br><span class="line">dp[m][n]的最短路为min(dp[m<span class="number">-1</span>][n],dp[m][n<span class="number">-1</span>]) + arr[m][n],</span><br><span class="line">则得出递推关系为 dp[i][j]=min(dp[i<span class="number">-1</span>][j]+dp[i][j<span class="number">-1</span>]) + arr[i][j];</span><br><span class="line">②数组初值定义：</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>]到dp[<span class="number">0</span>][<span class="number">1</span>,<span class="number">2.</span>..n<span class="number">-1</span>]只能往右走，则初始化第一行为dp[<span class="number">0</span>][i]=dp[<span class="number">0</span>][i<span class="number">-1</span>]+arr[<span class="number">0</span>][i];</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>]到dp[<span class="number">1</span>,<span class="number">2.</span>..n<span class="number">-1</span>][<span class="number">0</span>]只能往下走，则初始化第一行为dp[i][<span class="number">0</span>]=dp[i<span class="number">-1</span>][<span class="number">0</span>]+arr[i][<span class="number">0</span>];</span><br><span class="line">此时若只求出来[<span class="number">0</span>][<span class="number">1</span>],[<span class="number">1</span>][<span class="number">0</span>],[<span class="number">1</span>][<span class="number">1</span>]三个初值，那么在求dp[<span class="number">1</span>][j(j&gt;<span class="number">1</span>)]时，会因为</span><br><span class="line">dp[<span class="number">0</span>][j]=<span class="number">0</span>(因为上面递推关系得从i=<span class="number">1</span>,j=<span class="number">1</span>开始)，从而得到dp[<span class="number">1</span>][j]=dp[<span class="number">0</span>][j]+arr[<span class="number">1</span>][j]，</span><br><span class="line">但是dp[<span class="number">0</span>][j]&gt;实际dp[<span class="number">1</span>][j<span class="number">-1</span>]，结果错误。</span><br></pre></td></tr></table></figure>
+
+<p>题目：<br>Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.And You have the following three operations permitted on a word:</p>
+<p>Insert a character<br>Delete a character<br>Replace a character<br><a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">Edit Distance</a></p>
+<ul>
+<li>解答（转自题解<a href="https://leetcode-cn.com/problems/edit-distance/comments/）" target="_blank" rel="noopener">https://leetcode-cn.com/problems/edit-distance/comments/）</a></li>
+</ul>
+<hr>
+<p>① 设dp[i][j]表示word1的前i个字母转换成word2的前j个字母所使用的最少操作。<br>② if:word1[i]=word2[j] then dp[i][j]=dp[i-1][j-1];<br>else:取Insert Delete Replace三个操作的最小值<br>即dp[i][j]=min(dp[i][j-1],dp[i-1][j],dp[i-1][j-1])+1;<br>三种操作对应三种要使用的上一元素：</p>
+<ul>
+<li>word1[i] 替换成与 word2[j]相等则dp[i][j] = dp[i-1][j-1] + 1;</li>
+<li>word1末尾插入word2[j]，则有 dp[i][j] = dp[i][j-1] + 1;</li>
+<li>word1[i]删除，dp[i][j] = dp[i-1][j] + 1;<br>③数组初值定义，二维DP一般为初始化第一行和第一列直接写出来</li>
+</ul>
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="built_in">string</span> word1, <span class="built_in">string</span> word2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m=word1.length();</span><br><span class="line">        <span class="keyword">int</span> n=word2.length();</span><br><span class="line">        <span class="keyword">int</span> dp[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">        <span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;i++) dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=n;j++) dp[<span class="number">0</span>][j]=j;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                <span class="comment">// 注意这里dp[i][j]指的是word的 第i,j个字符，需要对应word[i-1]和[j-1]</span></span><br><span class="line">                <span class="keyword">if</span>(word1[i<span class="number">-1</span>]==word2[j<span class="number">-1</span>]) dp[i][j]=dp[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">int</span> temp = dp[i<span class="number">-1</span>][j]&lt;dp[i][j<span class="number">-1</span>] ? dp[i<span class="number">-1</span>][j]:dp[i][j<span class="number">-1</span>];</span><br><span class="line">                    dp[i][j]= (temp&lt;dp[i<span class="number">-1</span>][j<span class="number">-1</span>] ? temp:dp[i<span class="number">-1</span>][j<span class="number">-1</span>]) +<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2020-12-30T15:15:32.539Z" itemprop="dateUpdated">2020-12-30 23:15:32</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/&title=《动态规划的几种问题part1》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/&title=《动态规划的几种问题part1》 — waynamigo's blog&source=Dynamic planning就是用历史记录寻找最优解一般先构造出一维或二维数组，将dp[i][j]的意义确定后，将初始值确定，再根据递推关系式求解，即..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《动态规划的几种问题part1》 — waynamigo's blog&url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/08/01/2019-408/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">408考纲</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/&title=《动态规划的几种问题part1》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/&title=《动态规划的几种问题part1》 — waynamigo's blog&source=Dynamic planning就是用历史记录寻找最优解一般先构造出一维或二维数组，将dp[i][j]的意义确定后，将初始值确定，再根据递推关系式求解，即..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《动态规划的几种问题part1》 — waynamigo's blog&url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/01/01/2021-01-01-DP的几种问题part1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3aQXLjMAwEQP//07vnrS1JA4CQU6nWyYdYZvNAIgN8PvHz57/n6m+uPt8/+bc+Gw8eHh7eeOlXP3y/oJx69euntgwPDw/vHV7+6uQcri4i2Y7qtuLh4eH9HF5ylJ+6MK7eiYeHh/f7ePM3J1EFHh4e3nd5vVdXi+b7mGOjWMfDw8Pb4PUihu9+Xunv4eHh4Y276vmBm7e18nK8N4Lwz/vx8PDwFnj5gVttXFVL9rNlNx4eHt4erzpulS8lP+irTa9CNIyHh4e3xpu09ntN/eq37qkP+TQeHh7ei7zkgO5twRwfXRt4eHh4C7w8dEiGtKptqt7QwKjXh4eHh3eIVx2oSg793ghXLzh+uEjw8PDwjvJ64wL5WEACy4OJZmcPDw8Pb4FXDU/zkCLfrI2qGA8PD+9NXnVwKr8q8ui2WtY//K+Ah4eHd5RXvR7ygzvZmvJxnwcWeHh4eGu8HmYS/k6K6ULJjoeHh7fG65XF+YhVdTQq34KHN+Ph4eGt8SZldC+AyIvmERIPDw9vgXd/fuaNrvxbSeNtMogQZdV4eHh4Y16CzAviaotrXtxHa8PDw8M7xOs1wHJkssR5Ef9wGeDh4eG9yKtGq9XBqWT7JsNeeHh4eBu8XvSQ8+7jg/xJGJcrxMPDw3uRN4l3J0MG1TU8bBweHh7eGq/3M3l8UL1OemFEFEng4eHhLfDysafq+FQPNmqz4eHh4R3l9aLSU0MAk6M/egMeHh7eAq8XpE6W29usahPu07tb8PDw8FqzSfeXQR775m/Ll9vbYjw8PLw9XvVQruJ7gwiTYAIPDw/vp/F6y022phdnPDTA8PDw8L7K6x361YXmRf9DdIuHh4e3xqsuLh81qAa1vSZWNHSFh4eHd4g3GWyqNqiqC5qPZOHh4eEd5f0FF7XkKdsFYJIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

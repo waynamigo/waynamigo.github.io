@@ -25,20 +25,20 @@
 <meta name="keywords" content="Linux,web,sqlmap,msf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqlmap注入拿后台">
-<meta property="og:url" content="https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/index.html">
+<meta property="og:url" content="http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="本文总过程中无破坏性操作对于这种php的无防站，直接用sqlmap+msf就可以拿。对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。2019-07-16:被发现了。。ip被黑名单，于是换了个节点。。。还可以登录">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://waynamigo.cn/img/hessel-1.png">
-<meta property="og:image" content="https://waynamigo.cn/img/hessel-2.png">
-<meta property="og:image" content="https://waynamigo.cn/img/hessel-3.png">
-<meta property="og:image" content="https://waynamigo.cn/img/hessel-4.png">
-<meta property="og:image" content="https://waynamigo.cn/img/hessel-5.JPG">
+<meta property="og:image" content="http://waynamigo.github.io/img/hessel-1.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/hessel-2.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/hessel-3.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/hessel-4.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/hessel-5.JPG">
 <meta property="og:updated_time" content="2019-07-16T07:28:14.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sqlmap注入拿后台">
 <meta name="twitter:description" content="本文总过程中无破坏性操作对于这种php的无防站，直接用sqlmap+msf就可以拿。对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。2019-07-16:被发现了。。ip被黑名单，于是换了个节点。。。还可以登录">
-<meta name="twitter:image" content="https://waynamigo.cn/img/hessel-1.png">
+<meta name="twitter:image" content="http://waynamigo.github.io/img/hessel-1.png">
     
         <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
     
@@ -298,7 +298,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&pic=https://waynamigo.cn/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -308,22 +308,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&source=本文总过程中无破坏性操作对于这种php的无防站，直接用sqlmap+msf就可以拿。对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。2019-0..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&source=本文总过程中无破坏性操作对于这种php的无防站，直接用sqlmap+msf就可以拿。对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。2019-0..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sqlmap注入拿后台》 — waynamigo's blog&url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/&via=https://waynamigo.cn" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sqlmap注入拿后台》 — waynamigo's blog&url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/&via=http://waynamigo.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -474,7 +474,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&pic=https://waynamigo.cn/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -484,22 +484,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&source=本文总过程中无破坏性操作对于这种php的无防站，直接用sqlmap+msf就可以拿。对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。2019-0..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/&title=《sqlmap注入拿后台》 — waynamigo's blog&source=本文总过程中无破坏性操作对于这种php的无防站，直接用sqlmap+msf就可以拿。对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。2019-0..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sqlmap注入拿后台》 — waynamigo's blog&url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/&via=https://waynamigo.cn" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sqlmap注入拿后台》 — waynamigo's blog&url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/&via=http://waynamigo.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://waynamigo.cn/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2019/07/15/2019-07-15-sqlmap-1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -510,7 +510,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aS46DMBAFwNz/0sw2owjmPZtohF1eRQgBten07/WKz/F23q98/m7v//z9+bTbDgYGxmMZx+W5fkH+yusnJO89uwcDA2MfxtmL27A4FjTzUH56HQMDA+Pys5JEML+CgYGBcW/AbRPKsfsxMDAw8g/KSUkKeP0NX6zFMTAwHsi4q8j8xu+vzDcwMDAexTjKcw1LBplf+SoMDIylGXmAy0eYeQk6E3AxMDD2YbSt+bHWfzsGqFc6MDAwlma0gPnVsTZwFwsfGBgYizJmAu69a2RJonl6HQMDYwNGsdAQJ5djbbi8zXfaNcTAwFiUkZe1YzPSu4rY07djYGBsxsiR7egxKVbzQcKvp2FgYGzAaB/RlqPzIfWP0IyBgbE0o03mxuaGbXhtFzUwMDB2YOTJXL5U0SaFxRigzUwxMDAezrhrMDCTFOb/BlGGi4GBsShjJvjOJIgzrb3ocRgYGAsxksQuD39563+s0C3KVwwMjCUYY4PJtihNVjpuaP9hYGBswGjDXP4pYyVuPl7FwMDYjZG/YGZskLfbiuYdBgbGBow2yWtXu8aGl3n4xsDAWJVxlGes9dYOStuxBAYGxtqM/LTBNFqSKMvjfHUDAwNjPUYSIvOQmo8H2lHEYNcQAwNjIUZR9Q5tZ/1DLY6BgbE9o/2UNgTXgRsDAwNjOvjOtNKiIQQGBsYGjLYQzdv9YysX7QoIBgbG2oy2dBwLqWOFbh6mMTAwFmX8ABJtaphWi/XzAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3aQW6EMBAEQP7/6Y2Ua7RLtw1JsMsnFLHg4jBxe3wc8Xh9j3fXP0d+57t7jjsGBgbGYxkzL3iVI59DPjcMDIx9GEmR/VxMPz8teU7+NAwMDIz5ybV/bz8KBgYGRhtcx5Z6f1xwMTAwHsjIN84SzFgAHtukw8DA2IEx3xi47/pX+xsYGBj/kjG2rT9TBPPSXMwKAwNjaUa+RJvfnktCb1tdi9yMgYHxcEa77horoHlLoI3QGBgYOzDayd3RKkgy6cm7MDAwFmW00TT/NvkSsH0+BgbGboz8qNbY5HLYzIYdBgbG2ow2KI7Fy7aRkNx58n8DAwNjIcbYz9rSnC80xzAYGBhrM+abjm2szZeMRWzGwMBYmpEfmKi3vSbydDKHk+dgYGAsykgKa/6yNtC2bdGTxgAGBsZCjJkDE+1BiqQ0t21UDAyMfRhtMc0bjWObbhccsMDAwFiIUZzFiKPmVYcw8uOtGBgY+zDyhWAyoTpDD7VLMTAwdmDkL2tj7VXU6EgHBgbGZoz7lm5j11HJxsDAWJpxVUxtt+3uDs8YGBgrMV7laEtwUo7bFsLJ0hADA2M5xny1Hls4tkF3qjGAgYGxBKMtgp957dfKC+4JEgMDYwPGfIjNA+rYUTMMDAyM+ZflDcs8mhZtAwwMDIxgoda+eKzUnoRYDAyMpRltiJ1vG+SfLIq4GBgYSzPa6JhPNy+vY42Box0YGBjPY3wB0Qc84kgPY/8AAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
