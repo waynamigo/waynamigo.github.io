@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>数据库系统相关 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="笔试">
+    <meta name="description" content="关于计算机研究生复试的数据库相关问题（笔试）">
+<meta name="keywords" content="笔试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库系统相关">
+<meta property="og:url" content="http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="关于计算机研究生复试的数据库相关问题（笔试）">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-01-13T07:10:42.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库系统相关">
+<meta name="twitter:description" content="关于计算机研究生复试的数据库相关问题（笔试）">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">数据库系统相关</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">数据库系统相关</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-01-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统概念相关"><span class="post-toc-number">1.</span> <span class="post-toc-text">系统概念相关</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关系运算"><span class="post-toc-number">2.</span> <span class="post-toc-text">关系运算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自然连接举例"><span class="post-toc-number">3.</span> <span class="post-toc-text">自然连接举例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关系代数"><span class="post-toc-number">4.</span> <span class="post-toc-text">关系代数</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2021-01-11-数据库"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">数据库系统相关</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-11 00:00:00" datetime="2021-01-10T16:00:00.000Z"  itemprop="datePublished">2021-01-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>关于计算机研究生复试的数据库相关问题（笔试）</p>
+<a id="more"></a>
+<h2 id="系统概念相关"><a href="#系统概念相关" class="headerlink" title="系统概念相关"></a>系统概念相关</h2><p>数据视图<br>数据抽象： 物理层–&gt;逻辑层–&gt;视图层<br>实例和模式：物理模式–&gt;逻辑模式–&gt;子模式<br>数据集合是实例(Instance)， 数据库总体设计为数据库模式(Schema)<br>数据模型： 关系模型  实体-联系模型（E-R)  基于对象的模型  半结构化数据模型</p>
+<h2 id="关系运算"><a href="#关系运算" class="headerlink" title="关系运算"></a>关系运算</h2><p>域：关系中的某属性允许取值的集合<br><strong>码</strong>：整个关系中区分不同元组的一种性质<br>超码 super key：一个或多个属性的集合，唯一标识一个元组,允许有多余的属性<br>候选码 candidate key：允许最少必要属性的超码即候选码比如{ID}{name,seat}是两个候选码<br>主码 primary key：设计者在一个关系内的候选码中选择的区分元组的属性组合<br>主码选择原则：选择那些值从不改变或极少改变的候选码作primary key<br>外码 foreign key：一个关系内的某属性是另一个关系的主码</p>
+<p><strong>关系代数</strong></p>
+<ul>
+<li>选择元组/属性 σ</li>
+<li>投影 π</li>
+<li>自然连接 ∞</li>
+<li>笛卡尔积 X</li>
+<li>集合运算 交 并</li>
+</ul>
+<h2 id="自然连接举例"><a href="#自然连接举例" class="headerlink" title="自然连接举例"></a>自然连接举例</h2><table>
+<thead>
+<tr>
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">C</th>
+<th></th>
+<th align="center">D</th>
+<th align="center">B</th>
+<th align="center">E</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">a</td>
+<td align="center">3</td>
+<td></td>
+<td align="center">2</td>
+<td align="center">c</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">b</td>
+<td align="center">6</td>
+<td></td>
+<td align="center">3</td>
+<td align="center">d</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">c</td>
+<td align="center">7</td>
+<td></td>
+<td align="center">1</td>
+<td align="center">a</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">* 计算笛卡尔积</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 选出左B=右B的元组，不等的不算，忽略掉</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 合并该元组，成为新元组 A B C D E ，成为新元组的只有两组</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">a</td>
+<td align="center">3</td>
+<td>1</td>
+<td align="center">3</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">c</td>
+<td align="center">7</td>
+<td>2</td>
+<td align="center">7</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">## SQL相关</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">自然连接 nature join 和join using(某个属性)</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">并运算：union 自动去重 union all 可以保留重复</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">交运算：intersect 自动去重 intersect all 可保留重复</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">差运算：except 自动去重 except all 可保留重复</td>
+<td align="center"></td>
+<td align="center"></td>
+<td></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>聚集函数：sum, min , max , count , avg<br>分组聚集： group by中没有出现的属性，只要是出现在select中，必须在聚集函数内部的形式出现,比如b,c没出现在group by 内部，用例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a,<span class="keyword">avg</span>(b),<span class="keyword">sum</span>(c) <span class="keyword">from</span> table1 <span class="keyword">group</span> <span class="keyword">by</span> a;</span><br></pre></td></tr></table></figure>
+
+<p>集合成员资格：in ,not in<br>集合比较：some运算,用例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">ID</span> <span class="keyword">from</span> instructor </span><br><span class="line"><span class="keyword">where</span> salary &gt;<span class="keyword">some</span> (<span class="keyword">select</span> salary <span class="keyword">from</span> instructor </span><br><span class="line">			    <span class="keyword">where</span> department = <span class="string">'bio'</span>);</span><br><span class="line">等价于</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> T.ID <span class="keyword">from</span> instructor <span class="keyword">as</span> T,instructor <span class="keyword">as</span> S </span><br><span class="line"><span class="keyword">where</span> S.department =<span class="string">'bio'</span> <span class="keyword">and</span> T.salary &gt;S.salary;</span><br></pre></td></tr></table></figure>
+
+<p>空关系测试：exists, not exists,测试子查询结果中是否存在元组，用例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DSC黑书第六版中的，“找出选修了bio系开设的所有课程的学生”（表在官网</span><br><span class="line"><span class="keyword">select</span> S.ID,S.name <span class="keyword">from</span> student <span class="keyword">as</span> S </span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>( (<span class="keyword">select</span> course_id <span class="keyword">from</span> course</span><br><span class="line">		   <span class="keyword">where</span> dep_name = <span class="string">'bio'</span>)//找出bio系开设的所有课程</span><br><span class="line">		   <span class="keyword">except</span></span><br><span class="line">     		  (<span class="keyword">select</span> T.course_id <span class="keyword">from</span> takes <span class="keyword">as</span> T</span><br><span class="line">		   <span class="keyword">where</span> S.ID = T.ID) );//找出S.ID选修的所有课程</span><br></pre></td></tr></table></figure>
+
+<p>重复元组存在性测试：unique，测试子查询返回集合是否有重复元组，无则返回true；not unique则相反</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DSC黑书第六版中的，“找出所有在2019年最多开设一次的课程”</span><br><span class="line"><span class="keyword">select</span> C.course_id <span class="keyword">from</span> course <span class="keyword">as</span> C</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">unique</span> (<span class="keyword">select</span> S.course_id <span class="keyword">from</span> <span class="keyword">section</span> <span class="keyword">as</span> S</span><br><span class="line">	      <span class="keyword">where</span> C.course_id =S.course_id  <span class="keyword">and</span> S.year =<span class="number">2019</span>);</span><br></pre></td></tr></table></figure>
+
+<p>标量子查询：子查询只返回包括【单个属性】的【单个元组】，只可以出现在select where having三种子句中</p>
+<h2 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2021-01-13T07:10:42.630Z" itemprop="dateUpdated">2021-01-13 15:10:42</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔试/">笔试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/&title=《数据库系统相关》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/&title=《数据库系统相关》 — waynamigo's blog&source=关于计算机研究生复试的数据库相关问题（笔试）" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库系统相关》 — waynamigo's blog&url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2021/01/01/2021-01-01-DP的几种问题part1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">动态规划的几种问题part1</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2021</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/&title=《数据库系统相关》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/&title=《数据库系统相关》 — waynamigo's blog&source=关于计算机研究生复试的数据库相关问题（笔试）" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库系统相关》 — waynamigo's blog&url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/01/11/2021-01-11-数据库/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3ay27DMAwEwPz/T6dAb0WQdJeyi1oenYK87PFhQYp6POL1/F7Jp6+vk/X6/ccZCwMD47KM9gKvl3n3zjveynXfUjEwMG7ASGI0uUCehJ95+b1hYGBgJBdLCrvkoWBgYGCczchv8V8HLgYGxj9m5AVcHo6zxvj0XhwDA+OCjHYw8JevT5xvYGBgXITxLFfSlCa/Wh95/vgfDAyMrRl5idY2vcd+Gm3qYWBgbMpIYnG9TV0J3Oh/MDAwtmbMjk0kB8XyuDxqkw4DA+MOjCRw8824dnjQHj7DwMC4JyPfXGt36Y8N7rffwcDA2JTRNpk5qT20MTv88aMXx8DA2JQxK/jaEUI+zpxhMDAw7sCYHbaYtbJtfB+wa4iBgbEdY6X4O6Cf/lg+FoGLgYGxEaMt79bDNC/1irISAwNja0Ze2K0fjGgLwfqwBQYGxqaMWfCtfL+N76j0xMDAuBkjOR4xG3bOZhRJxGNgYOzNqDffR+3uo1xtuGNgYOzNqDvd0RZ/EZplNGNgYNyNMdula0vJdmAZPTgMDIytGdFQcKGYm41I28NnGBgYezOe5ZpdZjZmOKw0xMDAuDijjdRZs3psgTh7uBgYGFdnrIfgyrbdStuMgYFxN8YsBI8dWC5FPwYGBkY8dGxjNI/Uz/+PgYGBkdzorKFto/aXJhYDA2NrRtvEzvbzVh7ZKdttGBgYF2HMWsf2nZbXBjoGBsamjC/t5BQZLgXMFQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wei zaima';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'moyu';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
