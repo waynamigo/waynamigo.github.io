@@ -309,9 +309,9 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/02/05/2019-02-05-Computer Communications_Incorporating energy and load balance into virtual翻译/" id="post-next" class="post-nav-link">
+      <a href="/2019/01/17/2019-01-17-网易云音乐修改deb依赖/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">《Computer Communications_Incorporating energy and load balance into virtual》翻译</h4>
+        <h4 class="title">解决软件源更新，旧版本软件应用无法使用的问题</h4>
       </a>
     </div>
   
@@ -501,6 +501,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
 
 
 
@@ -511,10 +532,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = 'wei zaima';
+            document.title = 'mole';
             clearTimeout(titleTime);
         } else {
-            document.title = 'moyu';
+            document.title = 'mole';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);

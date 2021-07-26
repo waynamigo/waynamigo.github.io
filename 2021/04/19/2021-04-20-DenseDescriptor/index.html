@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>DenseDescriptor for SfM Datasset Preparation | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="DeepLearning,3DPointclouod,DepthEstimation">
+    <meta name="description" content="一些单目三维重建的概念，及DepthEstimation代码的阅读">
+<meta name="keywords" content="DeepLearning,3DPointclouod,DepthEstimation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DenseDescriptor for SfM Datasset Preparation">
+<meta property="og:url" content="http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="一些单目三维重建的概念，及DepthEstimation代码的阅读">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-06-26T10:14:00.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DenseDescriptor for SfM Datasset Preparation">
+<meta name="twitter:description" content="一些单目三维重建的概念，及DepthEstimation代码的阅读">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">DenseDescriptor for SfM Datasset Preparation</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">DenseDescriptor for SfM Datasset Preparation</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-04-18T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-04-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/3DPointCloud/">3DPointCloud</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-19日-4月21日"><span class="post-toc-number">1.</span> <span class="post-toc-text">4-19日-4月21日</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SLAM和ColMap两个生成数据-输入到DenseDescriptor的兼容性"><span class="post-toc-number">2.</span> <span class="post-toc-text">SLAM和ColMap两个生成数据,输入到DenseDescriptor的兼容性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#num-iter-每个epoch的迭代次数，训练的时候在看"><span class="post-toc-number">3.</span> <span class="post-toc-text">num_iter              每个epoch的迭代次数，训练的时候在看</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用tensorrt生成engine进行推理"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">使用tensorrt生成engine进行推理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2021-04-20-DenseDescriptor"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">DenseDescriptor for SfM Datasset Preparation</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-04-19 00:00:00" datetime="2021-04-18T16:00:00.000Z"  itemprop="datePublished">2021-04-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/3DPointCloud/">3DPointCloud</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>一些单目三维重建的概念，及DepthEstimation代码的阅读</p>
+<a id="more"></a>
+<h2 id="4-19日-4月21日"><a href="#4-19日-4月21日" class="headerlink" title="4-19日-4月21日"></a>4-19日-4月21日</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Colmap提取的数据，SFMDataset用来初始化</span><br><span class="line"></span><br><span class="line">ColMap提取SFM数据，作为训练数据集，读取及处理方式</span><br></pre></td></tr></table></figure>
+
+<h2 id="SLAM和ColMap两个生成数据-输入到DenseDescriptor的兼容性"><a href="#SLAM和ColMap两个生成数据-输入到DenseDescriptor的兼容性" class="headerlink" title="SLAM和ColMap两个生成数据,输入到DenseDescriptor的兼容性"></a>SLAM和ColMap两个生成数据,输入到DenseDescriptor的兼容性</h2><p>class:<br>SFMDataset</p>
+<ul>
+<li>Format</li>
+</ul>
+<hr>
+<p>image_file_names        拆好的图像序列，有序<br>folder_list             data里面的文件夹train/data/1 train/data/2<br>adjandance_range        1 50 邻接范围,控制1-50的随机增量<br>image_downsampling      2.5 图像下采样倍数 resize到 原来的2.5x<br>network_downsampling    64 for downsample and crop mask的参数<br>inlier_percentage       0.99 阈值ground truth<br>load_intermediate_data  True/False 是否加载预计算数据，存在precompute的pickle文件里precompute.pkl<br>intermediate_data_root  precompute文件⬆️的path<br>sampling_size           10<br>heatmap_sigma        5.0 热图参数，用于generate_heatmap_from_locations,生成训练的sourcemap和targetmap<br>pre_workers             4<br>visible_interval         可视化间隔，，用在overlap点云的函数里，和读取colmapresult的函数一起预处理，避免点云密集，可以调整该参数控制稀疏程度。</p>
+<h2 id="num-iter-每个epoch的迭代次数，训练的时候在看"><a href="#num-iter-每个epoch的迭代次数，训练的时候在看" class="headerlink" title="num_iter              每个epoch的迭代次数，训练的时候在看"></a>num_iter              每个epoch的迭代次数，训练的时候在看</h2><ul>
+<li>precompute.pkl 按作者计算的程序来吧，反正按路径来就没问题</li>
+</ul>
+<hr>
+<pre><code>      crop_positions_per_seq
+    selected_indexed_per_seq
+visible_view_indexes_per_seq
+     point_cloud_per_seq
+    intrinsic_matrix_per_seq
+       mask_boundary_per_seq
+  view_indexes_per_point_per_seq
+      extrinsics_per_seq
+      projection_per_seq
+    clean_point_list_per_seq
+    image_downsampling   //这三个是
+    network_downsampling
+    inlier_percentage    // 符合ground trueth的阈值
+     estimated_scale_per_seq</code></pre><hr>
+<h3 id="使用tensorrt生成engine进行推理"><a href="#使用tensorrt生成engine进行推理" class="headerlink" title="使用tensorrt生成engine进行推理"></a>使用tensorrt生成engine进行推理</h3><p><a href="https://zhuanlan.zhihu.com/p/351426774" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/351426774</a><br>c++ 写法、思路如下</p>
+<ul>
+<li><p>先将pytorch的Network先转成onnx模型。<br>如果使用DataParallel进行多GPU训练的话，需要注意节点前面的Module.<br>注意版本，某些函数是onnx默认运算符集不支持的函数，比如forbenius norm，只能转成Aten运算符，Aten运算符竟然没找到很好的文档，为了避免风险升级pytorch到 1.6，将运算符集合版本导出为11，支持了现在的大多数函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code here</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导出onnx在netron看一下，没问题就可以开始用C++转Trt模型，主要包括加载、解析onnx，序列化两个操作进行</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> trtEngineName = <span class="string">"out.engine"</span>;</span><br><span class="line">sammple::Logger glogger; </span><br><span class="line">nvinfer1::IBuilder* builder = createInferBuilder(gLogger.getTRTLogger());<span class="comment">//createInferBuilder(ILogger&amp; logger);</span></span><br><span class="line">INetWorkDefinition* network = builder-&gt;createNetWorkV2(maxBatchSize);<span class="comment">//</span></span><br><span class="line">IBuilderConfig*     config  = builder-&gt;createBuilderConfig();</span><br><span class="line"><span class="keyword">auto</span> parser  =nvonnxparser::createParser(*network,gLogger.getTRTLogger());<span class="comment">// a parser for onnx</span></span><br><span class="line"></span><br><span class="line">builder-&gt;setMaxWorkspaceSize(<span class="number">1</span>_GiB);<span class="comment">//NVIDIA document claims "lets TensorRT pick any algorithm available."</span></span><br><span class="line">config-&gt;setMaxWorkspaceSize(<span class="number">1</span>_GiB);</span><br><span class="line"></span><br><span class="line">builder-&gt; setFp16Mode(gArgs.runInFp16);<span class="comment">//two inference mode, FP16 and Int8, Float16 is okay</span></span><br><span class="line"></span><br><span class="line">samplesCommon::enableDLA(builder, config, gArgs.useDLACore);<span class="comment">// DLA is to accelerate some layer // DALI to accelerate data reading</span></span><br><span class="line"></span><br><span class="line">ICudaEngine* engine = builder-&gt;buildCudaEngine(*network);<span class="comment">// build cudaengine of "NvInferRuntime.h"</span></span><br><span class="line"></span><br><span class="line">IHostMemory* trtModel = <span class="literal">nullptr</span>;<span class="comment">// init stream as null point</span></span><br><span class="line">trtModel = engine -&gt;serialize(); <span class="comment">// serialize the onnx model</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="function">ofstream <span class="title">ofs</span><span class="params">(trtEngineName.c_str(), <span class="built_in">std</span>::ios::out | <span class="built_in">std</span>::ios::binary)</span></span>;</span><br><span class="line">ofs.write((<span class="keyword">char</span>*)(trtModel-&gt;data()), trtModel-&gt;size());</span><br><span class="line">ofs.close();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上一步导出的模型为out.engine，下一步加载该TRT model（或CudaEngine）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TensorRT</span> &#123;</span></span><br><span class="line">	IExecutionContext* context;</span><br><span class="line">	ICudaEngine* engine;</span><br><span class="line">	IRuntime* runtime;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">TensorRT* <span class="title">LoadNet</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* trtFileName)</span></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="function">ifstream <span class="title">t</span><span class="params">(trtFileName, <span class="built_in">std</span>::ios::in | <span class="built_in">std</span>::ios::binary)</span></span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stringstream</span> tempStream;</span><br><span class="line">	tempStream &lt;&lt; t.rdbuf();</span><br><span class="line">	t.close();</span><br><span class="line">	DebugP(<span class="string">"TRT File Loaded"</span>);</span><br><span class="line"></span><br><span class="line">	tempStream.seekg(<span class="number">0</span>, <span class="built_in">std</span>::ios::end);</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> modelSize = tempStream.tellg();</span><br><span class="line">	tempStream.seekg(<span class="number">0</span>, <span class="built_in">std</span>::ios::beg);</span><br><span class="line">	<span class="keyword">void</span>* modelMem = <span class="built_in">malloc</span>(modelSize);</span><br><span class="line">	tempStream.read((<span class="keyword">char</span>*)modelMem, modelSize);</span><br><span class="line"></span><br><span class="line">	IRuntime* runtime = createInferRuntime(gLogger);</span><br><span class="line">	<span class="keyword">if</span> (runtime == <span class="literal">nullptr</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		DebugP(<span class="string">"Build Runtime Failure"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (gArgs.useDLACore &gt;= <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		runtime-&gt;setDLACore(gArgs.useDLACore);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ICudaEngine* engine = runtime-&gt;deserializeCudaEngine(modelMem, modelSize, <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (engine == <span class="literal">nullptr</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		DebugP(<span class="string">"Build Engine Failure"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	IExecutionContext* context = engine-&gt;createExecutionContext();</span><br><span class="line">	<span class="keyword">if</span> (context == <span class="literal">nullptr</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		DebugP(<span class="string">"Build Context Failure"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	TensorRT* trt = <span class="keyword">new</span> TensorRT();</span><br><span class="line">	trt-&gt;context = context;</span><br><span class="line">	trt-&gt;engine = engine;</span><br><span class="line">	trt-&gt;runtime = runtime;</span><br><span class="line">	DebugP(<span class="string">"Build trt Model Success!"</span>);</span><br><span class="line">	<span class="keyword">return</span> trt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2021-06-26T10:14:00.462Z" itemprop="dateUpdated">2021-06-26 18:14:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3DPointclouod/">3DPointclouod</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DepthEstimation/">DepthEstimation</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/&title=《DenseDescriptor for SfM Datasset Preparation》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/&title=《DenseDescriptor for SfM Datasset Preparation》 — waynamigo's blog&source=一些单目三维重建的概念，及DepthEstimation代码的阅读" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DenseDescriptor for SfM Datasset Preparation》 — waynamigo's blog&url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2021/05/11/2021-05-11-summary_neucon/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">NeuralRecon for 3D reconstruction in real-time</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2021/04/08/2021-04-08-图像视频信息提取与检索/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">跨媒体检索/多模态计算 方向动态</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2021</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/&title=《DenseDescriptor for SfM Datasset Preparation》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/&title=《DenseDescriptor for SfM Datasset Preparation》 — waynamigo's blog&source=一些单目三维重建的概念，及DepthEstimation代码的阅读" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DenseDescriptor for SfM Datasset Preparation》 — waynamigo's blog&url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/04/19/2021-04-20-DenseDescriptor/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3aQW4jMQwEwPz/07sv8LibEgc+1JwMJNaoFEBUmvr7i59/j8+n3599Tsa5/ODh4eEtTL3lfRr/06ST0YbzwcPDw1vjtZvy8xIk4+eF5HmBvrwLDw8P7wd4SQlJYMnyJaUFDw8P7/d5+aH5uVTkB/dZeIGHh4e3zcuHvgtICsNLWQseHh7ePHetw4L3P6/09/Dw8PCOu+rt0XbWPGuP1MVs8fDw8BZ4bYPqZKIntevkmgIeHh7eBm8WAcxaU7MFasNiPDw8vHd4SSybbMHtdGeBSB1V4OHh4b3Cez6etoHFyZj55YYvFQ8PDw/vEm/WfEoKw9F6xyXhcu8ODw8P7yD0zLfpBNleCEje9aUs4eHh4a3xkq02RyYH6+RbSWkpOnt4eHh4V3l5PJosQXtczg/Q7SUtPDw8vD1evvm+WTDyGX78A+Dh4eEt8FrASetrFhm3l8CGGTYeHh5ezMtf3zbPZiHvLBD5cmkADw8Pb4GXDze7iNBeETh/Fx4eHt4277k8JFt8e1qfsWskHh4e3gKvBeQXnpLAIml0nUcbeHh4eHu8WTSQL0G7WG3JKUoCHh4e3gGvfdlJuDB7ZpcJ8PDw8PZ4+T//+eWnvDDk4yeH74KKh4eHd4nXRgDFRjzqRs0O6NEtCTw8PLxjXhvOnsQKG++6cJcBDw8P75iXN/hPWmKz43sdRuDh4eG9yEte0B6426ZXm8oWWTUeHh7eiHfSjtprYiU/jUbAw8PDW+DNQti2JbYRPVy4QICHh4d3wEu29dlr8knMQo0ijMDDw8Nb4LUZRn54nS3c7PmSteDh4eH9AK89ducxcVsGvtwmw8PDw/sxXl4eZm2w9tCPh4eH9w4v+fKMcevaVhs04+Hh4e3x2n/yk4171lS7PGk8PDy8+7z/q2Vek2lFQfAAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

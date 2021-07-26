@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>3D重建及其深度学习方法的相关论文解析 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="3DPointCloud,DeepLearning,SLAM,3DVision">
+    <meta name="description" content="最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。">
+<meta name="keywords" content="3DPointCloud,DeepLearning,SLAM,3DVision">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3D重建及其深度学习方法的相关论文解析">
+<meta property="og:url" content="http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-07-17T04:55:34.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3D重建及其深度学习方法的相关论文解析">
+<meta name="twitter:description" content="最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">3D重建及其深度学习方法的相关论文解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">3D重建及其深度学习方法的相关论文解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-05-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-05-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/3DPointCloud/">3DPointCloud</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SLAM框架"><span class="post-toc-number">1.</span> <span class="post-toc-text">SLAM框架</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#视觉里程计（Visual-Odometry）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">视觉里程计（Visual Odometry）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#坐标变换-旋转矩阵"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">坐标变换 旋转矩阵</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#旋转向量"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">旋转向量</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#回环检测（Loop-Closure-Detection）"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">回环检测（Loop Closure Detection）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后端优化（非线性）"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">后端优化（非线性）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#建图"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">建图</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3D点云模型"><span class="post-toc-number">2.</span> <span class="post-toc-text">3D点云模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#相机模型"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">相机模型</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2021-05-13-3D视觉_三维重建"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">3D重建及其深度学习方法的相关论文解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-05-13 00:00:00" datetime="2021-05-12T16:00:00.000Z"  itemprop="datePublished">2021-05-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/3DPointCloud/">3DPointCloud</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。</p>
+<a id="more"></a>
+<h2 id="SLAM框架"><a href="#SLAM框架" class="headerlink" title="SLAM框架"></a>SLAM框架</h2><h3 id="视觉里程计（Visual-Odometry）"><a href="#视觉里程计（Visual-Odometry）" class="headerlink" title="视觉里程计（Visual Odometry）"></a>视觉里程计（Visual Odometry）</h3><p>目前项目的硬件设备由单目相机获取信息，进而进行姿态估计、深度估计等计算。<br>简单来说，VO是由相邻两张图片间像素的位置关系估计相机的位置，</p>
+<h4 id="坐标变换-旋转矩阵"><a href="#坐标变换-旋转矩阵" class="headerlink" title="坐标变换 旋转矩阵"></a>坐标变换 旋转矩阵</h4><p>求相机坐标系（o）到世界坐标系（w）下的旋转矩阵$R^o_w$，进行欧式变换可以将o下的向量$p_o$ 转换到w下向量$p_w$<br>求出刚体旋转矩阵$R^o_w$，那么w下向量$p_w$左乘R就可以转化到$p_o$:<br>$p_o = R^o_w  \cdot\ p_w$<br>同理如果两个坐标系下的旋转矩阵可以得到<br>$m = $<br><strong>eg.</strong> 下面是由w到o1 和o2两个旋转矩阵传递得到的o1 -&gt; o2的旋转矩阵<br>设两个相机坐标系下o1,o2对应的三个点a b c，d e f，各获得两个向量 $m1,n1$,$m2,n2$<br>分别构建出该点集合所在的坐标系方程，求解得到世界坐标到o1 , o2的旋转坐标$R_1,R_2$， 则有：世界坐标系向量$m2 = R_1^T \cdot R_2 \cdot m1$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">def RigidBody_Transform(p=np.zeros((3,3),dtype=float), q=np.zeros((3,3),dtype=float)):</span><br><span class="line">    # 世界坐标到 O1的旋转矩阵 ，x = x / ||x|| 单位化</span><br><span class="line">    x = (p[1,:] - p[0,:]) / np.linalg.norm(p[1,:] - p[0,:]) </span><br><span class="line">    y = (p[2,:] - p[1,:]) - np.inner(np.inner((p[2,:] - p[1,:]),x), x)</span><br><span class="line">    y = y / np.linalg.norm(y) # y_bar = y / ||y|| # 单位化第二行</span><br><span class="line">    print(&quot;x&quot;,x)</span><br><span class="line">    print(&quot;y&quot;,y)</span><br><span class="line">    z = np.cross(x, y) #叉乘</span><br><span class="line">    print(&quot;z&quot;,z)</span><br><span class="line">    rotate_matrix_w2o1 = np.array([x, y, z])</span><br><span class="line">    # 世界坐标到  O2的转转矩阵</span><br><span class="line">    x_new = (q[1,:] - q[0,:]) / np.linalg.norm(q[1,:] - q[0,:]) </span><br><span class="line">    y_new = (q[2,:] - q[1,:]) - np.inner(np.inner((q[2,:] - q[1,:]),x_new), x_new)</span><br><span class="line">    y_new = y_new / np.linalg.norm(y_new)</span><br><span class="line">    # 这里要注意，叉积（cross product）和 外积（outer product）不一样</span><br><span class="line">    # ps:国内教材讲的是叉积和外积一样</span><br><span class="line">    # np.cross算叉积 ，np.outer算外积</span><br><span class="line">    z_new = np.cross(x_new, y_new) #这要计算的是叉积（只有三维空间有意义，就是右手系的那个）</span><br><span class="line">    rotate_matrix_w2o2 = np.array([x_new, y_new, z_new])</span><br><span class="line">    return rotate_matrix_w2o1,rotate_matrix_w2o2, (rotate_matrix_w2o1.T * rotate_matrix_w2o2)</span><br><span class="line"></span><br><span class="line">#p = np.array([(-47.34,-18.71,-155.02), (-73.64,-29.82,-210.88), (-64.88,-36.77,-216.15)])</span><br><span class="line">#p = np.array([(-4.34,-36.71,51), (-30,25.5,-4), (-21,18,-10.15)])</span><br><span class="line">#q = np.array([(-40,25.5,6), (-30,25.5,-4), (15.01,55.19,22.818)])</span><br><span class="line">p = np.array([(0,1,0), (0,0,0), (0,0,1)])</span><br><span class="line">q = np.array([(0,-1,0), (0,0,0), (0,0,-1)])</span><br><span class="line">m1,m2,rotate_matrix = RigidBody_Transform(p, q)</span><br><span class="line">print(&quot;rotate_matrix is:\n&quot;)</span><br><span class="line">print(rotate_matrix)</span><br></pre></td></tr></table></figure>
+
+<h4 id="旋转向量"><a href="#旋转向量" class="headerlink" title="旋转向量"></a>旋转向量</h4><p>上面的旋转矩阵表示具有局限性，原因是求出的矩阵必须是正交阵，优化时比较困难，并且计算量比较大，需要进行矩阵运算，一次运算需要9次浮点乘法，所以又提出一个用<strong>旋转角和旋转轴</strong>表示一个<strong>旋转向量</strong>的描述旋转的方法。同时，旋转向量也可以转换成旋转矩阵:<br>由<strong>罗德里格斯公式(Rodrigus’ Formula)</strong>，n_r 即n^，表示向量n到n对应的反对称矩阵的转换符，计算如下：<br>$a \times b=\begin{Vmatrix} e_1&amp;e_2&amp;e_3\\a_1&amp;a_2&amp;a_3\\b_1&amp;b_2&amp;b_3 \end{Vmatrix}=\begin{bmatrix} a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1 \end{bmatrix}=\begin{bmatrix}0&amp;-a_3&amp;a_2\\a_3&amp;0&amp;-a_1\\ -a_2&amp;a_1&amp;0\end{bmatrix} \cdot b = a$^$b$<br>上面的$a$^ 表示其对应的反对称矩阵<br>$R = cos \theta I  + (1-cos\theta) n \cdot n^T + sin\theta n$^<br>求转角$\theta$，可以：<br>$tr(R)= \cos\theta tr(I) +(1-\cos\theta)tr(n \cdot n^T) +\sin\theta tr(n$^$)$<br>$\quad\quad =3\cos\theta +(1-\cos\theta) = 1+2\cos\theta$<br>求出$\theta = \arccos \frac{tr(R)-1}{2}$</p>
+<h3 id="回环检测（Loop-Closure-Detection）"><a href="#回环检测（Loop-Closure-Detection）" class="headerlink" title="回环检测（Loop Closure Detection）"></a>回环检测（Loop Closure Detection）</h3><p>判断镜头是否到达过先前位置，和后端（优化）解决因里程计每次计算相邻两张图片的位置关系，每次前后误差叠加出现的<strong>漂移</strong>问题，简而言之就是校正。</p>
+<h3 id="后端优化（非线性）"><a href="#后端优化（非线性）" class="headerlink" title="后端优化（非线性）"></a>后端优化（非线性）</h3><p>接受VO获得的相机位姿、回环检测</p>
+<h3 id="建图"><a href="#建图" class="headerlink" title="建图"></a>建图</h3><p>还没整理好</p>
+<h2 id="3D点云模型"><a href="#3D点云模型" class="headerlink" title="3D点云模型"></a>3D点云模型</h2><h3 id="相机模型"><a href="#相机模型" class="headerlink" title="相机模型"></a>相机模型</h3><p>相机模型得到的相机内参(camera_intrinsic_perview)一般为一张图得到一个<br>通过两种模型<strong>针孔模型（PINHOLE，还有放射模型RADIAL）</strong>，<strong>畸变模型</strong>两种实现内参计算</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2021-07-17T04:55:34.309Z" itemprop="dateUpdated">2021-07-17 12:55:34</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3DPointCloud/">3DPointCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3DVision/">3DVision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SLAM/">SLAM</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/&title=《3D重建及其深度学习方法的相关论文解析》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/&title=《3D重建及其深度学习方法的相关论文解析》 — waynamigo's blog&source=最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《3D重建及其深度学习方法的相关论文解析》 — waynamigo's blog&url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2021/07/01/2021-07-01-statics_note/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">统计学习笔记(后篇)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2021/05/11/2021-05-11-summary_neucon/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">NeuralRecon for 3D reconstruction in real-time</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2021</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/&title=《3D重建及其深度学习方法的相关论文解析》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/&title=《3D重建及其深度学习方法的相关论文解析》 — waynamigo's blog&source=最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《3D重建及其深度学习方法的相关论文解析》 — waynamigo's blog&url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3aQU7EMAwF0Ln/pUFiBRq1/baTdpBeV2hgmrwuGvPt1yu+vn6u909+X8m33r97frdklQUXHh4eXmvrR9c5L9lEsvX8Pvme8fDw8Hbzzl/ryWJr8cmjiY4iPDw8vEd5yQLV3+aFMh4eHt5/5B1RJ8FBXsrj4eHhfRovWaaKrGLycnxL1oKHh4cX8ybl7FM/b+zv4eHh4Q266tViNx8USPYz3y0eHh7eDl51+V4YsWokqxco4+Hh4a3l5a/gZEQg2WIeXvRGwf58joeHh/cQb+1/+tWYOA9HDotpPDw8vG285JVdbTXlLaveMXCxEzw8PLzNvN6RUC2Ce3FtUtBH5x4eHh7eBl51aGC0fDHgyO9zEUbg4eHhDXi9tlMvwqhuKCnH854XHh4e3lpeTuotWQ1Ben+Jh4eHdw+vWubmQcMkU00K98LQFR4eHt4tvDxUzYer8ughf3wX+8HDw8PbwJtHrpOIdj6eVT4k8PDw8Lbx5q/+VQNVebQxGsDCw8PDi3m9kDRnV8vlXlx7uCs8PDy8DbxeAyx/3VfjifywKQQceHh4eBt4vVGAfFuTo2UytoWHh4e3j5eHAtWGWfXxzb8Vtb7w8PDwBrzJYjm4Og2VF+gXZT0eHh7eBl6vVK0W03lIMYkz8PDw8O7kJVlFdeyp2sRaW5o3F8PDw8OLedWytRqtJoNW+WBWfpDg4eHh3cmbFNY9Ri8yLqfUeHh4eGNeb5SqGhnsOzwuHigeHh7eBl61ZTUZjep9fk7Now08PDy8tbz8MFhF7d2zGRzj4eHhbePl/+TnpORh5eNWzUEuPDw8vA/g9QKIHJDwCg8ODw8P71Feb54rx/QaY3h4eHhP8fKmV3nsaTB8kB8kr/wMwcPDwxvzeg2wXourNyIwedB4eHh4S3nfI02SlyEhelYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

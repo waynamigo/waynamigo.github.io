@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>统计学习笔记 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ML,数学">
+    <meta name="description" content="该笔记是对李航统计学习方法和All of Statics做的学习笔记，简单进行相关算法实验，加强理解，查缺补漏等，内容尽量精炼">
+<meta name="keywords" content="ML,数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学习笔记">
+<meta property="og:url" content="http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="该笔记是对李航统计学习方法和All of Statics做的学习笔记，简单进行相关算法实验，加强理解，查缺补漏等，内容尽量精炼">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://waynamigo.github.io/img/MLP.gif">
+<meta property="og:updated_time" content="2021-07-16T13:40:15.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="统计学习笔记">
+<meta name="twitter:description" content="该笔记是对李航统计学习方法和All of Statics做的学习笔记，简单进行相关算法实验，加强理解，查缺补漏等，内容尽量精炼">
+<meta name="twitter:image" content="http://waynamigo.github.io/img/MLP.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">统计学习笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">统计学习笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-09-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-09-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数学/">数学</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#生成模型与判别模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">生成模型与判别模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分类问题和回归问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">分类问题和回归问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#范数-norm"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">范数 norm</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最小二乘"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">最小二乘</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#感知机-perceptron"><span class="post-toc-number">2.</span> <span class="post-toc-text">感知机 perceptron</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#k-近邻-k-nearest-neighbor"><span class="post-toc-number">3.</span> <span class="post-toc-text">k-近邻 k nearest neighbor</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#kd-tree"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">kd tree</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#朴素贝叶斯-Naive-Bayes"><span class="post-toc-number">4.</span> <span class="post-toc-text">朴素贝叶斯 Naive Bayes</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#决策树-Decision-Tree-及剪枝"><span class="post-toc-number">5.</span> <span class="post-toc-text">决策树 Decision Tree 及剪枝</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特征选择：特征选择的准则是信息增益（information-gain）或信息增益比。"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">特征选择：特征选择的准则是信息增益（information gain）或信息增益比。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#决策树构造"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">决策树构造</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ID3"><span class="post-toc-number">5.2.1.</span> <span class="post-toc-text">ID3</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#C4-5"><span class="post-toc-number">5.2.2.</span> <span class="post-toc-text">C4.5</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#CART"><span class="post-toc-number">5.2.3.</span> <span class="post-toc-text">CART</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#剪枝"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">剪枝</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Logistic-Regression"><span class="post-toc-number">6.</span> <span class="post-toc-text">Logistic Regression</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最大熵模型-Max-Entropy-Model"><span class="post-toc-number">7.</span> <span class="post-toc-text">最大熵模型 Max Entropy Model</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#支持向量机-Support-Vector-Machines"><span class="post-toc-number">8.</span> <span class="post-toc-text">支持向量机 Support Vector Machines</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线性SVM"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">线性SVM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#非线性SVM"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">非线性SVM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#序列最小最优化算法，sequential-minimal-optimization-SMO-alg"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">序列最小最优化算法，sequential minimal optimization,SMO alg.</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概念补充"><span class="post-toc-number">8.4.</span> <span class="post-toc-text">概念补充</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2020-09-12-statics_note"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">统计学习笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-09-11 00:00:00" datetime="2020-09-10T16:00:00.000Z"  itemprop="datePublished">2020-09-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数学/">数学</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>该笔记是对李航统计学习方法和All of Statics做的学习笔记，简单进行相关算法实验，加强理解，查缺补漏等，内容尽量精炼</p>
+<a id="more"></a>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="生成模型与判别模型"><a href="#生成模型与判别模型" class="headerlink" title="生成模型与判别模型"></a>生成模型与判别模型</h3><p>generative model和discriminative model$（以下分别表示为G和D）$<br>$G\ $常见的有朴素贝叶斯，隐马尔科夫模型，高斯混合、 LDA、 Restricted Boltzmann Machine等<br>$D\ $有Kmeans，感知机，决策树，最大熵模型，Logistic回归、SVM、 boosting、条件随机场、神经网络等<br>两者的本质区别及特点：<br>$G\ $的流程是<strong>学习X和Y的联合概率分布$P(x,y)$得出$P(y|x)$最直接的例子就是Naive Bayes</strong>，由于生成的结果是联合分布$P(x,y)$，可以计算边缘分布$P(x)$进行异常值检测，若$P(x)$太小，就判定可能不适合这一类样本所代表的数据。<br>$D\ $的流程是<strong>直接由给定的X，Y学习决策函数或$P(y|x)$，是一种黑盒操作，准确率高，可以将允许对问题进行抽象处理，最熟悉的例子就是Neural Network</strong></p>
+<h3 id="分类问题和回归问题"><a href="#分类问题和回归问题" class="headerlink" title="分类问题和回归问题"></a>分类问题和回归问题</h3><p>分类用CrossEntropy，回归用Mean Square Error等等</p>
+<h3 id="范数-norm"><a href="#范数-norm" class="headerlink" title="范数 norm"></a>范数 norm</h3><p>$L1范数 \sum{|x_i|}$<br>$L2范数 \sqrt{x_{1}^{2} + x_{2}^{2} + … + x_{n}^{2}}$<br>$L_\infty无穷范数MAX{|x_i|}$<br>范数理论推论$L1\geq{L2\geq{L_\infty}}$<br>对于numpy的线性代数库，有几种求范数的方法，主要就是求这三种</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.linalg.norm(x, ord=<span class="literal">None</span>, axis=<span class="literal">None</span>, keepdims=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>axis=0表示对矩阵x的每一列求范数，axis=1表示对矩阵的每一行求范数， keeptdims=True表示结果保留维度，keepdims=False表示结果不保留维度</p>
+<h3 id="最小二乘"><a href="#最小二乘" class="headerlink" title="最小二乘"></a>最小二乘</h3><p>是解决曲线拟合问题、最小化cost的优化方法，使求得的数据与实际数据之间的误差平方和最小，应用范围非常广泛。<br>$设(x,y)为一组观测量，x=[x_0,x_1,…,x_n]^T,寻找一个函数y=f(x,w)$ ，使$尽可能逼近曲线(x,y),其中w=[w_0,w_1,…,w_n]^T$，为待估计参数，求解<br>使残差函数$$L(y,f(x,w))=\sum{[y_i-f(x_i,w_i)]^2}$$得到<strong>全局</strong>最小值的$w$,直观上就是每个点与拟合曲线的欧氏距离的平方和。</p>
+<p><em>与梯度下降的区别：</em><br>最小二乘法是指对$\Delta$求导找出函数全局最小的w，梯度下降是先给定一个w（初始化），经过N次梯度下降后找到的使函数局部最小的w。相对的，梯度下降适用于大规模数据，最小二乘适用于较小样本，不过梯度下降的缺点是到最小点的时候收敛速度变、对初始点的选择极为敏感两个方面。</p>
+<h2 id="感知机-perceptron"><a href="#感知机-perceptron" class="headerlink" title="感知机 perceptron"></a>感知机 perceptron</h2><p>属于$Discriminative \ Model$的线性分类模型，输入是表示一个Instance的特征向量，求出分离特征的超平面，公式表示为：<br>$f(x) = sign(w*x+b)$<br>$\begin{eqnarray}<br>sign(x)=  \begin{cases}<br>1,&amp;x\geq{0}  \cr<br>-1 ,&amp;x&lt;0<br>\end{cases}<br>\end{eqnarray}$<br>这种perceptron叠起来就相当于是全连接的MLP(Multi-Layer Perceptron)</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/MLP.gif" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>n多个线性函数叠加，对应矩阵运算$W\cdot x + B$，$W是w权重矩阵，B是bias的列向量，激活函数对应单个感知机的sign函数$</p>
+<h2 id="k-近邻-k-nearest-neighbor"><a href="#k-近邻-k-nearest-neighbor" class="headerlink" title="k-近邻 k nearest neighbor"></a>k-近邻 k nearest neighbor</h2><p>还是属于$Discriminative \ Model$的模型，复杂度为$O(n^2)$，由三个基本要素组成：<strong>距离度量、k值、分类规则</strong><br>距离度量，设有向量x1和x2，则：<br>欧氏距离<code>np.sqrt(np.sum(np.square(x1 - x2)))</code><br>或直接<code>np.linalg.norm(x1-x2)</code>（用numpy的线性代数库求L2范数，但后者较慢）<br>曼哈顿距离<code>np.sum(x1 - x2)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">input:px,k</span><br><span class="line"><span class="keyword">return</span>:bestx</span><br><span class="line"><span class="comment"># get N(x):涵盖最近的k个点的邻域，即KList</span></span><br><span class="line">distList = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> X:</span><br><span class="line">	distList.append(np.sqrt(np.sum(np.square(px - x))))</span><br><span class="line">KList = np.argsort(np.array(distList))[:k]</span><br><span class="line"><span class="comment"># 决策规则I:由KList得出bestx，以类别分类问题为例，选N(x)最多类别为结果</span></span><br><span class="line">X(np.argmax(np.bincount(X(i))))</span><br></pre></td></tr></table></figure>
+
+<p>如果要求多个最大值索引<br><code>np.where(a == np.amax(a))[0]</code>，或者<code>np.argwhere(a == np.amax(a))</code></p>
+<h3 id="kd-tree"><a href="#kd-tree" class="headerlink" title="kd tree"></a>kd tree</h3><p>存储k维空间数据的树结构，实现如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">伪码写好了（？），但是按手里的数据感觉不太好写，回头看看别人有没有demo，先摸了</span><br></pre></td></tr></table></figure>
+
+<h2 id="朴素贝叶斯-Naive-Bayes"><a href="#朴素贝叶斯-Naive-Bayes" class="headerlink" title="朴素贝叶斯 Naive Bayes"></a>朴素贝叶斯 Naive Bayes</h2><p>属于$Generative \ Model$一类，给的是联合分布$P(x,y)$，学过概率论的应该都会，普通的算法实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">input:</span><br><span class="line">先验概率分布P__y : P(Y=c)，条件概率分布P_x_y : P(X=x|Y=c)，dim_f:特征维度</span><br><span class="line">c_num：分类数目，data:数据list，label:标签list，以[<span class="number">0</span>,<span class="number">1</span>,...,<span class="number">9</span>]为例</span><br><span class="line"><span class="keyword">return</span>:max P</span><br><span class="line"></span><br><span class="line"><span class="comment">#求出先验分布，并对数化，经常使用的对乘法处理的方式</span></span><br><span class="line">P__y = [[(np.sum(label == np.asarray(i)))/(len(label))] \</span><br><span class="line">				<span class="keyword">for</span> i <span class="keyword">in</span> range(c_num)]</span><br><span class="line">P__y = np.log(P__y)</span><br><span class="line"><span class="comment">#求出条件分布</span></span><br><span class="line">P_x_y = np.zeros((c_num, dim_f, <span class="number">2</span>))  </span><br><span class="line"><span class="comment">#对标记集进行遍历  </span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(label)):  </span><br><span class="line">    <span class="comment">#获取当前循环所使用的标记  </span></span><br><span class="line">	c = label[i]  </span><br><span class="line">    <span class="comment">#获取当前要处理的样本</span></span><br><span class="line">	x = data[i]  </span><br><span class="line">    <span class="comment">#对该样本的每一维feature进行遍历</span></span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(dim_f):  </span><br><span class="line">        <span class="comment">#先在矩阵中对应位置加1</span></span><br><span class="line">		P_x_y[c][j][x[j]] += <span class="number">1</span>  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> c <span class="keyword">in</span> range(c_num):</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> range(dim_f):  </span><br><span class="line">			P_x_y0 = P_x_y[c][j][<span class="number">0</span>]  </span><br><span class="line">			P_x_y1 = P_x_y[c][j][<span class="number">1</span>]  </span><br><span class="line">			P_x_y[c][j][<span class="number">0</span>] = np.log((P_x_y0 + <span class="number">1</span>) / (P_x_y0 + P_x_y1 + <span class="number">2</span>))</span><br><span class="line">			P_x_y[c][j][<span class="number">1</span>] = np.log((P_x_y1 + <span class="number">1</span>) / (P_x_y0 + P_x_y1 + <span class="number">2</span>))</span><br><span class="line"><span class="comment"># pick up最大Probability</span></span><br><span class="line">P = [<span class="number">0</span>] * c_num</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(c_num):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> range(dim_f):</span><br><span class="line">		sum += P_x_y[i][j][x[j]]  </span><br><span class="line">	P[i] = sum + P__y[i] </span><br><span class="line">res = P.index(np.amax(P))</span><br></pre></td></tr></table></figure>
+
+<h2 id="决策树-Decision-Tree-及剪枝"><a href="#决策树-Decision-Tree-及剪枝" class="headerlink" title="决策树 Decision Tree 及剪枝"></a>决策树 Decision Tree 及剪枝</h2><p>决策树是经常在kaggle以及实际应用中很广泛且有效的算法，决策树通常包括3个步骤:<strong>特征选择、构造、剪枝</strong>，<del>无内鬼，直接进行一个sklearn.tree的import</del>，sklearn的tree里封装了BaseDecisionTree，在此基础上进一步封装了DecisionTreeClassifier和DecisionTreeRegressor：分类器和回归器，做kaggle是确实好用。</p>
+<h3 id="特征选择：特征选择的准则是信息增益（information-gain）或信息增益比。"><a href="#特征选择：特征选择的准则是信息增益（information-gain）或信息增益比。" class="headerlink" title="特征选择：特征选择的准则是信息增益（information gain）或信息增益比。"></a>特征选择：特征选择的准则是信息增益（information gain）或信息增益比。</h3><p>$设离散型X的概率分布P(X =x_i)=p_i$<br>$Entropy的定义为H(X)=\sum{p_i\log{p_i}}$</p>
+<h3 id="决策树构造"><a href="#决策树构造" class="headerlink" title="决策树构造"></a>决策树构造</h3><h4 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h4><p>各个节点用信息增益H(D)准则选择特征，递归构建决策树。<br>ID3算法的核心是在决策树各个结点上应用信息增益准则选择特征，递归地构建决策<br>树。具体方法是：从根结点（root node）开始，对结点计算所有可能的特征的信息增益， 选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归调用该方法，直到所有feature被用完或剩余feature的信息增益很小或少于自己设置的阈值，决策树建立完成，缺点是只生成了树，没有【】容易过拟合。</p>
+<h4 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h4><p>各个节点用信息增益比选择特征，递归构建决策树，递归函数流程和ID3一样，只是评估标准换成了H(D|A)</p>
+<h4 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h4><p>对回归树用<strong>平方最小误差</strong>原则，对分类树用<strong>基尼指数最小化</strong>原则进行特征选择。</p>
+<h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>去掉过于细分的叶结点，使其回退到父结点，甚至更高的结点，然后将父结点或更高的结点改为新的叶结点。</p>
+<p>但是自己还是得从0实现一个决策树，以后用的时候心里有点B数。<br>数据用colab的sampledata里california_housing那个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><p>熟悉的Logistic回归，以二分类任务为例，就是用sigmoid函数把结果映射到(-1,1)；多分类任务下，将该二分类任务的sigmoid推广到了softmax函数    ，就是我们熟悉的softmax激活函数。<br>$$Sigmoid(z) = \frac{1}{1+exp(-z)},z=w^T\cdot x,(alias\ Sigmoid(z)=h_w(x))$$<br>$$gradient\ descent:<br>\Delta = x_i \cdot y_i - \frac{np.exp(w\cdot x_i) * x_i)}{ ( 1 + np.exp(w\cdot x_i))}then, \ w=w+lr\cdot\Delta$$<br>或者<br>$$LikelihoodFunc:J(w) =-\frac{1}{m}\sum\limits_{i=1}^{m}{[y_ilog(h_w(x_i))+(1-y_i)log(1-h_w(x_i))]}$$</p>
+<p>$$partial:\frac{\partial J\left(w \right)}{\partial {w}}=\frac{1}{m}\sum\limits_{i=1}^{m}{(h_w(x_i)-{y_i})x_i}$$<br>代码例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#gradient descent</span></span><br><span class="line">x = data <span class="comment"># feature array,default(n,m), gradient dimension is m</span></span><br><span class="line">y = label <span class="comment"># result/ ground truth</span></span><br><span class="line">w = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">iter_num = <span class="number">1000</span></span><br><span class="line">lr = <span class="number">1e-4</span></span><br><span class="line"><span class="keyword">for</span> one_iter <span class="keyword">in</span> range(iter_num):</span><br><span class="line">	<span class="keyword">for</span> index <span class="keyword">in</span> len(data):</span><br><span class="line">		<span class="comment"># 下面xiyi赋值是看着方便，实际上用的时候直接用index取list元素</span></span><br><span class="line">		x_i = data[index]</span><br><span class="line">		y_i = label[index]</span><br><span class="line">		<span class="comment"># 用上面的公式，求partial</span></span><br><span class="line">		gradient = x_i*(<span class="number">1</span>/(<span class="number">1</span>+np.exp(np.dot(w,x_i)))-y_i)</span><br><span class="line">		w+=gradient*lr</span><br><span class="line">print(<span class="string">"final w:"</span>,w)</span><br></pre></td></tr></table></figure>
+
+<h2 id="最大熵模型-Max-Entropy-Model"><a href="#最大熵模型-Max-Entropy-Model" class="headerlink" title="最大熵模型 Max Entropy Model"></a>最大熵模型 Max Entropy Model</h2><p><del>复杂度超高，做分类慢的一批</del>，一般用来衡量预测效果的好坏，<del>其实一般也不用</del>。主要是记录一下最大熵模型的思想：将分类等问题作为约束最优化问题，下面的SVM和Adaboost等算法都是采用的约束最优化思想完成的。</p>
+<h2 id="支持向量机-Support-Vector-Machines"><a href="#支持向量机-Support-Vector-Machines" class="headerlink" title="支持向量机 Support Vector Machines"></a>支持向量机 Support Vector Machines</h2><p>间隔最大化的学习策略，可形式化为求解<strong>凸二次规划</strong>问题/正则化的合页损失函数的最小化问题<br>训练数据线性可分，通过硬间隔最大化（hard margin maximization）学习<em>线性可分SVM/硬间隔SVM</em><br>数据近似线性可分，通过软间隔最大化（soft margin maximization）学习<em>线性SVM/软间隔SVM</em><br>数据线性不可分时，通过核函数+软间隔最大化，学习<em>非线性SVM</em>：核函数表示将输入从输入空间映射到特征空间得到的特征向量的内积(点乘)，可以抽象成在高维空间里学习一个线性SVM</p>
+<h3 id="线性SVM"><a href="#线性SVM" class="headerlink" title="线性SVM"></a>线性SVM</h3><p>函数间隔、约束最优化问题</p>
+<ul>
+<li>函数间隔：对于给定数据和超平面wx+b：<br>关于样本点(x,y)的函数间隔为$\gamma_f=y(wx+b)$<br>关于数据集的函数间隔为，所有样本点的最小值，$\gamma_{min}=min(\gamma_f)$</li>
+<li>几何间隔：归一化函数间隔，在法向量正向的几何间隔为$\gamma_g=y(\frac{w}{||w||}\cdot{x}+\frac{b}{||w||}),其中||w||是法向量w的L_2范数$<br>两者关系是$\gamma_f=\gamma_g*||w||$</li>
+<li>间隔最大化，我们为使SVM分类样本点的置信度更大，需要将超平面关于数据集的几何间隔最大化，即求<em>最大几何间隔的超平面</em>，数学描述为：<br>$$max\ \frac{\gamma_f}{||w||}\\ s.t.\ y(wx+b)\geq \gamma_{min}$$<br>由于等式两边在尺度上是一致的，用一下无敌的“不妨设”$\gamma_f = 1$，那么优化目标为w的L2范数的最小值，即<br>$$max\ \frac{\gamma_f}{||w||}等价于求\min{\frac{||w||^2}{2}}\\ s.t.\ y(wx+b)\geq{1}$$<br>那么这个转化为二次规划的非线性规划如何求解呢？<br>使用<strong>拉格朗日对偶性</strong>求解对偶问题得到以上问题的解，以这个线性可分问题为例，引入N个拉格朗日乘子，$\alpha$，对应N维特征和N维法向量w：<br>$$构建拉格朗日函数L(w,b,\alpha)=\frac{||w||^2}{2}-\sum\limits_{i=1}^N{\alpha_iy_i(wx_i+b)}+\sum\limits_{i=1}^N{\alpha_i}$$<br>原始问题的对偶问题转化为$\max\limits_{\alpha}\min\limits_{w,b}L,下面推导一下$<br>Derivatives:<br>$$\frac{\partial{L(w,b,\alpha)}}{\partial{w}}=w-\sum\limits_{i=1}^N{\alpha_ix_iy_i}=0\\ \frac{\partial{L(w,b,\alpha)}}{\partial{b}}=\sum\limits_{i=1}^N{\alpha_iy_i}=0$$<br>Then we turn to:<br>$$max:L(w,b,\alpha)=\sum\limits_{i=1}^N{\alpha_i}-\frac{1}{2}\sum\limits_{i,j=1}^N{y_iy_j\alpha_i\alpha_jx_i^Tx_j}\\ s.t\ \sum\limits_{i=1}^N{\alpha_iy_i}=0$$</li>
+</ul>
+<p>这化简为只有拉格朗日乘子alpha的L极大值问题了，到这一步，我们可以直接进行SMO求解（从这里可以直接跳到下一节）<br>于是我们可以引入软间隔的线性SVM，对每个样本点引进一个松弛变量$\xi\geq0$，再引进一个惩罚参数C，那么我们的问题由$求min\frac{||w||^2}{2}转化为min(\frac{||w||^2}{2}+C\sum\limits_{i=1}^N{\xi_i})$<br>$$L(w,b,\xi,\alpha,\mu)=\frac{||w||^2}{2}+C\sum\limits_{i=1}^N{\xi_i}-\sum\limits_{i=1}^N{\alpha_iy_i(wx_i+b)}+\sum\limits_{i=1}^N{\alpha_i(1-\xi_i)}-\sum\limits_{i=1}^N{\mu_i\xi_i},\\<br>s.t.\ y(wx+b)\geq1-\xi,\xi\geq0$$<br>Derivatives:<br>$$\frac{\partial{L}}{\partial{w}}=w-\sum\limits_{i=1}^N{\alpha_ix_iy_i}=0\\<br>\frac{\partial{L}}{\partial{b}}=-\sum\limits_{i=1}^N{\alpha_iy_i}=0\\<br>\frac{\partial{L}}{\partial{\xi_i}}=C-\alpha_i-\mu_i=0$$<br>以上求出关于$w,b,\xi$的极小后<br>turn to :<br>$$max:L(w,b,\xi,\alpha,\mu)=\sum\limits_{i=1}^N{\alpha_i}-\frac{1}{2}\sum\limits_{i,j=1}^N{y_iy_j\alpha_i\alpha_jx_i^Tx_j}\\<br>s.t.\ \sum\limits_{i=1}^N{\alpha_iy_i}=0,\\<br>C-\alpha_i-\mu_i=0$$<br>由以上结果可以看出，如果将目标函数的max转化为求min(改正负号)，均得到对应的对偶问题，其满足KKT条件，经过求解对偶问题，得出alpha，带入解得w和b，$$w=\sum\limits_{i=1}^N{\alpha_ix_iy_i}\\<br>b=y_j-\sum\limits_{i=1}^N{}y_i\alpha_i(x_ix_j)$$即得到超平面，<strong>wx+b=0</strong><br>以上两种线性的SVM可以直接由上面的推导将一个求最大间隔的原始问题转化为求一个超平面的对偶问题，进而求得</p>
+<h3 id="非线性SVM"><a href="#非线性SVM" class="headerlink" title="非线性SVM"></a>非线性SVM</h3><p>核函数用来将两个样本点实例$x,z$通过映射函数$\Phi(x),\Phi(z)$从输入空间映射到特征空间内，核函数表示为K，即$K(x,z)=\Phi(x)^T\Phi(z)$，一般不写出映射函数$\Phi$，而是在Kernel函数中隐式给出：<br>在这记录一下高斯核Gaussian kernel(radial basis function,RBF kernel):<br>$$K(x,z)=exp(-\frac{||x-z||^2}{2\sigma^2})$$和sigmoid核：<br>$$K(x,z)=tanh(ax^Tz+c)\\ tanh(b)=\frac{1-e^{-2b}}{1+e^{-2b}}$$<br>“SVM with a sigmoid kernel is equivalent to a 2-layer perceptron”，一个结论，显式的证明就不用写了，其实在看到拉格朗日乘子alpha时，我们就可以直观的联想到拉格朗日乘子相当于感知机场景下对feature的权重。</p>
+<h3 id="序列最小最优化算法，sequential-minimal-optimization-SMO-alg"><a href="#序列最小最优化算法，sequential-minimal-optimization-SMO-alg" class="headerlink" title="序列最小最优化算法，sequential minimal optimization,SMO alg."></a>序列最小最优化算法，sequential minimal optimization,SMO alg.</h3><p>引入核函数的非线性转化为线性（甚至是可分）的凸二次规划问题：<br>$$\min\limits_{\alpha}:\frac{1}{2}\sum\limits_{i,j=1}^N{y_iy_j\alpha_i\alpha_jx_i^Tx_j}-\sum\limits_{i=1}^N{\alpha_i},\\<br>s.t.\ \sum\limits_{i=1}^N{\alpha_iy_i}=0$$<br>非线性引入Gaussian核的SVM实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def SVM():</span><br></pre></td></tr></table></figure>
+
+<h3 id="概念补充"><a href="#概念补充" class="headerlink" title="概念补充"></a>概念补充</h3><p><em>supprot vector</em>:线性不可分情况下，对偶问题的解$\alpha=(a_1,a_2…a_N)^T中a_i对应的样本点(x_i,y_i)就是支持向量。$<br><em>凸优化问题</em>：设$f:F\rightarrow{R}为$凸函数，则求$\min\limits_{x\in{F}}{f(x)}为$凸优化问题<br>凸优化有如下几个定理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">凸优化任意局部最优解即全局最优解</span><br><span class="line">凸优化最优解集为凸集</span><br><span class="line">若函数f为非空凸集上的严格凸函数，且凸优化问题存在全局最优解，那么全局最优解唯一</span><br></pre></td></tr></table></figure>
+
+<p>在条件$f_i(x)\leq0,1,a_i^T\cdot x = b_i$最小化$f_0(x)$，<br>凸集指一个集合空间内部两点间连线所覆盖的点都在集合空间内，<br>凸二次规划（convex quadratic programming）指目标函数为凸二次函数，形如<br>$$min f(x)= \frac{1}{2}x^TQx+C^Tx,\\<br>s.t.\ Ax\leq{b}，其每一行对应一个约束$$<br><em>Karush-Kuhn-Tucker condition:</em><br>$\alpha_i\geq{0}\\<br>y_i(wx_i+b)\geq{1}\\<br>\alpha_i(y_i(w_ix+b)-1)=0$</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2021-07-16T13:40:15.137Z" itemprop="dateUpdated">2021-07-16 21:40:15</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/&title=《统计学习笔记》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/&title=《统计学习笔记》 — waynamigo's blog&source=该笔记是对李航统计学习方法和All of Statics做的学习笔记，简单进行相关算法实验，加强理解，查缺补漏等，内容尽量精炼" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《统计学习笔记》 — waynamigo's blog&url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2021/01/11/2021-01-11-数据库/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">数据库系统相关</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/22/2019-07-22-blockchain/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Solidity编写smart contract的demo</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2021</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/&title=《统计学习笔记》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/&title=《统计学习笔记》 — waynamigo's blog&source=该笔记是对李航统计学习方法和All of Statics做的学习笔记，简单进行相关算法实验，加强理解，查缺补漏等，内容尽量精炼" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《统计学习笔记》 — waynamigo's blog&url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2020/09/11/2020-09-12-statics_note/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aS27DMAwFwN7/0um2QBLhkbQLWBqtgsS1NV6w/OjnJ16vP2v9zfuv71fm97x4YWBgPJbxWq5v16y/n9w5+fUDFQMD4wDGtwi2/ry+Tx5S14zkWRgYGBjVrSd3qKabGBgYGL2Amyd/SWE8eX0YGBgnMKpbyfG9ptuNtTgGBsYDGXnX/f8/3zLfwMDAeBTjVVz5XyVPqYbpr/fBwMDYmpEHuHVCVi1Zk3SwvB8MDIxNGcnm8qMVOTsfA0QlKwYGxsGMvInfexGTll8h4GJgYGzEmIwEqoVur50XpYYYGBjbMSZJ2yTRbDbUiukpBgbGrozqSKDaSpsMUAvHLDAwMDZiTJLCJMnLN5SXux+ehYGBcQyj2vaqHs7oFaXNriEGBsamjKR0rB7h6h3LSJp6H06LYGBgbMqotvUnTbRku8lLLPcIMTAwtmD0gl214JyMP3MwBgbGfox8TDgvXCfhu/wfAwMD4wBG7yBF9bhG8hKjwQMGBsbWjPvSwaQQzUvTQhqKgYGxKeOqJn4yTkhGm82BKAYGxsGMXistSQrzb5JEEwMD4wTGPKQmbf3emDNKKDEwMDZlXNX0nzT3JyNMDAyMExj56iF7jbNqoYuBgXEC4+7NTcafGBgYGL3BQK9AzVPAaujHwMDAqI4we4253nGNGw9bYGBgPJyRjDyvra2jV4CBgXEAI0/j8lFlkgLOr8TAwDiB0TvikITOahnca+1hYGBszfgFHevHZSCoyhQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

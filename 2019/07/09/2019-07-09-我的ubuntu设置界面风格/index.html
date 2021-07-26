@@ -31,7 +31,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://waynamigo.github.io/img/screenshot.png">
 <meta property="og:image" content="http://waynamigo.github.io/img/tweaks.png">
-<meta property="og:updated_time" content="2019-07-14T11:35:24.725Z">
+<meta property="og:updated_time" content="2021-07-20T01:56:15.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部分MACOS风格的ubuntu">
 <meta name="twitter:description" content="记录一下以防以后电脑崩了还得重新配,感觉撑不住了">
@@ -163,7 +163,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#效果这样"><span class="post-toc-number">1.</span> <span class="post-toc-text">效果这样</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#效果这样"><span class="post-toc-number">1.</span> <span class="post-toc-text">效果这样</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#upgrade后锁屏界面恢复的问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">upgrade后锁屏界面恢复的问题</span></a></li></ol>
         </nav>
     </aside>
 
@@ -209,6 +209,7 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#www.gnome-look.org [GDM themes:SetAsWallpaper]</span></span><br><span class="line"></span><br><span class="line">mv ubuntu.css /usr/share/gnome-shell/theme/</span><br><span class="line"></span><br><span class="line">sudo mv /usr/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com ~/</span><br></pre></td></tr></table></figure>
 
+<h3 id="upgrade后锁屏界面恢复的问题"><a href="#upgrade后锁屏界面恢复的问题" class="headerlink" title="upgrade后锁屏界面恢复的问题"></a>upgrade后锁屏界面恢复的问题</h3><p>SetAsWallpaper里的ubuntu.css 更改到/usr/share/gnome-shell/theme/下，并把壁纸更换就ok了，因为upgrade的时候会更新gnome，theme会重新从源下载覆盖</p>
 
         </div>
 
@@ -217,7 +218,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-14T11:35:24.725Z" itemprop="dateUpdated">2019-07-14 19:35:24</time>
+    Last updated: <time datetime="2021-07-20T01:56:15.575Z" itemprop="dateUpdated">2021-07-20 09:56:15</time>
 </span><br>
 
 
@@ -500,6 +501,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
 
 
 
@@ -510,10 +532,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = 'wei zaima';
+            document.title = 'mole';
             clearTimeout(titleTime);
         } else {
-            document.title = 'moyu';
+            document.title = 'mole';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);

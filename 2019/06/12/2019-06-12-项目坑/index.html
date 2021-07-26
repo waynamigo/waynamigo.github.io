@@ -20,19 +20,19 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="mysql">
-    <meta name="description" content="在？为什么国内博客上点击多的都是废话">
-<meta name="keywords" content="mysql">
+    <meta name="keywords" content="mysql,Spring">
+    <meta name="description" content="佛了">
+<meta name="keywords" content="mysql,Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="这学期项目中的坑">
 <meta property="og:url" content="http://waynamigo.github.io/2019/06/12/2019-06-12-项目坑/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
-<meta property="og:description" content="在？为什么国内博客上点击多的都是废话">
+<meta property="og:description" content="佛了">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-14T12:19:38.033Z">
+<meta property="og:updated_time" content="2021-07-20T01:40:29.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="这学期项目中的坑">
-<meta name="twitter:description" content="在？为什么国内博客上点击多的都是废话">
+<meta name="twitter:description" content="佛了">
     
         <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
     
@@ -182,7 +182,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>在？为什么国内博客上点击多的都是废话</p>
+            <p>佛了</p>
 <a id="more"></a>
 <h2 id="mysql分离-springboot-eurake"><a href="#mysql分离-springboot-eurake" class="headerlink" title="mysql分离 + springboot + eurake"></a>mysql分离 + springboot + eurake</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">原因是 配置远程数据库时，springboot 没有创建表，自己手动建了hibernate sequence后就会报这个错。</span><br><span class="line">表现为插入数据失败，error &quot;could not read a hi value - you need to populate the table&quot;.</span><br><span class="line"></span><br><span class="line">解决方法是对nextval设置初始值，stackoverflow的另一种方案是</span><br><span class="line">改掉注释</span><br><span class="line">@GeneratedValue(strategy = GenerationType.AUTO)改为@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br></pre></td></tr></table></figure>
 
@@ -194,7 +194,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-14T12:19:38.033Z" itemprop="dateUpdated">2019-07-14 20:19:38</time>
+    Last updated: <time datetime="2021-07-20T01:40:29.679Z" itemprop="dateUpdated">2021-07-20 09:40:29</time>
 </span><br>
 
 
@@ -218,7 +218,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 
 
             
@@ -238,7 +238,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2019/06/12/2019-06-12-项目坑/&title=《这学期项目中的坑》 — waynamigo's blog&source=在？为什么国内博客上点击多的都是废话" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2019/06/12/2019-06-12-项目坑/&title=《这学期项目中的坑》 — waynamigo's blog&source=佛了" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -278,7 +278,7 @@
     <div class="waves-block waves-effect prev">
       <a href="/2019/06/25/2019-06-25-machinelearning/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">机器学习考试复习</h4>
+        <h4 class="title">机器学习考试</h4>
       </a>
     </div>
   
@@ -414,7 +414,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2019/06/12/2019-06-12-项目坑/&title=《这学期项目中的坑》 — waynamigo's blog&source=在？为什么国内博客上点击多的都是废话" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2019/06/12/2019-06-12-项目坑/&title=《这学期项目中的坑》 — waynamigo's blog&source=佛了" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -477,6 +477,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
 
 
 
@@ -487,10 +508,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = 'wei zaima';
+            document.title = 'mole';
             clearTimeout(titleTime);
         } else {
-            document.title = 'moyu';
+            document.title = 'mole';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Optiver Realized Volatility Prediction | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ML,kaggle,Boosting,xgboost,GBDT">
+    <meta name="description" content="以后写kaggle尽量都用一些实用性的算法，该面向简历编程了，论文阅读笔记之类的以后都尽量用英语写">
+<meta name="keywords" content="ML,kaggle,Boosting,xgboost,GBDT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Optiver Realized Volatility Prediction">
+<meta property="og:url" content="http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="以后写kaggle尽量都用一些实用性的算法，该面向简历编程了，论文阅读笔记之类的以后都尽量用英语写">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-07-20T01:35:00.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Optiver Realized Volatility Prediction">
+<meta name="twitter:description" content="以后写kaggle尽量都用一些实用性的算法，该面向简历编程了，论文阅读笔记之类的以后都尽量用英语写">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Optiver Realized Volatility Prediction</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Optiver Realized Volatility Prediction</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-06-30T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2021-07-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/kaggle/">kaggle</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Background"><span class="post-toc-number">1.</span> <span class="post-toc-text">Background</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Given-Data"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Given Data</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#financial-concepts"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">financial concepts</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Evaluation"><span class="post-toc-number">2.</span> <span class="post-toc-text">Evaluation</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Method-s"><span class="post-toc-number">3.</span> <span class="post-toc-text">Method(s)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#data-processing"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">data processing</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#APIs"><span class="post-toc-number">4.</span> <span class="post-toc-text">APIs</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Optiver Realized Volatility Prediction</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-07-01 00:00:00" datetime="2021-06-30T16:00:00.000Z"  itemprop="datePublished">2021-07-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/kaggle/">kaggle</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>以后写kaggle尽量都用一些实用性的算法，该面向简历编程了，论文阅读笔记之类的以后都尽量用英语写</p>
+<a id="more"></a>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>Optiver Realized Volatility Prediction Competition.<br>This kaggle project is about trying diff methods to predict the volatility of a trading floor for trading firms,The Accurate Volatility, which is essencial for their investing options.Also is an essencial data standard related to the price of underlying product.<br>IN short, We have to find the most effective approach to minus RMSPE.</p>
+<h3 id="Given-Data"><a href="#Given-Data" class="headerlink" title="Given Data"></a>Given Data</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dataset</span><br><span class="line">├── book_test.parquet</span><br><span class="line">├── book_train.parquet</span><br><span class="line">├── trade_test.parquet</span><br><span class="line">└── trade_train.parquet</span><br></pre></td></tr></table></figure>
+
+<p>Each folder contains stock_id=n<br><strong>trade</strong> [‘time_id’, ‘seconds_in_bucket’, ‘price’, ‘size’, ‘order_count’]<br><strong>book</strong> [‘time_id’, ‘seconds_in_bucket’, ‘bid_price1’, ‘ask_price1’, ‘bid_price2’, ‘ask_price2’, ‘bid_size1’, ‘ask_size1’, ‘bid_size2’, ‘ask_size2’],<br><strong>train</strong> [‘stock_id’,’time_id’,’target’]<br><strong>test</strong> [‘stock_id’,’time_id’,’row_id’]</p>
+<h3 id="financial-concepts"><a href="#financial-concepts" class="headerlink" title="financial concepts"></a>financial concepts</h3><p>show case:</p>
+<table>
+<thead>
+<tr>
+<th align="center">bid</th>
+<th align="center">price</th>
+<th align="center">ask</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center">151</td>
+<td align="center">196</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">150</td>
+<td align="center">189</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">149</td>
+<td align="center">148</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">148</td>
+<td align="center">221</td>
+</tr>
+<tr>
+<td align="center">251</td>
+<td align="center">147</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">351</td>
+<td align="center">146</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">300</td>
+<td align="center">145</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td align="center">144</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em>1.Content of an order book</em></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- A list of buy or sell records sorted by price, which lists the number of shares being bid on or offered at each price point.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- in the case of given data,’bid’ means <em>How many shares the Buyer want to buy</em> , ‘ask’ means <em>How many shares Sellers offer</em>.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><strong>EACH order book&amp;trade book belongs to 1 kind of stock</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em>2.Trade procedure</em></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- a TRADE HAPPENS when the shares of stock that seller S offers and buyer B bids  at the same price.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- B can up his/her intended price and buy the offered by S.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em>3.Liquidity</em></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">there’re some statistics standards for analyser to estimate the liquidity of an order book.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- WAP(weighted avaraged price)takes the price level and size of orders</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">$$wap = \frac{bidprice1<em>asksize1+askprice1</em>bidsize1}{asksize1+bidsize1}$$</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Code for WAP caculation, add one column as ‘wap’</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">book_parquet[<span class="string">'wap'</span>] = </span><br><span class="line">(book_parquet[<span class="string">'bid_price1'</span>] * book_parquet[<span class="string">'ask_size1'</span>] + </span><br><span class="line">book_parquet[<span class="string">'ask_price1'</span>] * book_parquet[<span class="string">'bid_size1'</span>])</span><br><span class="line">/(book_parquet[<span class="string">'bid_size1'</span>]+ book_parquet[<span class="string">'ask_size1'</span>])</span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><em>4.Log returns</em><br>another vital standard for comparing the price of a stock in yesterday and today<br>calling $S_t$ is the price of stock at time $t$ ,the log return is $r_{t1,t2}$,<br>$$r_{t_1, t_2} = \log{\frac{S_{t_2}}{S_{t_1}}}$$<br>Noticed <strong>The host wants competitors should use WAP to compute log returns, and assuming that log returns have 0 mean</strong><br>Then the Code for LogReturn is as follows and add it to book table.<br>Additionally we should expire the NaN row:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">LogReturn</span><span class="params">(WAP)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> np.log(WAP)</span><br><span class="line">book_parquet[<span class="string">'logreturn'</span>] = LogReturn(book_parquet)</span><br><span class="line"><span class="comment">#expire NaN items</span></span><br><span class="line">book_parquet = book_parquet[~book_example[<span class="string">'log_return'</span>].isnull()]</span><br></pre></td></tr></table></figure>
+
+<p><em>5.Realized Volatility</em><br>Volatility is described as ‘the annualized standard deviation of one year’s LogReturn’<br>$$\sigma = \sqrt{\sum\limits_t{r^2_{t-1,t}}}$$</p>
+<p>For each stock data, we find that different stock have different volatility characteristics, So one column should be added as ‘stock_id’, using</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stock_id = i</span><br><span class="line">book_parquet.loc[:,<span class="string">'stock_id'</span>] = stock_id</span><br></pre></td></tr></table></figure>
+
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>The evaluation metric is Root Mean Square Percentage Error, as:<br>$$\text{RMSPE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} ((y_i - \hat{y}_i)/y_i)^2}$$<br>The formula above can be implemented as:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RMSPE</span><span class="params">(yhat, data)</span>:</span></span><br><span class="line">	y = data.get_label()</span><br><span class="line">	elements = ((y - yhat) / y) ** <span class="number">2</span></span><br><span class="line">	<span class="keyword">return</span> float(np.sqrt(np.sum(elements) / len(y)))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Method-s"><a href="#Method-s" class="headerlink" title="Method(s)"></a>Method(s)</h2><p>I looked through the Discussion board, found most are using <em>XGBoost</em> and <em>LightGBT</em>, I get begin from  DataProcessing module and the baseline is implemented with XGBoost, LightGBT will be done later.</p>
+<h3 id="data-processing"><a href="#data-processing" class="headerlink" title="data processing"></a>data processing</h3><p>First check how we should process the parquet file.<br><strong>Parquet</strong>  is a <a href="http://en.wikipedia.org/wiki/Column-oriented_DBMS" target="_blank" rel="noopener">columnar storage</a> format available to any project in the Hadoop ecosystem, regardless of the choice of data processing framework, data model or programming language.<br>Hoster provided code for process the columnar file.<br><strong>and, I’m goin to try to run this method and data on Spark</strong>, The code will be release later on github.<br>Process code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="APIs"><a href="#APIs" class="headerlink" title="APIs"></a>APIs</h2><p>you can use <a href="https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.plot_importance.html" target="_blank" rel="noopener">https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.plot_importance.html</a> to see the feature importance of your model.</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2021-07-20T01:35:00.862Z" itemprop="dateUpdated">2021-07-20 09:35:00</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Boosting/">Boosting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GBDT/">GBDT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kaggle/">kaggle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xgboost/">xgboost</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/&title=《Optiver Realized Volatility Prediction》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/&title=《Optiver Realized Volatility Prediction》 — waynamigo's blog&source=以后写kaggle尽量都用一些实用性的算法，该面向简历编程了，论文阅读笔记之类的以后都尽量用英语写" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Optiver Realized Volatility Prediction》 — waynamigo's blog&url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2021/07/01/2021-07-01-statics_note/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">统计学习笔记(后篇)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2021</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/&title=《Optiver Realized Volatility Prediction》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/&title=《Optiver Realized Volatility Prediction》 — waynamigo's blog&source=以后写kaggle尽量都用一些实用性的算法，该面向简历编程了，论文阅读笔记之类的以后都尽量用英语写" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Optiver Realized Volatility Prediction》 — waynamigo's blog&url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3aQW7jQAwEwPz/0841QCK5SUpARJdOi1i2psbA0mTP11d8vX5cv/9+dOfPV8/vPHrv0XW+hssubGxs7Iewkwckj6x+QrIp+QblFmxsbOyt7KP/4fNlnX9CcueEV10JNjY29iezX4Mr37K8KcLGxsbGnhSwvBXJB1VJm5RsATY2NvansaslZ9JUzEdaveKKjY2NvZWdNwD//9+35NvY2NjY/5jdGwnlzckkJEiKYlOBjY2NvYidF4DqRvSO4PTKZ3X92NjY2FvZ1QMxyWipV+qqY6nmoSJsbGzsFewcHEWn8Sg/j40L314eOWBjY2MvYueLzsPUHikfHlWP/mBjY2PvZs/LzOTV6tA/GVFF7Qo2Njb2Ivakkag2A9VPqH4Zk/AAGxsb+7nsPHztDXGqkcCkUSlsGTY2NvZS9lUFbB7WzrfmzbuwsbGxl7KrI55ekzApQlXw4buwsbGxl7LP/9ILEvLPnLdDhWdhY2NjL2Lnb75qkHRfbJB8kW8+GRsbG/ux7N7i8sdXqUlRrAa9h3EvNjY29iL2JGRNYuBqE9IrXedbiY2Njb2bnRSY/Id+L5qtBgnJZh2+io2Njb2O3RvcTN5bLYHVyOHN9mFjY2MvYveC3vOr2sb0GoxJ84ONjY29mz1ZejUwuG8sVRh+YWNjYz+WPTlAk8fAPVJ1awpDJWxsbOxF7Dzu7R2vuePOyZGgcsqNjY2N/Sj2VcutRrbVZ90RZmBjY2M/nd0rIYWf+0GoUO0R8mFW1IdhY2NjL2Ung6G8OPUanslRnmb7gY2Njf1Ydi+a7ZWQpJjlwXDzOBE2Njb2Unbv536vvOWD/vlmvclDsLGxsVewe0Ol/EhN9ShP7yl504KNjY29g/0qXtVgOI8Nes1P74nY2NjYm9ijulc8EzRvMKpruKD4YWNjYz+EPR/W9JbYG10lG5dsNzY2NvY+du9MS+9Yz7x1qd6JjY2NjZ3/3K+Gx81FFwdSb6ZZ2NjY2B/GrjLy4leNE6rjsD+GStjY2NiL2POGocerDrOuCjCwsbGxN7HzMpAXiWTpvVYkeUqzOcHGxsZ+HvsbKwVKFTDryIEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

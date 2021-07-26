@@ -30,7 +30,7 @@
 <meta property="og:description" content="一个springboot(collect springmvc、hibernate、modleView）+rmi远程调用天气预报系统的小项目">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://waynamigo.github.io/img/fgo1.jpg">
-<meta property="og:updated_time" content="2019-07-14T12:16:07.051Z">
+<meta property="og:updated_time" content="2021-07-16T13:47:47.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springboot+modleView+rmi调用自己写的天气预报的新闻系统">
 <meta name="twitter:description" content="一个springboot(collect springmvc、hibernate、modleView）+rmi远程调用天气预报系统的小项目">
@@ -162,7 +162,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#newsSystem"><span class="post-toc-number">1.</span> <span class="post-toc-text">newsSystem</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新闻系统"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">新闻系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下面是在centos服务器上部署环境，建一个新数据库用户进行管理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">下面是在centos服务器上部署环境，建一个新数据库用户进行管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建数据库"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">创建数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务器环境"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">服务器环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mysql服务没启动的错误，很奇妙"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">mysql服务没启动的错误，很奇妙</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建项目文件夹"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">创建项目文件夹</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#运行项目"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">运行项目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码高亮测试，还行"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">代码高亮测试，还行</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据库内容"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据库内容</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#newsSystem"><span class="post-toc-number">1.</span> <span class="post-toc-text">newsSystem</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新闻系统"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">新闻系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下面是在centos服务器上部署环境，建一个新数据库用户进行管理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">下面是在centos服务器上部署环境，建一个新数据库用户进行管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建数据库"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">创建数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务器环境"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">服务器环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mysql服务没启动的错误，很奇妙"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">mysql服务没启动的错误，很奇妙</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建项目文件夹"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">创建项目文件夹</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#运行项目"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">运行项目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码高亮测试"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">代码高亮测试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#latex-math测试"><span class="post-toc-number">1.8.1.</span> <span class="post-toc-text">latex math测试</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据库内容"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据库内容</span></a></li></ol>
         </nav>
     </aside>
 
@@ -217,8 +217,9 @@
 <h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar newsSystem.jar &gt; springbootinfo.out 2&gt;&amp;1  &amp;</span><br><span class="line">或</span><br><span class="line">nohup ./mvnw spring-boot:run &gt; springbootinfo.out 2&gt;&amp;1  &amp;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="代码高亮测试，还行"><a href="#代码高亮测试，还行" class="headerlink" title="代码高亮测试，还行"></a>代码高亮测试，还行</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Controller</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService=<span class="keyword">new</span> UserService();</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    NewsService newsService=<span class="keyword">new</span> NewsService();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> isadmin = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger logger = Logger.getLogger(PageController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam(value = <span class="string">"username"</span>, defaultValue = <span class="string">"null"</span>)</span> String name,</span></span><br><span class="line"><span class="function">                        @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"password"</span>, defaultValue = <span class="string">"null"</span>)</span> String password,</span></span><br><span class="line"><span class="function">                        Model model)</span>&#123;<span class="comment">//String username, String password,Model model</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            User user = userService.findUser(name,password);</span><br><span class="line">            <span class="keyword">if</span> (user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                model.addAttribute(<span class="string">"user"</span>,user);</span><br><span class="line">                <span class="keyword">if</span>(user.getId()==<span class="number">1</span>)&#123;</span><br><span class="line">                    logger.info(<span class="string">"admin status"</span>);</span><br><span class="line">                    isadmin=<span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                logger.info(<span class="string">"login success:username="</span>+name);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"redirect:/newspage/"</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                model.addAttribute(<span class="string">"msg"</span>,<span class="string">"nosuchuser"</span>);</span><br><span class="line">                logger.info(<span class="string">"login failed:no such user"</span>);</span><br><span class="line">               <span class="comment">// return "success";</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码高亮测试"><a href="#代码高亮测试" class="headerlink" title="代码高亮测试"></a>代码高亮测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Controller</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService=<span class="keyword">new</span> UserService();</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    NewsService newsService=<span class="keyword">new</span> NewsService();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> isadmin = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger logger = Logger.getLogger(PageController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(@RequestParam(value = <span class="string">"username"</span>, defaultValue = <span class="string">"null"</span>)</span> String name,</span></span><br><span class="line"><span class="function">                        @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"password"</span>, defaultValue = <span class="string">"null"</span>)</span> String password,</span></span><br><span class="line"><span class="function">                        Model model)</span>&#123;<span class="comment">//String username, String password,Model model</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            User user = userService.findUser(name,password);</span><br><span class="line">            <span class="keyword">if</span> (user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                model.addAttribute(<span class="string">"user"</span>,user);</span><br><span class="line">                <span class="keyword">if</span>(user.getId()==<span class="number">1</span>)&#123;</span><br><span class="line">                    logger.info(<span class="string">"admin status"</span>);</span><br><span class="line">                    isadmin=<span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                logger.info(<span class="string">"login success:username="</span>+name);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"redirect:/newspage/"</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                model.addAttribute(<span class="string">"msg"</span>,<span class="string">"nosuchuser"</span>);</span><br><span class="line">                logger.info(<span class="string">"login failed:no such user"</span>);</span><br><span class="line">               <span class="comment">// return "success";</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="latex-math测试"><a href="#latex-math测试" class="headerlink" title="latex math测试"></a>latex math测试</h3><p>$$[\begin{matrix} a&amp;b\\c&amp;d \end{matrix}\quad<br>\begin{pmatrix} a&amp;b\\c&amp;d \end{pmatrix}\quad<br>\begin{bmatrix} a&amp;b\\c&amp;d \end{bmatrix}\quad<br>\begin{Bmatrix} a&amp;b\\c&amp;d \end{Bmatrix}\quad<br>\begin{vmatrix} a&amp;b\\c&amp;d \end{vmatrix}\quad<br>\begin{Vmatrix} a&amp;b\\c&amp;d \end{Vmatrix}\quad]$$</p>
 <h1 id="数据库内容"><a href="#数据库内容" class="headerlink" title="数据库内容"></a>数据库内容</h1><table>
 <thead>
 <tr>
@@ -246,7 +247,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-14T12:16:07.051Z" itemprop="dateUpdated">2019-07-14 20:16:07</time>
+    Last updated: <time datetime="2021-07-16T13:47:47.229Z" itemprop="dateUpdated">2021-07-16 21:47:47</time>
 </span><br>
 
 
@@ -328,9 +329,9 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2018/12/01/2018-12-01-nmap&zmap/" id="post-prev" class="post-nav-link">
+      <a href="/2018/12/01/2018-12-01-映射过程描述/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">nmap zmap使用</h4>
+        <h4 class="title">映射过程描述</h4>
       </a>
     </div>
   
@@ -522,6 +523,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
 
 
 
@@ -532,10 +554,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = 'wei zaima';
+            document.title = 'mole';
             clearTimeout(titleTime);
         } else {
-            document.title = 'moyu';
+            document.title = 'mole';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);

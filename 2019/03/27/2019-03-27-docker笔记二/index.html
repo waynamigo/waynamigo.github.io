@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="咕">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-14T10:01:01.114Z">
+<meta property="og:updated_time" content="2021-07-20T01:30:27.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker笔记整理（二）">
 <meta name="twitter:description" content="咕">
@@ -185,18 +185,8 @@
             <p>咕</p>
 <a id="more"></a>
 <h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><ul>
-<li>dockerhub ： <a href>waynamigo</a></li>
+<li>dockerhub ： <a href>waynamigo</a><br>Let’s try a first example. Here’s a dummy equation:</li>
 </ul>
-<p>$$ \left\<br>{\begin{array}{c} a_1x+b_1y+c_1z=d_1 \ a_2x+b_2y+c_2z=d_2 \ a_3x+b_3y+c_3z=d3 \end{array} \<br>right.$$</p>
-<p> 公式1\( \sqrt{\frac{n!}{k!(n-k)!}} \)</p>
-<ul>
-<li><p>2 \( \sqrt{\frac{n!}{k!(n-k)!}} \)</p>
-</li>
-<li><p>3 \( x^2 + y^2 = r^2 \)</p>
-</li>
-</ul>
-<p>Let’s try a first example. Here’s a dummy equation:</p>
-<p>$$a^2 + b^2 = c^2$$</p>
 <h2 id="R"><a href="#R" class="headerlink" title="R"></a>R</h2><h2 id="U"><a href="#U" class="headerlink" title="U"></a>U</h2><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2>
         </div>
 
@@ -205,7 +195,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-14T10:01:01.114Z" itemprop="dateUpdated">2019-07-14 18:01:01</time>
+    Last updated: <time datetime="2021-07-20T01:30:27.103Z" itemprop="dateUpdated">2021-07-20 09:30:27</time>
 </span><br>
 
 
@@ -287,9 +277,9 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/04/17/2019-04-17-备忘的一些烦人操作/" id="post-prev" class="post-nav-link">
+      <a href="/2019/04/01/2019-04-01-评估模型算法指标的计算/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">备忘的一些操作</h4>
+        <h4 class="title">NeuralRecon for 3D reconstruction in real-time</h4>
       </a>
     </div>
   
@@ -488,6 +478,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
 
 
 
@@ -498,10 +509,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = 'wei zaima';
+            document.title = 'mole';
             clearTimeout(titleTime);
         } else {
-            document.title = 'moyu';
+            document.title = 'mole';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);
