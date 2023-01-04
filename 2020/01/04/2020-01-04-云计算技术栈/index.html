@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>云计算技术栈学习路线 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CloudComputing">
+    <meta name="description" content="，忘记从哪复制过来的了，侵删（">
+<meta name="keywords" content="CloudComputing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云计算技术栈学习路线">
+<meta property="og:url" content="http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="，忘记从哪复制过来的了，侵删（">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-01-04T06:27:40.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="云计算技术栈学习路线">
+<meta name="twitter:description" content="，忘记从哪复制过来的了，侵删（">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">云计算技术栈学习路线</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">云计算技术栈学习路线</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-03T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-01-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CloudComputing/">CloudComputing</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Google-三件套"><span class="post-toc-number">1.</span> <span class="post-toc-text">Google 三件套</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Hadoop（重点）"><span class="post-toc-number">2.</span> <span class="post-toc-text">Hadoop（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Zookeeper"><span class="post-toc-number">3.</span> <span class="post-toc-text">Zookeeper</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Hive（重点）"><span class="post-toc-number">4.</span> <span class="post-toc-text">Hive（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Flume（会用）"><span class="post-toc-number">5.</span> <span class="post-toc-text">Flume（会用）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Sqoop（会用）"><span class="post-toc-number">6.</span> <span class="post-toc-text">Sqoop（会用）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#azkaban和oozie（会用）"><span class="post-toc-number">7.</span> <span class="post-toc-text">azkaban和oozie（会用）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数仓理论-实践（重点）"><span class="post-toc-number">8.</span> <span class="post-toc-text">数仓理论+实践（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HBase（重点）"><span class="post-toc-number">9.</span> <span class="post-toc-text">HBase（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kafka（重点）"><span class="post-toc-number">10.</span> <span class="post-toc-text">Kafka（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ELK是三个组件的简称，"><span class="post-toc-number">11.</span> <span class="post-toc-text">ELK是三个组件的简称，</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Scala（重点）"><span class="post-toc-number">12.</span> <span class="post-toc-text">Scala（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Spark（重点）"><span class="post-toc-number">13.</span> <span class="post-toc-text">Spark（重点）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Kylin（会用）"><span class="post-toc-number">14.</span> <span class="post-toc-text">Kylin（会用）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Flink（重点）"><span class="post-toc-number">15.</span> <span class="post-toc-text">Flink（重点）</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2020-01-04-云计算技术栈"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">云计算技术栈学习路线</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-04 00:00:00" datetime="2020-01-03T16:00:00.000Z"  itemprop="datePublished">2020-01-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CloudComputing/">CloudComputing</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>，忘记从哪复制过来的了，侵删（</p>
+<a id="more"></a>
+<h1 id="Google-三件套"><a href="#Google-三件套" class="headerlink" title="Google 三件套"></a>Google 三件套</h1><p>Hadoop对应于Google三件套<br>HDFS对应于GFS，即分布式文件系统，MapReduce即并行计算框架，HBase对应于BigTable，即分布式NoSQL列数据库，外加Zookeeper对应于Chubby，即分布式锁设施。</p>
+<p>hadoop -&gt;<br>zookeeper -&gt;<br>hive -&gt;<br>flume &amp;&amp; sqoop -&gt;<br>azkaban &amp;&amp; oozie -&gt;<br>数仓建模理论+实践（离线数仓项目） -&gt;<br>hbase -&gt;<br>redis -&gt;<br>kafka -&gt;<br>elk -&gt;<br>scala -&gt;<br>spark -&gt;<br>kylin -&gt;<br>flink -&gt;<br>实时数仓项目</p>
+<p>Scala底层也是使用的JVM虚拟机</p>
+<h1 id="Hadoop（重点）"><a href="#Hadoop（重点）" class="headerlink" title="Hadoop（重点）"></a>Hadoop（重点）</h1><p>学习Hadoop，需要重点掌握Hadoop的三个组件：MapReduce、HDFS、YarnZookeeper（会用，懂原理）</p>
+<h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><p>意为动物园管理者，是一个分布式应用程序协调框架，负责协调大数据框架的</p>
+<h1 id="Hive（重点）"><a href="#Hive（重点）" class="headerlink" title="Hive（重点）"></a>Hive（重点）</h1><p>Hive底层依赖Hadoop，所以学完Hadoop在学Hive很简单，因为Hive是数仓工具，使用SQL开发的，如果懂SQL语句，那Hive学起来更简单了</p>
+<h1 id="Flume（会用）"><a href="#Flume（会用）" class="headerlink" title="Flume（会用）"></a>Flume（会用）</h1><p>Flume就是一个采集工具，比如把日志实时采集到大数据平台上，用Flume即可</p>
+<h1 id="Sqoop（会用）"><a href="#Sqoop（会用）" class="headerlink" title="Sqoop（会用）"></a>Sqoop（会用）</h1><p>Sqoop也是采集工具，但是和Flume定位不同，Sqoop是hadoop和其他数据库之间移动数据Flume是从各种来源收集数据，例如日志，jms，目录等</p>
+<h1 id="azkaban和oozie（会用）"><a href="#azkaban和oozie（会用）" class="headerlink" title="azkaban和oozie（会用）"></a>azkaban和oozie（会用）</h1><p>这两个框架属于一类，都是资源调度框架，比如每天定时跑一些大数据的任务，就可以在这上面操作，这两个框架区别就是azkaban功能简单，易上手，oozie功能多，上手相对复杂一点</p>
+<h1 id="数仓理论-实践（重点）"><a href="#数仓理论-实践（重点）" class="headerlink" title="数仓理论+实践（重点）"></a>数仓理论+实践（重点）</h1><p>学到这可以做一些项目了，找一些离线数仓的项目做下，做项目的同时需要理解数仓建模的理论，数仓为什么这样建，有什么好处，以后可能会出现什么隐患等，需要重点关注</p>
+<h1 id="HBase（重点）"><a href="#HBase（重点）" class="headerlink" title="HBase（重点）"></a>HBase（重点）</h1><p>HBase是一个分布式列式数据库，适合存储海量的数据，能进行秒级查询，需要重点学习</p>
+<h1 id="Kafka（重点）"><a href="#Kafka（重点）" class="headerlink" title="Kafka（重点）"></a>Kafka（重点）</h1><p>Kafka是大数据消息队列领域唯一的王者，不但工作常用，面试也常问，需要理解底层原理ELK（会用，最好也深入下）</p>
+<h1 id="ELK是三个组件的简称，"><a href="#ELK是三个组件的简称，" class="headerlink" title="ELK是三个组件的简称，"></a>ELK是三个组件的简称，</h1><p>它们是Elasticsearch、Logstash、Kibana，Elasticsearch 是一个基于 Lucene 的、支持全文索引的分布式存储和索引引擎；Logstash是一个日志收集、过滤、转发的中间件；Kibana是一个可视化工具，主要负责查询 Elasticsearch 的数据并以可视化的方式展现给业务方</p>
+<h1 id="Scala（重点）"><a href="#Scala（重点）" class="headerlink" title="Scala（重点）"></a>Scala（重点）</h1><p>前面也说了，这是大数据必学的一门语言，因为Spark和Flink底层都是基于Scala开发的，当然也有部门Java开发的</p>
+<h1 id="Spark（重点）"><a href="#Spark（重点）" class="headerlink" title="Spark（重点）"></a>Spark（重点）</h1><p>Spark 是专为大规模数据处理而设计的快速通用的计算引擎，支持批处理和流处理，目前主要用在批处理领域</p>
+<h1 id="Kylin（会用）"><a href="#Kylin（会用）" class="headerlink" title="Kylin（会用）"></a>Kylin（会用）</h1><p>Kylin的出现就是为了解决大数据系统中TB级别数据的数据分析需求，它提供Hadoop/Spark之上的SQL查询接口及多维分析(OLAP)能力以支持超大规模数据，它能在亚秒内查询巨大的Hive表。其核心是预计算，计算结果存在HBase中</p>
+<h1 id="Flink（重点）"><a href="#Flink（重点）" class="headerlink" title="Flink（重点）"></a>Flink（重点）</h1><p>Flink目前非常火，和Spark一样，支持批处理和流处理，目前主要用在流处理实时数仓项目（重点）</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-01-04T06:27:40.419Z" itemprop="dateUpdated">2023-01-04 14:27:40</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CloudComputing/">CloudComputing</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/&title=《云计算技术栈学习路线》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/&title=《云计算技术栈学习路线》 — waynamigo's blog&source=，忘记从哪复制过来的了，侵删（" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《云计算技术栈学习路线》 — waynamigo's blog&url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/09/11/2020-09-12-statics_note/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">统计学习笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/22/2019-07-22-blockchain/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Solidity编写smart contract的demo</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/&title=《云计算技术栈学习路线》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/&title=《云计算技术栈学习路线》 — waynamigo's blog&source=，忘记从哪复制过来的了，侵删（" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《云计算技术栈学习路线》 — waynamigo's blog&url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2020/01/04/2020-01-04-云计算技术栈/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwUlEQVR42u3ay27jMBAEQP//T2+APSUIJHcPSUeH0snwQ2TxII57+HrF17//1/fX39/5/Z2rXyWfXo31+w7bLjw8PLzR1K+uq8nlS3AFux8rWY77++Dh4eGd5iXTrW99Md0Ec79MyZzx8PDwnsBLyuikyM63nKTsxsPDw3syL59iu2EkGwAeHh7e03h5QNCW1ysxx8q4eHh4eOd4swbY374+3t/Dw8PDG3XV1zeMfMlmke6bGeLh4eEd4CU3zRta5/BtFPLK1wwPDw9vxJs9fNuH/qyR1h4peAPGw8PD28pLpp63vlpS20Krlx4PDw/vAO++eL0vl2eP/vwO+ZGCOo3Gw8PDK3nJdFt8Mq02rk02ocsAFw8PD28rb9cjfra15EX5UoGOh4eH93FeXhDvimLbknoY4OLh4eGNxtp1vGk9/G0badH38fDw8I7xZsen2vDiRFFe9/Tw8PDwNvGSm7Yxbhvg5pPODxPg4eHhfYbXHnXKf5uU7PmnRYCLh4eHt5U3OxaQbBizwjoPLNrjCHh4eHi7eG0Y0f7Hz8viNuSNxsXDw8P7CK/92z+bUH5EoA0yfryDh4eHd5iX/2wWua4HuPkWtbQqeHh4eAGvfeifaJsNE5Q8pcbDw8Pbykse9+uxQlJ2rxwyeBNG4OHh4W3irfTN2mJ6FnMkBToeHh7eX/E2BwHxhNrFzUttPDw8vHO8tiy+x+THsJJGV1LoF1k1Hh4e3lZeMnAbKyS8JNJtD2Dh4eHhnePN/t4nG0M7oZWW2OWv8PDw8A7w1h/ubZwxK6zzMv01u/Dw8PBK3mwzyAvxthnWNtWK1hceHh7eVl6dYSxsIe3oSw08PDw8vMfw2hbXbAOYleN4eHh4z+G1xwvyYr0dq4hC8PDw8I7x2km05XIbTCSziopvPDw8vAO8Ew2wleh21wECPDw8vAO8L7WG2k9HhkmaAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

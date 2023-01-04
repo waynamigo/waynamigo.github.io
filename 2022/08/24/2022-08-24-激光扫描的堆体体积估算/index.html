@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>激光体积估算业务Solution? | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="PointCloud,Notes">
+    <meta name="description" content="通过激光进行堆体体积估算">
+<meta name="keywords" content="PointCloud,Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="激光体积估算业务Solution?">
+<meta property="og:url" content="http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="通过激光进行堆体体积估算">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-01-04T06:49:21.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="激光体积估算业务Solution?">
+<meta name="twitter:description" content="通过激光进行堆体体积估算">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">激光体积估算业务Solution?</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">激光体积估算业务Solution?</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2022-08-23T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2022-08-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PointCloud/">PointCloud</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#堆体体积估算"><span class="post-toc-number">1.</span> <span class="post-toc-text">堆体体积估算</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Solution1"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Solution1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Solution2"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Solution2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Requirements"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Requirements</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2022-08-24-激光扫描的堆体体积估算"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">激光体积估算业务Solution?</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2022-08-24 00:00:00" datetime="2022-08-23T16:00:00.000Z"  itemprop="datePublished">2022-08-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PointCloud/">PointCloud</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>通过激光进行堆体体积估算</p>
+<a id="more"></a>
+<h2 id="堆体体积估算"><a href="#堆体体积估算" class="headerlink" title="堆体体积估算"></a>堆体体积估算</h2><p>LiDAR场区配置：两个方案</p>
+<h3 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h3><p>多个LiDAR固定后，点云拼接建图（例如三个LiDAR探测面覆盖整个料场）</p>
+<h3 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h3><p>LiDAR 云台移动扫描建图（云台扫描2D切面叠加，积分计算体积）</p>
+<h3 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h3><p>LiDAR点云数据格式 rx,ry,rz,ro,r,g,b,s(反射强度)<br><strong>功能需求</strong><br>1) 料场盘库重量估算。激光雷达扫描料堆得到点云数据后，LiDAR根据点云数据提供料堆三维模型尺寸，切片法计算出料堆体积，通过经验密度值计算出料堆重量。<br>2) 料堆位置坐标信息。以获取每一类料堆的类别和位置，配合皮带入库位置选择及抓取出库，并可供用户实时查看库存情况。<br>3) 可视化场堆信息。根据各存料车间需求进行定制化服务，利用车间尺寸图纸划分点云地图区域，并反馈给车间管理人员实时查看现场库存情况。<br><strong>方案</strong>：<br>由移动云台带动激光雷达进行料堆扫描，或根据固定的LiDAR探测面获取的点云配准后，对料堆进行点云拼接，进行完整的建图，以准确获取料堆的斜立面信息与完整的料堆顶面信息。<br><strong>难点</strong><br>难点1，点云去噪：三维激光扫描过程中不可避免地会获得大量的噪声点云。<br>        包括漂移点、孤立点、冗余点、混杂点等)的存在不仅增加了数据量，而且会严重影响点云质量和后续矿堆体积量测<br>难点2. 不同颜色堆垛对LiDAR点云扫描的误差影响：不同颜色对光的反射是不同的，黑色反射比最小约为10%，扫描距离是最小的，如果测的是白色物体，反射比约为80%，扫描距离就比黑色范围大。<br>难点3. 误差：本方案通过切片法快速计算体积。采用拟合出的基准面（地面），根据选取的待测区域对基准面以上的3D区域，进行高精度体积测算，并结合经验密度，积分计算出重量。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-01-04T06:49:21.842Z" itemprop="dateUpdated">2023-01-04 14:49:21</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Notes/">Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PointCloud/">PointCloud</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/&title=《激光体积估算业务Solution?》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/&title=《激光体积估算业务Solution?》 — waynamigo's blog&source=通过激光进行堆体体积估算" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《激光体积估算业务Solution?》 — waynamigo's blog&url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2022/09/14/2022-09-14-点云ROS业务/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2021/12/29/2021-12-29-跨模态检索论文阅读合集/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">跨模态检索论文阅读合集</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/&title=《激光体积估算业务Solution?》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/&title=《激光体积估算业务Solution?》 — waynamigo's blog&source=通过激光进行堆体体积估算" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《激光体积估算业务Solution?》 — waynamigo's blog&url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/08/24/2022-08-24-激光扫描的堆体体积估算/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3ay27jQAwEwPz/T3uvAQIp3eTIzgKlU+DnlAIMx01+fcXX69v185Hvj/9816nHr549cOHh4eEtln616HxB95+QvP7qe+9v7uUtwMPDw3uMd7/0+8Xl5SS/BfffVZQWPDw8vD/DywtAXmxewYWHh4f3f/HarX9zHE+iEDw8PLzP8pKNOD9Ab+LdtlAdy1rw8PDwYl7eRfo7fz/S38PDw8Nbd9U3VxvXbt51+Wl4eHh4D/DaTTnfmtvDdF6E8uAYDw8P7zleOxyQj0blS9yPf/3yLB4eHt4hXj7kNBuiauOM2chX9B/Dw8PDe4w324hXrf3RYToaVsDDw8N7gNf+4M/j1FlpaW9ENDSAh4eH90beLMA928Sa3WI8PDy8p3lJpNtu9zNSu/W3PwDw8PDwzvL2YcQmQW2DhjpAwcPDwzvKm23TLXjfEhuOheHh4eG9hdcGr7MYNwlBNmA8PDy853htg38TMeQlYRZPFBkzHh4e3oLXhqT7WHZ2o9toAw8PD+85Xl4Y2kXfH8Q3n9wGwXh4eHjv5G1iiLPRRl606mqDh4eHV/I2401trDBbbvsuPDw8vKd5m+NpPkYwC3lnjbrL/yEeHh7eId7+QDzrN+WH7MMpNR4eHt6Clx9289B2H0/sh8CiTAUPDw9vxJvFsnnokLyrbZvV5QoPDw/vKC/phuWLyxdRDEjFIwiXMQQeHh7eUd6+QdVGwO3B+iu+8PDw8N7De5XXqaGoIkrIO3iz/hseHh5eydtXlf3W337yZtABDw8P7xRvUwyS6LaNdzeH9br64eHh4S14eSzbMmZjW8eO2nh4eHgf5W2a+m0LLSkk0Wvw8PDwPsrbHG2Tm5XclLpVhoeHh/cYb39EnqXFm5gjKlF4eHh4D/DyRbRNsvzoPBsUODZMgIeHh5e+5h958yIWfTxJIAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

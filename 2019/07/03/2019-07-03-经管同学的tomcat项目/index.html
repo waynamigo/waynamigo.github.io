@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="java,tomcat,bash">
-    <meta name="description" content="觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven">
+    <meta name="description" content="觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下, （推荐了maven">
 <meta name="keywords" content="java,tomcat,bash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用了个bash手动打包java项目并在tomcat中运行">
 <meta property="og:url" content="http://waynamigo.github.io/2019/07/03/2019-07-03-经管同学的tomcat项目/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
-<meta property="og:description" content="觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-25T06:55:36.544Z">
+<meta property="og:description" content="觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下, （推荐了maven">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2022-07-16T04:45:09.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用了个bash手动打包java项目并在tomcat中运行">
-<meta name="twitter:description" content="觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven">
+<meta name="twitter:description" content="觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下, （推荐了maven">
     
         <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
     
@@ -119,7 +119,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#jdbc和tomcat和手写的DAO，怀旧。"><span class="post-toc-number">1.</span> <span class="post-toc-text">jdbc和tomcat和手写的DAO，怀旧。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#然后手动打包了，（写了个循环shellfor-javac）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">然后手动打包了，（写了个循环shellfor javac）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#把war烤到webapps执行startup-sh就可以运行了"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">把war烤到webapps执行startup.sh就可以运行了</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#jdbc和tomcat和手写的DAO，怀旧。"><span class="post-toc-number">1.</span> <span class="post-toc-text">jdbc和tomcat和手写的DAO，怀旧。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#然后手动打包了，（写了个循环shellfor-javac）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">然后手动打包了，（写了个循环shellfor javac）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#把war烤到webapps执行startup-sh就可以运行了"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">把war烤到webapps执行startup.sh就可以运行了</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2019-7-19更新"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">2019.7.19更新</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -182,7 +182,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)<br>帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下。（佛了，为什么不用maven</p>
+            <p>觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)<br>帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下, （推荐了maven</p>
 <a id="more"></a>
 <h2 id="jdbc和tomcat和手写的DAO，怀旧。"><a href="#jdbc和tomcat和手写的DAO，怀旧。" class="headerlink" title="jdbc和tomcat和手写的DAO，怀旧。"></a>jdbc和tomcat和手写的DAO，怀旧。</h2><p>用idea打包：</p>
 <p>先是在idea里面配置的Webapplication的archive，里面要选一个WEB-INF和META-INF。</p>
@@ -194,7 +194,10 @@
 <h3 id="然后手动打包了，（写了个循环shellfor-javac）"><a href="#然后手动打包了，（写了个循环shellfor-javac）" class="headerlink" title="然后手动打包了，（写了个循环shellfor javac）"></a>然后手动打包了，（写了个循环shellfor javac）</h3><p><a href="https://github.com/waynamigo/templates/blob/master/bashs/build.sh" target="_blank" rel="noopener">代码在这</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="comment">#写到source，做个list，或者直接用idea生成source.txt也可以</span></span><br><span class="line">path=$(<span class="built_in">pwd</span>)</span><br><span class="line"><span class="function"><span class="title">dependence</span></span>()&#123;</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> `ls <span class="variable">$1</span>|grep -v <span class="string">".bak"</span>`</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="variable">$1</span><span class="string">"/"</span><span class="variable">$file</span> ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">      dependence <span class="variable">$1</span><span class="string">"/"</span><span class="variable">$file</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">local</span> file_path=<span class="variable">$1</span><span class="string">"/"</span><span class="variable">$file</span> </span><br><span class="line">      <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$file_path</span>|grep <span class="string">"MANIFEST.MF"</span>&gt;/dev/null;<span class="keyword">then</span></span><br><span class="line">      c=c</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">          <span class="built_in">echo</span> <span class="variable">$file_path</span> &gt;&gt; <span class="variable">$path</span>/build/<span class="built_in">source</span></span><br><span class="line">      <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependence <span class="variable">$path</span>/src</span><br><span class="line">libs=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> java_lib <span class="keyword">in</span> $(ls <span class="variable">$path</span>/web/WEB-INF/lib);<span class="keyword">do</span></span><br><span class="line"><span class="keyword">if</span> [[ libs != <span class="string">""</span> ]];<span class="keyword">then</span></span><br><span class="line">libs=<span class="variable">$libs</span>:<span class="variable">$path</span>/web/WEB-INF/lib/<span class="variable">$java_lib</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">libs=<span class="variable">$path</span>/web/WEB-INF/lib/<span class="variable">$java_lib</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">javac -encoding utf-8 -Xlint:unchecked -d <span class="variable">$path</span>/build -classpath <span class="variable">$path</span>/web/WEB-INF/lib @<span class="variable">$path</span>/build/<span class="built_in">source</span></span><br><span class="line">jar cvf  <span class="variable">$path</span>/src/MANIFEST.MF  <span class="variable">$path</span>/bin/classdesign.war ./*</span><br></pre></td></tr></table></figure>
 
-<h3 id="把war烤到webapps执行startup-sh就可以运行了"><a href="#把war烤到webapps执行startup-sh就可以运行了" class="headerlink" title="把war烤到webapps执行startup.sh就可以运行了"></a>把war烤到webapps执行startup.sh就可以运行了</h3>
+<h3 id="把war烤到webapps执行startup-sh就可以运行了"><a href="#把war烤到webapps执行startup-sh就可以运行了" class="headerlink" title="把war烤到webapps执行startup.sh就可以运行了"></a>把war烤到webapps执行startup.sh就可以运行了</h3><h3 id="2019-7-19更新"><a href="#2019-7-19更新" class="headerlink" title="2019.7.19更新"></a>2019.7.19更新</h3><p>在开发板上（无IDE生成MAINFEST)打包注意jar时添加-m追加MAINFEST.MF的Main-Class字段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">jar -cvfm test.jar MAINFEST.MF test.class </span><br><span class="line"></span><br><span class="line">MAINFEST.MF</span><br><span class="line"></span><br><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: &lt;MAINCLASSNAME&gt;</span><br></pre></td></tr></table></figure>
+
+
         </div>
 
         <blockquote class="post-copyright">
@@ -202,7 +205,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-07-25T06:55:36.544Z" itemprop="dateUpdated">2019-07-25 14:55:36</time>
+    Last updated: <time datetime="2022-07-16T04:45:09.838Z" itemprop="dateUpdated">2022-07-16 12:45:09</time>
 </span><br>
 
 
@@ -388,11 +391,11 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
-        <p><span>waynamigo &copy; 2018 - 2021</span>
+        <p><span>waynamigo &copy; 2018 - 2023</span>
             <span>
                 
                 <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
@@ -530,5 +533,5 @@ MathJax.Hub.Queue(function() {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

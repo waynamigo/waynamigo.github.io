@@ -28,11 +28,13 @@
 <meta property="og:url" content="http://waynamigo.github.io/2021/07/01/2021-07-01-statics_note/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="接上一篇统计学习笔记，最近在做kaggle，用到了几种Boost，有机会把以前笔记剩余部分的补上了。">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-07-26T02:56:50.651Z">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://waynamigo.github.io/img/adaboost-algorithm.png">
+<meta property="og:updated_time" content="2022-07-16T04:45:09.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统计学习笔记(后篇)">
 <meta name="twitter:description" content="接上一篇统计学习笔记，最近在做kaggle，用到了几种Boost，有机会把以前笔记剩余部分的补上了。">
+<meta name="twitter:image" content="http://waynamigo.github.io/img/adaboost-algorithm.png">
     
         <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
     
@@ -119,7 +121,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -160,7 +162,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Boost"><span class="post-toc-number">1.</span> <span class="post-toc-text">Boost</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Boosting"><span class="post-toc-number">1.</span> <span class="post-toc-text">Boosting</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Boosting类的算法原理"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Boosting类的算法原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AdaBoost"><span class="post-toc-number">2.</span> <span class="post-toc-text">AdaBoost</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Adaboost解决的问题"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Adaboost解决的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Adaboost算法流程"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Adaboost算法流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#EM"><span class="post-toc-number">3.</span> <span class="post-toc-text">EM</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#名词解释"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">名词解释</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -184,14 +186,49 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>接上一篇统计学习笔记，最近在做kaggle，用到了几种Boost，有机会把以前笔记剩余部分的补上了。</p>
 <a id="more"></a>
-<h2 id="Boost"><a href="#Boost" class="headerlink" title="Boost"></a>Boost</h2><p>一句话概括Boost方法就是：将N个弱学习算法构建成一个相当于强学习算法的方法。重点记录AdaBoost和XGBoost两个模型，也是实际应用中广泛使用的方法，效果和时间性能很好。<br>sklearn的ensemble里封装了AdaBoostClassifier，以后写一个kaggle常用的sklearnAPI总结吧。<br>Adaboost解决两个问题</p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>Boosting类方法是将N个弱学习算法构建成一个相当于强学习算法的方法。例如用一套基本分类器按照不同的权重组合成一个强分类器，这些基本分类器之间有依赖关系，构成的最终分类器可以达到复杂的强分类器达到的效果，并且可以使用并行处理，时间效率比复杂模型更快。</p>
+<p>在这里重点记录AdaBoost和XGBoost两个模型，也是实际应用中广泛使用的方法，最后会讨论效果和时间性能。</p>
+<p>sklearn的ensemble里封装了<a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.ensemble" target="_blank" rel="noopener">AdaBoostClassifier/AdaBoostRegressor</a>。</p>
+<h3 id="Boosting类的算法原理"><a href="#Boosting类的算法原理" class="headerlink" title="Boosting类的算法原理"></a>Boosting类的算法原理</h3><ol>
+<li>boosting的基本思想是选取弱学习器，可以是各种算法组合在一起用，也可用n个相同的算法，设定不同超参数。</li>
+<li>组合方式，并行方式（Voting），串行（Cascading)。区别在于，并行方式是每个弱学习器给自己的结果，串行方式是第i+1个弱学习器只在第i个的置信度结果不够高时，对上一级的结果进行预测。</li>
+</ol>
+<h2 id="AdaBoost"><a href="#AdaBoost" class="headerlink" title="AdaBoost"></a>AdaBoost</h2><h3 id="Adaboost解决的问题"><a href="#Adaboost解决的问题" class="headerlink" title="Adaboost解决的问题"></a>Adaboost解决的问题</h3><p>Adaboosting如何实现自适应<br>(适应弱分类器各自的训练误差率)，由权值D实现，那么：</p>
+<ol>
+<li>每一轮如何改变训练数据的权值或者概率分布？</li>
+</ol>
 <ul>
-<li>每一轮如何改变训练数据的权值或者概率分布</li>
-<li>如何将N个弱学习模型组合成一个强学习模型<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.通过在n个训练样本上迭代得到第一个弱分类器C1</span><br><span class="line">2.将分错的样本和其他的新数据构建新训练样本n，在这上面迭代得到C2</span><br><span class="line">3.将1.2.都分错的样本和新数据构建新训练样本n，迭代得到C3</span><br><span class="line">4.</span><br></pre></td></tr></table></figure>
-
-</li>
+<li><strong>提高被前一轮弱分类器错误分类的样本的权值，降低被正确分类样本的权值，权值改变依赖自己的权值更新策略，不同任务和训练集一般不同，必要时需要设计自己的更新策略</strong></li>
 </ul>
-<p>设有J个弱分类器，训练样本(X,Y),n维，Adaboost算法流程如下 ，</p>
+<ol start="2">
+<li>如何将N个弱学习模型组合成一个强学习模型</li>
+</ol>
+<ul>
+<li><strong>Adaboost采取加权voting，准确率误差小的学习器权重高，误差大的权重小</strong></li>
+</ul>
+<h3 id="Adaboost算法流程"><a href="#Adaboost算法流程" class="headerlink" title="Adaboost算法流程"></a>Adaboost算法流程</h3><p>&lt;!—&gt;<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/adaboost-algorithm.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>&lt;—&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">权重参数D，弱分类器个数</span><br></pre></td></tr></table></figure>
+
+<p>算法机制很容易理解，就拿李航那本书上的-1和1做分类的问题，拆分成</p>
+<ol>
+<li>加法模型$f(x)=\sum{\beta_mb(x;\gamma_m)}$</li>
+<li>损失函数</li>
+<li>前向分布</li>
+</ol>
+<p>1.加法模型是指：有一系列基函数，其中基函数的变量$x$和某种系数$\gamma$，设有m次迭代，则每次迭代产生系数$\gamma_m$和基函数的系数$\beta_m$，产生$\beta_mb(x;\gamma_m)$，我们也可以把这个基函数成为分类器$G$，最终模型也可以写成$f(x)=\sum{\beta_mb(x;\gamma_m)}=\sum{\alpha_mG(x)_m}$</p>
+<p>2.损失函数：由于含supervision，我们采取的损失函数可以采取大部分误差项或CE等损失函数<br>3.前向分布计算</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func[]</span><br><span class="line">for i in range(m):</span><br><span class="line">    (beta,gamma) =</span><br><span class="line">        argmin(sum(Loss(y,f(x)+beta*G(x,gamma))))</span><br><span class="line">    func[] = func[] + beta*G()</span><br><span class="line">res = func[](x)</span><br></pre></td></tr></table></figure>
+
+<p>在argmin的操作里，涉及到系数的计算，首先我们需要每次迭代时计算分类误差（以第m次迭代为例）$err_m=\sum{w_{m,i}I(G_m(x)!=y)}$，那么$\beta_m=0.5\ln{\frac{1-err_m}{err_m}}$,更新样本权重$D,w_{m+1,i}=\frac{w_{m,i}}{Z_m}exp(-\beta_mG_m(x)y_i),Z=\sum{-\beta_mG_m(x)y_i}$,为归一化因子。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">问题<span class="number">1.</span>为什么不能用神经网络一类的强分类器。</span><br><span class="line">因为adaboost是梯度算法，若果弱分类器太强，则会陷入局部最优。</span><br><span class="line"></span><br><span class="line">问题<span class="number">2.</span>当有不支持加权重的弱分类器时，如何解决。</span><br><span class="line">resampling样本</span><br><span class="line"></span><br><span class="line">问题<span class="number">3.</span>权重的作用</span><br><span class="line"><span class="number">1.</span>计算弱分类器的加权系数，训练弱分类器G</span><br><span class="line"><span class="number">2.</span></span><br><span class="line">问题<span class="number">4.</span>与random forest的区别</span><br><span class="line"><span class="number">1.</span>随机森林的每棵树独立做出决策，训练时没有先后顺序</span><br><span class="line"><span class="number">2.</span>adaboost的tree中，每个G以上一个的结果为输</span><br></pre></td></tr></table></figure>
+
+<h2 id="EM"><a href="#EM" class="headerlink" title="EM"></a>EM</h2><h3 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h3><p>1.高斯混合分布，<br>2.隐变量，从高斯混合分布产生的变量</p>
 
         </div>
 
@@ -200,7 +237,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2021-07-26T02:56:50.651Z" itemprop="dateUpdated">2021-07-26 10:56:50</time>
+    Last updated: <time datetime="2022-07-16T04:45:09.705Z" itemprop="dateUpdated">2022-07-16 12:45:09</time>
 </span><br>
 
 
@@ -282,18 +319,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2021/08/01/2021-08-01-vqa2vln/" id="post-prev" class="post-nav-link">
+      <a href="/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Vison-Language-Navigation</h4>
+        <h4 class="title">Optiver Realized Volatility Prediction</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" id="post-next" class="post-nav-link">
+      <a href="/2021/05/13/2021-05-13-3D视觉_三维重建_实习/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Optiver Realized Volatility Prediction</h4>
+        <h4 class="title">3D重建及其深度学习方法的相关论文解析</h4>
       </a>
     </div>
   
@@ -386,11 +423,11 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
-        <p><span>waynamigo &copy; 2018 - 2021</span>
+        <p><span>waynamigo &copy; 2018 - 2023</span>
             <span>
                 
                 <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
@@ -528,5 +565,5 @@ MathJax.Hub.Queue(function() {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

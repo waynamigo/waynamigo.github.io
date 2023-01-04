@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>业务数据需求及数据处理概要-水上机器视觉场景 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="PointCloud">
+    <meta name="description" content="水上机器视觉场景业务分析">
+<meta name="keywords" content="PointCloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="业务数据需求及数据处理概要-水上机器视觉场景">
+<meta property="og:url" content="http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="水上机器视觉场景业务分析">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-01-04T06:40:06.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="业务数据需求及数据处理概要-水上机器视觉场景">
+<meta name="twitter:description" content="水上机器视觉场景业务分析">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">业务数据需求及数据处理概要-水上机器视觉场景</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">业务数据需求及数据处理概要-水上机器视觉场景</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2022-09-30T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2022-10-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Notes/">Notes</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#web摄像头即时视频流"><span class="post-toc-number">1.</span> <span class="post-toc-text">web摄像头即时视频流</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#点云数据"><span class="post-toc-number">2.</span> <span class="post-toc-text">点云数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#视觉雷达联合标定"><span class="post-toc-number">3.</span> <span class="post-toc-text">视觉雷达联合标定</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2022-10-01-水上机器视觉-桥洞场景业务功能模块设计"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">业务数据需求及数据处理概要-水上机器视觉场景</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2022-10-01 00:00:00" datetime="2022-09-30T16:00:00.000Z"  itemprop="datePublished">2022-10-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Notes/">Notes</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>水上机器视觉场景业务分析</p>
+<a id="more"></a>
+
+<h1 id="web摄像头即时视频流"><a href="#web摄像头即时视频流" class="headerlink" title="web摄像头即时视频流"></a>web摄像头即时视频流</h1><p>初始数据格式：船载web摄像头获取的视频流，基于本地流媒体服务传输到系统（rtmp/rtsp）</p>
+<p>处理方式：ffmpeg解码视频流到rgb图像帧，经测试基于nginx的rtmp流媒体在本地延迟在80ms左右（局域网场景，摄像头参数为1080p双摄，nginx流媒体部署于树莓派3b+）</p>
+<p>处理后数据格式：ImageFrame - 以 <strong>{测试样例_时间戳}.jpg</strong> 命名</p>
+<h1 id="点云数据"><a href="#点云数据" class="headerlink" title="点云数据"></a>点云数据</h1><p>「二维平面（综合判定的）点云的点以圆输出，给出圆心坐标、圆半径」 <em>from 水上机器视觉技术讨论_会议纪要.doc</em></p>
+<p>初始数据格式：点云中单个点以圆心坐标、圆半径的形式给出？<br>            能否理解为：将点云做一次拟合圆之后，给出船体所在水平面的点云</p>
+<p>处理方式：能否直接给出拟合圆以前的世界坐标系/雷达坐标系下的点云PointXYZ，和雷达轨迹（四元数或欧拉角描述）</p>
+<p>处理后数据格式：<br>            每一图像帧时刻的PCL处理的点云数据，以PointXYZ描述 { pointid, x, y, z}<br>            每一图像帧时刻的雷达轨迹，以四元数或欧拉角描述    { w, x, y, z}/{ x, y, z, rx, ry, rz}</p>
+<h1 id="视觉雷达联合标定"><a href="#视觉雷达联合标定" class="headerlink" title="视觉雷达联合标定"></a>视觉雷达联合标定</h1><p>初始数据格式：光学相机：相机内参，畸变函数；相机外参<br>            雷达： 雷达外参数。<br>处理方式：<br>将毫米波雷达返回的目标点投影到图像上，围绕该点并结合先验知识，生成一个矩形的感兴趣区域，然后我们只对该区域内进行识别（水岸分割模型或目标检测模型）。优点是<br>可以迅速地排除大量不会有目标的区域，极大地提高识别速度。<br>建立精确的毫米波雷达坐标系、三维世界坐标系、摄像机坐标系、图像坐标系和像素坐标系之间的坐标转换关系，是实现毫米波和视觉融合的关键。<br>毫米波雷达与视觉传感器在空间的融合就是将不同传感器坐标系的测量值转换到同一个坐标系中。由于ADAS前向视觉系统以视觉为主，因此只需将毫米雷达坐标系下的测量点<br>通过坐标系转换到摄像机对应的像素坐标系下即可实现两者空间同步。<br>联合标定的目的：将毫米波检测的目标转换到图像上。</p>
+<p>联合标定方式（原理）：</p>
+<ul>
+<li>毫米波坐标系下的坐标转换到以相机为中心的世界坐标系中</li>
+<li>将世界坐标系的坐标转换到相机坐标系</li>
+<li>将相机坐标系的坐标转换到图像坐标系</li>
+</ul>
+<p>毫米波可以得到目标在图像中的x,y坐标信息（文档中提到的拟合平面，该xy是在毫米波坐标系下的数值，2D），由于没有目标的z坐标信息，<br>可以由（x,y,1）将毫米波坐标系转换到相机世界坐标系下，</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-01-04T06:40:06.334Z" itemprop="dateUpdated">2023-01-04 14:40:06</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PointCloud/">PointCloud</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/&title=《业务数据需求及数据处理概要-水上机器视觉场景》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/&title=《业务数据需求及数据处理概要-水上机器视觉场景》 — waynamigo's blog&source=水上机器视觉场景业务分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《业务数据需求及数据处理概要-水上机器视觉场景》 — waynamigo's blog&url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Kubernetes Tutorial and Implementation(Overview)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2022/10/01/2022-10-01-VGApproachs/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Paper Routing for Visual Grounding</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/&title=《业务数据需求及数据处理概要-水上机器视觉场景》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/&title=《业务数据需求及数据处理概要-水上机器视觉场景》 — waynamigo's blog&source=水上机器视觉场景业务分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《业务数据需求及数据处理概要-水上机器视觉场景》 — waynamigo's blog&url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIUlEQVR42u3aQW7jQAwEQP//095rgIXlblIB4nHpFCiQNDU5dEjO4xFfzx9Xfufn/VfvTL54/Ybr96wubGxs7A9hPy+v/AM57/8355h8699sHDY2NvZx7OQD16+ebeL1V2Zfj/4k2NjY2F/M3jyVFxt5YYONjY2NvQmw6zt3NYzyrcHGxsb+Znb+L35efty7iZtCBRsbG/tsdj4V/fs//8p8GxsbG/sPs5/ltRkVzLa1bT9FCmxsbOyD2HkA7I/1zAa0bRmTrB8bGxv7JHYbCbMxcDvEvSsOX64BGxsb+1B2PnxN7rRLTyItH+jeMA/BxsbG/kD2jNFGVLvo5Klc9LIUwcbGxv5Ydjs0bYOtbeXvtyAPSGxsbOyz2ZtWfrL02fbNWl1FgGFjY2N/IDs/fDOLtKgkCJ7K3xOtHxsbG/tQ9iww8vCox7GLEXIRYNjY2NhHsK9jrA2YPOQ2G3S9BW+iFxsbG/vL2PvjO3m83dXGika82NjY2Eew24+1RyrbQqUdS8xaTtjY2NgnsWcBNitd9t+6bYSMjY2NfRx706yfDVz344d2/djY2Ninsu/F1236oHufNLbyQMXGxsY+ld223fOhb/75Pa8thLCxsbFPYif/xM9irF1c0rRq3/xSgY2NjX0EO1lEXq7kR3zaQzn7oXKdxtjY2Ngfwm4DY3bgZkZqh7jtU9jY2NjnsfPBQLs1bSmSj3VXowJsbGzsQ9nJRuSHY2aYFjBrimFjY2OfwZ5FV77EtlDJt28TftjY2NgnsdvImQ1l8yM4bUzO4hAbGxv7VHbbjr/34OasdNlsPTY2Nvap7E2TaDMwKAa08QrfvBMbGxv7aPbsOONm6W2szkIUGxsb+zz2s7w27f68VJgNEvLyBhsbG/sk9ib32s/k7aE2rjYHhrCxsbHPYN8VGLMlbp5qB8OP38hJbGxs7D/DnjWSNoVNPjx4LK7opBI2Njb2V7Lzp5K2UVsCtSPeYjqBjY2N/QXsTY9qswXtoPfNRmBjY2Mfx85LhbzwSIa7bTNrsx3Y2NjYp7I3wdP+dsaYtZ/q4gQbGxv789j/ACHTIUzLKXWuAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

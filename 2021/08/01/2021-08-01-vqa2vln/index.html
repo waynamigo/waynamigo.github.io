@@ -28,11 +28,15 @@
 <meta property="og:url" content="http://waynamigo.github.io/2021/08/01/2021-08-01-vqa2vln/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="关于CVPR2021，VQA2VLN的tutorial的总结">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="http://waynamigo.github.io/img/EmbodiedAI.png">
 <meta property="og:image" content="http://waynamigo.github.io/img/VLN.png">
 <meta property="og:image" content="http://waynamigo.github.io/img/VLN2VQA.png">
-<meta property="og:updated_time" content="2021-08-04T09:18:12.616Z">
+<meta property="og:image" content="http://waynamigo.github.io/img/IndoorVLN.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/c1.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/c2.png">
+<meta property="og:image" content="http://waynamigo.github.io/img/c3.png">
+<meta property="og:updated_time" content="2022-10-26T04:23:52.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vison-Language-Navigation">
 <meta name="twitter:description" content="关于CVPR2021，VQA2VLN的tutorial的总结">
@@ -123,7 +127,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -164,7 +168,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Background"><span class="post-toc-number">1.</span> <span class="post-toc-text">Background</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#See-Communicate-Act"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">See, Communicate, Act</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Embodied-AI"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Embodied AI</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vision-Language-Navigation"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Vision-Language Navigation</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Indoor-VLN"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">Indoor VLN</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Indoor-VLN-Challenges"><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text">Indoor VLN Challenges</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VLN-Models"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">VLN Models</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Datasets"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">Datasets</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Metrics"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">Metrics</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Background"><span class="post-toc-number">1.</span> <span class="post-toc-text">Background</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#See-Communicate-Act"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">See, Communicate, Act</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Embodied-AI"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Embodied AI</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Vision-Language-Navigation"><span class="post-toc-number">2.</span> <span class="post-toc-text">Vision-Language Navigation</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Indoor-VLN"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Indoor VLN</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Indoor-VLN-Challenges"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Indoor VLN Challenges</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VLN-Models"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">VLN Models</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Datasets"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Datasets</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Metrics"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">Metrics</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Addition"><span class="post-toc-number">3.</span> <span class="post-toc-text">Addition</span></a></li></ol>
         </nav>
     </aside>
 
@@ -189,7 +193,7 @@
             <p>关于CVPR2021，VQA2VLN的tutorial的总结</p>
 <a id="more"></a>
 <p>tutorial原地址：<a href="https://vqa2vln-tutorial.github.io/" target="_blank" rel="noopener">CVPR 2021 Tutorial on “From VQA to VLN: Recent Advances in Vision-and-Language Research”</a>，本笔记总结一下在ppt里展示的VLN任务的内容，几位演讲者的视频还没看，毕竟有ppt和论文，概念理解应该不会有偏差</p>
-<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>浏览了一下，VLN其实是算一个在人机交互大背景下的Visual+Language的研究方向，其实和之前做的三维重建+导航有点关系，总而言之是3D视觉方面的东西，下面总结了一些，细说</p>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>浏览了一下，VLN其实是算一个在人机交互大背景下的Visual+Language的研究方向，其实和之前做的三维重建+导航有点关系，总而言之是2D和3D视觉方面的东西，下面稍微总结了下，后几个ppt还没看完，后面会追加该方向的论文链接和相关内容</p>
 <h2 id="See-Communicate-Act"><a href="#See-Communicate-Act" class="headerlink" title="See, Communicate, Act"></a>See, Communicate, Act</h2><p>机器模拟人的几种模拟方式，基本是将机器在看（视觉）、交流（文本）、行动几种模式下提高智能化，现在在See和Communicate两种模式的比较有代表性领域就是Computer Vision和Nature Language Processing，还有视觉和自然语言相结合的领域，例如Image-Understanding任务。前几年利用视觉和自然语言实现的智能化是从比较独立的模块获取的信息，比如目标检测，获取物体在图像上的(位置, 类别)，给机器做一些什么任务，比如统计xx，预测人流量等。目前用结合See-Communicate(Vision-Language)的发展比较好的方向有VQA, Captioning,Text2Image Generation等。</p>
 <ul>
 <li>会议上提到的这个VLN领域的理念是<em>Connecting Vision and Language to Actions</em>, 将vision(2D,3D)、language和(行动/指令)联系起来，理解复杂场景，并对输入请求做出具体行动，相当于是Video Understanding下的子任务。</li>
@@ -202,7 +206,7 @@
                 <div class="image-caption"></div>
             </figure>
 <p>“Embodied AI is the field for solving AI problems for virtual robots that can move, see, speak, and interact in the virtual world.” 这是在page里的一个引言，关于实体AI(暂译)，就是让机器获得 视听说、行动、理解几种功能，集成算法达到一个接近人一样的智能体，从Internet AI 过渡到 Embodied AI，甚至是给AGI，Artificial General Intelligence打基础，有一个关于Embodied AI的survey：<br><a href="https://arxiv.org/pdf/2103.04918.pdf" target="_blank" rel="noopener">Duan et al., A survey of Embodied AI: From simulators to Research Tasks, 2021</a></p>
-<h2 id="Vision-Language-Navigation"><a href="#Vision-Language-Navigation" class="headerlink" title="Vision-Language Navigation"></a>Vision-Language Navigation</h2><p>VLN实际上是2018年提出的一个研究领域，子标题是<strong>Vision-and-Language Navigation: Interpreting visually-grounded navigation instructions in real environments</strong>, 在现实环境下，让机器理解基于视觉定位的导航指令。</p>
+<h1 id="Vision-Language-Navigation"><a href="#Vision-Language-Navigation" class="headerlink" title="Vision-Language Navigation"></a>Vision-Language Navigation</h1><p>VLN是2018年提出的一个研究领域，当时的子标题是<strong>Vision-and-Language Navigation: Interpreting visually-grounded navigation instructions in real environments</strong>：在现实环境下，让机器理解基于视觉定位的导航指令。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -210,13 +214,13 @@
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p><purse>左下是人为给出的指令&lt;\purse&gt;<br>通俗来讲VLN任务就是为了给机器人导航，有两个任务：<br>①如何理解现实场景<br>②对于给出的Instructions，如何理解并做出行动<br><strong>与3D视觉导航的区别</strong>（如自动驾驶使用的视觉SLAM、Radar等）：</purse></p>
+<p>左下是人为给出的指令<br>通俗来讲VLN任务就是为了给机器人导航，有两个任务：<br>①如何理解现实场景<br>②对于给出的Instructions，如何理解并做出行动<br><strong>与3D视觉导航的区别</strong>（如自动驾驶使用的视觉SLAM、Radar等）</p>
 <ul>
 <li>3D-Navigation         : SLAM下从图像帧中处理得到点云判别障碍物、方位</li>
 <li>Sensor-Navigation : 传感器获取的空间信息（Radar、Lidar等）    ，判别障碍物、方位<br>SLAM —&gt; PointCloud —&gt; direction<br>Sensor —&gt; Mesh —&gt; direction                </li>
 <li>VL-Navigation          : Agent(摄像头)获取的视频信息，理解场景内容，并对指令做出行动，目前主要是在室内场景下研究导航任务</li>
 </ul>
-<p><strong>与VQA的区别</strong><br>VLN相对增加了动态视觉（相机运动）、长文本、测试集和训练集上的领域差距（在室内场景下训练，在室外场景测试，效果可能就急剧下降，并且一个训练样本就可以是整个场景，（比如浙江大学的3D重建方法，NeuralRecon，用的数据集Scannet））</p>
+<p><strong>与VQA的区别</strong><br>VLN相对增加了动态视觉（相机运动）、长文本、测试集和训练集上的领域差距</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -224,30 +228,57 @@
                 </div>
                 <div class="image-caption"></div>
             </figure>
+<p>domain gap指的是比如在室内场景下训练，在室外场景测试，效果可能就急剧下降，并且一个训练样本就可以是整个场景，（比如浙江大学的3D重建方法，NeuralRecon所用的Scannet数据）</p>
+<h2 id="Indoor-VLN"><a href="#Indoor-VLN" class="headerlink" title="Indoor VLN"></a>Indoor VLN</h2><p>目前VLN主要是研究室内的导航任务，<br>室内导航任务的几种指令难度等级<br>    1. A到B的位移<br>    2.找东西（可见）<br>    3.找东西（不可见）<br>    4.向人有针对性的提问得到更详细的信息，用这些追加的信息找东西</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/IndoorVLN.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
-<h3 id="Indoor-VLN"><a href="#Indoor-VLN" class="headerlink" title="Indoor VLN"></a>Indoor VLN</h3><pre><code>目前VLN主要是研究室内的导航任务，</code></pre><p>室内导航任务的几种指令难度等级<br>    1. A到B的位移<br>    2.找东西（可见）<br>    3.找东西（不可见）<br>    4.向人有针对性的提问得到更详细的信息，用这些追加的信息找东西</p>
-{% image /img/IndoorVLN.png '' '' %}
+<h2 id="Indoor-VLN-Challenges"><a href="#Indoor-VLN-Challenges" class="headerlink" title="Indoor VLN Challenges"></a>Indoor VLN Challenges</h2><p>Significant Appearance Variation，同一种物体有不同外观</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/c1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Rich Linguistic Phenomena，丰富的语境 </p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/c2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>Less Words, More Contents，文本所能表达的东西太少</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/c3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
-<h4 id="Indoor-VLN-Challenges"><a href="#Indoor-VLN-Challenges" class="headerlink" title="Indoor VLN Challenges"></a>Indoor VLN Challenges</h4><pre><code>Significant Appearance Variation，同一种物体有不同外观
-{% image /img/c1.png '' '' %}
- Rich Linguistic Phenomena，丰富的语境
-{% image /img/c2.png '' '' %}
-Less Words, More Contents，文本所能表达的东西太少
-{% image /img/c3.png '' '' %}</code></pre><h2 id="VLN-Models"><a href="#VLN-Models" class="headerlink" title="VLN Models"></a>VLN Models</h2><pre><code>- Seq2seq (a golden baseline) 
-    • Speaker-follower
-- Attention Mechanism (something must try) 
-    • EnvDrop, Self-monitoring, OAAM 
-- Transformer (this is all you need) 
-    • PREVALENT, Recurrent-Bert
-- Reinforcement Learning (Add-on) 
-    • RCM, Soft Expert</code></pre><h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h3><pre><code>R2R 
-CVDN</code></pre><h3 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h3><pre><code>- Success / Oracle Success Rate (%)
-- Navigation Error (m)
-- SPL (Success weighted by Path Length) 
-- CLS (Coverage weighted by Length Score) 
-    • Measuring fidelity to the reference path 
-- nDTW (normalized Dynamic Time Warping) 
-- SDTW (Success weighted by normalized Dynamic Time Warping)</code></pre>
+<h2 id="VLN-Models"><a href="#VLN-Models" class="headerlink" title="VLN Models"></a>VLN Models</h2><ul>
+<li>Seq2seq (a golden baseline)<br>  • Speaker-follower</li>
+<li>Attention Mechanism (something must try)<br>  • EnvDrop, Self-monitoring, OAAM </li>
+<li>Transformer (this is all you need)<br>  • PREVALENT, Recurrent-Bert</li>
+<li>Reinforcement Learning (Add-on)<br>  • RCM, Soft Expert</li>
+</ul>
+<h2 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h2><p>R2R 在214服务器上生成好了，从matterport模拟器得到的R2R任务 path distance 等<br>CVDN<br>NDH</p>
+<h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><ul>
+<li>Success / Oracle Success Rate (%)</li>
+<li>Navigation Error (m)</li>
+<li>SPL (Success weighted by Path Length) </li>
+<li>CLS (Coverage weighted by Length Score)<br>  • Measuring fidelity to the reference path </li>
+<li>nDTW (normalized Dynamic Time Warping) </li>
+<li>SDTW (Success weighted by normalized Dynamic Time Warping)<h1 id="Addition"><a href="#Addition" class="headerlink" title="Addition"></a>Addition</h1></li>
+</ul>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -255,7 +286,7 @@ CVDN</code></pre><h3 id="Metrics"><a href="#Metrics" class="headerlink" title="M
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2021-08-04T09:18:12.616Z" itemprop="dateUpdated">2021-08-04 17:18:12</time>
+    Last updated: <time datetime="2022-10-26T04:23:52.443Z" itemprop="dateUpdated">2022-10-26 12:23:52</time>
 </span><br>
 
 
@@ -334,14 +365,21 @@ CVDN</code></pre><h3 id="Metrics"><a href="#Metrics" class="headerlink" title="M
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2021/12/17/2021-12-17-non-rigid_image_distorted_image_recovery/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">A Survey of Restoration of Non-rigidly Distorted Image</h4>
+      </a>
+    </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2021/07/01/2021-07-01-statics_note/" id="post-next" class="post-nav-link">
+      <a href="/2021/07/01/2021-07-01-kaggle-LGB-optiver-realized-volatility-prediction/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">统计学习笔记(后篇)</h4>
+        <h4 class="title">Optiver Realized Volatility Prediction</h4>
       </a>
     </div>
   
@@ -434,11 +472,11 @@ CVDN</code></pre><h3 id="Metrics"><a href="#Metrics" class="headerlink" title="M
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
-        <p><span>waynamigo &copy; 2018 - 2021</span>
+        <p><span>waynamigo &copy; 2018 - 2023</span>
             <span>
                 
                 <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
@@ -576,5 +614,5 @@ MathJax.Hub.Queue(function() {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

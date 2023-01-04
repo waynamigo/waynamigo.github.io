@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="PointCloud,Embedded,ROS,Autoware">
+    <meta name="description" content="ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘">
+<meta name="keywords" content="PointCloud,Embedded,ROS,Autoware">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘">
+<meta property="og:url" content="http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-01-04T06:41:18.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘">
+<meta name="twitter:description" content="ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2022-09-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2022-09-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PointCloud/">PointCloud</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rk3399"><span class="post-toc-number">1.</span> <span class="post-toc-text">rk3399</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LiDAR-sdk-compilation-with-catkin"><span class="post-toc-number">2.</span> <span class="post-toc-text">LiDAR sdk compilation with catkin</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ip-camera"><span class="post-toc-number">3.</span> <span class="post-toc-text">ip camera</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#clip-task-–-paper"><span class="post-toc-number"></span> <span class="post-toc-text">clip task – paper</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#clip-retrieval"><span class="post-toc-number"></span> <span class="post-toc-text">clip retrieval</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cloud-native"><span class="post-toc-number">1.</span> <span class="post-toc-text">cloud native</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#kv-engine"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">kv engine</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go-project-structure"><span class="post-toc-number">2.</span> <span class="post-toc-text">go project structure</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPC-RMI"><span class="post-toc-number">3.</span> <span class="post-toc-text">RPC RMI</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPC-gRPC"><span class="post-toc-number">4.</span> <span class="post-toc-text">RPC gRPC</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2022-09-14-点云ROS业务"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2022-09-14 00:00:00" datetime="2022-09-13T16:00:00.000Z"  itemprop="datePublished">2022-09-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PointCloud/">PointCloud</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘</p>
+<a id="more"></a>
+<p>conda :gcc,make,gpgme,libarchive,zstd,<br>conda lib for system /lib</p>
+<p>pacmansource code<br><a href="https://sources.archlinux.org/other/pacman/" target="_blank" rel="noopener">https://sources.archlinux.org/other/pacman/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PKG_CHECK_MODULES(LIBARCHIVE, [libarchive &gt;= 3.0.0], ,</span><br><span class="line">	AC_MSG_ERROR([*** libarchive &gt;= 3.0.0 is needed to compile pacman!]))</span><br></pre></td></tr></table></figure>
+
+<h2 id="rk3399"><a href="#rk3399" class="headerlink" title="rk3399"></a>rk3399</h2><ol>
+<li>4g module disble (for now):rk_wifi_init module(driver) is not able to execute</li>
+<li>setting for static ip</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ip       : using DHCP in this room of ifconfig (after login in at UPC)</span><br><span class="line">gateway  : ip addr/ ifconfig/ netstat -rn</span><br><span class="line">netmask  : ip addr to check network segment and calculate yourself</span><br><span class="line"></span><br><span class="line">modify: /etc/network/interfaces</span><br><span class="line"></span><br><span class="line">auto [your eth name]</span><br><span class="line">iface [you eth name] inet [static]</span><br><span class="line">address [your ip]</span><br><span class="line">netmask [your netmask]</span><br><span class="line">gateway [your gateway]</span><br><span class="line">broadcast [your broadcast]</span><br><span class="line"></span><br><span class="line">ep.</span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 180.201.136.11</span><br><span class="line">netmask 255.255.192.0</span><br><span class="line">gateway 180.201.128.1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 down</span><br><span class="line">ifconfig eth0 up</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>networkauth<br>if the <strong>issue</strong> below occured:<br>“Failed to establish a new connection: [Errno -2] Name or service not known…”<br>detail:<br>“requests.exceptions.ConnectionError: HTTPSConnectionPool(host=’xx’, port=443): Max retries exceeded with url: /appapi/exchange/19/v1/prolist (Caused by NewConnectionError(‘&lt;urllib3.connection.VerifiedHTTPSConnection object at 0x7fca889818d0&gt;: Failed to establish a new connection: [Errno -2] Name or service not known’,))”</li>
+</ol>
+<p><strong>solution</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. PING lan.upc.edu.cn -&gt; (121.251.251.207) </span><br><span class="line">2. lan.upc.edu.cn &gt;&gt; /etc/hosts</span><br></pre></td></tr></table></figure>
+
+<p>run networkAuth script</p>
+<ol start="4">
+<li>cross-compile :: <a href="https://github.com/RangiLyu/nanodet" target="_blank" rel="noopener">https://github.com/RangiLyu/nanodet</a><br><a href="https://developer.arm.com/downloads/-/gnu-a" target="_blank" rel="noopener">gcc compiler toolchain</a><br><a href="https://developer.arm.com/-/media/Files/downloads/gnu-a/10.3-2021.07/binrel/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.tar.xz?rev=1cb9c51b94f54940bdcccd791451cec3&hash=B380A59EA3DC5FDC0448CA6472BF6B512706F8EC" target="_blank" rel="noopener">for x86(host)-aarch64</a></li>
+</ol>
+<p><strong>compiler env</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. untar the toolchain package</span><br><span class="line">2. export PATH="&lt;toolchain-compiler-bin-path&gt;:$&#123;PATH&#125;"</span><br><span class="line">3. apt install g++-arm-linux-gnueabi g++-arm-linux-gnueabihf g++-aarch64-linux-gnu</span><br><span class="line"> execute on -- 	aarch64-none-linux-gnu-gcc</span><br></pre></td></tr></table></figure>
+
+<p><strong>ncnn env</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4. https://github.com/RangiLyu/nanodet/blob/main/demo_ncnn/README.md</span><br><span class="line">5. ncnn test: https://blog.csdn.net/LuohenYJ/article/details/97031156</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FOUND OpenCV [error]:</span><br><span class="line">IMPORTED library can only be used with the INTERFACE keyword of</span><br><span class="line">  target_link_libraries</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/Dreamacro/clash/releases" target="_blank" rel="noopener">clashamd</a><br><a href="https://proxy-switchyomega.com/download/" target="_blank" rel="noopener">switchyomega.crx</a> .crx -&gt; .zip -&gt; drag</p>
+<ol start="5">
+<li>ROS env</li>
+</ol>
+<p><strong>ROS env</strong><br><a href="https://github.com/RoboSense-LiDAR/rslidar_sdk" target="_blank" rel="noopener">follow this readme </a><br><a href>and ros-full-desktop</a> dependencies <em>PCL</em> and <em>YAML</em> will be incidental in this version.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## add aptkeys and update repository</span></span><br><span class="line">sudo sh -c <span class="string">'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" &gt; /etc/apt/sources.list.d/ros-latest.list'</span></span><br><span class="line">curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -</span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment">## install ros-desktop with  included</span></span><br><span class="line">sudo apt install ros-noetic-desktop-full</span><br><span class="line"></span><br><span class="line"><span class="comment">## install dependencies</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source /opt/ros/noetic/setup.bash"</span> &gt;&gt; ~/.bashrc</span><br><span class="line">sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential </span><br><span class="line"><span class="comment">## install these dependencies in case</span></span><br><span class="line">sudo apt-get install libboost-dev libpcap-dev libpcl-dev libeigen3-dev</span><br><span class="line"><span class="comment">## empy and catkin_pkg installation</span></span><br><span class="line"><span class="keyword">if</span> you are using python default , <span class="keyword">then</span> install python3-empy with apt</span><br><span class="line"><span class="keyword">if</span> you are using conda, <span class="keyword">then</span> ```pip install empy catkin_pkg</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="LiDAR-sdk-compilation-with-catkin"><a href="#LiDAR-sdk-compilation-with-catkin" class="headerlink" title="LiDAR sdk compilation with catkin"></a>LiDAR sdk compilation with catkin</h2><ol>
+<li>mkdir [empty folder name]</li>
+<li>move rslidar_sdk/ to [empty folder name]/src </li>
+<li>catkin_make</li>
+<li>source devel/setup.bash</li>
+<li>roslaunch rslidar_sdk start.launch</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**ros1 + ros2**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">## dependencies</span><br><span class="line">sudo apt-get install python3-colcon-common-extensions python3-flake8 python3-pip python3-pytest-cov python3-rosdep python3-setuptools python3-vcstool python3-rosdep</span><br><span class="line"></span><br><span class="line">## setting apt repo address</span><br><span class="line">sudo sh -c &apos;echo &quot;deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main&quot; &gt; /etc/apt/sources.list.d/ros2-latest.list&apos;</span><br><span class="line">update &amp; install ros-foxy-desktop</span><br><span class="line">file -- .bashrc</span><br><span class="line">source /opt/ros/foxy/setup.bash</span><br><span class="line">## test </span><br><span class="line">ros2 run demo_nodes_cpp talker</span><br><span class="line">## remove</span><br><span class="line">sudo apt remove ros-foxy-* &amp;&amp; sudo apt autoremove</span><br></pre></td></tr></table></figure>
+
+<p><strong>AutowareAuto</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git</span><br><span class="line"><span class="comment">## dependices</span></span><br><span class="line">curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash</span><br><span class="line">sudo apt-get install git-lfs</span><br><span class="line"><span class="comment">## vsc import &amp; install ros external dependices</span></span><br><span class="line">vcs import &lt; autoware.auto.foxy.repos</span><br><span class="line">rosdep install -y -i --from-paths src</span><br><span class="line">git lfs pull --exclude=<span class="string">""</span> --include=<span class="string">"*"</span></span><br><span class="line"><span class="built_in">export</span> COLCON_DEFAULTS_FILE=/home/waynamigo/AutowareAuto/tools/ade_image/colcon-defaults.yaml</span><br><span class="line"><span class="comment">## compile by colcon with CUDA</span></span><br><span class="line">AUTOWARE_COMPILE_WITH_CUDA=1 colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release</span><br><span class="line"><span class="comment">## test</span></span><br><span class="line">colcon <span class="built_in">test</span></span><br><span class="line">colcon <span class="built_in">test</span>-result --verbose</span><br></pre></td></tr></table></figure>
+
+<h2 id="ip-camera"><a href="#ip-camera" class="headerlink" title="ip camera"></a>ip camera</h2><p>ip -192.168.1.64<br>user: admin<br>passwd: abcd-1234<br><em>issues</em></p>
+<ol>
+<li>cant be recognized with reticle unplugged(bridge0)</li>
+</ol>
+<p>sdk lib <figure class="highlight plain"><figcaption><span>/etc/ld.so.conf``` **content**:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```bash</span><br><span class="line">include /etc/ld.so.conf.d/*.conf</span><br><span class="line">/home/waynamigo/Documents/HKVISION/CH-HCNetSDKV6.1.9.4_build20220413_linux64/lib</span><br><span class="line">/home/waynamigo/Documents/HKVISION/CH-HCNetSDKV6.1.9.4_build20220413_linux64/lib/HCNetSDKCom</span><br><span class="line">#/home/waynamigo/Documents/LiDAR</span><br><span class="line">/usr/local/lib</span><br></pre></td></tr></table></figure></p>
+<h1 id="clip-task-–-paper"><a href="#clip-task-–-paper" class="headerlink" title="clip task – paper"></a>clip task – paper</h1><ol>
+<li>CLIP4Hashing: Unsupervised Deep Hashing for Cross-Modal Video-Text Retrieval. ICMR</li>
+<li>Segmentation in Style: Unsupervised Semantic Image Segmentation with Stylegan and CLIP. CoRR abs/2107.12518 (2021)</li>
+</ol>
+<h1 id="clip-retrieval"><a href="#clip-retrieval" class="headerlink" title="clip retrieval"></a>clip retrieval</h1><ol>
+<li>Conditioned and composed image retrieval combining and partially fine-tuning CLIP-based features. CVPR Workshops 2022: 4955-4964</li>
+<li>VideoCLIP: A Cross-Attention Model for Fast Video-Text Retrieval Task with Image CLIP. ICMR 2022: 29-33</li>
+<li>Extending CLIP for Category-to-Image Retrieval in E-Commerce. ECIR (1) 2022: 289-303</li>
+<li>Animating Images to Transfer CLIP for Video-Text Retrieval. SIGIR 2022: 1906-1911</li>
+<li>X-CLIP: End-to-End Multi-grained Contrastive Learning for Video-Text Retrieval. CoRR abs/2207.07285 (2022)</li>
+</ol>
+<h2 id="cloud-native"><a href="#cloud-native" class="headerlink" title="cloud native"></a>cloud native</h2><h3 id="kv-engine"><a href="#kv-engine" class="headerlink" title="kv engine"></a>kv engine</h3><p><a href="https://www.cs.utah.edu/~lifeifei/papers/polardbserverless-sigmod21.pdf" target="_blank" rel="noopener">polarDB</a><br><a href="https://zhuanlan.zhihu.com/p/103600699" target="_blank" rel="noopener">baidu Atlas</a><br>[alibaba competition]<a href="https://tianchi.aliyun.com/competition/entrance/531979/information" target="_blank" rel="noopener">https://tianchi.aliyun.com/competition/entrance/531979/information</a></p>
+<h2 id="go-project-structure"><a href="#go-project-structure" class="headerlink" title="go project structure"></a>go project structure</h2><p><a href="https://blog.csdn.net/weixin_44757863/article/details/120349003" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44757863/article/details/120349003</a></p>
+<h2 id="RPC-RMI"><a href="#RPC-RMI" class="headerlink" title="RPC RMI"></a>RPC RMI</h2><p><strong>RMI</strong> stands for Remote Method Invocation, is a similar to PRC but it supports object-<br>oriented programming which is the java’s feature.<br><strong>RPC</strong> RPC(Remote Procedure Call，远程过程调用)是一种计算机通信协议，允许调用不同进程空间的程序。RPC 的客户端和服务器可以在一台机器上，也可以在不同的机器上。程序员使用时，就像调用本地程序一样，无需关注内部的实现细节。</p>
+<p>不同的应用程序之间的通信方式有很多，比如浏览器和服务器之间广泛使用的基于 HTTP 协议的 Restful API。与 RPC 相比，Restful API 有相对统一的标准，因而更通用，兼容性更好，支持不同的语言。HTTP 协议是基于文本的，一般具备更好的可读性。但是缺点也很明显：</p>
+<ul>
+<li>Restful 接口需要额外的定义，无论是客户端还是服务端，都需要额外的代码来处理，而 RPC 调用则更接近于直接调用。</li>
+<li>基于 HTTP 协议的 Restful 报文冗余，承载了过多的无效信息，而 RPC 通常使用自定义的协议格式，减少冗余报文。</li>
+<li>RPC 可以采用更高效的序列化协议，将文本转为二进制传输，获得更高的性能。</li>
+<li>因为 RPC 的灵活性，所以更容易扩展和集成诸如注册中心、负载均衡等功能。</li>
+</ul>
+<p>命令式编程(Imperative/procedual)、声明式编程(Declarative)和函数式编程(Functional)</p>
+<h2 id="RPC-gRPC"><a href="#RPC-gRPC" class="headerlink" title="RPC gRPC"></a>RPC gRPC</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-01-04T06:41:18.513Z" itemprop="dateUpdated">2023-01-04 14:41:18</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autoware/">Autoware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Embedded/">Embedded</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PointCloud/">PointCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/&title=《点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/&title=《点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘》 — waynamigo's blog&source=ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘》 — waynamigo's blog&url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2022/10/01/2022-10-01-VGApproachs/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Paper Routing for Visual Grounding</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2022/08/24/2022-08-24-激光扫描的堆体体积估算/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">激光体积估算业务Solution?</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/&title=《点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/&title=《点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘》 — waynamigo's blog&source=ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘》 — waynamigo's blog&url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/09/14/2022-09-14-点云ROS业务/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3awW7CMBAEUP7/p9srFSLMeG2g0ssJ0SjxcyWvmfXtFl8/d9f9N4+fn91//ZzHO5Onbbvw8PDwBkN/vK7vSZ6WTEc+tnzMeHh4eKd5zx6dL+jJ4p4Xj2Q8yVvw8PDwvoE32V5P7sTDw8P7v7wcn5Pa0oKHh4f3Dbx26c/LQ7J1XpuIzVkLHh4eXszL49Tv+Xykv4eHh4c37qony277+kkwUY8TDw8P7wBvsp1tjxTkW/N2446Hh4f3fl4SjCaN/zxazYtN8n10Dx4eHt4mXtuqz6mTWGFb8wwPDw/vMC//Jj9MME+X27LxNGvBw8PD28Rrw4h5Acgb/G3xePFbAQ8PD+8YLz8INSkMeZlpt/Ibfjfg4eHhXfLyILVd0JMgI98ct5OFh4eHd5rXPjpv9ucb3/a90RTg4eHhHeNNIob8Ze1kFY2u9ugAHh4e3pg3iXTz7XXbZtuw0cfDw8M7wMuX3XzpX1v0d00BHh4e3nt47ePywjB5b9tyexHs4uHh4W3irTWr1gLcZHO8K4bAw8PDO8drX9Au9MlEJNHw2g4ZDw8P7wSvbsbH09FuvvP35o03PDw8vHO8fMHNF/Q8aJiTXvxiwMPDwzvMa7fR7eGDtcCiLV14eHh47+TlD82HlRyTakvObTL3eHh4eAPerjKwdkSgjRgWIxI8PDy8rbz8Z3/e3MpLTn44ID988GdseHh4eAd47RJfn0eID0jlW/bF/TMeHh7eJt5PeSXLelJU5gFxVELw8PDwDvDaBXdvgNuGtu0RBDw8PLxzvElg2jb+2zBiw38JDw8P7xgvjwzyv7Yb7jXGizvx8PDwPsrb3JSKA+KkCD0dLR4eHt5HefMoIQ92J7wjdQ8PDw9vKYyYtMTaabouLcWBMDw8PLwDvPkxqTYgaCOGfNJvaxceHh5eOpJfA3Fpzq8VpusAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

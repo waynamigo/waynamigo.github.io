@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Kubernetes Tutorial and Implementation(Overview) | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CloudComputing,Kubernetes">
+    <meta name="description" content="本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。">
+<meta name="keywords" content="CloudComputing,Kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes Tutorial and Implementation(Overview)">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://waynamigo.github.io/img/components-of-kubernetes.svg">
+<meta property="og:updated_time" content="2023-01-04T06:12:15.877Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes Tutorial and Implementation(Overview)">
+<meta name="twitter:description" content="本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。">
+<meta name="twitter:image" content="http://waynamigo.github.io/img/components-of-kubernetes.svg">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Kubernetes Tutorial and Implementation(Overview)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Kubernetes Tutorial and Implementation(Overview)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2022-12-31T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Kubernetes/">Kubernetes</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kubernetes-Components-and-Architecture"><span class="post-toc-number">1.</span> <span class="post-toc-text">Kubernetes Components and Architecture</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#I-Control-Plane-Components"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">I. Control Plane Components</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-Node"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2.Node</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#II-Kubernetes-WorkLoads"><span class="post-toc-number">2.</span> <span class="post-toc-text">II. Kubernetes WorkLoads</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Pods"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Pods</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Volume"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Volume</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Controller"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Controller</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deployment"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Deployment</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Service"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">Service</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-01-kubernets_tutorial(Overview)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Kubernetes Tutorial and Implementation(Overview)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-01 00:00:00" datetime="2022-12-31T16:00:00.000Z"  itemprop="datePublished">2023-01-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Kubernetes/">Kubernetes</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档<a href="https://kubernetes.io/docs/tutorials/" target="_blank" rel="noopener">v1.26</a>， 元旦期间系统整理一下。</p>
+<a id="more"></a>
+
+<h2 id="Kubernetes-Components-and-Architecture"><a href="#Kubernetes-Components-and-Architecture" class="headerlink" title="Kubernetes Components and Architecture"></a>Kubernetes Components and Architecture</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/components-of-kubernetes.svg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="I-Control-Plane-Components"><a href="#I-Control-Plane-Components" class="headerlink" title="I. Control Plane Components"></a>I. Control Plane Components</h3><p>*<red>Control Plane</red>是对集群进行调度管理的中心*</p>
+<p><strong>API server</strong>(kube-apiserver): The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.</p>
+<ul>
+<li>作为Control plane的前端，是认证、授权、访问控制、API注册和发现等机制的统一入口，其中API为restful风格，同时交给etcd存储。</li>
+</ul>
+<p><strong><a href="https://etcd.io/docs/" target="_blank" rel="noopener">etcd</a></strong>: Consistent and highly-available key value store used as Kubernetes’ backing store for all cluster data.</p>
+<ul>
+<li>一致且高度可用的键值存储，用作 Kubernetes 的所有集群数据的后台数据库。</li>
+</ul>
+<p><strong>scheduler</strong>(kube-scheduler): Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.</p>
+<ol>
+<li><p>负责节点(Node)的调度与监控，职责为监控新创建的、未指定运行Node的 Pods，并选择Node来让 Pod 运行。</p>
+</li>
+<li><p>调度决策考虑的因素包括单个 Pod 及 Pods 集合的资源需求、软硬件及策略约束、 亲和性及反亲和性规范、数据位置、工作负载间的干扰及最后时限。</p>
+</li>
+</ol>
+<p><strong>controller-manager</strong></p>
+<ol>
+<li>kube-controller-manager: Control plane component that runs controller processes.<br>Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.</li>
+</ol>
+<ul>
+<li>用于处理集群中常规后台任务，一个资源对应一个控制器，这些控制器包括：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应</span><br><span class="line">任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成</span><br><span class="line">端点分片控制器（EndpointSlice controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。</span><br><span class="line">服务账号控制器（ServiceAccount controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>cloud-controller-manager:<br>云控制器管理器允许用户将集群连接到云提供商的 API 之上， 并将与该云平台交互的组件同与用户的集群交互的组件分离开来。</li>
+</ol>
+<ul>
+<li>与 kube-controller-manager 类似，cloud-controller-manager 将若干逻辑上独立的控制回路组合到同一个可执行文件中，以同一进程的方式运行。 用户可以对其执行水平扩容（运行不止一个副本）以提升性能或者增强容错能力。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">节点控制器（Node Controller）：用于在节点终止响应后检查云提供商以确定节点是否已被删除</span><br><span class="line">路由控制器（Route Controller）：用于在底层云基础架构中设置路由</span><br><span class="line">服务控制器（Service Controller）：用于创建、更新和删除云提供商负载均衡器</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-Node"><a href="#2-Node" class="headerlink" title="2.Node"></a>2.Node</h3><p><strong>kubelet</strong>: An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.</p>
+<ul>
+<li>管理本机容器一个集群中每个节点上运行的代理(agent, not proxy)，它保证容器都运行在Pod中负责维护容器的生命周期，同时也负责Volume(CSI，容器存储接口) 和 网络(CNI，容器网络接口)的管理</li>
+</ul>
+<p><strong>kube-proxy</strong>: kube-proxy is a network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.</p>
+<ul>
+<li>提供网络代理，负载均衡等操作</li>
+</ul>
+<p><strong>Container Runtime</strong>: Docker(Mainly)</p>
+<ul>
+<li>Docker、containerd、cri-o、rktlet以及任何实现Kubernetes CRI (容器运行环境接口) 的软件。<h2 id="II-Kubernetes-WorkLoads"><a href="#II-Kubernetes-WorkLoads" class="headerlink" title="II. Kubernetes WorkLoads"></a>II. Kubernetes WorkLoads</h2><h3 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h3>Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.</li>
+<li>是k8s中最小的单元</li>
+<li>一组容器的集合</li>
+<li>一个Pod中的所有容器共享同一网络</li>
+<li>生命周期是短暂的（服务器重启后，就找不到了）</li>
+</ul>
+<p>其中<strong>kubectl</strong>是Kubernetes集群的命令行接口, 假设一个demopod.yaml:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span> <span class="comment">#kubeapi的版本</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span> <span class="comment">#Pod/Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">PodName</span> </span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Container</span> <span class="string">Name</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">waynamigo/java:runtime</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">  restartPolicy:</span> <span class="string">OnFailure</span></span><br></pre></td></tr></table></figure>
+
+<p>那么由该yaml启动pod的命令格式为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl [<span class="built_in">command</span>] [TYPE] [NAME] [flags]</span><br><span class="line">kubectl apply -f demopod.yaml</span><br></pre></td></tr></table></figure>
+
+<p><strong>组织形式</strong></p>
+<ul>
+<li><p>1Pod-1Container. 可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。</p>
+</li>
+<li><p>1Pod-NContainer. A Pod can encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources.<br>一个Pod可封装(encapsulate)由多个紧密耦合(coupled)且需要共享资源的容器组成的应用程序。Pod 将这些容器和存储资源打包为一个可管理的实体。</p>
+</li>
+</ul>
+<p><strong>资源管理方式</strong></p>
+<p>Pod 被设计成支持形成内聚服务单元的多个协作过程，提供两种共享资源：<strong>网络，存储(Volume)</strong>，使成员容器间能够进行数据共享和通信。</p>
+<p><strong>更新与替换 - Update &amp; Replacement</strong></p>
+<ol>
+<li><p>当某Workload的 Pod Template被改变时，Controller会基于更新的模板创建新的 Pod对象，而不是对现有 Pod执行更新或者修补操作。</p>
+</li>
+<li><p>如果对Pod的某些字段执行 patch 和 replace 等更新操作，则有一些限制：</p>
+</li>
+</ol>
+<ul>
+<li><p>Pod 的绝大多数元数据都是不可变的。例如，用户不可以改变其 namespace、name、 uid 或者 creationTimestamp 字段；generation 字段是比较特别的， 如果更新该字段，只能增加字段取值而不能减少。</p>
+</li>
+<li><p>如果 metadata.deletionTimestamp 已经被设置，则不可以向 metadata.finalizers 列表中添加新的条目。</p>
+</li>
+<li><p>Pod 更新不可以改变除 spec.containers.image、spec.initContainers.image、 spec.activeDeadlineSeconds 或 spec.tolerations 之外的字段。 对于 spec.tolerations，用户只被允许添加新的条目。</p>
+</li>
+<li><p>在更新 spec.activeDeadlineSeconds 字段时，以下两种更新操作是被允许的：如果该字段尚未设置，可以将其设置为一个正数；<br>如果该字段已经设置为一个正数，可以将其设置为一个更小的、非负的整数。</p>
+</li>
+</ul>
+<p><strong>其他</strong></p>
+<p>*<a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/" target="_blank" rel="noopener">生命周期</a>*：</p>
+<ul>
+<li>Pending: 起始状态，</li>
+<li>Running: 至少有一个主要容器正常启动，进入Running</li>
+<li>Succeeded/Failed: 取决于 Pod 中是否有容器以失败状态结束</li>
+<li>Unknown: 因为某些原因, 无法取得 Pod 状态。这种情况通常是因为与 Pod 所在主机通信失败。</li>
+</ul>
+<p>*<a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/" target="_blank" rel="noopener">Probe</a>*：容器探针是由 kubelet 对容器执行的定期诊断。要执行诊断，kubelet 可以执行三种动作：</p>
+<ul>
+<li>ExecAction（借助容器运行时执行）</li>
+<li>TCPSocketAction（由 kubelet 直接检测）</li>
+<li>HTTPGetAction（由 kubelet 直接检测）</li>
+</ul>
+<p><em>特权模式</em>：在 Linux 中，Pod 中的任何容器都可以使用容器规约中的 安全性上下文中的 privileged 参数启用特权模式。 </p>
+<p><em>Static Pod</em>：不通过API-server进行管理，直接由特定节点上的 kubelet 守护进程管理，通过 kubelet 直接监控每个 Pod，并在其失效时重启。并且不能引用其他的API对象。</p>
+<h3 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h3><p>Kubernetes 支持很多类型的卷：</p>
+<ul>
+<li>Volume声明在Pod容器中可访问的文件目录</li>
+<li>一个Pod 可以同时使用任意数目的卷类型。 </li>
+<li>可以被挂载到Pod中一个或多个容器指定路径下-</li>
+<li>Pod 配置中的每个容器必须独立指定各个卷的挂载位置</li>
+<li>支持多种后端存储抽象【本地存储、分布式存储、云存储】</li>
+<li>临时卷类型的生命周期与 Pod 相同</li>
+<li>对于给定 Pod 中任何类型的卷，在容器重启期间数据都不会丢失。</li>
+</ul>
+<p><strong>持久卷</strong> Persistent Volume：是集群中的一块存储，可以由管理员事先制备， 或者使用存储类（Storage Class）来动态制备。</p>
+<p><strong>投射卷</strong> Projected Volume：一个投射卷可以将若干现有的卷源映射到同一个目录之上</p>
+<p><strong>临时卷</strong> Ephemeral Volume：有些应用程序需要额外的存储，但并不关心数据在重启后是否仍然可用。 </p>
+<ul>
+<li><p>缓存服务经常受限于内存大小，而且可以将不常用的数据转移到比内存慢的存储中，对总体性能的影响并不大。</p>
+</li>
+<li><p>另有些应用程序需要以文件形式注入的只读数据，比如配置数据或密钥。</p>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3></li>
+<li><p>将当前状态（Current State）更新为期望状态（Desired State）</p>
+</li>
+<li><p>确保预期的pod副本数量【ReplicaSet】</p>
+</li>
+<li><p>无状态应用部署【Deployment】，无状态就是指，不需要依赖于网络或者ip</p>
+</li>
+<li><p>有状态应用部署【StatefulSet】，有状态即需要满足特定的初始条件进行部署</p>
+</li>
+<li><p>确保所有的node运行同一个pod 【DaemonSet】</p>
+</li>
+<li><p>一次性任务和定时任务【Job和CronJob】</p>
+</li>
+</ul>
+<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h3><p>Deployment 为 Pod 和其副本(ReplicaSet)提供声明式的更新。</p>
+<ul>
+<li>用户负责描述 Deployment 中的 目标状态，（Controller） 以可控的速度更改实际运行状态（Current State)， 使其变为期望状态(Desired State)。</li>
+</ul>
+<p><strong>创建Deployment</strong></p>
+<ul>
+<li>如下demodeployment.yaml，用户可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment， 并通过新的 Deployment 分配其资源。<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">depName</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">3</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">nginx:1.14.2</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>该 Deployment 创建一个 ReplicaSet，包含3个Pod 副本。<br>同样通过kubectl运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f demodeployment.yaml</span><br><span class="line"><span class="comment"># 创建后通过get deployments进行获取运行时信息如下</span></span><br><span class="line">$ kubectl get deployments</span><br><span class="line">NAME      READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">depName   0/3     0            0           1s</span><br><span class="line"><span class="comment"># 查看 Deployment 上线状态</span></span><br><span class="line">$ kubectl rollout status deployment/depName</span><br><span class="line"><span class="comment"># 查看 Deployment 创建的 ReplicaSet（rs）</span></span><br><span class="line">$ kubectl get rs</span><br><span class="line">NAME                 DESIRED   CURRENT   READY   AGE</span><br><span class="line">depName-75675f5897   3         3         3       18s</span><br><span class="line"><span class="comment"># 查看每个 Pod 自动生成的标签</span></span><br><span class="line">$ kubectl get pods --show-labels</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NAME 列出了名字空间中 Deployment 的名称。</li>
+<li>READY 显示应用程序的可用的“副本”数。显示的模式是“就绪个数/期望个数”。</li>
+<li>UP-TO-DATE 显示为了达到期望状态已经更新的副本数。</li>
+<li>AVAILABLE 显示应用可供用户使用的副本数。</li>
+<li>AGE 显示应用程序运行的时间。</li>
+</ul>
+<p><strong>更新/回滚/缩放/暂停 Deployments</strong></p>
+<p>先来更新上述Pod的container，以使用 nginx:1.16.1 镜像，而不是 nginx:1.14.2 镜像。命令格式如 <figure class="highlight plain"><figcaption><span>set image deployment/metadata.name.depName spec.template.spec.containers[0]image</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">```bash</span><br><span class="line"># 创建</span><br><span class="line">$ kubectl set image deployment/depName nginx=nginx:1.16.1</span><br><span class="line">output: deployment.apps/depName edited</span><br><span class="line"># 查看deployment的details</span><br><span class="line">$ kubectl describe deployments</span><br><span class="line"># 查看上线状态</span><br><span class="line">$ kubectl rollout status deployment/depName</span><br><span class="line">output: </span><br><span class="line">1. Waiting for rollout to finish: 2 out of 3 new replicas have been updated...</span><br><span class="line">2. deployment &quot;depName&quot; successfully rolled out</span><br><span class="line"># 查看更新后的pod states</span><br><span class="line">$ kubectl get pods</span><br></pre></td></tr></table></figure></p>
+<p>回滚操作和git的回滚操作类似</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查deployment修改历史</span></span><br><span class="line">$ kubectl rollout <span class="built_in">history</span> deployment/depName</span><br><span class="line">output:</span><br><span class="line">deployments <span class="string">"depname"</span></span><br><span class="line">REVISION    CHANGE-CAUSE</span><br><span class="line">1           kubectl apply --filename=demodeployment.yaml</span><br><span class="line">2           kubectl <span class="built_in">set</span> image deployment/depName nginx=nginx:1.16.1</span><br><span class="line">3           kubectl <span class="built_in">set</span> image deployment/depName nginx=nginx:1.161</span><br><span class="line"><span class="comment"># 可以通过以下方式设置 CHANGE-CAUSE 消息：</span></span><br><span class="line">$ kubectl annotate deployment/depname kubernetes.io/change-cause=<span class="string">"image updated to 1.16.1"</span></span><br><span class="line"><span class="comment"># 查看某个revision的详细信息 可以通过--revisionc参数指定版本：</span></span><br><span class="line">$ kubectl rollout <span class="built_in">history</span> deployment/depName --revision=2</span><br><span class="line"><span class="comment"># 回滚到上一个版本</span></span><br><span class="line">$ kubectl rollout undo deployment/depName</span><br><span class="line"><span class="comment"># 回滚到指定版本 --to-revision=2</span></span><br><span class="line">$ kubectl rollout undo deployment/depName --to-revision=2</span><br><span class="line">output:</span><br><span class="line">deployment.apps/depName rolled back</span><br><span class="line">$ kubectl describe deployment depName</span><br></pre></td></tr></table></figure>
+
+<p>缩放deployment，即更新replicas，让rs的副本增加或减少</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定量缩放，比如replicas由3变5个</span></span><br><span class="line">$ kubectl scale deployment/depName --replicas=5</span><br><span class="line"><span class="comment"># 开启Pod的水平自动缩放后，根据cpu利用率设置pod运行个数的上下限</span></span><br><span class="line">$ kubectl autoscale deployment/depName --min=10 --max=15 --cpu-percent=80</span><br><span class="line"><span class="comment"># 限定可共享的资源</span></span><br><span class="line">$ kubectl <span class="built_in">set</span> resources deployment/depName -c=nginx --limits=cpu=200m,memory=512Mi</span><br></pre></td></tr></table></figure>
+
+<p>同时具有比例缩放特性 Proportional scaling </p>
+<p>//TODO::命令设置</p>
+<p>暂停deployment</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout pause deployment/depName</span><br></pre></td></tr></table></figure>
+
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><ol>
+<li>Service定义了一组pod的访问规则(An abstract way to expose an application running on a set of Pods as a network service.)</li>
+<li>Pod的负载均衡，提供一个或多个Pod的稳定访问地址</li>
+<li>支持多种方式【ClusterIP、NodePort、LoadBalancer】</li>
+</ol>
+<p>In Kubernetes, a Service is an abstraction which defines a logical set of Pods and a policy by which to access them (sometimes this pattern is called a micro-service). The set of Pods targeted by a Service is usually determined by a <a href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/" target="_blank" rel="noopener">selector</a>.<br><strong>服务发现</strong></p>
+<ol>
+<li>Service in Kubernetes is a REST object, similar to a Pod. Like all of the REST objects, you can POST a Service definition to the API server to create a new instance. </li>
+<li>用户想要在应用程序中使用 Kubernetes API 进行服务发现，则可以查询 API 服务器用于匹配 EndpointSlices：只要服务中的 Pod 集合发生更改，Kubernetes 就会为服务更新EndpointSlices。</li>
+</ol>
+<p>定义一个demoservice.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">demoservice</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line">    <span class="string">app.kubernetes.io/name:</span> <span class="string">MyApp</span> <span class="comment"># 使用该sector辨别pods组</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">    - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">      targetPort:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Ingress</strong></p>
+<ol>
+<li>首先，Ingress是公开从集群外部到集群内服务的 HTTP 和 HTTPS 路由。 流量路由由 Ingress 资源上定义的规则控制。</li>
+<li>Ingress 是对集群中服务的外部访问进行管理的 API 对象，典型的访问方式是 HTTP。</li>
+<li>Ingress 可以提供负载均衡、SSL 终结和基于名称的虚拟托管。</li>
+<li>An Ingress controller is responsible for fulfilling the Ingress, usually with a load balancer.</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">minimal-ingress</span></span><br><span class="line"><span class="attr">  annotations:</span></span><br><span class="line">    <span class="string">nginx.ingress.kubernetes.io/rewrite-target:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ingressClassName:</span> <span class="string">nginx-example</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/testpath</span></span><br><span class="line"><span class="attr">        pathType:</span> <span class="string">Prefix</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          service:</span></span><br><span class="line"><span class="attr">            name:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">            port:</span></span><br><span class="line"><span class="attr">              number:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-01-04T06:12:15.877Z" itemprop="dateUpdated">2023-01-04 14:12:15</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CloudComputing/">CloudComputing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/&title=《Kubernetes Tutorial and Implementation(Overview)》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/&title=《Kubernetes Tutorial and Implementation(Overview)》 — waynamigo's blog&source=本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Kubernetes Tutorial and Implementation(Overview)》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">业务数据需求及数据处理概要-水上机器视觉场景</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/&title=《Kubernetes Tutorial and Implementation(Overview)》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/&title=《Kubernetes Tutorial and Implementation(Overview)》 — waynamigo's blog&source=本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Kubernetes Tutorial and Implementation(Overview)》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvElEQVR42u3a0QrbQAwEwPz/T6fQp5YSZ1fytS6Mn0JIfBoHThdJr1d8vX9eyWd+/eSnd67v/P7jymMYXnh4eHij0D9d7ZLXvOsV87WSmPHw8PBO866Twccvx0HnKeealMeMh4eH9wTe6QTQroiHh4f3P/LaYsHsMeHh4eE9k5dv0/kySbgPqrXg4eHhxby2AfaE1wf7e3h4eHiLrvq+GZaMFySk2YWHh4d3gjcLN2+Gtcj8OF7cEw8PD+9WXlswbcNqi7/5d6+j+i3v4eHh4R3mbVpQxcJxgkli+PgOHh4e3gHepto5OwTnowOb8gceHh7eOV6y0SdpoC3p5pt7/lhfszyGh4eHN6m41n/y81CSA/TsSF38GHh4eHi38qIT96hUMSsK17/MdeLBw8PD+4u8drHNdt8WPooI8fDw8A7zbrhdXAFoyxPDSPDw8PAO8PKD8uy43IbeFo6jNhseHh7eAd7qD/8ouKJ9tW6n4eHh4d3L27TnkzZYOzh1vVadGPDw8PAO8JKNO8HMNvH86JykmSjv4eHh4d3EyzfxJG20gwLto8lHwfDw8PBO8NoG1Wwoaj/AOhspwMPDwzvNS4oL7Qadp4S7eFEZFw8PD297Bh62mvKWVVt4nY1qRXHi4eHh3cpraxjv8tqknDzOukqNh4eHV/Jmdd/Zxt22tfIixeofAx4eHt6Ct2lZ5YWGfXNreFM8PDy8m3ibJlMSVlt6mMVQFyPw8PDwFrxZQaEtXiQjWXlaKpIZHh4e3gHeLJPkBdY2heSPI3k0eHh4eOd4s8bVcDYhCHrfHvvyXPHw8PBu4m2CaMsKefJIMtiXx42Hh4f3T3ntIFQbeptmimkyPDw8vAfw8nJAW2bNk0E0aoCHh4d3jNcWAtr22DVg0zb7cn88PDy8A7x9A2yzfDuUcO94Fh4eHl7J+wGgaH2CIjjUsAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

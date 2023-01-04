@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Paper Routing for Visual Grounding | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Multimodal,Paper,VisualGrounding">
+    <meta name="description" content="Visual GroundingReferring ExpressionsPhrase Grounding">
+<meta name="keywords" content="Multimodal,Paper,VisualGrounding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper Routing for Visual Grounding">
+<meta property="og:url" content="http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="Visual GroundingReferring ExpressionsPhrase Grounding">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-01-04T05:32:52.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Paper Routing for Visual Grounding">
+<meta name="twitter:description" content="Visual GroundingReferring ExpressionsPhrase Grounding">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Paper Routing for Visual Grounding</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Paper Routing for Visual Grounding</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2022-09-30T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2022-10-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VisualGrounding/">VisualGrounding</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Reprensentation-Approach"><span class="post-toc-number">1.</span> <span class="post-toc-text">Reprensentation Approach</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VG-paper-routing"><span class="post-toc-number">2.</span> <span class="post-toc-text">VG paper routing</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RNN类方法"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">RNN类方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Natural-Language-Object-Retrieval-Images"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Natural Language Object Retrieval (Images)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Grounding-Relations-Referring-Relations"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Grounding Relations / Referring Relations</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Grounded-Description-Image-WIP"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Grounded Description (Image) (WIP)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2022-10-01-VGApproachs"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Paper Routing for Visual Grounding</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2022-10-01 00:00:00" datetime="2022-09-30T16:00:00.000Z"  itemprop="datePublished">2022-10-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VisualGrounding/">VisualGrounding</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Visual Grounding<br>Referring Expressions<br>Phrase Grounding</p>
+<a id="more"></a>
+<h2 id="Reprensentation-Approach"><a href="#Reprensentation-Approach" class="headerlink" title="Reprensentation Approach"></a>Reprensentation Approach</h2><p>几个在VG任务中的主流视觉backbone</p>
+<ul>
+<li><strong>rpn</strong></li>
+<li><strong>maskrcnn</strong></li>
+<li><strong>retinanet(fpn)</strong></li>
+<li><strong>Vit</strong></li>
+<li><strong>DETR</strong></li>
+</ul>
+<p>文本表示的编码方式/编码器模型</p>
+<ul>
+<li><strong>word2vec</strong> <a href="2D_VisualGrounding/word2vec.pdf">[File]</a></li>
+<li><strong>bert</strong></li>
+<li></li>
+</ul>
+<h2 id="VG-paper-routing"><a href="#VG-paper-routing" class="headerlink" title="VG paper routing"></a>VG paper routing</h2><ol>
+<li><p>Karpathy, Andrej, Armand Joulin, and Li F. Fei-Fei. <strong>Deep fragment embeddings for bidirectional image sentence mapping.</strong> Advances in neural information processing systems. 2014. <a href="http://papers.nips.cc/paper/5281-deep-fragment-embeddings-for-bidirectional-image-sentence-mapping.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+<h3 id="RNN类方法"><a href="#RNN类方法" class="headerlink" title="RNN类方法"></a>RNN类方法</h3></li>
+<li><p>Karpathy, Andrej, and Li Fei-Fei. <strong>Deep visual-semantic alignments for generating image descriptions.</strong> Proceedings of the IEEE conference on computer vision and pattern recognition. 2015. <em>Method name: Neural Talk</em>. <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Karpathy_Deep_Visual-Semantic_Alignments_2015_CVPR_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/karpathy/neuraltalk" target="_blank" rel="noopener">[Code]</a> <a href="https://github.com/karpathy/neuraltalk2" target="_blank" rel="noopener">[Torch Code]</a> <a href="https://cs.stanford.edu/people/karpathy/deepimagesent/" target="_blank" rel="noopener">[Website]</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RPN作为视觉backbone+BiRNN编码文本，前19个region和karpathy分割的snippets（phrase）映射到同一长度vector后进行相似度计算S，max(0,S)以衡量整个图片与句子的相似程度。</span><br><span class="line"></span><br><span class="line">* 整体是用的retrieval的baseline，类似于SCAN等retrival任务的特征处理方式</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hu, Ronghang, et al. <strong>Natural language object retrieval.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2016. </p>
+</li>
+</ol>
+<p><strong>Method name</strong>: Spatial Context Recurrent<br>ConvNet (SCRC)* <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Hu_Natural_Language_Object_CVPR_2016_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/ronghanghu/natural-language-object-retrieval" target="_blank" rel="noopener">[Code]</a> <a href="http://ronghanghu.com/text_obj_retrieval/" target="_blank" rel="noopener">[Website]</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">文本提首先进入一个embedding层</span><br><span class="line">CNN同样提取global contextual feature和 local feature，</span><br><span class="line">LSTM 获取local 和 global信息（两个单元），local处理[x box ,x spatial]</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>Mao, Junhua, et al. <strong>Generation and comprehension of unambiguous object descriptions.</strong> Proceedings of the IEEE conference on computer vision and pattern recognition. 2016. <a href="https://arxiv.org/pdf/1511.02283.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/mjhucla/Google_Refexp_toolbox" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Wang, Liwei, Yin Li, and Svetlana Lazebnik. <strong>Learning deep structure-preserving image-text embeddings.</strong> Proceedings of the IEEE conference on computer vision and pattern recognition. 2016. <a href="http://slazebni.cs.illinois.edu/publications/cvpr16_structure.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/lwwang/Two_branch_network" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Yu, Licheng, et al. <strong>Modeling context in referring expressions.</strong> European Conference on Computer Vision. Springer, Cham, 2016. <a href="https://arxiv.org/pdf/1608.00272.pdf" target="_blank" rel="noopener">[Paper]</a><a href="https://github.com/lichengunc/refer" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Nagaraja, Varun K., Vlad I. Morariu, and Larry S. Davis. <strong>Modeling context between objects for referring expression understanding.</strong> European Conference on Computer Vision. Springer, Cham, 2016.<a href="https://arxiv.org/pdf/1608.00525.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/varun-nagaraja/referring-expressions" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Rohrbach, Anna, et al. <strong>Grounding of textual phrases in images by reconstruction.</strong> European Conference on Computer Vision. Springer, Cham, 2016. <em>Method Name: GroundR</em> <a href="https://arxiv.org/pdf/1511.03745.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/kanchen-usc/GroundeR" target="_blank" rel="noopener">[Tensorflow Code]</a> <a href="https://github.com/ruotianluo/refexp-comprehension" target="_blank" rel="noopener">[Torch Code]</a></p>
+</li>
+<li><p>Wang, Mingzhe, et al. <strong>Structured matching for phrase localization.</strong> European Conference on Computer Vision. Springer, Cham, 2016. <em>Method name: Structured Matching</em> <a href="https://pdfs.semanticscholar.org/9216/2ec88ad974cc5082d9688c8bfee672ad59ad.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/princeton-vl/structured-matching" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Hu, Ronghang, Marcus Rohrbach, and Trevor Darrell. <strong>Segmentation from natural language expressions.</strong> European Conference on Computer Vision. Springer, Cham, 2016. <a href="https://arxiv.org/pdf/1603.06180.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/ronghanghu/text_objseg" target="_blank" rel="noopener">[Code]</a> <a href="http://ronghanghu.com/text_objseg/" target="_blank" rel="noopener">[Website]</a></p>
+</li>
+<li><p>Fukui, Akira et al. <strong>Multimodal Compact Bilinear Pooling for Visual Question Answering and Visual Grounding.</strong> EMNLP (2016). <em>Method name: MCB</em> <a href="https://arxiv.org/pdf/1606.01847.pdf" target="_blank" rel="noopener">[Paper]</a><a href="https://github.com/akirafukui/vqa-mcb" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Endo, Ko, et al. <strong>An attention-based regression model for grounding textual phrases in images.</strong> Proc. IJCAI. 2017. <a href="https://www.ijcai.org/proceedings/2017/0558.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Chen, Kan, et al. <strong>MSRC: Multimodal spatial regression with semantic context for phrase grounding.</strong> International Journal of Multimedia Information Retrieval 7.1 (2018): 17-28. <a href="https://link.springer.com/article/10.1007/s13735-017-0139-6" target="_blank" rel="noopener">[Paper -Springer Link]</a></p>
+</li>
+<li><p>Wu, Fan et al. <strong>An End-to-End Approach to Natural Language Object Retrieval via Context-Aware Deep Reinforcement Learning.</strong> CoRR abs/1703.07579 (2017): n. pag. <a href="https://arxiv.org/pdf/1703.07579.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/jxwufan/NLOR_A3C" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Yu, Licheng, et al. <strong>A joint speakerlistener-reinforcer model for referring expressions.</strong> Computer Vision and Pattern Recognition (CVPR). Vol. 2. 2017. <a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Yu_A_Joint_Speaker-Listener-Reinforcer_CVPR_2017_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/lichengunc/speaker_listener_reinforcer" target="_blank" rel="noopener">[Code]</a><a href="https://vision.cs.unc.edu/refer/" target="_blank" rel="noopener">[Website]</a></p>
+</li>
+<li><p>Hu, Ronghang, et al. <strong>Modeling relationships in referential expressions with compositional modular networks.</strong> Computer Vision and Pattern Recognition (CVPR), 2017 IEEE Conference on. IEEE, 2017. <a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Hu_Modeling_Relationships_in_CVPR_2017_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/ronghanghu/cmn" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Luo, Ruotian, and Gregory Shakhnarovich. <strong>Comprehension-guided referring expressions.</strong> Computer Vision and Pattern Recognition (CVPR). Vol. 2. 2017. <a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Luo_Comprehension-Guided_Referring_Expressions_CVPR_2017_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/ruotianluo/refexp-comprehension" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liu, Jingyu, Liang Wang, and Ming-Hsuan Yang. <strong>Referring expression generation and comprehension via attributes.</strong> Proceedings of CVPR. 2017. <a href="http://faculty.ucmerced.edu/mhyang/papers/iccv2017_referring_expression.pdf" target="_blank" rel="noopener">[Paper]</a> </p>
+</li>
+<li><p>Xiao, Fanyi, Leonid Sigal, and Yong Jae Lee. <strong>Weakly-supervised visual grounding of phrases with linguistic structures.</strong> arXiv preprint arXiv:1705.01371 (2017). <a href="https://arxiv.org/pdf/1705.01371.pdf" target="_blank" rel="noopener">[Paper]</a> </p>
+</li>
+<li><p>Plummer, Bryan A., et al. <strong>Phrase localization and visual relationship detection with comprehensive image-language cues.</strong> Proc. ICCV. 2017. <a href="http://openaccess.thecvf.com/content_ICCV_2017/papers/Plummer_Phrase_Localization_and_ICCV_2017_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/BryanPlummer/pl-clc" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Chen, Kan, Rama Kovvuri, and Ram Nevatia. <strong>Query-guided regression network with context policy for phrase grounding.</strong> Proceedings of the IEEE International Conference on Computer Vision (ICCV). 2017. <em>Method name: QRC</em> <a href="http://openaccess.thecvf.com/content_ICCV_2017/papers/Chen_Query-Guided_Regression_Network_ICCV_2017_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/kanchen-usc/QRC-Net" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liu, Chenxi, et al. <strong>Recurrent Multimodal Interaction for Referring Image Segmentation.</strong> ICCV. 2017. <a href="https://arxiv.org/pdf/1703.07939.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/chenxi116/TF-phrasecut-public" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Li, Jianan, et al. <strong>Deep attribute-preserving metric learning for natural language object retrieval.</strong> Proceedings of the 2017 ACM on Multimedia Conference. ACM, 2017. <a href="https://dl.acm.org/citation.cfm?id=3123439" target="_blank" rel="noopener">[Paper: ACM Link]</a></p>
+</li>
+<li><p>Li, Xiangyang, and Shuqiang Jiang. <strong>Bundled Object Context for Referring Expressions.</strong> IEEE Transactions on Multimedia (2018). <a href="https://ieeexplore.ieee.org/document/8307406" target="_blank" rel="noopener">[Paper ieee link]</a> </p>
+</li>
+<li><p>Yu, Zhou, et al. <strong>Rethinking Diversified and Discriminative Proposal Generation for Visual Grounding.</strong> arXiv preprint arXiv:1805.03508 (2018). <a href="https://www.ijcai.org/proceedings/2018/0155.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/XiangChenchao/DDPN" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Yu, Licheng, et al. <strong>Mattnet: Modular attention network for referring expression comprehension.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2018. <a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Yu_MAttNet_Modular_Attention_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/lichengunc/MAttNet" target="_blank" rel="noopener">[Code]</a> <a href="http://vision2.cs.unc.edu/refer/comprehension" target="_blank" rel="noopener">[Website]</a></p>
+</li>
+<li><p>Deng, Chaorui, et al. <strong>Visual Grounding via Accumulated Attention.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Deng_Visual_Grounding_via_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Li, Ruiyu, et al. <strong>Referring image segmentation via recurrent refinement networks.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Li_Referring_Image_Segmentation_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/liruiyu/referseg_rrn" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Zhang, Yundong, Juan Carlos Niebles, and Alvaro Soto. <strong>Interpretable Visual Question Answering by Visual Grounding from Attention Supervision Mining.</strong> arXiv preprint arXiv:1808.00265 (2018). <a href="https://arxiv.org/pdf/1808.00265.pdf" target="_blank" rel="noopener">[Paper]</a> </p>
+</li>
+<li><p>Chen, Kan, Jiyang Gao, and Ram Nevatia. <strong>Knowledge aided consistency for weakly supervised phrase grounding.</strong> arXiv preprint arXiv:1803.03879 (2018). <a href="https://arxiv.org/abs/1803.03879" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/kanchen-usc/KAC-Net" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Zhang, Hanwang, Yulei Niu, and Shih-Fu Chang. <strong>Grounding referring expressions in images by variational context.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018. <a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Zhang_Grounding_Referring_Expressions_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/yuleiniu/vc/" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Cirik, Volkan, Taylor Berg-Kirkpatrick, and Louis-Philippe Morency. <strong>Using syntax to ground referring expressions in natural images.</strong> arXiv preprint arXiv:1805.10547 (2018).<a href="https://arxiv.org/pdf/1805.10547.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/volkancirik/groundnet" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Margffoy-Tuay, Edgar, et al. <strong>Dynamic multimodal instance segmentation guided by natural language queries.</strong> Proceedings of the European Conference on Computer Vision (ECCV). 2018. <a href="https://arxiv.org/pdf/1807.02257.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/BCV-Uniandes/DMS" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Shi, Hengcan, et al. <strong>Key-word-aware network for referring expression image segmentation.</strong> Proceedings of the European Conference on Computer Vision (ECCV). 2018.<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Hengcan_Shi_Key-Word-Aware_Network_for_ECCV_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/shihengcan/key-word-aware-network-pycaffe" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Plummer, Bryan A., et al. <strong>Conditional image-text embedding networks.</strong> Proceedings of the European Conference on Computer Vision (ECCV). 2018. <a href="https://arxiv.org/pdf/1711.08389.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/BryanPlummer/cite" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Akbari, Hassan, et al. <strong>Multi-level Multimodal Common Semantic Space for Image-Phrase Grounding.</strong> arXiv preprint arXiv:1811.11683 (2018). <a href="https://arxiv.org/pdf/1811.11683v1.pdf" target="_blank" rel="noopener">[Paper]</a> </p>
+</li>
+<li><p>Kovvuri, Rama, and Ram Nevatia. <strong>PIRC Net: Using Proposal Indexing, Relationships and Context for Phrase Grounding.</strong> arXiv preprint arXiv:1812.03213 (2018). <a href="https://arxiv.org/pdf/1812.03213v1.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Chen, Xinpeng, et al. <strong>Real-Time Referring Expression Comprehension by Single-Stage Grounding Network.</strong> arXiv preprint arXiv:1812.03426 (2018). <a href="https://arxiv.org/pdf/1812.03426v1.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Wang, Peng, et al. <strong>Neighbourhood Watch: Referring Expression Comprehension via Language-guided Graph Attention Networks.</strong> arXiv preprint arXiv:1812.04794 (2018). <a href="https://arxiv.org/pdf/1812.04794.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Liu, Daqing, et al. <strong>Learning to Assemble Neural Module Tree Networks for Visual Grounding.</strong> Proceedings of the IEEE International Conference on Computer Vision (ICCV). 2019. <a href="http://openaccess.thecvf.com/content_ICCV_2019/papers/Liu_Learning_to_Assemble_Neural_Module_Tree_Networks_for_Visual_Grounding_ICCV_2019_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/daqingliu/NMTree" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p><strong>RETRACTED (see <a href="https://github.com/TheShadow29/awesome-grounding/pull/2" target="_blank" rel="noopener">#2</a>)</strong>:  Deng, Chaorui, et al. <strong>You Only Look &amp; Listen Once: Towards Fast and Accurate Visual Grounding.</strong> arXiv preprint arXiv:1902.04213 (2019). <a href="https://arxiv.org/pdf/1902.04213.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Hong, Richang, et al. <strong>Learning to Compose and Reason with Language Tree Structures for Visual Grounding.</strong> IEEE Transactions on Pattern Analysis and Machine Intelligence (T-PAMI). 2019. <a href="https://arxiv.org/pdf/1906.01784.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Liu, Xihui, et al. <strong>Improving Referring Expression Grounding with Cross-modal Attention-guided Erasing.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019. <a href="https://arxiv.org/pdf/1903.00839.pdf" target="_blank" rel="noopener">[Paper]</a> </p>
+</li>
+<li><p>Dogan, Pelin, Leonid Sigal, and Markus Gross. <strong>Neural Sequential Phrase Grounding (SeqGROUND).</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. (CVPR) 2019. <a href="https://arxiv.org/pdf/1903.07669.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Datta, Samyak, et al. <strong>Align2ground: Weakly supervised phrase grounding guided by image-caption alignment.</strong> arXiv preprint arXiv:1903.11649 (2019). (ICCV 2019) <a href="https://arxiv.org/pdf/1903.11649.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Fang, Zhiyuan, et al. <strong>Modularized textual grounding for counterfactual resilience.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. (CVPR) 2019. <a href="https://arxiv.org/pdf/1904.03589.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Ye, Linwei, et al. <strong>Cross-Modal Self-Attention Network for Referring Image Segmentation.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. (CVPR) 2019. <a href="https://arxiv.org/pdf/1904.04745.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Yang, Sibei, Guanbin Li, and Yizhou Yu. <strong>Cross-Modal Relationship Inference for Grounding Referring Expressions.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. (CVPR) 2019. <a href="https://arxiv.org/pdf/1906.04464.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Yang, Sibei, Guanbin Li, and Yizhou Yu. <strong>Dynamic Graph Attention for Referring Expression Comprehension.</strong> arXiv preprint arXiv:1909.08164 (2019). (ICCV 2019) <a href="https://arxiv.org/pdf/1909.08164.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/sibeiyang/sgmn/tree/master/lib/dga_models" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Wang, Josiah, and Lucia Specia. <strong>Phrase Localization Without Paired Training Examples.</strong> arXiv preprint arXiv:1908.07553 (2019). (ICCV 2019) <a href="https://arxiv.org/abs/1908.07553" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/josiahwang/phraseloceval" target="_blank" rel="noopener">[Code]</a> </p>
+</li>
+<li><p>Yang, Zhengyuan, et al. <strong>A Fast and Accurate One-Stage Approach to Visual Grounding.</strong> arXiv preprint arXiv:1908.06354 (2019). (ICCV 2019) <a href="https://arxiv.org/pdf/1908.06354.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/zyang-ur/onestage_grounding" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Sadhu, Arka, Kan Chen, and Ram Nevatia. <strong>Zero-Shot Grounding of Objects from Natural Language Queries.</strong> arXiv preprint arXiv:1908.07129 (2019).(ICCV 2019) <a href="https://arxiv.org/abs/1908.07129" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/TheShadow29/zsgnet-pytorch" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+</ol>
+<p><em>Disclaimer: I am an author of the paper</em></p>
+<ol>
+<li><p>Liu, Xuejing, et al. <strong>Adaptive Reconstruction Network for Weakly Supervised Referring Expression Grounding.</strong> arXiv preprint arXiv:1908.10568 (2019). (ICCV 2019) <a href="https://arxiv.org/pdf/1908.10568.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/GingL/ARN" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Chen, Yi-Wen, et al. <strong>Referring Expression Object Segmentation with Caption-Aware Consistency.</strong> arXiv preprint arXiv:1910.04748 (2019). (BMVC 2019) <a href="https://arxiv.org/abs/1910.04748" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/wenz116/lang2seg" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liu, Jiacheng, and Julia Hockenmaier. <strong>Phrase Grounding by Soft-Label Chain Conditional Random Field.</strong> arXiv preprint arXiv:1909.00301 (2019) (EMNLP 2019). <a href="https://arxiv.org/pdf/1909.00301.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/liujch1998/SoftLabelCCRF" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liu, Yongfei, Wan Bo, Zhu Xiaodan and He Xuming. <strong>Learning Cross-modal Context Graph for Visual Grounding.</strong> arXiv preprint arXiv: (2019) (AAAI-2020). <a href="https://arxiv.org/pdf/1911.09042.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/youngfly11/LCMCG-PyTorch" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Yu, Tianyu, et al. <strong>Cross-Modal Omni Interaction Modeling for Phrase Grounding.</strong> Proceedings of the 28th ACM International Conference on Multimedia. ACM 2020. <a href="https://dl.acm.org/doi/abs/10.1145/3394171.3413846" target="_blank" rel="noopener">[Paper: ACM Link]</a> <a href="https://github.com/yiranyyu/Phrase-Grounding" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Qiu, Heqian, et al. <strong>Language-Aware Fine-Grained Object Representation for Referring Expression Comprehension.</strong> Proceedings of the 28th ACM International Conference on Multimedia. ACM 2020. <a href="https://dl.acm.org/doi/abs/10.1145/3394171.3413850" target="_blank" rel="noopener">[Paper: ACM Link]</a></p>
+</li>
+<li><p>Wang, Qinxin, et al. <strong>MAF: Multimodal Alignment Framework for Weakly-Supervised Phrase Grounding.</strong> arXiv preprint arXiv:2010.05379 (2020). <a href="https://arxiv.org/pdf/2010.05379" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/qinzzz/Multimodal-Alignment-Framework" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liao, Yue, et al. <strong>A real-time cross-modality correlation filtering method for referring expression comprehension.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2020. <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Liao_A_Real-Time_Cross-Modality_Correlation_Filtering_Method_for_Referring_Expression_Comprehension_CVPR_2020_paper.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Hu, Zhiwei, et al. <strong>Bi-directional relationship inferring network for referring image segmentation.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2020. <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Hu_Bi-Directional_Relationship_Inferring_Network_for_Referring_Image_Segmentation_CVPR_2020_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/fengguang94/CVPR2020-BRINet" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Yang, Sibei, Guanbin Li, and Yizhou Yu. <strong>Graph-structured referring expression reasoning in the wild.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2020. <a href="http://openaccess.thecvf.com/content_CVPR_2020/papers/Yang_Graph-Structured_Referring_Expression_Reasoning_in_the_Wild_CVPR_2020_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/sibeiyang/sgmn" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Luo, Gen, et al. <strong>Multi-task collaborative network for joint referring expression comprehension and segmentation.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2020. <a href="http://openaccess.thecvf.com/content_CVPR_2020/papers/Luo_Multi-Task_Collaborative_Network_for_Joint_Referring_Expression_Comprehension_and_Segmentation_CVPR_2020_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/luogen1996/MCN" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Gupta, Tanmay, et al. <strong>Contrastive learning for weakly supervised phrase grounding.</strong> Proceedings of the European Conference on Computer Vision (ECCV). 2020. <a href="https://arxiv.org/pdf/2006.09920" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/BigRedT/info-ground" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Yang, Zhengyuan, et al. <strong>Improving one-stage visual grounding by recursive sub-query construction.</strong> Proceedings of the European Conference on Computer Vision (ECCV). 2020. <a href="https://arxiv.org/pdf/2008.01059" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/zyang-ur/ReSC" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Wang, Liwei, et al. <strong>Improving Weakly Supervised Visual Grounding by Contrastive Knowledge Distillation.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2021. <a href="https://arxiv.org/pdf/2007.01951" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Sun, Mingjie, Jimin Xiao, and Eng Gee Lim. <strong>Iterative Shrinking for Referring Expression Grounding Using Deep Reinforcement Learning.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2021. <a href="https://arxiv.org/pdf/2007.01951" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/insomnia94/ISREG" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liu, Haolin, et al. <strong>Refer-it-in-RGBD: A Bottom-up Approach for 3D Visual Grounding in RGBD Images.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2021. <a href="https://arxiv.org/pdf/2103.07894" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/UncleMEDM/Refer-it-in-RGBD" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Liu, Yongfei, et al. <strong>Relation-aware Instance Refinement for Weakly Supervised Visual Grounding.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2021. <a href="https://arxiv.org/pdf/2103.12989" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/youngfly11/ReIR-WeaklyGrounding.pytorch" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Lin, Xiangru, Guanbin Li, and Yizhou Yu. <strong>Scene-Intuitive Agent for Remote Embodied Visual Grounding.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2021. <a href="https://arxiv.org/pdf/2103.12944" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Sun, Mingjie, et al. <strong>Discriminative triad matching and reconstruction for weakly referring expression grounding.</strong> IEEE transactions on pattern analysis and machine intelligence (TPAMI 2021). <a href="https://livrepository.liverpool.ac.uk/3116000/1/manuscript.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/insomnia94/DTWREG" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Mu, Zongshen, et al. <strong>Disentangled Motif-aware Graph Learning for Phrase Grounding.</strong> arXiv preprint arXiv:2104.06008 (AAAI 2021). <a href="https://www.aaai.org/AAAI21Papers/AAAI-2589.MuZ.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Chen, Long, et al. <strong>Ref-NMS: Breaking Proposal Bottlenecks in Two-Stage Referring Expression Grounding.</strong> arXiv preprint arXiv:2009.01449 (AAAI-2021). <a href="https://arxiv.org/pdf/2009.01449" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/ChopinSharp/ref-nms" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Deng, Jiajun, et al. <strong>TransVG: End-to-End Visual Grounding with Transformers.</strong> arXiv preprint arXiv:2104.08541 (2021). <a href="https://arxiv.org/pdf/2104.08541" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/nku-shengzheliu/Pytorch-TransVG" target="_blank" rel="noopener">[Unofficial Code]</a></p>
+</li>
+<li><p>Du, Ye, et al. <strong>Visual Grounding with Transformers.</strong> arXiv preprint arXiv:2105.04281 (2021). <a href="https://arxiv.org/pdf/2105.04281" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Kamath, Aishwarya, et al. <strong>MDETR–Modulated Detection for End-to-End Multi-Modal Understanding.</strong> arXiv preprint arXiv:2104.12763 (2021). <a href="https://arxiv.org/pdf/2104.12763" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+</ol>
+<h3 id="Natural-Language-Object-Retrieval-Images"><a href="#Natural-Language-Object-Retrieval-Images" class="headerlink" title="Natural Language Object Retrieval (Images)"></a>Natural Language Object Retrieval (Images)</h3><ol>
+<li><p>Guadarrama, Sergio, et al. <strong>Open-vocabulary Object Retrieval.</strong> Robotics: science and systems. Vol. 2. No. 5. 2014. <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.434.3000&rep=rep1&type=pdf" target="_blank" rel="noopener">[Paper]</a> <a href="http://openvoc.berkeleyvision.org/" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Hu, Ronghang, et al. <strong>Natural language object retrieval.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2016. <em>Method name: Spatial Context Recurrent ConvNet (SCRC)</em> <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Hu_Natural_Language_Object_CVPR_2016_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/ronghanghu/natural-language-object-retrieval" target="_blank" rel="noopener">[Code]</a> <a href="http://ronghanghu.com/text_obj_retrieval/" target="_blank" rel="noopener">[Website]</a></p>
+</li>
+<li><p>Wu, Fan et al. <strong>An End-to-End Approach to Natural Language Object Retrieval via Context-Aware Deep Reinforcement Learning.</strong> CoRR abs/1703.07579 (2017): n. pag. <a href="https://arxiv.org/pdf/1703.07579.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/jxwufan/NLOR_A3C" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Li, Jianan, et al. <strong>Deep attribute-preserving metric learning for natural language object retrieval.</strong> Proceedings of the 2017 ACM on Multimedia Conference. ACM, 2017. <a href="https://dl.acm.org/citation.cfm?id=3123439" target="_blank" rel="noopener">[Paper: ACM Link]</a></p>
+</li>
+<li><p>Nguyen, Anh, et al. <strong>Object Captioning and Retrieval with Natural Language.</strong> arXiv preprint arXiv:1803.06152 (2018). <a href="https://arxiv.org/pdf/1803.06152.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://sites.google.com/site/objcaptioningretrieval/" target="_blank" rel="noopener">[Website]</a></p>
+</li>
+<li><p>Plummer, Bryan A., et al. <strong>Open-vocabulary Phrase Detection.</strong> arXiv preprint arXiv:1811.07212 (2018). <a href="https://arxiv.org/pdf/1811.07212.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/VisionLearningGroup/phrase-rcnn" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+</ol>
+<h3 id="Grounding-Relations-Referring-Relations"><a href="#Grounding-Relations-Referring-Relations" class="headerlink" title="Grounding Relations / Referring Relations"></a>Grounding Relations / Referring Relations</h3><ol>
+<li><p>Krishna, Ranjay, et al. <strong>Referring relationships.</strong> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018. <a href="https://arxiv.org/pdf/1803.10362.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/StanfordVL/ReferringRelationships" target="_blank" rel="noopener">[Code]</a> <a href="https://cs.stanford.edu/people/ranjaykrishna/referringrelationships/index.html" target="_blank" rel="noopener">[Website]</a></p>
+</li>
+<li><p>Raboh, Moshiko et al. <strong>Differentiable Scene Graphs.</strong> (2019). <a href="https://arxiv.org/pdf/1902.10200.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+<li><p>Conser, Erik, et al. <strong>Revisiting Visual Grounding.</strong> arXiv preprint arXiv:1904.02225 (2019).<br><a href="https://arxiv.org/pdf/1904.02225.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+<ul>
+<li>Critique of Referring Relationship paper</li>
+</ul>
+</li>
+</ol>
+<h3 id="Grounded-Description-Image-WIP"><a href="#Grounded-Description-Image-WIP" class="headerlink" title="Grounded Description (Image) (WIP)"></a>Grounded Description (Image) (WIP)</h3><ol>
+<li><p>Hendricks, Lisa Anne, et al. <strong>Generating visual explanations.</strong> European Conference on Computer Vision. Springer, Cham, 2016. <a href="https://arxiv.org/pdf/1603.08507.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/LisaAnne/ECCV2016/" target="_blank" rel="noopener">[Code]</a> <a href="https://github.com/salaniz/pytorch-gve-lrcn" target="_blank" rel="noopener">[Pytorch Code]</a></p>
+</li>
+<li><p>Jiang, Ming, et al. <strong>TIGEr: Text-to-Image Grounding for Image Caption Evaluation.</strong> arXiv preprint arXiv:1909.02050 (2019). (EMNLP 2019) <a href="https://arxiv.org/pdf/1909.02050.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/SeleenaJM/CapEval" target="_blank" rel="noopener">[Code]</a></p>
+</li>
+<li><p>Lee, Jason, Kyunghyun Cho, and Douwe Kiela. <strong>Countering language drift via visual grounding.</strong> arXiv preprint arXiv:1909.04499 (2019). (EMNLP 2019) <a href="https://arxiv.org/pdf/1909.04499.pdf" target="_blank" rel="noopener">[Paper]</a></p>
+</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-01-04T05:32:52.312Z" itemprop="dateUpdated">2023-01-04 13:32:52</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Multimodal/">Multimodal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Paper/">Paper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VisualGrounding/">VisualGrounding</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/&title=《Paper Routing for Visual Grounding》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/&title=《Paper Routing for Visual Grounding》 — waynamigo's blog&source=Visual GroundingReferring ExpressionsPhrase Grounding" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Paper Routing for Visual Grounding》 — waynamigo's blog&url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">业务数据需求及数据处理概要-水上机器视觉场景</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2022/09/14/2022-09-14-点云ROS业务/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/&title=《Paper Routing for Visual Grounding》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/&title=《Paper Routing for Visual Grounding》 — waynamigo's blog&source=Visual GroundingReferring ExpressionsPhrase Grounding" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Paper Routing for Visual Grounding》 — waynamigo's blog&url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2022/10/01/2022-10-01-VGApproachs/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aS27CQBAFwNz/0kTKKlIEea8HEjxTXiFA9pQXrf59fMTX7ev6/vneNz9/vfef/NenXRgYGJdl3B5eydHbeybPys+GgYFxDiMJsvcOmtytjZn52TAwMDDadLBN8h6/CAwMDIwZI0kQkzL1cTqIgYGBMStic3x+xH+oxTEwMC7ImA0G/ubzy+cbGBgYb89Yad+3hW6eYtbnwcDA2JqRp2vtsWZ3a19HXXNjYGBcnNE2yJI0Lik72+HB3f9jYGBszXhuEGxL0NlKBwYGxmmMNr1baf23Q4KCjYGBsSljluq1AbRdyGjTUwwMjJMZ64G4HVViYGBgJAtheemYF6v5wCA/SZTbYmBgbMFYGVuulK+zdn+0bIGBgbEpY1bEJq202XB0JbnEwMDYj5E8fhZqZ6H88R2ipBADA2NTRhJw24fVJWi5/IGBgXEOo13Man9NRgjtKliU1WJgYGzEWCkdV5bD2nbbL68AAwPjGEabnLUHmo1Fi0ksBgbGpoy2WZ+ka+vttnwUgYGBcQJjpfjMVzHyoJmMKKIRJgYGxkaMPB3MW/mz5LK9TzH3wMDAuDjjVl7Jisb6yKFeNcPAwNia0Qa7vNE/+2c7MMDAwDiHMQuy7Uig/b4OuBgYGAcw8iCbt8baVHJWDGNgYGC0w8h22SJ5NRgYGBjPWqHIxwkvaahhYGAcwMjTuzws5gnlDFlMOTAwMC7OeNZgYGVU2T7xhSNMDAyM92J8AmUbFBk7mVBdAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
