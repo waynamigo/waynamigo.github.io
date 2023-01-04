@@ -20,16 +20,16 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="DeepLearning,3DVision,3DPointCloud,SLAM">
+    <meta name="keywords" content="3DVision,3DPointCloud,DeepLearning,SLAM">
     <meta name="description" content="最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。">
-<meta name="keywords" content="DeepLearning,3DVision,3DPointCloud,SLAM">
+<meta name="keywords" content="3DVision,3DPointCloud,DeepLearning,SLAM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3D重建及其深度学习方法的相关论文解析">
 <meta property="og:url" content="http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-07-17T04:55:34.309Z">
+<meta property="og:updated_time" content="2021-08-04T08:37:36.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3D重建及其深度学习方法的相关论文解析">
 <meta name="twitter:description" content="最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。">
@@ -119,7 +119,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -184,6 +184,7 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。</p>
 <a id="more"></a>
+
 <h2 id="SLAM框架"><a href="#SLAM框架" class="headerlink" title="SLAM框架"></a>SLAM框架</h2><h3 id="视觉里程计（Visual-Odometry）"><a href="#视觉里程计（Visual-Odometry）" class="headerlink" title="视觉里程计（Visual Odometry）"></a>视觉里程计（Visual Odometry）</h3><p>目前项目的硬件设备由单目相机获取信息，进而进行姿态估计、深度估计等计算。<br>简单来说，VO是由相邻两张图片间像素的位置关系估计相机的位置，</p>
 <h4 id="坐标变换-旋转矩阵"><a href="#坐标变换-旋转矩阵" class="headerlink" title="坐标变换 旋转矩阵"></a>坐标变换 旋转矩阵</h4><p>求相机坐标系（o）到世界坐标系（w）下的旋转矩阵$R^o_w$，进行欧式变换可以将o下的向量$p_o$ 转换到w下向量$p_w$<br>求出刚体旋转矩阵$R^o_w$，那么w下向量$p_w$左乘R就可以转化到$p_o$:<br>$p_o = R^o_w  \cdot\ p_w$<br>同理如果两个坐标系下的旋转矩阵可以得到<br>$m = $<br><strong>eg.</strong> 下面是由w到o1 和o2两个旋转矩阵传递得到的o1 -&gt; o2的旋转矩阵<br>设两个相机坐标系下o1,o2对应的三个点a b c，d e f，各获得两个向量 $m1,n1$,$m2,n2$<br>分别构建出该点集合所在的坐标系方程，求解得到世界坐标到o1 , o2的旋转坐标$R_1,R_2$， 则有：世界坐标系向量$m2 = R_1^T \cdot R_2 \cdot m1$</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">def RigidBody_Transform(p=np.zeros((3,3),dtype=float), q=np.zeros((3,3),dtype=float)):</span><br><span class="line">    # 世界坐标到 O1的旋转矩阵 ，x = x / ||x|| 单位化</span><br><span class="line">    x = (p[1,:] - p[0,:]) / np.linalg.norm(p[1,:] - p[0,:]) </span><br><span class="line">    y = (p[2,:] - p[1,:]) - np.inner(np.inner((p[2,:] - p[1,:]),x), x)</span><br><span class="line">    y = y / np.linalg.norm(y) # y_bar = y / ||y|| # 单位化第二行</span><br><span class="line">    print(&quot;x&quot;,x)</span><br><span class="line">    print(&quot;y&quot;,y)</span><br><span class="line">    z = np.cross(x, y) #叉乘</span><br><span class="line">    print(&quot;z&quot;,z)</span><br><span class="line">    rotate_matrix_w2o1 = np.array([x, y, z])</span><br><span class="line">    # 世界坐标到  O2的转转矩阵</span><br><span class="line">    x_new = (q[1,:] - q[0,:]) / np.linalg.norm(q[1,:] - q[0,:]) </span><br><span class="line">    y_new = (q[2,:] - q[1,:]) - np.inner(np.inner((q[2,:] - q[1,:]),x_new), x_new)</span><br><span class="line">    y_new = y_new / np.linalg.norm(y_new)</span><br><span class="line">    # 这里要注意，叉积（cross product）和 外积（outer product）不一样</span><br><span class="line">    # ps:国内教材讲的是叉积和外积一样</span><br><span class="line">    # np.cross算叉积 ，np.outer算外积</span><br><span class="line">    z_new = np.cross(x_new, y_new) #这要计算的是叉积（只有三维空间有意义，就是右手系的那个）</span><br><span class="line">    rotate_matrix_w2o2 = np.array([x_new, y_new, z_new])</span><br><span class="line">    return rotate_matrix_w2o1,rotate_matrix_w2o2, (rotate_matrix_w2o1.T * rotate_matrix_w2o2)</span><br><span class="line"></span><br><span class="line">#p = np.array([(-47.34,-18.71,-155.02), (-73.64,-29.82,-210.88), (-64.88,-36.77,-216.15)])</span><br><span class="line">#p = np.array([(-4.34,-36.71,51), (-30,25.5,-4), (-21,18,-10.15)])</span><br><span class="line">#q = np.array([(-40,25.5,6), (-30,25.5,-4), (15.01,55.19,22.818)])</span><br><span class="line">p = np.array([(0,1,0), (0,0,0), (0,0,1)])</span><br><span class="line">q = np.array([(0,-1,0), (0,0,0), (0,0,-1)])</span><br><span class="line">m1,m2,rotate_matrix = RigidBody_Transform(p, q)</span><br><span class="line">print(&quot;rotate_matrix is:\n&quot;)</span><br><span class="line">print(rotate_matrix)</span><br></pre></td></tr></table></figure>
@@ -201,7 +202,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2021-07-17T04:55:34.309Z" itemprop="dateUpdated">2021-07-17 12:55:34</time>
+    最終更新：<time datetime="2021-08-04T08:37:36.397Z" itemprop="dateUpdated">2021-08-04 16:37:36</time>
 </span><br>
 
 
@@ -387,7 +388,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">

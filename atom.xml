@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://waynamigo.github.io/"/>
-  <updated>2021-07-26T02:56:50.651Z</updated>
+  <updated>2021-08-04T09:18:12.616Z</updated>
   <id>http://waynamigo.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vison-Language-Navigation</title>
+    <link href="http://waynamigo.github.io/2021/08/01/2021-08-01-vqa2vln/"/>
+    <id>http://waynamigo.github.io/2021/08/01/2021-08-01-vqa2vln/</id>
+    <published>2021-07-31T16:00:00.000Z</published>
+    <updated>2021-08-04T09:18:12.616Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于CVPR2021，VQA2VLN的tutorial的总结</p><a id="more"></a><p>tutorial原地址：<a href="https://vqa2vln-tutorial.github.io/" target="_blank" rel="noopener">CVPR 2021 Tutorial on “From VQA to VLN: Recent Advances in Vision-and-Language Research”</a>，本笔记总结一下在ppt里展示的VLN任务的内容，几位演讲者的视频还没看，毕竟有ppt和论文，概念理解应该不会有偏差</p><h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>浏览了一下，VLN其实是算一个在人机交互大背景下的Visual+Language的研究方向，其实和之前做的三维重建+导航有点关系，总而言之是3D视觉方面的东西，下面总结了一些，细说</p><h2 id="See-Communicate-Act"><a href="#See-Communicate-Act" class="headerlink" title="See, Communicate, Act"></a>See, Communicate, Act</h2><p>机器模拟人的几种模拟方式，基本是将机器在看（视觉）、交流（文本）、行动几种模式下提高智能化，现在在See和Communicate两种模式的比较有代表性领域就是Computer Vision和Nature Language Processing，还有视觉和自然语言相结合的领域，例如Image-Understanding任务。前几年利用视觉和自然语言实现的智能化是从比较独立的模块获取的信息，比如目标检测，获取物体在图像上的(位置, 类别)，给机器做一些什么任务，比如统计xx，预测人流量等。目前用结合See-Communicate(Vision-Language)的发展比较好的方向有VQA, Captioning,Text2Image Generation等。</p><ul><li>会议上提到的这个VLN领域的理念是<em>Connecting Vision and Language to Actions</em>, 将vision(2D,3D)、language和(行动/指令)联系起来，理解复杂场景，并对输入请求做出具体行动，相当于是Video Understanding下的子任务。</li></ul><h2 id="Embodied-AI"><a href="#Embodied-AI" class="headerlink" title="Embodied AI"></a>Embodied AI</h2><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/EmbodiedAI.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>“Embodied AI is the field for solving AI problems for virtual robots that can move, see, speak, and interact in the virtual world.” 这是在page里的一个引言，关于实体AI(暂译)，就是让机器获得 视听说、行动、理解几种功能，集成算法达到一个接近人一样的智能体，从Internet AI 过渡到 Embodied AI，甚至是给AGI，Artificial General Intelligence打基础，有一个关于Embodied AI的survey：<br><a href="https://arxiv.org/pdf/2103.04918.pdf" target="_blank" rel="noopener">Duan et al., A survey of Embodied AI: From simulators to Research Tasks, 2021</a></p><h2 id="Vision-Language-Navigation"><a href="#Vision-Language-Navigation" class="headerlink" title="Vision-Language Navigation"></a>Vision-Language Navigation</h2><p>VLN实际上是2018年提出的一个研究领域，子标题是<strong>Vision-and-Language Navigation: Interpreting visually-grounded navigation instructions in real environments</strong>, 在现实环境下，让机器理解基于视觉定位的导航指令。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/VLN.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p><purse>左下是人为给出的指令&lt;\purse&gt;<br>通俗来讲VLN任务就是为了给机器人导航，有两个任务：<br>①如何理解现实场景<br>②对于给出的Instructions，如何理解并做出行动<br><strong>与3D视觉导航的区别</strong>（如自动驾驶使用的视觉SLAM、Radar等）：</purse></p><ul><li>3D-Navigation         : SLAM下从图像帧中处理得到点云判别障碍物、方位</li><li>Sensor-Navigation : 传感器获取的空间信息（Radar、Lidar等）    ，判别障碍物、方位<br>SLAM —&gt; PointCloud —&gt; direction<br>Sensor —&gt; Mesh —&gt; direction                </li><li>VL-Navigation          : Agent(摄像头)获取的视频信息，理解场景内容，并对指令做出行动，目前主要是在室内场景下研究导航任务</li></ul><p><strong>与VQA的区别</strong><br>VLN相对增加了动态视觉（相机运动）、长文本、测试集和训练集上的领域差距（在室内场景下训练，在室外场景测试，效果可能就急剧下降，并且一个训练样本就可以是整个场景，（比如浙江大学的3D重建方法，NeuralRecon，用的数据集Scannet））</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/VLN2VQA.png" alt title>                </div>                <div class="image-caption"></div>            </figure><h3 id="Indoor-VLN"><a href="#Indoor-VLN" class="headerlink" title="Indoor VLN"></a>Indoor VLN</h3><pre><code>目前VLN主要是研究室内的导航任务，</code></pre><p>室内导航任务的几种指令难度等级<br>    1. A到B的位移<br>    2.找东西（可见）<br>    3.找东西（不可见）<br>    4.向人有针对性的提问得到更详细的信息，用这些追加的信息找东西</p>{% image /img/IndoorVLN.png '' '' %}<h4 id="Indoor-VLN-Challenges"><a href="#Indoor-VLN-Challenges" class="headerlink" title="Indoor VLN Challenges"></a>Indoor VLN Challenges</h4><pre><code>Significant Appearance Variation，同一种物体有不同外观{% image /img/c1.png '' '' %} Rich Linguistic Phenomena，丰富的语境{% image /img/c2.png '' '' %}Less Words, More Contents，文本所能表达的东西太少{% image /img/c3.png '' '' %}</code></pre><h2 id="VLN-Models"><a href="#VLN-Models" class="headerlink" title="VLN Models"></a>VLN Models</h2><pre><code>- Seq2seq (a golden baseline)     • Speaker-follower- Attention Mechanism (something must try)     • EnvDrop, Self-monitoring, OAAM - Transformer (this is all you need)     • PREVALENT, Recurrent-Bert- Reinforcement Learning (Add-on)     • RCM, Soft Expert</code></pre><h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h3><pre><code>R2R CVDN</code></pre><h3 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h3><pre><code>- Success / Oracle Success Rate (%)- Navigation Error (m)- SPL (Success weighted by Path Length) - CLS (Coverage weighted by Length Score)     • Measuring fidelity to the reference path - nDTW (normalized Dynamic Time Warping) - SDTW (Success weighted by normalized Dynamic Time Warping)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;关于CVPR2021，VQA2VLN的tutorial的总结&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="其他" scheme="http://waynamigo.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+      <category term="ML" scheme="http://waynamigo.github.io/tags/ML/"/>
+    
+      <category term="DL" scheme="http://waynamigo.github.io/tags/DL/"/>
+    
+      <category term="MultiMedia" scheme="http://waynamigo.github.io/tags/MultiMedia/"/>
+    
+      <category term="Vision" scheme="http://waynamigo.github.io/tags/Vision/"/>
+    
+      <category term="NLP" scheme="http://waynamigo.github.io/tags/NLP/"/>
+    
+  </entry>
   
   <entry>
     <title>统计学习笔记(后篇)</title>
@@ -77,7 +107,7 @@
     <link href="http://waynamigo.github.io/2021/05/13/2021-05-13-3D%E8%A7%86%E8%A7%89_%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA/"/>
     <id>http://waynamigo.github.io/2021/05/13/2021-05-13-3D视觉_三维重建/</id>
     <published>2021-05-12T16:00:00.000Z</published>
-    <updated>2021-07-17T04:55:34.309Z</updated>
+    <updated>2021-08-04T08:37:36.397Z</updated>
     
     <content type="html"><![CDATA[<p>最近实习在读浙大最近的NeuralRecon，里面涉及到一些3D点云处理的数学方法和3DVison的深度学习Tricks，主要包括TSDF算法，特征点提取的SIFT、ORB两种算法，及稀疏卷积等，以及SLAM(simultaneous localization and mapping)基础，从《视觉SLAM十四讲》（高翔等）学习基础。双目算法现在已经比较成熟，目前自己工作只涉及单目相机。</p><a id="more"></a><h2 id="SLAM框架"><a href="#SLAM框架" class="headerlink" title="SLAM框架"></a>SLAM框架</h2><h3 id="视觉里程计（Visual-Odometry）"><a href="#视觉里程计（Visual-Odometry）" class="headerlink" title="视觉里程计（Visual Odometry）"></a>视觉里程计（Visual Odometry）</h3><p>目前项目的硬件设备由单目相机获取信息，进而进行姿态估计、深度估计等计算。<br>简单来说，VO是由相邻两张图片间像素的位置关系估计相机的位置，</p><h4 id="坐标变换-旋转矩阵"><a href="#坐标变换-旋转矩阵" class="headerlink" title="坐标变换 旋转矩阵"></a>坐标变换 旋转矩阵</h4><p>求相机坐标系（o）到世界坐标系（w）下的旋转矩阵$R^o_w$，进行欧式变换可以将o下的向量$p_o$ 转换到w下向量$p_w$<br>求出刚体旋转矩阵$R^o_w$，那么w下向量$p_w$左乘R就可以转化到$p_o$:<br>$p_o = R^o_w  \cdot\ p_w$<br>同理如果两个坐标系下的旋转矩阵可以得到<br>$m = $<br><strong>eg.</strong> 下面是由w到o1 和o2两个旋转矩阵传递得到的o1 -&gt; o2的旋转矩阵<br>设两个相机坐标系下o1,o2对应的三个点a b c，d e f，各获得两个向量 $m1,n1$,$m2,n2$<br>分别构建出该点集合所在的坐标系方程，求解得到世界坐标到o1 , o2的旋转坐标$R_1,R_2$， 则有：世界坐标系向量$m2 = R_1^T \cdot R_2 \cdot m1$</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">def RigidBody_Transform(p=np.zeros((3,3),dtype=float), q=np.zeros((3,3),dtype=float)):</span><br><span class="line">    # 世界坐标到 O1的旋转矩阵 ，x = x / ||x|| 单位化</span><br><span class="line">    x = (p[1,:] - p[0,:]) / np.linalg.norm(p[1,:] - p[0,:]) </span><br><span class="line">    y = (p[2,:] - p[1,:]) - np.inner(np.inner((p[2,:] - p[1,:]),x), x)</span><br><span class="line">    y = y / np.linalg.norm(y) # y_bar = y / ||y|| # 单位化第二行</span><br><span class="line">    print(&quot;x&quot;,x)</span><br><span class="line">    print(&quot;y&quot;,y)</span><br><span class="line">    z = np.cross(x, y) #叉乘</span><br><span class="line">    print(&quot;z&quot;,z)</span><br><span class="line">    rotate_matrix_w2o1 = np.array([x, y, z])</span><br><span class="line">    # 世界坐标到  O2的转转矩阵</span><br><span class="line">    x_new = (q[1,:] - q[0,:]) / np.linalg.norm(q[1,:] - q[0,:]) </span><br><span class="line">    y_new = (q[2,:] - q[1,:]) - np.inner(np.inner((q[2,:] - q[1,:]),x_new), x_new)</span><br><span class="line">    y_new = y_new / np.linalg.norm(y_new)</span><br><span class="line">    # 这里要注意，叉积（cross product）和 外积（outer product）不一样</span><br><span class="line">    # ps:国内教材讲的是叉积和外积一样</span><br><span class="line">    # np.cross算叉积 ，np.outer算外积</span><br><span class="line">    z_new = np.cross(x_new, y_new) #这要计算的是叉积（只有三维空间有意义，就是右手系的那个）</span><br><span class="line">    rotate_matrix_w2o2 = np.array([x_new, y_new, z_new])</span><br><span class="line">    return rotate_matrix_w2o1,rotate_matrix_w2o2, (rotate_matrix_w2o1.T * rotate_matrix_w2o2)</span><br><span class="line"></span><br><span class="line">#p = np.array([(-47.34,-18.71,-155.02), (-73.64,-29.82,-210.88), (-64.88,-36.77,-216.15)])</span><br><span class="line">#p = np.array([(-4.34,-36.71,51), (-30,25.5,-4), (-21,18,-10.15)])</span><br><span class="line">#q = np.array([(-40,25.5,6), (-30,25.5,-4), (15.01,55.19,22.818)])</span><br><span class="line">p = np.array([(0,1,0), (0,0,0), (0,0,1)])</span><br><span class="line">q = np.array([(0,-1,0), (0,0,0), (0,0,-1)])</span><br><span class="line">m1,m2,rotate_matrix = RigidBody_Transform(p, q)</span><br><span class="line">print(&quot;rotate_matrix is:\n&quot;)</span><br><span class="line">print(rotate_matrix)</span><br></pre></td></tr></table></figure><h4 id="旋转向量"><a href="#旋转向量" class="headerlink" title="旋转向量"></a>旋转向量</h4><p>上面的旋转矩阵表示具有局限性，原因是求出的矩阵必须是正交阵，优化时比较困难，并且计算量比较大，需要进行矩阵运算，一次运算需要9次浮点乘法，所以又提出一个用<strong>旋转角和旋转轴</strong>表示一个<strong>旋转向量</strong>的描述旋转的方法。同时，旋转向量也可以转换成旋转矩阵:<br>由<strong>罗德里格斯公式(Rodrigus’ Formula)</strong>，n_r 即n^，表示向量n到n对应的反对称矩阵的转换符，计算如下：<br>$a \times b=\begin{Vmatrix} e_1&amp;e_2&amp;e_3\\a_1&amp;a_2&amp;a_3\\b_1&amp;b_2&amp;b_3 \end{Vmatrix}=\begin{bmatrix} a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1 \end{bmatrix}=\begin{bmatrix}0&amp;-a_3&amp;a_2\\a_3&amp;0&amp;-a_1\\ -a_2&amp;a_1&amp;0\end{bmatrix} \cdot b = a$^$b$<br>上面的$a$^ 表示其对应的反对称矩阵<br>$R = cos \theta I  + (1-cos\theta) n \cdot n^T + sin\theta n$^<br>求转角$\theta$，可以：<br>$tr(R)= \cos\theta tr(I) +(1-\cos\theta)tr(n \cdot n^T) +\sin\theta tr(n$^$)$<br>$\quad\quad =3\cos\theta +(1-\cos\theta) = 1+2\cos\theta$<br>求出$\theta = \arccos \frac{tr(R)-1}{2}$</p><h3 id="回环检测（Loop-Closure-Detection）"><a href="#回环检测（Loop-Closure-Detection）" class="headerlink" title="回环检测（Loop Closure Detection）"></a>回环检测（Loop Closure Detection）</h3><p>判断镜头是否到达过先前位置，和后端（优化）解决因里程计每次计算相邻两张图片的位置关系，每次前后误差叠加出现的<strong>漂移</strong>问题，简而言之就是校正。</p><h3 id="后端优化（非线性）"><a href="#后端优化（非线性）" class="headerlink" title="后端优化（非线性）"></a>后端优化（非线性）</h3><p>接受VO获得的相机位姿、回环检测</p><h3 id="建图"><a href="#建图" class="headerlink" title="建图"></a>建图</h3><p>还没整理好</p><h2 id="3D点云模型"><a href="#3D点云模型" class="headerlink" title="3D点云模型"></a>3D点云模型</h2><h3 id="相机模型"><a href="#相机模型" class="headerlink" title="相机模型"></a>相机模型</h3><p>相机模型得到的相机内参(camera_intrinsic_perview)一般为一张图得到一个<br>通过两种模型<strong>针孔模型（PINHOLE，还有放射模型RADIAL）</strong>，<strong>畸变模型</strong>两种实现内参计算</p>]]></content>
     
@@ -90,11 +120,11 @@
       <category term="3DPointCloud" scheme="http://waynamigo.github.io/categories/3DPointCloud/"/>
     
     
-      <category term="DeepLearning" scheme="http://waynamigo.github.io/tags/DeepLearning/"/>
-    
       <category term="3DVision" scheme="http://waynamigo.github.io/tags/3DVision/"/>
     
       <category term="3DPointCloud" scheme="http://waynamigo.github.io/tags/3DPointCloud/"/>
+    
+      <category term="DeepLearning" scheme="http://waynamigo.github.io/tags/DeepLearning/"/>
     
       <category term="SLAM" scheme="http://waynamigo.github.io/tags/SLAM/"/>
     
@@ -140,9 +170,9 @@
       <category term="3DPointCloud" scheme="http://waynamigo.github.io/categories/3DPointCloud/"/>
     
     
-      <category term="3DPointclouod" scheme="http://waynamigo.github.io/tags/3DPointclouod/"/>
-    
       <category term="DeepLearning" scheme="http://waynamigo.github.io/tags/DeepLearning/"/>
+    
+      <category term="3DPointclouod" scheme="http://waynamigo.github.io/tags/3DPointclouod/"/>
     
       <category term="DepthEstimation" scheme="http://waynamigo.github.io/tags/DepthEstimation/"/>
     
@@ -153,13 +183,13 @@
     <link href="http://waynamigo.github.io/2021/04/08/2021-04-08-%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96%E4%B8%8E%E6%A3%80%E7%B4%A2/"/>
     <id>http://waynamigo.github.io/2021/04/08/2021-04-08-图像视频信息提取与检索/</id>
     <published>2021-04-07T16:00:00.000Z</published>
-    <updated>2021-07-26T02:07:14.652Z</updated>
+    <updated>2021-07-28T07:22:34.707Z</updated>
     
-    <content type="html"><![CDATA[<p>写在前面：跨媒体检索方向涵盖许多任务，涉及到图像、文本、语音、视频等多种模态的数据，事实上，根据项目需求，开发者可以将所需的识别、分割、生成、编码方法集成到检索项目中。本文整理了在网络上能搜集到的Baidu、Youtube、Google、Facebook检索系统和大数据架构实现方案，给以后的工作方向做参考。</p><a id="more"></a><p>资料来源：架构大数据 赵勇</p>]]></content>
+    <content type="html"><![CDATA[<p>写在前面：跨媒体检索方向涵盖许多任务，涉及到图像、文本、语音、视频等多种模态的数据，事实上根据项目需求，开发者可以将所需的识别、分割、生成、编码等方法集成到检索或推荐项目中。<br>本文整理了在网络上能搜集到的Baidu、Youtube、Google、Facebook检索系统和大数据架构实现方案当做参考。</p><a id="more"></a><h2 id="多模态信息检索的挑战和攻克方向"><a href="#多模态信息检索的挑战和攻克方向" class="headerlink" title="多模态信息检索的挑战和攻克方向"></a>多模态信息检索的挑战和攻克方向</h2><p>In fact, researchers and algorithm engineers in the field of information retrieval focus more on tasks such as data mining, feature representation, and analysis of user behavior. From the recent conferences  like SIGIR and ACMMM, some research directions retrieved are as follows:<br><em>2021 SIGIR</em><br>Bias and counterfactual learning<br>Recommendation<br>Searching and Ranking<br>Social Aspects<br>Knowledge Structures<br>Question Answering<br>Sequences and Sessions<br>Adversarial Information Retrieval<br>Multi-modal Information Retrieval<br>MultiMedia Information Retrieval<br>Multi-modal Fusion and Embedding<br><em>2020 SIGIR</em></p><p>As noticed, the main modalities are visual, texual, and acoustic.  The challanges lie on <strong>Multimodal Fusion</strong>. Many problems in engeneer often comes to: <em>Infor mation loss</em>, <em>hierachical structure</em></p><h2 id="transductive-learning"><a href="#transductive-learning" class="headerlink" title="transductive learning"></a>transductive learning</h2><p>optimal latent space, can maintance original intrinsic characteristics of microvideo in original space</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;写在前面：跨媒体检索方向涵盖许多任务，涉及到图像、文本、语音、视频等多种模态的数据，事实上，根据项目需求，开发者可以将所需的识别、分割、生成、编码方法集成到检索项目中。本文整理了在网络上能搜集到的Baidu、Youtube、Google、Facebook检索系统和大数据架构实现方案，给以后的工作方向做参考。&lt;/p&gt;
+      &lt;p&gt;写在前面：跨媒体检索方向涵盖许多任务，涉及到图像、文本、语音、视频等多种模态的数据，事实上根据项目需求，开发者可以将所需的识别、分割、生成、编码等方法集成到检索或推荐项目中。&lt;br&gt;本文整理了在网络上能搜集到的Baidu、Youtube、Google、Facebook检索系统和大数据架构实现方案当做参考。&lt;/p&gt;
     
     </summary>
     
@@ -170,20 +200,18 @@
     
       <category term="DL" scheme="http://waynamigo.github.io/tags/DL/"/>
     
-      <category term="Paper" scheme="http://waynamigo.github.io/tags/Paper/"/>
-    
-      <category term="MultiModal" scheme="http://waynamigo.github.io/tags/MultiModal/"/>
-    
       <category term="MultiMedia" scheme="http://waynamigo.github.io/tags/MultiMedia/"/>
+    
+      <category term="Recommendation" scheme="http://waynamigo.github.io/tags/Recommendation/"/>
     
   </entry>
   
   <entry>
-    <title>CPP面试知识点</title>
+    <title>CPP面试</title>
     <link href="http://waynamigo.github.io/2021/03/26/2021-03-26-cpp%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86/"/>
     <id>http://waynamigo.github.io/2021/03/26/2021-03-26-cpp面试知识/</id>
     <published>2021-03-25T16:00:00.000Z</published>
-    <updated>2021-06-26T10:12:03.715Z</updated>
+    <updated>2021-07-26T09:09:03.192Z</updated>
     
     <content type="html"><![CDATA[<p>持续更新</p><a id="more"></a><h2 id="概念性区分"><a href="#概念性区分" class="headerlink" title="概念性区分"></a>概念性区分</h2><p><strong>1.C和C++的区别</strong><br>C面向过程，C++面向对象<br>C的内存管理使用malloc free，C++还可以使用new delete<br>C不支持函数重载，C++支持函数重载<br>C没有引用，C++可以用引用<br><strong>堆和栈的区别</strong><br>stack编译器自动分配和释放，自底向上的数据结构<br>heap需要由程序员手动new delete，会产生外部碎片，是自上到下的数据结构<br><strong>c++中不能被继承的成员函数</strong><br>析构函数和构造函数<br><strong>const</strong><br>定义常量<br>修饰函数参数和函数返回值</p><h2 id="修饰函数定义体，函数为类的成员函数，const修饰后的成员函数不修改成员变量的值"><a href="#修饰函数定义体，函数为类的成员函数，const修饰后的成员函数不修改成员变量的值" class="headerlink" title="修饰函数定义体，函数为类的成员函数，const修饰后的成员函数不修改成员变量的值"></a>修饰函数定义体，函数为类的成员函数，const修饰后的成员函数不修改成员变量的值</h2><p>define给一个立即数，const是常量，放在静态区域，全局变量也在静态区域<br>静态区：static无论是全局变量还是局部变量都存储在全局/静态区域，在编译期就为其分配内存，在程序结束时释放<br>const的全局变量存储在只读数据段，第一次使用时被分配内存，结束时释放；const的局部变量存在栈中，代码块结束释放<br>define定义的常量不可以用指针去指向，const定义的常量可以用指针去指向该常量的地址<br>–const优点<br>const 常量有数据类型，而宏常量没有数据类型。<br>编译器可以对前者进行类型安全检查，<br>后者只进行字符替换，没有类型安全检查，并且在字符替换可能报错。<br>[全局变量放在静态存储区，整个程序开始分配内存，结束释放]<br><strong>static</strong><br>static修饰的变量只能通过其所在文件、模块或函数进行调用，限制变量<br>static修饰的变量一开始就得初始化，并存放于静态内存区<br><strong>volatile</strong><br>本条指令不会因编译器的优化而省略，不会被编译器察觉（隐藏变量），且要求每次重新读取volatile修饰的变量的内容<br><strong>extern</strong></p><p><strong>指针和引用的区别</strong><br>引用本质是只读指针，引用只能在初始化时被赋值,且必须被初始化，之后不能改变，指针是动态的<br>引用不能为NULL，指针可以<br>引用做函数参数时，内部传递的是变量地址<br><strong>进程间通信</strong><br>pipe管道，半双工，用于父子进程通信<br>semaphore信号量，进程同步访问共享资源<br>message que 消息队列，克服了缓冲区限制<br>shared memory共享内存<br>socket<br><strong>线程间通信</strong><br>全局变量   Messages消息机制；<br>CEvent对象（MFC中的一种线程通信对象，通过其触发状态的改变实现同步与通信）</p><p>编译时运算符:sizeof</p><p><strong>写一个函数指针</strong><br><em>( ( void (</em>)() ) 0x100000) ( );<br>void(<em>)()强制转换0x100000<br>typedef void(</em>)() voidFunc;<br>*(  (voidFunc)0x100000 )();</p><p><strong>内存分配方式</strong></p><p>从静态存储区域分配。内存在程序编译的时候就已经分配好，这块内存在程序的整个运行期间都存在。例如全局变量。</p><p>在栈上创建。在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限。</p><p>从堆上分配，亦称动态内存分配。程序在运行的时候用malloc或new申请任意多少的内存，程序员自己负责在何时用free或delete释放内存。动态内存的生存期由我们决定，使用非常灵活，但问题也最多。</p>]]></content>
     
@@ -487,30 +515,6 @@
     
     
       <category term="Linux" scheme="http://waynamigo.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NeuralRecon for 3D reconstruction in real-time</title>
-    <link href="http://waynamigo.github.io/2019/04/01/2019-04-01-%E8%AF%84%E4%BC%B0%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95%E6%8C%87%E6%A0%87%E7%9A%84%E8%AE%A1%E7%AE%97/"/>
-    <id>http://waynamigo.github.io/2019/04/01/2019-04-01-评估模型算法指标的计算/</id>
-    <published>2019-03-31T16:00:00.000Z</published>
-    <updated>2021-06-24T03:22:12.945Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="深度学习" scheme="http://waynamigo.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="ML" scheme="http://waynamigo.github.io/tags/ML/"/>
-    
-      <category term="DL" scheme="http://waynamigo.github.io/tags/DL/"/>
-    
-      <category term="Object Detection" scheme="http://waynamigo.github.io/tags/Object-Detection/"/>
-    
-      <category term="Segmentation" scheme="http://waynamigo.github.io/tags/Segmentation/"/>
     
   </entry>
   
