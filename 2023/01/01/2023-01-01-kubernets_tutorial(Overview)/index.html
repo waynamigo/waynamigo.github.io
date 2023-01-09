@@ -30,7 +30,7 @@
 <meta property="og:description" content="本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://waynamigo.github.io/img/components-of-kubernetes.svg">
-<meta property="og:updated_time" content="2023-01-04T06:12:15.877Z">
+<meta property="og:updated_time" content="2023-01-08T11:22:03.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes Tutorial and Implementation(Overview)">
 <meta name="twitter:description" content="本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档v1.26， 元旦期间系统整理一下。">
@@ -215,14 +215,14 @@
 <li>kube-controller-manager: Control plane component that runs controller processes.<br>Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.</li>
 </ol>
 <ul>
-<li>用于处理集群中常规后台任务，一个资源对应一个控制器，这些控制器包括：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应</span><br><span class="line">任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成</span><br><span class="line">端点分片控制器（EndpointSlice controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。</span><br><span class="line">服务账号控制器（ServiceAccount controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。</span><br></pre></td></tr></table></figure>
+<li>用于处理集群中常规后台任务，一个资源对应一个控制器，这些控制器包括：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">节点控制器（Node Controller）：</span><br><span class="line">    负责在节点出现故障时进行通知和响应</span><br><span class="line">任务控制器（Job Controller）：</span><br><span class="line">    监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成</span><br><span class="line">端点分片控制器（EndpointSlice controller）：</span><br><span class="line">    填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。</span><br><span class="line">服务账号控制器（ServiceAccount controller）：</span><br><span class="line">    为新的命名空间创建默认的服务账号（ServiceAccount）。</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ol start="2">
 <li>cloud-controller-manager:<br>云控制器管理器允许用户将集群连接到云提供商的 API 之上， 并将与该云平台交互的组件同与用户的集群交互的组件分离开来。</li>
 </ol>
 <ul>
-<li>与 kube-controller-manager 类似，cloud-controller-manager 将若干逻辑上独立的控制回路组合到同一个可执行文件中，以同一进程的方式运行。 用户可以对其执行水平扩容（运行不止一个副本）以提升性能或者增强容错能力。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">节点控制器（Node Controller）：用于在节点终止响应后检查云提供商以确定节点是否已被删除</span><br><span class="line">路由控制器（Route Controller）：用于在底层云基础架构中设置路由</span><br><span class="line">服务控制器（Service Controller）：用于创建、更新和删除云提供商负载均衡器</span><br></pre></td></tr></table></figure>
+<li>与 kube-controller-manager 类似，cloud-controller-manager 将若干逻辑上独立的控制回路组合到同一个可执行文件中，以同一进程的方式运行。 用户可以对其执行水平扩容（运行不止一个副本）以提升性能或者增强容错能力。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">节点控制器（Node Controller）：</span><br><span class="line">    用于在节点终止响应后检查云提供商以确定节点是否已被删除</span><br><span class="line">路由控制器（Route Controller）：</span><br><span class="line">    用于在底层云基础架构中设置路由</span><br><span class="line">服务控制器（Service Controller）：</span><br><span class="line">    用于创建、更新和删除云提供商负载均衡器</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -382,7 +382,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2023-01-04T06:12:15.877Z" itemprop="dateUpdated">2023-01-04 14:12:15</time>
+    Last updated: <time datetime="2023-01-08T11:22:03.017Z" itemprop="dateUpdated">2023-01-08 19:22:03</time>
 </span><br>
 
 
@@ -461,7 +461,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/08/paper/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">[no title]</h4>
+      </a>
+    </div>
   
 
   
