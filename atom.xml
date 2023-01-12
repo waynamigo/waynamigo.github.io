@@ -80,9 +80,9 @@
       <category term="VisualGrounding" scheme="http://waynamigo.github.io/categories/VisualGrounding/"/>
     
     
-      <category term="Multimodal" scheme="http://waynamigo.github.io/tags/Multimodal/"/>
-    
       <category term="Paper" scheme="http://waynamigo.github.io/tags/Paper/"/>
+    
+      <category term="Multimodal" scheme="http://waynamigo.github.io/tags/Multimodal/"/>
     
       <category term="VisualGrounding" scheme="http://waynamigo.github.io/tags/VisualGrounding/"/>
     
