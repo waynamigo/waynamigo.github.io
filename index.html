@@ -148,58 +148,6 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-paper"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2023-01-08 19:22:11" datetime="2023-01-08T11:22:11.951Z"  itemprop="datePublished">2023-01-08</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2023/01/08/paper/">No title</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><ol>
-<li><p>In this paper, we present an effective transformer- based framework for visual grounding, to address the task of grounding a language query to the corresponding region onto an image. The state-of-the-art methods, including two-stage or one-stage ones, rely on a complex module with manually-designed mechanisms to perform the query reasoning and multi-modal fusion. How- ever, the involvement of certain mechanisms in fusion module design, such as query decomposition and image scene graph, makes the models easily overfit to datasets with spe- cific scenarios, and limits the plenitudinous interaction be- tween the visual-linguistic context. To avoid this caveat, we propose to establish the multi-modal correspondence by leveraging transformers, and empirically show that the complex fusion modules (e.g., modular attention network, dynamic graph, and multi-modal tree) can be replaced by a simple stack of transformer encoder layers with higher per- formance. Moreover, we re-formulate the visual grounding as a direct coordinates regression problem and avoid mak- ing predictions out of a set of candidates (i.e., region pro- posals or anchor boxes). Extensive experiments are con- ducted on five widely used datasets, and a series of state- of-the-art records are set by our TransVG.<br>在本文中，我们提出了一个简洁而有效的基于变换器的视觉定位框架，以解决将语言查询与图像上的相应区域进行定位的任务。最先进的方法，包括两阶段或单阶段的方法，都依赖于一个复杂的模块，由人工设计的机制来执行查询推理和多模式融合。然而，某些机制在融合模块设计中的参与，如查询分解和图像场景图，使得这些模型很容易过度适应具有特殊场景的数据集，并限制了视觉-语言环境之间的丰富互动。为了避免这一问题，我们建议利用变换器建立多模态对应关系，并通过经验表明，复杂的融合模块（如模块化注意力网络、动态图和多模态树）可以被简单的变换器编码器层所取代，并具有更高的性能。此外，我们将视觉接地重新表述为一个直接的坐标回归问题，并避免从一组候选人（即区域提案或锚箱）中进行预测。在五个广泛使用的数据集上进行了广泛的实验，我们的TransVG创造了一系列先进的记录。</p>
-</li>
-<li><p>In this work, we explore neat yet effective Transformer-based frameworks for visual grounding. The previous methods generally address the core problem of visual grounding, i.e., multi-modal fusion and reasoning, with manually-designed mechanisms. Such heuristic designs are not only complicated but also make models easily overfit specific data distributions. To avoid this, we first propose TransVG, which establishes multi-modal correspondences by Transformers and localizes referred regions by directly regressing box coordinates. We empirically show that complicated fusion modules can be replaced by a simple stack of Transformer encoder layers with higher performance. However, the core fusion Transformer in TransVG is stand-alone against uni-modal encoders, and thus should be trained from scratch on limited visual grounding data, which makes it hard to be optimized and leads to sub-optimal performance. To this end, we further introduce TransVG++ to make two-fold improvements. For one thing, we upgrade our framework to a purely Transformer-based one by leveraging Vision Transformer (ViT) for vision feature encoding. For another, we devise Language Conditioned Vision Transformer that removes external fusion modules and reuses the uni-modal ViT for vision-language fusion at the intermediate layers. We conduct extensive experiments on five prevalent datasets, and report a series of state-of-the-art records.</p>
-</li>
-</ol>
-<p>在这项工作中，我们探索了简洁而有效的基于Transformer的视觉定位框架。以前的方法一般都是用人工设计的机制来解决视觉基础的核心问题，即多模态融合和推理。这种启发式的设计不仅复杂，而且使模型容易过度适应特定的数据分布。为了避免这种情况，我们首先提出了TransVG，它通过Transformers建立多模态对应关系，并通过直接回归箱体坐标对参考区域进行定位。我们的经验表明，复杂的融合模块可以被一个简单的变形器编码器层堆栈所取代，而且性能更高。然而，TransVG中的核心融合Transformer是独立于单模态编码器的，因此应该在有限的视觉接地数据上从头开始训练，这使得它很难被优化并导致次优的性能。为此，我们进一步引入TransVG++，进行了两方面的改进。首先，我们通过利用视觉变换器（ViT）进行视觉特征编码，将我们的框架升级为一个纯粹的基于变换器的框架。另一方面，我们设计了语言条件下的视觉转化器，删除了外部融合模块，在中间层重新使用单模态的ViT进行视觉-语言融合。我们在五个流行的数据集上进行了广泛的实验，并报告了一系列的最先进的记录。</p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ol>
-<li><p>Visual grounding (also known as referring expression comprehension [31, 60], phrase localization [23, 38], and natural language object retrieval [21, 25]) aims to predict the location of a region referred by the language expression onto an image. The evolution of this technique is of great potential to provide an intelligent interface for the natural language expression of human beings and the visual com- ponents of the physical world. Existing methods addressing this task can be broadly grouped into the two-stage and one- stage pipelines shown in Figure 1. In specific, the two-stage approaches [31, 34, 46, 60] first generate a set of sparse re- gion proposals and then exploit region-expression matching to find the best one. The one-stage approaches [9, 27, 56] perform visual-linguistic fusion at intermediate layers of an object detector and output the box with the maximal score over pre-defined dense anchors.<br>Multi-modal fusion and reasoning is widely studied in the literature [1, 35, 49, 54, 65], and it is the core problem in visual grounding. In general, the early two-stage and one-stage methods address multi-modal fusion in a simple way. Concretely, the two-stage Similarity Net [46] measures the similarity between region and expression embedding with an MLP, and the one-stage FAOA [56] encodes the language vector to visual feature by direct concatenation. These sim- ple designs are efficient but lead to sub-optimal results, es- pecially on long and complex language expressions. Fol- lowing studies have proposed diverse architectures to im- prove the performance. Among two-stage methods, mod- ular attention network [59], various graphs [48, 52, 53], and multi-modal tree [28] are designed to better model the multi-modal relationships. The one-stage method [55] has also explored better query modeling by proposing a multi- round fusion module.<br>Despite the effectiveness, these complicated fusion mod- ules are built on certain pre-defined structures of language queries or image scenes, inspired by the human prior. Typi- cally, the involvement of manually-designed mechanisms in fusion module makes the models overfit to specific scenar- ios, such as certain query lengths and query relationships, and limits the plenitudinous interaction between visual- linguistic contexts. Moreover, even though the ultimate goal of visual grounding is to localize the referred object, most of the previous methods ground the queried object in an indirect fashion. They generally define surrogate prob- lems of language-guided candidates prediction, selection, and refinement. Typically, the candidates are sparse region proposals [60, 31, 46] or dense anchors [56], from which the best region is selected and refined to get the final grounding box. Since these methods’ predictions are made out of can- didates, the performance is easily influenced by the prior knowledge to generate proposals (or pre-defined anchors) and by the heuristics to assign targets to candidates.<br>In this study, we explore an alternative approach to avoid the aforementioned problems. Formally, we introduce a neat and novel transformer-based framework, namely TransVG, to effectively address the task of visual ground- ing. We empirically show that the structurized fusion mod- ules can be replaced by a simple stack of transformer en- coder layers. Particularly, the core component of transform- ers (i.e., attention layer) is ready to establish intra-modality and inter-modality correspondence across visual and lin- guistic inputs, despite that we do not pre-define any specific fusion mechanism. Besides, we find that directly regressing the box coordinates works better than previous methods to ground the queried object indirectly. Our TransVG directly outputs 4-dim coordinates to ground the object instead of making predictions based on a set of candidate boxes.</p>
-</li>
-<li><p>VISUAL grounding, which aims to localize a region re- ferred to by a language expression in an image, is a core technology to bridge the natural language expression deliv- ered by human beings and visual contents in the physical world. The evolution of this eachnique is of great potential to promote vision-language understanding, and to provide an intelligent interface for human-machine interaction. Ex- isting methods addressing this task generally follow two- stage or one-stage pipelines shown in Figure 1. Specifically, two-stage approaches [1], [2] first generate a set of region proposals, and then take visual grounding as a natural language object retrieval problem [3], [4] to find the best matching region given language expressions. Differently, one-stage approaches [5], [6], [7] perform vision-language fusion at the output of the vision backbone network and the language model. Then, they make dense predictions with a sliding window over pre-defined anchor boxes, and keep the box with the maximum score as the final prediction.<br>Multi-modal fusion and reasoning is the primary prob- lem in visual grounding. The early two-stage and one-stage methods address multi-modal fusion in a simple way. Con- cretely, the pioneer two-stage method, Embedding Net [9],measures the similarity between region embedding and expression embedding by cosine distance. The early one- stage approach, FAOA [7], encodes the language feature vector to each spatial position of vision feature maps by directly concatenating them. In general, these attempts are efficient, but lead to sub-optimal results, especially when it comes to complicated language expressions [10], [11]. Following studies have proposed diverse architectures to ameliorate their performance. Among two-stage methods, modular attention network [12], various scene graphs [13], [14], [15], and multi-modal tree [10], [16] are designed to improve multi-modal relationships modeling. The one- stage method [11] also explores query decomposition and proposes a multi-round fusion mechanism.<br>Despite their effectiveness, these sophisticated fusion or matching modules are built on pre-assumed dependencies of language expressions and visual scenes, making the mod- els easily overfit specific scenarios, such as certain query lengths or objects relationships. Meanwhile, these mecha- nisms limit the plenitudinous interaction between vision and language contexts, which also hurts the performance of visual grounding algorithms. Besides, even though the target is to localize the referred region, most of the previ- ous methods achieve this target in an indirect way. They generally define surrogate problems of language-guided candidates matching, selection, and refinement, following the common practice of image-text retrieval and object detection. Therefore, extra efforts have to be devoted to obtain candidates, including region proposals [2], [17], [18] and pre-defined anchor boxes [7], [11]. Since these methods’ predictions are made out of candidates, their performance is easily influenced by the step to generate such candidates and by the heuristics to assign targets to candidates.</p>
-</li>
-</ol>
-
-    
-
-        <a href="/2023/01/08/paper/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
             <article id="post-2023-01-01-kubernets_tutorial(Overview)"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -615,6 +563,53 @@
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Boosting/">Boosting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GBDT/">GBDT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kaggle/">kaggle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xgboost/">xgboost</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-2021-07-01-statics_note"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2021-07-01 00:00:00" datetime="2021-06-30T16:00:00.000Z"  itemprop="datePublished">2021-07-01</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数学/">数学</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2021/07/01/2021-07-01-statics_note/">统计学习笔记(后篇)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        <p>接上一篇统计学习笔记，最近在做kaggle，用到了几种Boost，有机会把以前笔记剩余部分的补上了。</p>
+    
+
+        <a href="/2021/07/01/2021-07-01-statics_note/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AdaBoost/">AdaBoost</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Boost/">Boost</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XGBoost/">XGBoost</a></li></ul>
 
     </div>
     
