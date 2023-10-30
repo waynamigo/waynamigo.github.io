@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>No title | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="利用通信，也就是封装内部实现，提供接口的方式来进行相应的操作 讲讲go程序的执行过程：预处理，编译、链接、运行词法分析、语法分析、类型检查、代码生成、编译器优化、链接  go run做了什么：编译、链接、运行channel和共享内存有什么优劣channel 隐式同步，减少锁的使用 不适合大量数据传输共享内存 显式用锁，性能高 适合大量数据，但难以调试，存在复杂的同步机制context原理和场景【并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="No title">
+<meta property="og:url" content="http://waynamigo.github.io/2023/10/12/面经Go问题/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="利用通信，也就是封装内部实现，提供接口的方式来进行相应的操作 讲讲go程序的执行过程：预处理，编译、链接、运行词法分析、语法分析、类型检查、代码生成、编译器优化、链接  go run做了什么：编译、链接、运行channel和共享内存有什么优劣channel 隐式同步，减少锁的使用 不适合大量数据传输共享内存 显式用锁，性能高 适合大量数据，但难以调试，存在复杂的同步机制context原理和场景【并">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://waynamigo.github.io/images/gomapbuckets.png">
+<meta property="og:image" content="http://waynamigo.github.io/images/gochannelringbuffer.png">
+<meta property="og:updated_time" content="2023-10-29T16:44:54.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="No title">
+<meta name="twitter:description" content="利用通信，也就是封装内部实现，提供接口的方式来进行相应的操作 讲讲go程序的执行过程：预处理，编译、链接、运行词法分析、语法分析、类型检查、代码生成、编译器优化、链接  go run做了什么：编译、链接、运行channel和共享内存有什么优劣channel 隐式同步，减少锁的使用 不适合大量数据传输共享内存 显式用锁，性能高 适合大量数据，但难以调试，存在复杂的同步机制context原理和场景【并">
+<meta name="twitter:image" content="http://waynamigo.github.io/images/gomapbuckets.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">No title</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">No title</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-10-12T05:27:37.025Z" itemprop="datePublished" class="page-time">
+  2023-10-12
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#讲讲go程序的执行过程：预处理，编译、链接、运行"><span class="post-toc-number">1.</span> <span class="post-toc-text">讲讲go程序的执行过程：预处理，编译、链接、运行</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#channel和共享内存有什么优劣"><span class="post-toc-number">2.</span> <span class="post-toc-text">channel和共享内存有什么优劣</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#context原理和场景【并发安全的】"><span class="post-toc-number">3.</span> <span class="post-toc-text">context原理和场景【并发安全的】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原理，COntext-Value查找"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">原理，COntext.Value查找</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#waitgroup的原理和场景【多个groutine的等待结束-并发控制】"><span class="post-toc-number">4.</span> <span class="post-toc-text">waitgroup的原理和场景【多个groutine的等待结束/并发控制】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#string和byte的转换发生内存拷贝吗【会】为什么？"><span class="post-toc-number">5.</span> <span class="post-toc-text">string和byte的转换发生内存拷贝吗【会】为什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么go协程堵掉不会阻塞，C-的线程堵掉"><span class="post-toc-number">6.</span> <span class="post-toc-text">为什么go协程堵掉不会阻塞，C++的线程堵掉</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#除了mutex还有什么方法实现并发安全"><span class="post-toc-number">7.</span> <span class="post-toc-text">除了mutex还有什么方法实现并发安全</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#这个runtime系统解释一下"><span class="post-toc-number">8.</span> <span class="post-toc-text">这个runtime系统解释一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么要用协程，好处是什么"><span class="post-toc-number">9.</span> <span class="post-toc-text">为什么要用协程，好处是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-go的数组和切片"><span class="post-toc-number">10.</span> <span class="post-toc-text">1.go的数组和切片</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-读已经关闭的channel发生什么"><span class="post-toc-number">11.</span> <span class="post-toc-text">2.读已经关闭的channel发生什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Go是如何实现继承的"><span class="post-toc-number">12.</span> <span class="post-toc-text">3.Go是如何实现继承的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-map取一个key，修改这个key，原map会更改吗【会，是引用类型】"><span class="post-toc-number">13.</span> <span class="post-toc-text">13.map取一个key，修改这个key，原map会更改吗【会，是引用类型】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#16-struct能否-比较【可以】，成员里有struct呢？【可以】"><span class="post-toc-number">14.</span> <span class="post-toc-text">16. struct能否==比较【可以】，成员里有struct呢？【可以】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#25-go的深浅拷贝"><span class="post-toc-number">15.</span> <span class="post-toc-text">25. go的深浅拷贝</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#29-如何判断channel是否关闭"><span class="post-toc-number">16.</span> <span class="post-toc-text">29. 如何判断channel是否关闭</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#30-make-和-new-的区别"><span class="post-toc-number">17.</span> <span class="post-toc-text">30. make 和 new 的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#31-Slice的append"><span class="post-toc-number">18.</span> <span class="post-toc-text">31. Slice的append</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#44-goroutine获取不到锁会一直等待吗【当然会】"><span class="post-toc-number">19.</span> <span class="post-toc-text">44. goroutine获取不到锁会一直等待吗【当然会】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#58-空结构体用来干嘛【占位符，某个集合的存在性检查】"><span class="post-toc-number">20.</span> <span class="post-toc-text">58. 空结构体用来干嘛【占位符，某个集合的存在性检查】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#60-defer用来干什么【释放锁，关协程，关channel，文件，recover-panic】"><span class="post-toc-number">21.</span> <span class="post-toc-text">60. defer用来干什么【释放锁，关协程，关channel，文件，recover panic】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#61-context包的作用【并发安全】"><span class="post-toc-number">22.</span> <span class="post-toc-text">61. context包的作用【并发安全】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#79-select的底层数据结构和特性"><span class="post-toc-number">23.</span> <span class="post-toc-text">79. select的底层数据结构和特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#64-panic如何恢复"><span class="post-toc-number">24.</span> <span class="post-toc-text">64. panic如何恢复</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#70-go的init函数何时执行的"><span class="post-toc-number">25.</span> <span class="post-toc-text">70. go的init函数何时执行的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#72-Gin的路由如何实现【压缩版的前缀树路由，httprouter库】"><span class="post-toc-number">26.</span> <span class="post-toc-text">72. Gin的路由如何实现【压缩版的前缀树路由，httprouter库】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#74-struct的传递场景：大struct避免复制，用浅拷贝"><span class="post-toc-number">27.</span> <span class="post-toc-text">74. struct的传递场景：大struct避免复制，用浅拷贝</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#79-sync-Pool-对象池用来干嘛的，应用场景如何"><span class="post-toc-number">28.</span> <span class="post-toc-text">79. sync.Pool 对象池用来干嘛的，应用场景如何</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#syncpool怎么实现的"><span class="post-toc-number">28.1.</span> <span class="post-toc-text">syncpool怎么实现的</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#83-变量申请类型是为了做什么"><span class="post-toc-number">29.</span> <span class="post-toc-text">83. 变量申请类型是为了做什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#88-Go的GC机制介绍一下"><span class="post-toc-number">30.</span> <span class="post-toc-text">88. Go的GC机制介绍一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#84-Go和Java的GC机制有什么区别"><span class="post-toc-number">31.</span> <span class="post-toc-text">84. Go和Java的GC机制有什么区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#102-什么时候触发线程切换"><span class="post-toc-number">32.</span> <span class="post-toc-text">102. 什么时候触发线程切换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#107-http库的设计原理是什么？为什么不池化？"><span class="post-toc-number">33.</span> <span class="post-toc-text">107. http库的设计原理是什么？为什么不池化？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#110-关闭一个已关闭的channel会发生什么？panic。"><span class="post-toc-number">34.</span> <span class="post-toc-text">110. 关闭一个已关闭的channel会发生什么？panic。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#110-238-有缓存channel和没缓存channel的区别是什么？"><span class="post-toc-number">35.</span> <span class="post-toc-text">110/238. 有缓存channel和没缓存channel的区别是什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#116-138-类型断言"><span class="post-toc-number">36.</span> <span class="post-toc-text">116/138. 类型断言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-channel的实现方式-原理-概念-底层实现"><span class="post-toc-number">37.</span> <span class="post-toc-text">8.channel的实现方式/原理/概念/底层实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#117-实现一种等待或者监听的机制【使用select-channel，或者time-sleep】"><span class="post-toc-number">38.</span> <span class="post-toc-text">117. 实现一种等待或者监听的机制【使用select channel，或者time.sleep】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#118-sleep的底层实现？slice的append返回一个新切片会发生什么"><span class="post-toc-number">39.</span> <span class="post-toc-text">118. sleep的底层实现？slice的append返回一个新切片会发生什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#120-137-291-interface的底层实现"><span class="post-toc-number">40.</span> <span class="post-toc-text">120/137/291. interface的底层实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#404-defer的底层实现"><span class="post-toc-number">41.</span> <span class="post-toc-text">404. defer的底层实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#160-string的底层实现"><span class="post-toc-number">42.</span> <span class="post-toc-text">160. string的底层实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#121-STW-在-go-的哪些阶段发生？1-8的改进是什么【混合写】"><span class="post-toc-number">43.</span> <span class="post-toc-text">121. STW 在 go 的哪些阶段发生？1.8的改进是什么【混合写】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#132-如何避免panic"><span class="post-toc-number">44.</span> <span class="post-toc-text">132. 如何避免panic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#133-结构体对齐优化"><span class="post-toc-number">45.</span> <span class="post-toc-text">133. 结构体对齐优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#244-go实现func自定义参数"><span class="post-toc-number">46.</span> <span class="post-toc-text">244. go实现func自定义参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#252-copy是操作符还是内置函数【内置函数，深拷贝】"><span class="post-toc-number">47.</span> <span class="post-toc-text">252. copy是操作符还是内置函数【内置函数，深拷贝】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#290-解释一下Go的通信机制"><span class="post-toc-number">48.</span> <span class="post-toc-text">290. 解释一下Go的通信机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#296-slice函数传参，先赋值再append与先append再赋值，哪个发生了改变"><span class="post-toc-number">49.</span> <span class="post-toc-text">296. slice函数传参，先赋值再append与先append再赋值，哪个发生了改变</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#297-有没有什么线程安全的办法？"><span class="post-toc-number">50.</span> <span class="post-toc-text">297. 有没有什么线程安全的办法？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#golang-http包的内存泄漏情况"><span class="post-toc-number">51.</span> <span class="post-toc-text">golang http包的内存泄漏情况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#306-go-map的时间复杂度"><span class="post-toc-number">52.</span> <span class="post-toc-text">306. go map的时间复杂度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#307-go由源码变二进制代码的整个流程"><span class="post-toc-number">53.</span> <span class="post-toc-text">307. go由源码变二进制代码的整个流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#309-select-poll-epoll"><span class="post-toc-number">54.</span> <span class="post-toc-text">309. select poll epoll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#314-make底层原理"><span class="post-toc-number">55.</span> <span class="post-toc-text">314. make底层原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#315-string-强转-byte-发生了什么"><span class="post-toc-number">56.</span> <span class="post-toc-text">315. string 强转 []byte 发生了什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#335-411-go的包管理工具除了go-mod还有什么"><span class="post-toc-number">57.</span> <span class="post-toc-text">335/411. go的包管理工具除了go mod还有什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#356-介绍一下go的反射"><span class="post-toc-number">58.</span> <span class="post-toc-text">356. 介绍一下go的反射</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#396-go的-oop-面向对象与传统面向对象的区别"><span class="post-toc-number">59.</span> <span class="post-toc-text">396. go的 oop 面向对象与传统面向对象的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#397-go里面interface对于java的接口和c-的虚函数区别在哪"><span class="post-toc-number">60.</span> <span class="post-toc-text">397. go里面interface对于java的接口和c++的虚函数区别在哪</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#402-Go-runtime的程序计数器，为什么是私有的（为什么程序猿不能操作）"><span class="post-toc-number">61.</span> <span class="post-toc-text">402. Go runtime的程序计数器，为什么是私有的（为什么程序猿不能操作）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#423-interface和nil可以比较吗【可以】"><span class="post-toc-number">62.</span> <span class="post-toc-text">423. interface和nil可以比较吗【可以】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#447-struct组合与java继承有什么区别"><span class="post-toc-number">63.</span> <span class="post-toc-text">447. struct组合与java继承有什么区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#448-go的强制类型转换与隐式类型转换"><span class="post-toc-number">64.</span> <span class="post-toc-text">448. go的强制类型转换与隐式类型转换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#451-多个interface间可以存在什么关系"><span class="post-toc-number">65.</span> <span class="post-toc-text">451. 多个interface间可以存在什么关系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#510-go方法和函数的区别"><span class="post-toc-number">66.</span> <span class="post-toc-text">510. go方法和函数的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#512-Go函数返回局部变量的指针是否安全【否】"><span class="post-toc-number">67.</span> <span class="post-toc-text">512. Go函数返回局部变量的指针是否安全【否】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-Go的GMP模型"><span class="post-toc-number">68.</span> <span class="post-toc-text">5.Go的GMP模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-Go和Java相比"><span class="post-toc-number">69.</span> <span class="post-toc-text">6.Go和Java相比</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-同一个goroutine里面，对无缓冲channel同时发送和接收数据有什么问题"><span class="post-toc-number">70.</span> <span class="post-toc-text">9.同一个goroutine里面，对无缓冲channel同时发送和接收数据有什么问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-channel和锁的对比"><span class="post-toc-number">71.</span> <span class="post-toc-text">10.channel和锁的对比</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-channel的应用场景"><span class="post-toc-number">72.</span> <span class="post-toc-text">11.channel的应用场景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12"><span class="post-toc-number">73.</span> <span class="post-toc-text">12.</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#227-go实现一个链表"><span class="post-toc-number">74.</span> <span class="post-toc-text">227. go实现一个链表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#289-写一个将字符串json转成一个可用的map的函数，json的value类型可能不定"><span class="post-toc-number">75.</span> <span class="post-toc-text">289. 写一个将字符串json转成一个可用的map的函数，json的value类型可能不定</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Slice专题"><span class="post-toc-number"></span> <span class="post-toc-text">Slice专题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#455-内置cap函数可以用于？【arrary-slice-channel】的capability计算"><span class="post-toc-number">1.</span> <span class="post-toc-text">455. 内置cap函数可以用于？【arrary slice channel】的capability计算</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#463-切片扩容机制"><span class="post-toc-number">2.</span> <span class="post-toc-text">463. 切片扩容机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#520-Slice为什么不是线程安全的"><span class="post-toc-number">3.</span> <span class="post-toc-text">520. Slice为什么不是线程安全的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#443-slice底层，内存泄漏分析"><span class="post-toc-number">4.</span> <span class="post-toc-text">443. slice底层，内存泄漏分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Map专题"><span class="post-toc-number"></span> <span class="post-toc-text">Map专题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#32-如何实现一个线程安全的map"><span class="post-toc-number">1.</span> <span class="post-toc-text">32. 如何实现一个线程安全的map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#34-Map的底层实现"><span class="post-toc-number">2.</span> <span class="post-toc-text">34. Map的底层实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#36-map的key可以是哪些类型，可以是nil吗？可以嵌套吗"><span class="post-toc-number">3.</span> <span class="post-toc-text">36. map的key可以是哪些类型，可以是nil吗？可以嵌套吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#36-struct-interface-nil可以做map的key吗"><span class="post-toc-number">4.</span> <span class="post-toc-text">36. struct{} interface{} nil可以做map的key吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#251-sync-Map-怎么解决线程安全问题？源码看过吗"><span class="post-toc-number">5.</span> <span class="post-toc-text">251. sync.Map 怎么解决线程安全问题？源码看过吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#275-map的分段锁拆了几个分片？"><span class="post-toc-number">6.</span> <span class="post-toc-text">275 map的分段锁拆了几个分片？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#379-如果一个map没申请空间，去向里面取值【发生panic】"><span class="post-toc-number">7.</span> <span class="post-toc-text">379. 如果一个map没申请空间，去向里面取值【发生panic】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#407-map取一个key，然后修改这个值，原来的数据会发生变化吗？【会】引用类型，"><span class="post-toc-number">8.</span> <span class="post-toc-text">407. map取一个key，然后修改这个值，原来的数据会发生变化吗？【会】引用类型，</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#526-map的负载因子是多少【6-5】为什么？"><span class="post-toc-number">9.</span> <span class="post-toc-text">526. map的负载因子是多少【6.5】为什么？</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#channel"><span class="post-toc-number"></span> <span class="post-toc-text">channel</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-同一个协程里面，对无缓冲channel同时进行读写会发生什么问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">9.同一个协程里面，对无缓冲channel同时进行读写会发生什么问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-向为nil的channel发送数据会怎样【发生panic】为什么"><span class="post-toc-number">2.</span> <span class="post-toc-text">14.向为nil的channel发送数据会怎样【发生panic】为什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#连续两次close-ch-会发生panic-runtime-err"><span class="post-toc-number">3.</span> <span class="post-toc-text">连续两次close(ch)会发生panic: runtime err</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#51-channel-线程安全吗【安全】里面有互斥锁"><span class="post-toc-number">4.</span> <span class="post-toc-text">51. channel 线程安全吗【安全】里面有互斥锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#98-99-分布式锁有哪些？如何用channel实现？"><span class="post-toc-number">5.</span> <span class="post-toc-text">98/99. 分布式锁有哪些？如何用channel实现？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#174-go-里的-syncLock-和-channel-的性能区别"><span class="post-toc-number">6.</span> <span class="post-toc-text">174. go 里的 syncLock 和 channel 的性能区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#134-channel实现一个排序算法"><span class="post-toc-number">7.</span> <span class="post-toc-text">134. channel实现一个排序算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#202-channel-实现一个限流器"><span class="post-toc-number">8.</span> <span class="post-toc-text">202. channel 实现一个限流器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#473-channel的ring-buffer"><span class="post-toc-number">9.</span> <span class="post-toc-text">473. channel的ring buffer</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#go的同步库"><span class="post-toc-number"></span> <span class="post-toc-text">go的同步库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-sync-waitgroup的坑"><span class="post-toc-number">1.</span> <span class="post-toc-text">15. sync.waitgroup的坑</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-读写锁怎么实现的"><span class="post-toc-number">2.</span> <span class="post-toc-text">18. 读写锁怎么实现的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#114-mutex-如何处理正常和饥饿状态？rwmutex中写操作如何处理写操作阻止读操作"><span class="post-toc-number">3.</span> <span class="post-toc-text">114. mutex 如何处理正常和饥饿状态？rwmutex中写操作如何处理写操作阻止读操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#33-go的锁是可重入的吗"><span class="post-toc-number">4.</span> <span class="post-toc-text">33. go的锁是可重入的吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#210-如何检测死锁的？"><span class="post-toc-number">5.</span> <span class="post-toc-text">210. 如何检测死锁的？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#211-怎么处理锁分段"><span class="post-toc-number">6.</span> <span class="post-toc-text">211. 怎么处理锁分段</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#226-sync-mutex的底层实现（Linux）"><span class="post-toc-number">7.</span> <span class="post-toc-text">226. sync.mutex的底层实现（Linux）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#提供了两种锁定方式：阻塞锁和自旋锁"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">提供了两种锁定方式：阻塞锁和自旋锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mutex允许自旋的条件是什么【执行状态的M个数-lt-mapprocs】"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">mutex允许自旋的条件是什么【执行状态的M个数&lt; mapprocs】</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#goroutine使用"><span class="post-toc-number"></span> <span class="post-toc-text">goroutine使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#20-两个goroutine交替打印字母和数字"><span class="post-toc-number">1.</span> <span class="post-toc-text">20. 两个goroutine交替打印字母和数字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#26-为什么不要大量使用goroutine"><span class="post-toc-number">2.</span> <span class="post-toc-text">26. 为什么不要大量使用goroutine</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#协程池如何实现-worker"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">协程池如何实现 worker</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#40-for-循环多次执行goroutine-有什么坑？"><span class="post-toc-number">3.</span> <span class="post-toc-text">40. for 循环多次执行goroutine 有什么坑？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#48-如果要等待所有goroutine结束，怎么做？【使用waitgroup】"><span class="post-toc-number">4.</span> <span class="post-toc-text">48. 如果要等待所有goroutine结束，怎么做？【使用waitgroup】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#55-goroutine为什么轻量"><span class="post-toc-number">5.</span> <span class="post-toc-text">55. goroutine为什么轻量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#85-使用两个channel实现a-b"><span class="post-toc-number">6.</span> <span class="post-toc-text">85. 使用两个channel实现a+b</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#92-goroutine的实现方式"><span class="post-toc-number">7.</span> <span class="post-toc-text">92. goroutine的实现方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#100-并行goroutine如何实现"><span class="post-toc-number">8.</span> <span class="post-toc-text">100. 并行goroutine如何实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#111-父-goroutine-退出，如何使得子goroutine也退出【waitgroup-用channel-，defer】"><span class="post-toc-number">9.</span> <span class="post-toc-text">111. 父 goroutine 退出，如何使得子goroutine也退出【waitgroup 用channel ，defer】</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Go的GC机制"><span class="post-toc-number"></span> <span class="post-toc-text">Go的GC机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#24-go的gc什么是否触发"><span class="post-toc-number">1.</span> <span class="post-toc-text">24. go的gc什么是否触发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#148-Go-语言什么时候垃圾回收，写代码时，如何减少对象分配"><span class="post-toc-number">2.</span> <span class="post-toc-text">148. Go 语言什么时候垃圾回收，写代码时，如何减少对象分配</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#176-Golang-内存分配和管理"><span class="post-toc-number">3.</span> <span class="post-toc-text">176. Golang 内存分配和管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#管理如何管理？"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">管理如何管理？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#354-go的内存分配机制"><span class="post-toc-number">4.</span> <span class="post-toc-text">354. go的内存分配机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#324-go的内存分配机制中，有mcentral为什么要mcache"><span class="post-toc-number">5.</span> <span class="post-toc-text">324. go的内存分配机制中，有mcentral为什么要mcache</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#177-如何避免内存逃逸【合理用指针，设定slice长度】"><span class="post-toc-number">6.</span> <span class="post-toc-text">177. 如何避免内存逃逸【合理用指针，设定slice长度】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#237-gc和-delete-free-有什么区别，优势？"><span class="post-toc-number">7.</span> <span class="post-toc-text">237. gc和 delete free 有什么区别，优势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#355-go的性能调优是怎么做的"><span class="post-toc-number">8.</span> <span class="post-toc-text">355. go的性能调优是怎么做的</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内存优化"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">内存优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#并发优化"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">并发优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其它优化"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">其它优化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#500-写屏障-插入写屏障-删除写屏障-混合写屏障"><span class="post-toc-number">9.</span> <span class="post-toc-text">500. 写屏障-插入写屏障-删除写屏障-混合写屏障</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#505-gc流程"><span class="post-toc-number">10.</span> <span class="post-toc-text">505. gc流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#506-GC是如何调优的"><span class="post-toc-number">11.</span> <span class="post-toc-text">506. GC是如何调优的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Go-内存分配机制？"><span class="post-toc-number">12.</span> <span class="post-toc-text">Go 内存分配机制？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Go-内存逃逸机制？"><span class="post-toc-number">13.</span> <span class="post-toc-text">Go 内存逃逸机制？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Go-内存对齐机制"><span class="post-toc-number">14.</span> <span class="post-toc-text">Go 内存对齐机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#563-waitgroup的底层实现"><span class="post-toc-number">15.</span> <span class="post-toc-text">563. waitgroup的底层实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#564-cond实现原理"><span class="post-toc-number">16.</span> <span class="post-toc-text">564. cond实现原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#run-race能用于什么【排查逃逸，死锁，数据竞争等】"><span class="post-toc-number">17.</span> <span class="post-toc-text">run -race能用于什么【排查逃逸，死锁，数据竞争等】</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#go其他"><span class="post-toc-number"></span> <span class="post-toc-text">go其他</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#17-不重启实现热更新"><span class="post-toc-number">1.</span> <span class="post-toc-text">17. 不重启实现热更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#157-日志框架logrus"><span class="post-toc-number">2.</span> <span class="post-toc-text">157. 日志框架logrus</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go实现stack-和-set"><span class="post-toc-number">3.</span> <span class="post-toc-text">go实现stack 和 set</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#200-项目上线了，但是发现协程-内存泄漏，如何处理"><span class="post-toc-number">4.</span> <span class="post-toc-text">200. 项目上线了，但是发现协程/内存泄漏，如何处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RPC基础"><span class="post-toc-number">5.</span> <span class="post-toc-text">RPC基础</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#乐观锁"><span class="post-toc-number">6.</span> <span class="post-toc-text">乐观锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CAS"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">CAS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CAS的缺点"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">CAS的缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CPU开销过大"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">CPU开销过大</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ABA问题"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">ABA问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#共享变量单一"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">共享变量单一</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何防止CAS的ABA"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">如何防止CAS的ABA</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go-python-java的协程区别"><span class="post-toc-number">7.</span> <span class="post-toc-text">go python java的协程区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#python协程特点"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">python协程特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#go协程特点"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">go协程特点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#性能排查"><span class="post-toc-number">8.</span> <span class="post-toc-text">性能排查</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面经Go问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">No title</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-10-12 13:27:37" datetime="2023-10-12T05:27:37.025Z"  itemprop="datePublished">2023-10-12</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>利用通信，也就是封装内部实现，提供接口的方式来进行相应的操作</p>
+<h2 id="讲讲go程序的执行过程：预处理，编译、链接、运行"><a href="#讲讲go程序的执行过程：预处理，编译、链接、运行" class="headerlink" title="讲讲go程序的执行过程：预处理，编译、链接、运行"></a>讲讲go程序的执行过程：预处理，编译、链接、运行</h2><p>词法分析、语法分析、类型检查、代码生成、编译器优化、链接</p>
+<ul>
+<li>go run做了什么：编译、链接、运行<h2 id="channel和共享内存有什么优劣"><a href="#channel和共享内存有什么优劣" class="headerlink" title="channel和共享内存有什么优劣"></a>channel和共享内存有什么优劣</h2>channel</li>
+<li>隐式同步，减少锁的使用</li>
+<li>不适合大量数据传输<br>共享内存</li>
+<li>显式用锁，性能高</li>
+<li>适合大量数据，但难以调试，存在复杂的同步机制<h2 id="context原理和场景【并发安全的】"><a href="#context原理和场景【并发安全的】" class="headerlink" title="context原理和场景【并发安全的】"></a>context原理和场景【并发安全的】</h2>【withtimeout超时取消，withvalue传递共享数据】<br>context用于多个goroutine之间进行通信和控制的官方库，实现并发控制，包括取消信号、控制超时时间<br>注意点</li>
+</ul>
+<ol>
+<li>不要将 Context 塞到结构体里。直接将 Context 类型作为函数的第一参数，而且一般都命名为 ctx。</li>
+<li>不要向函数传入一个 nil 的 context，如果你实在不知道传什么，标准库给你准备好了一个 context：todo。</li>
+<li>不要把本应该作为函数参数的类型塞到 context 中，context 存储的应该是一些共同的数据。例如：登陆的 session、cookie 等。</li>
+</ol>
+<p>ctx, cancel := context.WithCancel(context.Background())<br>defer cancel() // 避免其他地方忘记 cancel，且重复调用不影响</p>
+<h3 id="原理，COntext-Value查找"><a href="#原理，COntext-Value查找" class="headerlink" title="原理，COntext.Value查找"></a>原理，COntext.Value查找</h3><p>Context 指向它的父节点，链表则指向下一个节点。通过 WithValue 函数，可以创建层层的 valueCtx，存储 goroutine 间可以共享的变量。<br>取值的过程，实际上是一个递归查找的过程，它会顺着链路一直往上找，比较当前节点的 key是否是要找的 key，如果是，则直接返回 value。否则，一直顺着 context 往前，最终找到根节点（一般是 emptyCtx），直接返回一个 nil。所以用 Value 方法的时候要判断结果是否为 nil。<br>父节点没法获取子节点存储的值，子节点却可以获取父节点的值。</p>
+<h2 id="waitgroup的原理和场景【多个groutine的等待结束-并发控制】"><a href="#waitgroup的原理和场景【多个groutine的等待结束-并发控制】" class="headerlink" title="waitgroup的原理和场景【多个groutine的等待结束/并发控制】"></a>waitgroup的原理和场景【多个groutine的等待结束/并发控制】</h2><ul>
+<li>内部维护了一个计数器，初始化为0。</li>
+<li>调用 Add 方法时，计数器会增加；</li>
+<li>每当调用 Done 方法时，计数器会减少；</li>
+<li>调用 Wait 方法时，如果计数器不为零，则会阻塞当前 Goroutine，直到计数器减至零。</li>
+</ul>
+<h2 id="string和byte的转换发生内存拷贝吗【会】为什么？"><a href="#string和byte的转换发生内存拷贝吗【会】为什么？" class="headerlink" title="string和byte的转换发生内存拷贝吗【会】为什么？"></a>string和byte的转换发生内存拷贝吗【会】为什么？</h2><p>[]byte(str)，之前分配的空间被gc</p>
+<h2 id="为什么go协程堵掉不会阻塞，C-的线程堵掉"><a href="#为什么go协程堵掉不会阻塞，C-的线程堵掉" class="headerlink" title="为什么go协程堵掉不会阻塞，C++的线程堵掉"></a>为什么go协程堵掉不会阻塞，C++的线程堵掉</h2><p>【C++的线程pthread是内核态，Go的调度时runtime系统管理的，相当于套了一层壳，运行在用户态，但是有内核态的速度】</p>
+<h2 id="除了mutex还有什么方法实现并发安全"><a href="#除了mutex还有什么方法实现并发安全" class="headerlink" title="除了mutex还有什么方法实现并发安全"></a>除了mutex还有什么方法实现并发安全</h2><p>atomic包和channel</p>
+<h2 id="这个runtime系统解释一下"><a href="#这个runtime系统解释一下" class="headerlink" title="这个runtime系统解释一下"></a>这个runtime系统解释一下</h2><p>golang 的 runtime 在 golang 中的地位类似于 Java 的虚拟机。<br>包括</p>
+<ol>
+<li>GPM模型</li>
+<li>GC机制</li>
+<li>内存分配：Go 程序在启动时，会首先向系统申请一块内存(虚拟地址空间)，然后自己切成小块进行管理. 将申请的内存，分成 3 个区域,spans、bitmap、arena<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arena: 就是堆区，go runtime 在动态分配的内存都在这个区域，并且将内存块分成 8kb 的页，一些组合起来的称为 **mspan，**成为 go 中内存管理的基本单元，这种连续的页一般是操作系统的内存页几倍大小.</span><br><span class="line">bitmap: 顾名思义，用来标记堆区使用的映射表，它记录了哪些区域保存了对象，对象是否包含指针，以及 GC 的标记信息.</span><br><span class="line">spans: 存放 mspan 的指针，根据 spans 区域的信息可以很容易找到 mspan. 它可以在 GC 时更快速的找到的大块的内存 mspan.</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="为什么要用协程，好处是什么"><a href="#为什么要用协程，好处是什么" class="headerlink" title="为什么要用协程，好处是什么"></a>为什么要用协程，好处是什么</h2><p>go的协程是为了解决多核CPU利用率问题，go语言层面并不支持多进程或多线程，但是协程更好用，<strong>协程被称为用户态线程</strong>，不存在CPU上下文切换问题，效率非常高。几乎所有IO密集型的应用，都可以利用协程提高速度</p>
+<h2 id="1-go的数组和切片"><a href="#1-go的数组和切片" class="headerlink" title="1.go的数组和切片"></a>1.go的数组和切片</h2><ol>
+<li>数组是固定长度的，切片是可以变化的</li>
+<li>切片实际是对数组的封装，切片底层是由指向数组的指针，切片长度，切片容量三个参数组成。指向底层数组的指针就标志着切片的开始</li>
+<li>切片是对底层数组的一个引用，不同的切片可以指向同一个底层数组，操纵同一个底层数组。</li>
+</ol>
+<p><strong>需要注意的几点</strong></p>
+<ol>
+<li><p>传递切片作为函数参数，其实拷贝的是切片这个结构体，会产生一个新的切片结构体实例，指向同一个底层数组。虽然也会改变底层数组得值，但是对于原来的切片来说，是没有任何变化的，只是对应的底层数组中某些元素的值变了。</p>
+</li>
+<li><p>切片进行append扩容的时候，会产生新的切片地址，所以要将append函数返回的值重新赋给切片</p>
+</li>
+<li><p>Go1.18不再以1024为临界点，而是设定了一个值为256的threshold，以256为临界点；超过256，不再是每次扩容1/4，而是每次增加（旧容量+3256）/4；</p>
+</li>
+</ol>
+<ul>
+<li>当新切片需要的容量cap大于两倍扩容的容量，则直接按照新切片需要的容量扩容；</li>
+<li>当原 slice 容量 &lt; threshold 的时候，新 slice 容量变成原来的 2 倍；</li>
+<li>当原 slice 容量 &gt; threshold，进入一个循环，每次容量增加（旧容量+3threshold）/4。</li>
+</ul>
+<ol start="4">
+<li>需要注意切片是对数组的引用, 所以当切片被赋值给别的切片变量时, 改变新的切片变量中的值, 会连带改变原切片值</li>
+</ol>
+<h2 id="2-读已经关闭的channel发生什么"><a href="#2-读已经关闭的channel发生什么" class="headerlink" title="2.读已经关闭的channel发生什么"></a>2.读已经关闭的channel发生什么</h2><ol>
+<li><p>读已关闭的channel <code>读已经关闭的channel无影响。</code></p>
+<ul>
+<li><p>如果在关闭前，通道内部有元素，会正确读到元素的值；</p>
+</li>
+<li><p>如果关闭前通道无元素，则会读取到通道内元素类型对应的零值。</p>
+</li>
+<li><p>若遍历通道，如果通道未关闭，读完元素后，会报死锁的错误。<code>会引发fatal error: all goroutines are asleep - deadlock!</code></p>
+</li>
+</ul>
+</li>
+<li><p>写已关闭的通道<br><code>会引发panic: send on closed channel</code></p>
+</li>
+<li><p>关闭已关闭的通道<br><code>会引发panic: close of closed channel</code></p>
+</li>
+</ol>
+<p><strong>需要注意的几点</strong>：对于一个已初始化，但并未关闭的通道来说，收发操作一定不会引发 panic。但是通道一旦关闭，再对它进行发送操作，就会引发 panic。如果我们试图关闭一个已经关闭了的通道，也会引发 panic。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 读一个已经关闭的通道</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	channel := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line">	channel &lt;- <span class="number">2</span></span><br><span class="line">	<span class="built_in">close</span>(channel)</span><br><span class="line">	x := &lt;-channel</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*[Output]: 不会报错，输出2*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历读关闭通道</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	channel := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line">	channel &lt;- <span class="number">2</span></span><br><span class="line">	channel &lt;- <span class="number">3</span></span><br><span class="line">	<span class="built_in">close</span>(channel) <span class="comment">//若不关闭通道，则会报死锁错误</span></span><br><span class="line">	<span class="keyword">for</span> num := <span class="keyword">range</span> channel &#123;</span><br><span class="line">		fmt.Println(num)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*[Output]: 不会报错，输出2 3*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 写一个已经关闭的通道</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    channel := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="built_in">close</span>(channel)</span><br><span class="line">    channel &lt;- <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*[Output]: panic: send on closed channel*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3. 关闭一个已经关闭的管道</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    channel := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="built_in">close</span>(channel)</span><br><span class="line">    <span class="built_in">close</span>(channel)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*[Output]: panic: close of closed channel */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Go是如何实现继承的"><a href="#3-Go是如何实现继承的" class="headerlink" title="3.Go是如何实现继承的"></a>3.Go是如何实现继承的</h2><p>通过struct的组合实现的继承</p>
+<h2 id="13-map取一个key，修改这个key，原map会更改吗【会，是引用类型】"><a href="#13-map取一个key，修改这个key，原map会更改吗【会，是引用类型】" class="headerlink" title="13.map取一个key，修改这个key，原map会更改吗【会，是引用类型】"></a>13.map取一个key，修改这个key，原map会更改吗【会，是引用类型】</h2><p>从map中取出一个值并对其进行修改时，原始的map也会受到影响，因为map是引用类型，它们在底层是指向相同的数据结构的指针</p>
+<ul>
+<li>引用类型：map slice channel interface</li>
+</ul>
+<h2 id="16-struct能否-比较【可以】，成员里有struct呢？【可以】"><a href="#16-struct能否-比较【可以】，成员里有struct呢？【可以】" class="headerlink" title="16. struct能否==比较【可以】，成员里有struct呢？【可以】"></a>16. struct能否==比较【可以】，成员里有struct呢？【可以】</h2><ol>
+<li>但是只能1.相同类型结构体，2.成员结构相同并且都是可比较类型</li>
+<li>但切片、映射和函数等类型无法比较<h2 id="25-go的深浅拷贝"><a href="#25-go的深浅拷贝" class="headerlink" title="25. go的深浅拷贝"></a>25. go的深浅拷贝</h2></li>
+<li>浅拷贝: <code>person1 := person2</code> ，拷贝后的数据是原来数据的引用，更改后原来的也会改</li>
+<li>深拷贝: <code>person3 := Person{name : person1.name}</code>，独立的对象<h2 id="29-如何判断channel是否关闭"><a href="#29-如何判断channel是否关闭" class="headerlink" title="29. 如何判断channel是否关闭"></a>29. 如何判断channel是否关闭</h2></li>
+<li>_, ok := &lt;- mych</li>
+</ol>
+<h2 id="30-make-和-new-的区别"><a href="#30-make-和-new-的区别" class="headerlink" title="30. make 和 new 的区别"></a>30. make 和 new 的区别</h2><ul>
+<li>make创建、初始化引用类型</li>
+<li>new创建一个0值指针，主要用于自定义类型<h2 id="31-Slice的append"><a href="#31-Slice的append" class="headerlink" title="31. Slice的append"></a>31. Slice的append</h2></li>
+</ul>
+<h2 id="44-goroutine获取不到锁会一直等待吗【当然会】"><a href="#44-goroutine获取不到锁会一直等待吗【当然会】" class="headerlink" title="44. goroutine获取不到锁会一直等待吗【当然会】"></a>44. goroutine获取不到锁会一直等待吗【当然会】</h2><h2 id="58-空结构体用来干嘛【占位符，某个集合的存在性检查】"><a href="#58-空结构体用来干嘛【占位符，某个集合的存在性检查】" class="headerlink" title="58. 空结构体用来干嘛【占位符，某个集合的存在性检查】"></a>58. 空结构体用来干嘛【占位符，某个集合的存在性检查】</h2><h2 id="60-defer用来干什么【释放锁，关协程，关channel，文件，recover-panic】"><a href="#60-defer用来干什么【释放锁，关协程，关channel，文件，recover-panic】" class="headerlink" title="60. defer用来干什么【释放锁，关协程，关channel，文件，recover panic】"></a>60. defer用来干什么【释放锁，关协程，关channel，文件，recover panic】</h2><h2 id="61-context包的作用【并发安全】"><a href="#61-context包的作用【并发安全】" class="headerlink" title="61. context包的作用【并发安全】"></a>61. context包的作用【并发安全】</h2><p><strong>处理网络请求和并发任务时常用</strong>，处理请求范围内的值传递、取消和超时等问题，</p>
+<ol>
+<li>并发安全，可以在多个goroutine中共享</li>
+<li>传递信号给goroutine，进行管理</li>
+<li>传递请求范围内的值</li>
+</ol>
+<h2 id="79-select的底层数据结构和特性"><a href="#79-select的底层数据结构和特性" class="headerlink" title="79. select的底层数据结构和特性"></a>79. select的底层数据结构和特性</h2><h2 id="64-panic如何恢复"><a href="#64-panic如何恢复" class="headerlink" title="64. panic如何恢复"></a>64. panic如何恢复</h2><ol>
+<li>当程序遇到一个 panic，它会立即停止当前函数的执行，并沿着调用栈一直向上传播，直到到达 recover 所在的延迟函数。</li>
+<li>如果在defer 中调用了 recover，它会停止 panic 的传播并返回 panic 的值。</li>
+<li>如果没有发生 panic，recover 会返回 nil<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">recoverExample</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> r := <span class="built_in">recover</span>(); r != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Println(<span class="string">"Recovered:"</span>, r)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="comment">// 引发 panic</span></span><br><span class="line">    <span class="built_in">panic</span>(<span class="string">"something went wrong"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="70-go的init函数何时执行的"><a href="#70-go的init函数何时执行的" class="headerlink" title="70. go的init函数何时执行的"></a>70. go的init函数何时执行的</h2><ul>
+<li>导包初始化的时候执行，多个init时，都会执行</li>
+<li>一个文件里有多个init时，根据包的导入关系决定</li>
+<li>在包内有多个init，init执行顺序，golang没有明确定义，字典序？<h2 id="72-Gin的路由如何实现【压缩版的前缀树路由，httprouter库】"><a href="#72-Gin的路由如何实现【压缩版的前缀树路由，httprouter库】" class="headerlink" title="72. Gin的路由如何实现【压缩版的前缀树路由，httprouter库】"></a>72. Gin的路由如何实现【压缩版的前缀树路由，httprouter库】</h2></li>
+</ul>
+<h2 id="74-struct的传递场景：大struct避免复制，用浅拷贝"><a href="#74-struct的传递场景：大struct避免复制，用浅拷贝" class="headerlink" title="74. struct的传递场景：大struct避免复制，用浅拷贝"></a>74. struct的传递场景：大struct避免复制，用浅拷贝</h2><h2 id="79-sync-Pool-对象池用来干嘛的，应用场景如何"><a href="#79-sync-Pool-对象池用来干嘛的，应用场景如何" class="headerlink" title="79. sync.Pool 对象池用来干嘛的，应用场景如何"></a>79. sync.Pool 对象池用来干嘛的，应用场景如何</h2><ul>
+<li>它用于存储和复用临时对象，以减少内存分配和垃圾回收的开销。</li>
+<li>适用于需要频繁创建和销毁对象的场景<ul>
+<li>一些高并发场景，频繁创建和销毁一些对象</li>
+<li>协程池，数据库连接池，http连接池</li>
+<li>临时缓冲区<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">原理如下</span><br><span class="line">1. 每个 sync.Pool 实例内部维护了两个 interface&#123;&#125; 类型的字段，一个用于存储临时对象（私有私有的 local 对象池），另一个用于存储共享对象（共享的 shared 对象池）。</span><br><span class="line">2. 当你调用 pool.Get() 方法时，sync.Pool 会首先尝试从当前 Goroutine 的私有对象池 local 中获取一个对象。</span><br><span class="line">3. 如果 local 中没有可用的对象，它会转而尝试从共享对象池 shared 中获取一个对象。</span><br><span class="line">4. 如果 shared 中也没有可用的对象，它会调用 New 函数创建一个新的对象。</span><br><span class="line">5. 当你调用 pool.Put(obj) 方法时，对象会被放回到当前 Goroutine 的私有对象池 local 中。</span><br><span class="line">6. 如果私有对象池 local 已满，或者对象过期，那么该对象会被丢弃。</span><br><span class="line">这个机制保证了对象会在同一个 Goroutine 中被复用，从而减少了对象的创建和垃圾回收的开销。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="syncpool怎么实现的"><a href="#syncpool怎么实现的" class="headerlink" title="syncpool怎么实现的"></a>syncpool怎么实现的</h3><p>私有对象池和共享对象池+互斥锁保证线程安全,通过get和put</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> poolLocal <span class="keyword">struct</span> &#123;</span><br><span class="line">    private <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">    shared  []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">	M sync.Mutex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="83-变量申请类型是为了做什么"><a href="#83-变量申请类型是为了做什么" class="headerlink" title="83. 变量申请类型是为了做什么"></a>83. 变量申请类型是为了做什么</h2><p>类型就是根据不同的数据类型可以存储不同的数据，所以需要申请对应类型地址<br>数据类型的出现是为了把数据分成所需内存大小不同的数据，编程的时候需要用大数据的时候才需要申请</p>
+<h2 id="88-Go的GC机制介绍一下"><a href="#88-Go的GC机制介绍一下" class="headerlink" title="88. Go的GC机制介绍一下"></a>88. Go的GC机制介绍一下</h2><h2 id="84-Go和Java的GC机制有什么区别"><a href="#84-Go和Java的GC机制有什么区别" class="headerlink" title="84. Go和Java的GC机制有什么区别"></a>84. Go和Java的GC机制有什么区别</h2><ul>
+<li>目前主流的Java虚拟机实现都采用了分代垃圾回收的思想，堆内存被划分为新生代和年老代两部分，新生代主要使用复制和标记-清除垃圾回收，年老代主要使用标记-整理垃圾回收算法</li>
+<li>然后go的垃圾回收是混合写屏障机制，stw的时间更短，1.3用的标记清除，1.5改为用三色标记，但是还需要stw扫描栈所以就演进为混合写屏障，栈上新增对象都为黑色，暂时活过这一轮，然后删除的对象为灰色或者白色，节点都会变为灰色，黑色节点下新增节点都为灰色</li>
+<li>java语言中选择了可达性分析进行对象存活判断，而不是引用计数，主要也是因为java中软引用、弱引用、虚引用等多种引用方式使用引用计数并不能进行有效的存活判断，同时为了避免循环引用的问题，所以java选择了可达性分析的方式进行对象存活判断。</li>
+<li>在java中触发垃圾回收的条件是：<ul>
+<li>cpu空闲的时候；</li>
+<li>在堆栈满了的时候；</li>
+<li>主动调用 System.gc() 后尝试进行回收；</li>
+</ul>
+</li>
+</ul>
+<p><strong>Go的gc最佳应用场景是自身的分配行为不容易导致碎片堆积，并且程序分配新对象的速度不太高的情况，这种情况下go的垃圾回收比java更高效。相反的，当对象分配速度高时，java的gc的优势就会明显体现</strong></p>
+<h2 id="102-什么时候触发线程切换"><a href="#102-什么时候触发线程切换" class="headerlink" title="102. 什么时候触发线程切换"></a>102. 什么时候触发线程切换</h2><ol>
+<li>阻塞</li>
+<li>时间片用完</li>
+<li>显式调用 runtime.Gosched():主动让出当前 Goroutine 的执行权限，让调度器选择另一个可运行的 Goroutine 执行</li>
+<li>互斥锁</li>
+<li>等待组 sync.WaitGroup()<h2 id="107-http库的设计原理是什么？为什么不池化？"><a href="#107-http库的设计原理是什么？为什么不池化？" class="headerlink" title="107. http库的设计原理是什么？为什么不池化？"></a>107. http库的设计原理是什么？为什么不池化？</h2>采用的是连接池：http 包会自动维护一个连接池，用于复用 TCP 连接，从而提升性能。</li>
+</ol>
+<ul>
+<li>不池化的原因：处理的对象不一样，场景也不一样<ul>
+<li>对象池管理创建、销毁常用对象，减少gc压力</li>
+<li>连接池是复用连接，减少资源分配的开销，连接池中的资源通常会被长时间地重复使用，而对象池中的对象可能在短时间内就会被释放</li>
+</ul>
+</li>
+</ul>
+<h2 id="110-关闭一个已关闭的channel会发生什么？panic。"><a href="#110-关闭一个已关闭的channel会发生什么？panic。" class="headerlink" title="110. 关闭一个已关闭的channel会发生什么？panic。"></a>110. 关闭一个已关闭的channel会发生什么？panic。</h2><h2 id="110-238-有缓存channel和没缓存channel的区别是什么？"><a href="#110-238-有缓存channel和没缓存channel的区别是什么？" class="headerlink" title="110/238. 有缓存channel和没缓存channel的区别是什么？"></a>110/238. 有缓存channel和没缓存channel的区别是什么？</h2><p>无缓冲的与有缓冲 channel 有着重大差别，那就是一个是同步的 一个是非同步的</p>
+<h2 id="116-138-类型断言"><a href="#116-138-类型断言" class="headerlink" title="116/138. 类型断言"></a>116/138. 类型断言</h2><ul>
+<li><code>t := i.(T)</code>，这个表达式可以断言一个接口对象（i）里不是 nil，并且接口对象（i）存储的值的类型是 T，如果断言成功，就会返回值给 t，如果断言失败，就会触发 panic</li>
+<li><code>t, ok:= i.(T)</code>，这个表达式也是可以断言一个接口对象（i）里不是 nil，并且接口对象（i）存储的值的类型是 T，如果断言成功，就会返回其类型给 t，并且此时 ok 的值 为 true，表示断言成功。这个不会触发 panic，而是将 ok 的值设为 false ，表示断言失败，此时t 为 T 的零值。<h2 id="8-channel的实现方式-原理-概念-底层实现"><a href="#8-channel的实现方式-原理-概念-底层实现" class="headerlink" title="8.channel的实现方式/原理/概念/底层实现"></a>8.channel的实现方式/原理/概念/底层实现</h2></li>
+</ul>
+<h2 id="117-实现一种等待或者监听的机制【使用select-channel，或者time-sleep】"><a href="#117-实现一种等待或者监听的机制【使用select-channel，或者time-sleep】" class="headerlink" title="117. 实现一种等待或者监听的机制【使用select channel，或者time.sleep】"></a>117. 实现一种等待或者监听的机制【使用select channel，或者time.sleep】</h2><h2 id="118-sleep的底层实现？slice的append返回一个新切片会发生什么"><a href="#118-sleep的底层实现？slice的append返回一个新切片会发生什么" class="headerlink" title="118. sleep的底层实现？slice的append返回一个新切片会发生什么"></a>118. sleep的底层实现？slice的append返回一个新切片会发生什么</h2><ul>
+<li>append不超threshold，底层引用的数组还是原来的地址</li>
+<li>超过了的话，原来的和新的都会指向新数组</li>
+</ul>
+<h2 id="120-137-291-interface的底层实现"><a href="#120-137-291-interface的底层实现" class="headerlink" title="120/137/291. interface的底层实现"></a>120/137/291. interface的底层实现</h2><ul>
+<li>带有方法的interface，一种是不带方法的interface</li>
+<li>任何一个interface变量都是占用16个byte的内存空间</li>
+<li>第一个字段 _type指针，指向数据类型，runtime中的每个数据类型都包含一个这样的字段</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 没有方法的interface</span></span><br><span class="line"><span class="keyword">type</span> eface <span class="keyword">struct</span> &#123;</span><br><span class="line">    _type *_type <span class="comment">//重要字段，记录着某种数据类型的一些基本特征，比如这个数据类型占用的内存大小（size字段），数据类型的名称（nameOff字段）等等</span></span><br><span class="line">    <span class="comment">// 每种数据类型都存在一个与之对应的_type结构体</span></span><br><span class="line">    data unsafe.Pointer</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 有方法的interface</span></span><br><span class="line"><span class="keyword">type</span> iface <span class="keyword">struct</span> &#123;</span><br><span class="line">    tab *itab</span><br><span class="line">    data unsafe.Pointer</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 记录着Go语言中某个数据类型的基本特征</span></span><br><span class="line"><span class="keyword">type</span> _type <span class="keyword">struct</span> &#123;</span><br><span class="line">    size    <span class="keyword">uintptr</span></span><br><span class="line">    ptrdata  <span class="keyword">uintptr</span></span><br><span class="line">    hash    <span class="keyword">uint32</span></span><br><span class="line">    tflag   tflag</span><br><span class="line">    align   <span class="keyword">uint8</span></span><br><span class="line">    fieldalign <span class="keyword">uint8</span></span><br><span class="line">    kind    <span class="keyword">uint8</span></span><br><span class="line">    alg    *typeAlg</span><br><span class="line">    gcdata  *<span class="keyword">byte</span></span><br><span class="line">    str    nameOff</span><br><span class="line">    ptrToThis typeOff</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> itab <span class="keyword">struct</span> &#123;</span><br><span class="line">    inter *interfacetype</span><br><span class="line">    _type *_type <span class="comment">//重要</span></span><br><span class="line">    link  *itab</span><br><span class="line">    hash  <span class="keyword">uint32</span></span><br><span class="line">    bad  <span class="keyword">bool</span></span><br><span class="line">    inhash <span class="keyword">bool</span></span><br><span class="line">    unused [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    fun  [<span class="number">1</span>]<span class="keyword">uintptr</span></span><br><span class="line">&#125;   </span><br><span class="line"><span class="comment">// interface数据类型对应的type</span></span><br><span class="line"><span class="keyword">type</span> interfacetype <span class="keyword">struct</span> &#123;</span><br><span class="line">    typ   _type</span><br><span class="line">    pkgpath name</span><br><span class="line">    mhdr  []imethod</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="404-defer的底层实现"><a href="#404-defer的底层实现" class="headerlink" title="404. defer的底层实现"></a>404. defer的底层实现</h2><h2 id="160-string的底层实现"><a href="#160-string的底层实现" class="headerlink" title="160. string的底层实现"></a>160. string的底层实现</h2><h2 id="121-STW-在-go-的哪些阶段发生？1-8的改进是什么【混合写】"><a href="#121-STW-在-go-的哪些阶段发生？1-8的改进是什么【混合写】" class="headerlink" title="121. STW 在 go 的哪些阶段发生？1.8的改进是什么【混合写】"></a>121. STW 在 go 的哪些阶段发生？1.8的改进是什么【混合写】</h2><h2 id="132-如何避免panic"><a href="#132-如何避免panic" class="headerlink" title="132. 如何避免panic"></a>132. 如何避免panic</h2><h2 id="133-结构体对齐优化"><a href="#133-结构体对齐优化" class="headerlink" title="133. 结构体对齐优化"></a>133. 结构体对齐优化</h2><p>内存对齐:CPU访问内存时，通过字来访问，一个字在32位cpu中4个字节，所以对于</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> demo&#123;</span><br><span class="line">    a <span class="keyword">int8</span> <span class="comment">//1</span></span><br><span class="line">    b <span class="keyword">int32</span><span class="comment">//4</span></span><br><span class="line">    c <span class="keyword">int16</span> <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">会变成 <span class="number">1</span>+<span class="number">3</span> + <span class="number">2</span>+<span class="number">2</span> + <span class="number">4</span> 字节，而下面会变成 <span class="number">3</span>+<span class="number">1</span> + <span class="number">4</span></span><br><span class="line"><span class="keyword">struct</span> demo&#123;</span><br><span class="line">    a <span class="keyword">int8</span> <span class="comment">//1</span></span><br><span class="line">    b <span class="keyword">int16</span><span class="comment">//2</span></span><br><span class="line">    c <span class="keyword">int32</span><span class="comment">//4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="244-go实现func自定义参数"><a href="#244-go实现func自定义参数" class="headerlink" title="244. go实现func自定义参数"></a>244. go实现func自定义参数</h2><p><code>type myFunc func(int) int</code></p>
+<h2 id="252-copy是操作符还是内置函数【内置函数，深拷贝】"><a href="#252-copy是操作符还是内置函数【内置函数，深拷贝】" class="headerlink" title="252. copy是操作符还是内置函数【内置函数，深拷贝】"></a>252. copy是操作符还是内置函数【内置函数，深拷贝】</h2><h2 id="290-解释一下Go的通信机制"><a href="#290-解释一下Go的通信机制" class="headerlink" title="290. 解释一下Go的通信机制"></a>290. 解释一下Go的通信机制</h2><p>是通过channel实现的，chan定义实现了<strong>环形队列</strong>，总是遵循先入先出（First In First Out）的规则，保证收发数据的顺序，这一点和管道是一样的；chan在实现时定义了:</p>
+<ul>
+<li>指针</li>
+<li>环形队列</li>
+<li>（阻塞)协程链表<br>来控制通信，当chan满足条件时，通过指针sendx 、recvx 进行读写数据。</li>
+</ul>
+<h2 id="296-slice函数传参，先赋值再append与先append再赋值，哪个发生了改变"><a href="#296-slice函数传参，先赋值再append与先append再赋值，哪个发生了改变" class="headerlink" title="296. slice函数传参，先赋值再append与先append再赋值，哪个发生了改变"></a>296. slice函数传参，先赋值再append与先append再赋值，哪个发生了改变</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">appendThenAssign</span><span class="params">(arr []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	arr = <span class="built_in">append</span>(arr, <span class="number">3</span>)</span><br><span class="line">	arr[<span class="number">0</span>] = <span class="number">99</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">assignThenAppend</span><span class="params">(arr []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	arr[<span class="number">0</span>] = <span class="number">99</span></span><br><span class="line">	arr = <span class="built_in">append</span>(arr, <span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line">appendThenAssign(arr)</span><br><span class="line"><span class="comment">//print arr: 1 2</span></span><br><span class="line">assignThenAppend(arr)</span><br><span class="line"><span class="comment">//print arr: 99 2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="297-有没有什么线程安全的办法？"><a href="#297-有没有什么线程安全的办法？" class="headerlink" title="297. 有没有什么线程安全的办法？"></a>297. 有没有什么线程安全的办法？</h2><h2 id="golang-http包的内存泄漏情况"><a href="#golang-http包的内存泄漏情况" class="headerlink" title="golang http包的内存泄漏情况"></a>golang http包的内存泄漏情况</h2><ol>
+<li>忘记关闭response的 body</li>
+<li>忘记释放连接，或者一直创建连接，没有有效复用的情况？</li>
+</ol>
+<h2 id="306-go-map的时间复杂度"><a href="#306-go-map的时间复杂度" class="headerlink" title="306. go map的时间复杂度"></a>306. go map的时间复杂度</h2><h2 id="307-go由源码变二进制代码的整个流程"><a href="#307-go由源码变二进制代码的整个流程" class="headerlink" title="307. go由源码变二进制代码的整个流程"></a>307. go由源码变二进制代码的整个流程</h2><h2 id="309-select-poll-epoll"><a href="#309-select-poll-epoll" class="headerlink" title="309. select poll epoll"></a>309. select poll epoll</h2><h2 id="314-make底层原理"><a href="#314-make底层原理" class="headerlink" title="314. make底层原理"></a>314. make底层原理</h2><h2 id="315-string-强转-byte-发生了什么"><a href="#315-string-强转-byte-发生了什么" class="headerlink" title="315. string 强转 []byte 发生了什么"></a>315. string 强转 []byte 发生了什么</h2><h2 id="335-411-go的包管理工具除了go-mod还有什么"><a href="#335-411-go的包管理工具除了go-mod还有什么" class="headerlink" title="335/411. go的包管理工具除了go mod还有什么"></a>335/411. go的包管理工具除了go mod还有什么</h2><ul>
+<li>go mod能下载和管理指定版本的库，实现高效的模块化开发，和管理依赖关系的功能</li>
+<li>go sum干什么的：提供了安全机制<ul>
+<li>块路径：列出了项目中所使用的所有直接依赖模块的路径。</li>
+<li>版本号：对应每个模块的版本号。</li>
+<li>哈希值：对应每个模块版本的哈希值，用于确保模块的<strong>代码完整性</strong>。<h2 id="356-介绍一下go的反射"><a href="#356-介绍一下go的反射" class="headerlink" title="356. 介绍一下go的反射"></a>356. 介绍一下go的反射</h2>typeof和valueof来实现，每个类型，包括符合类型都维护了一个type和value区域</li>
+</ul>
+</li>
+</ul>
+<h2 id="396-go的-oop-面向对象与传统面向对象的区别"><a href="#396-go的-oop-面向对象与传统面向对象的区别" class="headerlink" title="396. go的 oop 面向对象与传统面向对象的区别"></a>396. go的 oop 面向对象与传统面向对象的区别</h2><p>go是用结构体定义对象，然后通过组合实现继承，对于多态来说，go强调接口的使用，</p>
+<h2 id="397-go里面interface对于java的接口和c-的虚函数区别在哪"><a href="#397-go里面interface对于java的接口和c-的虚函数区别在哪" class="headerlink" title="397. go里面interface对于java的接口和c++的虚函数区别在哪"></a>397. go里面interface对于java的接口和c++的虚函数区别在哪</h2><ul>
+<li>Go 接口是隐式实现的，一个类型只要实现了接口中的所有方法，就被认为是实现了该接口，无需显式声明。这种方式让 Go 具有了更大的灵活性。</li>
+<li>Go 倾向于使用接口和返回错误值的方式来处理错误，而不是像 Java 或者 C++ 中那样使用异常</li>
+</ul>
+<h2 id="402-Go-runtime的程序计数器，为什么是私有的（为什么程序猿不能操作）"><a href="#402-Go-runtime的程序计数器，为什么是私有的（为什么程序猿不能操作）" class="headerlink" title="402. Go runtime的程序计数器，为什么是私有的（为什么程序猿不能操作）"></a>402. Go runtime的程序计数器，为什么是私有的（为什么程序猿不能操作）</h2><ul>
+<li><p>在 Go 的 runtime 中，程序计数器用于跟踪当前 Goroutine 正在执行的代码位置，从而支持 Goroutine 的并发执行。</p>
+</li>
+<li><p>在单线程情况下，程序计数器会指向当前 Goroutine 执行的代码块。当发生 Goroutine 切换时，程序计数器的值会保存到当前 Goroutine 的上下文中，然后加载新 Goroutine 的上下文中的程序计数器值，以便从上次中断的地方继续执行。</p>
+</li>
+<li><p>避免混乱，保护Groutine在并发环境下的完整性</p>
+</li>
+</ul>
+<h2 id="423-interface和nil可以比较吗【可以】"><a href="#423-interface和nil可以比较吗【可以】" class="headerlink" title="423. interface和nil可以比较吗【可以】"></a>423. interface和nil可以比较吗【可以】</h2><p>但是必须要类型和值都相同</p>
+<ul>
+<li>果接口变量的动态值和动态类型同时都为 nil，那么接口变量将与 nil 比较相等。</li>
+<li>如果类型和值有一个不为nil，那么就是不相等</li>
+</ul>
+<h2 id="447-struct组合与java继承有什么区别"><a href="#447-struct组合与java继承有什么区别" class="headerlink" title="447. struct组合与java继承有什么区别"></a>447. struct组合与java继承有什么区别</h2><ul>
+<li>相同点是，都是静态语言，在编译期实现</li>
+<li>go组合支持多继承，java需要extends 父类来继承，只能继承一个</li>
+</ul>
+<h2 id="448-go的强制类型转换与隐式类型转换"><a href="#448-go的强制类型转换与隐式类型转换" class="headerlink" title="448. go的强制类型转换与隐式类型转换"></a>448. go的强制类型转换与隐式类型转换</h2><p>Go 支持两种类型转换：</p>
+<ul>
+<li><code>var a int = 10，var b float64 = float64(a)</code> 将整数 a 转换为浮点数。</li>
+<li>在算术表达式中，如果操作符两侧的类型不一致，Go 会自动将其中一个值转换为与另一个值相同的类型。</li>
+</ul>
+<h2 id="451-多个interface间可以存在什么关系"><a href="#451-多个interface间可以存在什么关系" class="headerlink" title="451. 多个interface间可以存在什么关系"></a>451. 多个interface间可以存在什么关系</h2><p>组合，嵌套都可以</p>
+<ul>
+<li>一个接口可以嵌套在另一个接口内部，这种情况下，外部接口会继承内部接口的所有方法</li>
+<li>一个接口可以由多个其他接口组合而成，组合后的接口将具有所有组成接口的方法<h2 id="510-go方法和函数的区别"><a href="#510-go方法和函数的区别" class="headerlink" title="510. go方法和函数的区别"></a>510. go方法和函数的区别</h2>方法是定义了 Receiver 的函数，分为receiver</li>
+<li>Value Receiver，不会修改receiver的内容</li>
+<li>Pointer Receiver，会修改receiver的内容</li>
+</ul>
+<h2 id="512-Go函数返回局部变量的指针是否安全【否】"><a href="#512-Go函数返回局部变量的指针是否安全【否】" class="headerlink" title="512. Go函数返回局部变量的指针是否安全【否】"></a>512. Go函数返回局部变量的指针是否安全【否】</h2><p>可以通过返回值和外部穿参一个在堆上的变量，返回这个变量的指针就安全了，并且能自动给gc掉</p>
+<h2 id="5-Go的GMP模型"><a href="#5-Go的GMP模型" class="headerlink" title="5.Go的GMP模型"></a>5.Go的GMP模型</h2><h2 id="6-Go和Java相比"><a href="#6-Go和Java相比" class="headerlink" title="6.Go和Java相比"></a>6.Go和Java相比</h2><h2 id="9-同一个goroutine里面，对无缓冲channel同时发送和接收数据有什么问题"><a href="#9-同一个goroutine里面，对无缓冲channel同时发送和接收数据有什么问题" class="headerlink" title="9.同一个goroutine里面，对无缓冲channel同时发送和接收数据有什么问题"></a>9.同一个goroutine里面，对无缓冲channel同时发送和接收数据有什么问题</h2><p>导致死锁</p>
+<h2 id="10-channel和锁的对比"><a href="#10-channel和锁的对比" class="headerlink" title="10.channel和锁的对比"></a>10.channel和锁的对比</h2><h2 id="11-channel的应用场景"><a href="#11-channel的应用场景" class="headerlink" title="11.channel的应用场景"></a>11.channel的应用场景</h2><h2 id="12"><a href="#12" class="headerlink" title="12."></a>12.</h2><h2 id="227-go实现一个链表"><a href="#227-go实现一个链表" class="headerlink" title="227. go实现一个链表"></a>227. go实现一个链表</h2><h2 id="289-写一个将字符串json转成一个可用的map的函数，json的value类型可能不定"><a href="#289-写一个将字符串json转成一个可用的map的函数，json的value类型可能不定" class="headerlink" title="289. 写一个将字符串json转成一个可用的map的函数，json的value类型可能不定"></a>289. 写一个将字符串json转成一个可用的map的函数，json的value类型可能不定</h2><h1 id="Slice专题"><a href="#Slice专题" class="headerlink" title="Slice专题"></a>Slice专题</h1><h2 id="455-内置cap函数可以用于？【arrary-slice-channel】的capability计算"><a href="#455-内置cap函数可以用于？【arrary-slice-channel】的capability计算" class="headerlink" title="455. 内置cap函数可以用于？【arrary slice channel】的capability计算"></a>455. 内置cap函数可以用于？【arrary slice channel】的capability计算</h2><p>为什么map不能用cap来计算：</p>
+<ul>
+<li>map因为有bucket，在内存存放的大小可能不和make出来的大小一致。是编译器计算后的结果，</li>
+</ul>
+<h2 id="463-切片扩容机制"><a href="#463-切片扩容机制" class="headerlink" title="463. 切片扩容机制"></a>463. 切片扩容机制</h2><p><strong>扩容是为切片分配新的内存空间并复制原切片中元素的过程。</strong><br>先确定新的切片大致容量而分配内存空间，根据该切片当前容量选择不同的策略：<br>【旧】</p>
+<ul>
+<li>如果期望容量大于当前容量的两倍，就会使用期望容量</li>
+<li>如果当前切片的长度小于 1024，容量就会翻倍</li>
+<li>如果当前切片的长达大于 1024，每次扩容 25% 的容量，直到新容量大于期望容量。</li>
+</ul>
+<p>roundupsize 函数来确定待申请的内存，该函数会从一个数组中获取整数，使用这个数组中的元素可以提高内存分配效率并减少碎片，这个数组叫做 NumSizeClasses 。</p>
+<h2 id="520-Slice为什么不是线程安全的"><a href="#520-Slice为什么不是线程安全的" class="headerlink" title="520. Slice为什么不是线程安全的"></a>520. Slice为什么不是线程安全的</h2><p>因为他是引用类型，其他指针可以同时指向底层数组，而且没有同步的措施</p>
+<h2 id="443-slice底层，内存泄漏分析"><a href="#443-slice底层，内存泄漏分析" class="headerlink" title="443. slice底层，内存泄漏分析"></a>443. slice底层，内存泄漏分析</h2><p>1）发生场景：截取长slice中的一段导致长slice未释放。</p>
+<p>由于底层都是数组，如果截图长slice的一段，其实相当于引用了底层数组中的一小段。只要还有引用，golang的gc就不能回收数组。这种情况导致未使用的数组空间，未及时回收。</p>
+<p>​<strong>解决方案</strong>：新建一个长度为0的slice，将需要的一小段slice使用append方法添加到新的slice。再将原来的slice置为nil。</p>
+<p>2）发生场景：没有重置丢失的子切片元素中的指针</p>
+<p>没有及时将不再使用的slice置为nil</p>
+<p>​<strong>解决方案</strong>：如果slice中包含很多元素，再只有一小部分元素需要使用的情况下。建议重新分配一个slice将需要保留的元素加入其中，将原来的长slice整个置为nil。</p>
+<h1 id="Map专题"><a href="#Map专题" class="headerlink" title="Map专题"></a>Map专题</h1><h2 id="32-如何实现一个线程安全的map"><a href="#32-如何实现一个线程安全的map" class="headerlink" title="32. 如何实现一个线程安全的map"></a>32. 如何实现一个线程安全的map</h2><p><a href="https://github.com/guowei-gong/go-demo/blob/main/mutex/demo.go" target="_blank" rel="noopener">https://github.com/guowei-gong/go-demo/blob/main/mutex/demo.go</a></p>
+<ol>
+<li>加读写锁</li>
+<li>分片加锁</li>
+<li>sync.Map（很少用）<ul>
+<li>场景一：只会增长的缓存系统，一个 key 值写入一次而被读很多次；</li>
+<li>场景二：多个 goroutine 为不相交的键读、写和重写键值对。</li>
+</ul>
+</li>
+<li>channel做串行访问:通过将 map 的读写操作发送到一个单独的 Goroutine 中，使得对 map 的访问变成串行的，从而避免了竞态条件。<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>)</span><br><span class="line"><span class="keyword">var</span> ch = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="function"><span class="keyword">func</span><span class="params">()</span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">read</span><span class="params">(key <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result <span class="keyword">int</span></span><br><span class="line">    ch &lt;- <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        result = m[key]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">write</span><span class="params">(key, val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    ch &lt;- <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        m[key] = val</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    write(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">    value := read(<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">println</span>(value) <span class="comment">// 输出 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="34-Map的底层实现"><a href="#34-Map的底层实现" class="headerlink" title="34. Map的底层实现"></a>34. Map的底层实现</h2><p><strong>使用Hash表和搜索树作为底层实现</strong>,底层是一个hmap和一个bmap</p>
+<ul>
+<li>bmap被称之为“桶”。<strong>一个桶里面会最多装 8 个 key</strong>，key 经过哈希计算后，哈希结果是“一类”的将会落入到同一个桶中。在桶内，会根据key计算出来的hash值的高 8 位来决定key到底落入桶内的哪个位置。</li>
+<li>这也是为什么map无法使用cap()来求容量的关键原因：map的容量是编译器进行计算后得出的一个结果，由于桶的存在，map在内存中实际存放的大小不一定同make出来后的map的大小一致。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> hmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    count      <span class="keyword">int</span>            <span class="comment">//元素个数，调用len(map)时直接返回</span></span><br><span class="line">    flags      <span class="keyword">uint8</span>          <span class="comment">//标志map当前状态,正在删除元素、添加元素.....</span></span><br><span class="line">    B          <span class="keyword">uint8</span>          <span class="comment">//单元(buckets)的对数 B=5表示能容纳32个元素</span></span><br><span class="line">    noverflow  <span class="keyword">uint16</span>        <span class="comment">//单元(buckets)溢出数量，如果一个单元能存8个key，此时存储了9个，溢出了，就需要再增加一个单元</span></span><br><span class="line">    hash0      <span class="keyword">uint32</span>         <span class="comment">//哈希种子</span></span><br><span class="line">    buckets    unsafe.Pointer <span class="comment">//指向单元(buckets)数组,大小为2^B，可以为nil</span></span><br><span class="line">    oldbuckets unsafe.Pointer <span class="comment">//扩容的时候，buckets长度会是oldbuckets的两倍</span></span><br><span class="line">    nevacute   <span class="keyword">uintptr</span>        <span class="comment">//指示扩容进度，小于此buckets迁移完成</span></span><br><span class="line">    extra      *mapextra      <span class="comment">//与gc相关 可选字段</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// A bucket for a Go map.</span></span><br><span class="line"><span class="keyword">type</span> bmap <span class="keyword">struct</span> &#123;</span><br><span class="line">	tophash [bucketCnt]<span class="keyword">uint8</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实际上编译期间会生成一个新的数据结构</span></span><br><span class="line"><span class="keyword">type</span> bmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    topbits  [<span class="number">8</span>]<span class="keyword">uint8</span></span><br><span class="line">    keys     [<span class="number">8</span>]keytype</span><br><span class="line">    values   [<span class="number">8</span>]valuetype</span><br><span class="line">    pad      <span class="keyword">uintptr</span></span><br><span class="line">    overflow <span class="keyword">uintptr</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/gomapbuckets.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h2 id="36-map的key可以是哪些类型，可以是nil吗？可以嵌套吗"><a href="#36-map的key可以是哪些类型，可以是nil吗？可以嵌套吗" class="headerlink" title="36. map的key可以是哪些类型，可以是nil吗？可以嵌套吗"></a>36. map的key可以是哪些类型，可以是nil吗？可以嵌套吗</h2><ul>
+<li>可以作为 map 的键的类型必须<strong>满足相等性比较的条件</strong>，包括基本数据类型和一些自定义类型，string必然可以</li>
+<li>不可以做key的类型：切片，函数，包含切片和函数的符合类型</li>
+</ul>
+<h2 id="36-struct-interface-nil可以做map的key吗"><a href="#36-struct-interface-nil可以做map的key吗" class="headerlink" title="36. struct{} interface{} nil可以做map的key吗"></a>36. struct{} interface{} nil可以做map的key吗</h2><ul>
+<li>nil不可以，其他的可以</li>
+<li>struct{} 以值的字面量形式去比较</li>
+<li>interface{} 以动态类型去比较</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">interface</span>&#123;&#125;]<span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">m[<span class="number">1</span>] = <span class="number">10</span></span><br><span class="line">m[<span class="string">"string"</span>] = <span class="number">20</span></span><br><span class="line">m[<span class="number">3.14</span>] = <span class="number">30</span></span><br><span class="line">fmt.Println(m[<span class="number">1</span>])       <span class="comment">// 输出 10</span></span><br><span class="line">fmt.Println(m[<span class="string">"string"</span>]) <span class="comment">// 输出 20</span></span><br><span class="line">fmt.Println(m[<span class="number">3.14</span>])    <span class="comment">// 输出 30</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">struct</span>&#123;&#125;]<span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">key1 := <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">key2 := <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">m[key1] = <span class="number">10</span></span><br><span class="line">m[key2] = <span class="number">20</span></span><br><span class="line">fmt.Println(m[key1]) <span class="comment">// 输出 10</span></span><br><span class="line">fmt.Println(m[key2]) <span class="comment">// 输出 20</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="251-sync-Map-怎么解决线程安全问题？源码看过吗"><a href="#251-sync-Map-怎么解决线程安全问题？源码看过吗" class="headerlink" title="251. sync.Map 怎么解决线程安全问题？源码看过吗"></a>251. sync.Map 怎么解决线程安全问题？源码看过吗</h2><p>支持并发读写，采取了 “空间换时间” 的机制，冗余了两个数据结构，分别是：read 和 dirty. </p>
+<ul>
+<li><p>优点是读多写少场景下使用，比如只会增长的缓存。</p>
+</li>
+<li><p>缺点是写多场景下，导致 read map 缓存失效，需要加锁，冲突变多，性能急剧下降</p>
+</li>
+<li><p>和原始map+RWLock的实现并发的方式相比，减少了加锁对性能的影响。它做了一些优化：可以无锁访问read map，而且会优先操作read map，倘若只操作read map就可以满足要求，那就不用去操作write map(dirty)，所以在某些特定场景中它发生锁竞争的频率会远远小于map+RWLock的实现方式</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Map <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu Mutex</span><br><span class="line">    read atomic.Value <span class="comment">// readOnly</span></span><br><span class="line">    dirty <span class="keyword">map</span>[<span class="keyword">interface</span>&#123;&#125;]*entry</span><br><span class="line">    misses <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="275-map的分段锁拆了几个分片？"><a href="#275-map的分段锁拆了几个分片？" class="headerlink" title="275 map的分段锁拆了几个分片？"></a>275 map的分段锁拆了几个分片？</h2><h2 id="379-如果一个map没申请空间，去向里面取值【发生panic】"><a href="#379-如果一个map没申请空间，去向里面取值【发生panic】" class="headerlink" title="379. 如果一个map没申请空间，去向里面取值【发生panic】"></a>379. 如果一个map没申请空间，去向里面取值【发生panic】</h2><p>一般用的时候就给他make一个</p>
+<h2 id="407-map取一个key，然后修改这个值，原来的数据会发生变化吗？【会】引用类型，"><a href="#407-map取一个key，然后修改这个值，原来的数据会发生变化吗？【会】引用类型，" class="headerlink" title="407. map取一个key，然后修改这个值，原来的数据会发生变化吗？【会】引用类型，"></a>407. map取一个key，然后修改这个值，原来的数据会发生变化吗？【会】引用类型，</h2><h2 id="526-map的负载因子是多少【6-5】为什么？"><a href="#526-map的负载因子是多少【6-5】为什么？" class="headerlink" title="526. map的负载因子是多少【6.5】为什么？"></a>526. map的负载因子是多少【6.5】为什么？</h2><p>默认当 map 中的元素个数达到总容量的 65% 时，会触发扩容操作。<br>为什么？</p>
+<h1 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h1><h2 id="9-同一个协程里面，对无缓冲channel同时进行读写会发生什么问题"><a href="#9-同一个协程里面，对无缓冲channel同时进行读写会发生什么问题" class="headerlink" title="9.同一个协程里面，对无缓冲channel同时进行读写会发生什么问题"></a>9.同一个协程里面，对无缓冲channel同时进行读写会发生什么问题</h2><p>原则上不可以这样写，会导致死锁。</p>
+<p>对于一个无缓冲的channel而言，只有不同的协程之间一方发送数据一方接受数据才不会阻塞。channel无缓冲时，发送阻塞直到数据被接收，接收阻塞直到读到数据。</p>
+<h2 id="14-向为nil的channel发送数据会怎样【发生panic】为什么"><a href="#14-向为nil的channel发送数据会怎样【发生panic】为什么" class="headerlink" title="14.向为nil的channel发送数据会怎样【发生panic】为什么"></a>14.向为nil的channel发送数据会怎样【发生panic】为什么</h2><h2 id="连续两次close-ch-会发生panic-runtime-err"><a href="#连续两次close-ch-会发生panic-runtime-err" class="headerlink" title="连续两次close(ch)会发生panic: runtime err"></a>连续两次close(ch)会发生panic: runtime err</h2><h2 id="51-channel-线程安全吗【安全】里面有互斥锁"><a href="#51-channel-线程安全吗【安全】里面有互斥锁" class="headerlink" title="51. channel 线程安全吗【安全】里面有互斥锁"></a>51. channel 线程安全吗【安全】里面有互斥锁</h2><p><strong>互斥锁是如何起作用的</strong>：<br>在对循环数组buf中的数据进行入队和出队操作时，必须先获取互斥锁，才能操作channel数据。</p>
+<h2 id="98-99-分布式锁有哪些？如何用channel实现？"><a href="#98-99-分布式锁有哪些？如何用channel实现？" class="headerlink" title="98/99. 分布式锁有哪些？如何用channel实现？"></a>98/99. 分布式锁有哪些？如何用channel实现？</h2><p><strong>基于数据库的分布式锁</strong></p>
+<p>使用数据库的事务特性来实现分布式锁，通过在数据库中创建一个唯一索引或者唯一约束来保证锁的唯一性。</p>
+<p><strong>基于Redis的分布式锁</strong></p>
+<p>使用 Redis 提供的 SETNX（SET if Not eXists）指令，可以在 Redis 中创建一个分布式锁。</p>
+<p><strong>基于ZooKeeper的分布式锁</strong></p>
+<p>使用 ZooKeeper 提供的临时有序节点和监视机制，可以实现分布式锁。</p>
+<p><strong>基于etcd的分布式锁</strong></p>
+<p>使用 etcd 提供的分布式锁实现，可以实现分布式系统中的互斥访问。</p>
+<p><strong>基于Go语言的channel实现</strong></p>
+<p>使用 Go 语言的 channel 作为同步机制，在分布式环境下也可以实现互斥访问</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	lockCh = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">1</span>) <span class="comment">// 带缓冲的 channel，容量为1表示只能同时有一个 Goroutine 获取到锁</span></span><br><span class="line">	locked = <span class="literal">false</span>                 <span class="comment">// 标记是否已经获取到锁</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">acquireLock</span><span class="params">()</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> lockCh &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;:</span><br><span class="line">		locked = <span class="literal">true</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">releaseLock</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> locked &#123;</span><br><span class="line">		&lt;-lockCh</span><br><span class="line">		locked = <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> acquireLock() &#123;</span><br><span class="line">		<span class="keyword">defer</span> releaseLock()</span><br><span class="line">		<span class="comment">// 临界区代码</span></span><br><span class="line">		fmt.Println(<span class="string">"Lock acquired!"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Failed to acquire lock"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="174-go-里的-syncLock-和-channel-的性能区别"><a href="#174-go-里的-syncLock-和-channel-的性能区别" class="headerlink" title="174. go 里的 syncLock 和 channel 的性能区别"></a>174. go 里的 syncLock 和 channel 的性能区别</h2><h2 id="134-channel实现一个排序算法"><a href="#134-channel实现一个排序算法" class="headerlink" title="134. channel实现一个排序算法"></a>134. channel实现一个排序算法</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bubbleSort</span><span class="params">(nums []<span class="keyword">int</span>, ch <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	n := <span class="built_in">len</span>(nums)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i++ &#123;</span><br><span class="line">		swapped := <span class="literal">false</span></span><br><span class="line">		<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; n-i<span class="number">-1</span>; j++ &#123;</span><br><span class="line">			<span class="keyword">if</span> nums[j] &gt; nums[j+<span class="number">1</span>] &#123;</span><br><span class="line">				nums[j], nums[j+<span class="number">1</span>] = nums[j+<span class="number">1</span>], nums[j]</span><br><span class="line">				swapped = <span class="literal">true</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> !swapped &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ch &lt;- <span class="number">1</span> <span class="comment">// 排序完成，向通道发送信号</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	nums := []<span class="keyword">int</span>&#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> bubbleSort(nums[:<span class="built_in">len</span>(nums)/<span class="number">2</span>], ch) <span class="comment">// 在一个 Goroutine 中排序前半部分</span></span><br><span class="line">	<span class="keyword">go</span> bubbleSort(nums[<span class="built_in">len</span>(nums)/<span class="number">2</span>:], ch) <span class="comment">// 在另一个 Goroutine 中排序后半部分</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 等待两个 Goroutine 完成</span></span><br><span class="line">	&lt;-ch</span><br><span class="line">	&lt;-ch</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 合并两个有序数组</span></span><br><span class="line">	merged := merge(nums[:<span class="built_in">len</span>(nums)/<span class="number">2</span>], nums[<span class="built_in">len</span>(nums)/<span class="number">2</span>:])</span><br><span class="line">	fmt.Println(merged)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">merge</span><span class="params">(left, right []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">	result := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(left)+<span class="built_in">len</span>(right))</span><br><span class="line">	i, j, k := <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i &lt; <span class="built_in">len</span>(left) &amp;&amp; j &lt; <span class="built_in">len</span>(right) &#123;</span><br><span class="line">		<span class="keyword">if</span> left[i] &lt;= right[j] &#123;</span><br><span class="line">			result[k] = left[i]</span><br><span class="line">			i++</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			result[k] = right[j]</span><br><span class="line">			j++</span><br><span class="line">		&#125;</span><br><span class="line">		k++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i &lt; <span class="built_in">len</span>(left) &#123;</span><br><span class="line">		result[k] = left[i]</span><br><span class="line">		i++</span><br><span class="line">		k++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> j &lt; <span class="built_in">len</span>(right) &#123;</span><br><span class="line">		result[k] = right[j]</span><br><span class="line">		j++</span><br><span class="line">		k++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="202-channel-实现一个限流器"><a href="#202-channel-实现一个限流器" class="headerlink" title="202. channel 实现一个限流器"></a>202. channel 实现一个限流器</h2><h2 id="473-channel的ring-buffer"><a href="#473-channel的ring-buffer" class="headerlink" title="473. channel的ring buffer"></a>473. channel的ring buffer</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/gochannelringbuffer.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>适用FIFO，recvx 指向最早被读取的数 据，sendx 指向再次写入时插入的位置</p>
+<h1 id="go的同步库"><a href="#go的同步库" class="headerlink" title="go的同步库"></a>go的同步库</h1><h2 id="15-sync-waitgroup的坑"><a href="#15-sync-waitgroup的坑" class="headerlink" title="15. sync.waitgroup的坑"></a>15. sync.waitgroup的坑</h2><p>① Add一个负数</p>
+<p>如果计数器的值小于0会直接panic</p>
+<p>② Add在Wait之后调用</p>
+<p>比如一些子协程开头调用Add结束调用Wait，这些 Wait无法阻塞子协程。正确做法是在开启子协程之前先Add特定的值。</p>
+<p>③ 未置为0就重用</p>
+<p>WaitGroup可以完成一次编排任务，计数值降为0后可以继续被其他任务所用，但是不要在还没使用完的时候就用于其他任务，这样由于带着计数值，很可能出问题。</p>
+<p>④ 复制waitgroup</p>
+<p>WaitGroup有nocopy字段，不能被复制。也意味着WaitGroup不能作为函数的参数。</p>
+<h2 id="18-读写锁怎么实现的"><a href="#18-读写锁怎么实现的" class="headerlink" title="18. 读写锁怎么实现的"></a>18. 读写锁怎么实现的</h2><ol>
+<li>读写锁内部是通过互斥锁实现的,主要应用于写操作少，读操作多的场景。</li>
+<li>基于四条规则实现</li>
+</ol>
+<ul>
+<li>写锁需要阻塞写锁：一个协程拥有写锁时，其他协程写锁定需要阻塞；</li>
+<li>写锁需要阻塞读锁：一个协程拥有写锁时，其他协程读锁定需要阻塞；</li>
+<li>读锁需要阻塞写锁：一个协程拥有读锁时，其他协程写锁定需要阻塞；</li>
+<li>读锁不能阻塞读锁：一个协程拥有读锁时，其他协程也可以拥有读锁。<h2 id="114-mutex-如何处理正常和饥饿状态？rwmutex中写操作如何处理写操作阻止读操作"><a href="#114-mutex-如何处理正常和饥饿状态？rwmutex中写操作如何处理写操作阻止读操作" class="headerlink" title="114. mutex 如何处理正常和饥饿状态？rwmutex中写操作如何处理写操作阻止读操作"></a>114. mutex 如何处理正常和饥饿状态？rwmutex中写操作如何处理写操作阻止读操作</h2></li>
+</ul>
+<p><strong>正常模式和饥饿状态：</strong></p>
+<ul>
+<li>正常状态下，Mutex 的锁是公平的，当一个 Goroutine 尝试获取锁时，如果锁已经被其他 Goroutine 持有，那么它将被放入一个等待队列中，直到锁被释放。</li>
+<li>饥饿状态指的是某些 Goroutine 一直无法获得锁，而其他 Goroutine 不断获得锁的情况。在 Go 中，sync.Mutex 并没有专门的机制来处理饥饿状态。如果出现饥饿状态，通常是由于程序逻辑设计不合理导致的，可能需要重新考虑并发结构和资源的设计。</li>
+</ul>
+<p><strong>读写操作</strong></p>
+<ul>
+<li>如果一个 Goroutine 持有写锁，那么其他 Goroutine 将无法获取读锁，直到写锁被释放。这种机制保证了在写操作进行时，不会有其他 Goroutine 进行并发的读取操作，从而避免了数据的并发写入。</li>
+<li></li>
+</ul>
+<h2 id="33-go的锁是可重入的吗"><a href="#33-go的锁是可重入的吗" class="headerlink" title="33. go的锁是可重入的吗"></a>33. go的锁是可重入的吗</h2><p><strong>可重入锁</strong>（也称为递归锁）是指允许同一个线程或 Goroutine 多次获取同一个锁，而不会发生死锁的情况。这在一些场景下是很有用的，比如在一个函数中多次调用其他需要锁保护的函数</p>
+<p><strong>但是go的sync.Mutex不是可重入。</strong></p>
+<h2 id="210-如何检测死锁的？"><a href="#210-如何检测死锁的？" class="headerlink" title="210. 如何检测死锁的？"></a>210. 如何检测死锁的？</h2><ul>
+<li>go vet 进行静态分析</li>
+<li>go run/build -race 可以检测死锁，在编译好静态文件后</li>
+</ul>
+<h2 id="211-怎么处理锁分段"><a href="#211-怎么处理锁分段" class="headerlink" title="211. 怎么处理锁分段"></a>211. 怎么处理锁分段</h2><h2 id="226-sync-mutex的底层实现（Linux）"><a href="#226-sync-mutex的底层实现（Linux）" class="headerlink" title="226. sync.mutex的底层实现（Linux）"></a>226. sync.mutex的底层实现（Linux）</h2><ul>
+<li>实现可能因操作系统和硬件平台而异</li>
+<li>使用 pthreads 库（POSIX 线程库）中的互斥锁实现。</li>
+<li>这是一个用户态的锁，它会使用操作系统提供的系统调用来进行加锁和解锁</li>
+<li>mutex维护一个state，类型是int32</li>
+</ul>
+<h3 id="提供了两种锁定方式：阻塞锁和自旋锁"><a href="#提供了两种锁定方式：阻塞锁和自旋锁" class="headerlink" title="提供了两种锁定方式：阻塞锁和自旋锁"></a>提供了两种锁定方式：阻塞锁和自旋锁</h3><ul>
+<li>阻塞锁：当一个 Goroutine 尝试获取一个被其他 Goroutine 持有的锁时，它会被阻塞，直到锁被释放。</li>
+<li>自旋锁：自旋锁是一种非阻塞的锁机制，在尝试获取锁时，如果锁已经被其他 Goroutine 持有，它会在一段时间内快速尝试获取锁，而不是被阻塞。如果在一定时间内无法获取到锁，那么它会转为阻塞模式。</li>
+</ul>
+<h3 id="mutex允许自旋的条件是什么【执行状态的M个数-lt-mapprocs】"><a href="#mutex允许自旋的条件是什么【执行状态的M个数-lt-mapprocs】" class="headerlink" title="mutex允许自旋的条件是什么【执行状态的M个数&lt; mapprocs】"></a>mutex允许自旋的条件是什么【执行状态的M个数&lt; mapprocs】</h3><p>开发者可以使用 runtime.GOMAXPROCS() 函数来设置 Goroutine 的最大并发数，从而影响自旋锁的行为。</p>
+<h1 id="goroutine使用"><a href="#goroutine使用" class="headerlink" title="goroutine使用"></a>goroutine使用</h1><h2 id="20-两个goroutine交替打印字母和数字"><a href="#20-两个goroutine交替打印字母和数字" class="headerlink" title="20. 两个goroutine交替打印字母和数字"></a>20. 两个goroutine交替打印字母和数字</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	limit := <span class="number">26</span></span><br><span class="line"></span><br><span class="line">	numChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</span><br><span class="line">	charChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</span><br><span class="line">	mainChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</span><br><span class="line">	charChan &lt;- <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; limit; i++ &#123;</span><br><span class="line">			&lt;-charChan</span><br><span class="line">			fmt.Printf(<span class="string">"%c\n"</span>, <span class="string">'a'</span>+i)</span><br><span class="line">			numChan &lt;- <span class="number">1</span></span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; limit; i++ &#123;</span><br><span class="line">			&lt;-numChan</span><br><span class="line">			fmt.Println(i)</span><br><span class="line">			charChan &lt;- <span class="number">1</span></span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">		mainChan &lt;- <span class="number">1</span></span><br><span class="line">	&#125;()</span><br><span class="line">	&lt;-mainChan</span><br><span class="line">	<span class="built_in">close</span>(charChan)</span><br><span class="line">	<span class="built_in">close</span>(numChan)</span><br><span class="line">	<span class="built_in">close</span>(mainChan)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="26-为什么不要大量使用goroutine"><a href="#26-为什么不要大量使用goroutine" class="headerlink" title="26. 为什么不要大量使用goroutine"></a>26. 为什么不要大量使用goroutine</h2><ul>
+<li>上下文切换，开销变大</li>
+<li>可能会存在内存泄漏的问题，得<br>要根据具体的情况来评估并发的需求，避免不必要的并发，以免引入不必要的复杂性和潜在的问题。</li>
+</ul>
+<h3 id="协程池如何实现-worker"><a href="#协程池如何实现-worker" class="headerlink" title="协程池如何实现 worker"></a>协程池如何实现 worker</h3><h2 id="40-for-循环多次执行goroutine-有什么坑？"><a href="#40-for-循环多次执行goroutine-有什么坑？" class="headerlink" title="40. for 循环多次执行goroutine 有什么坑？"></a>40. for 循环多次执行goroutine 有什么坑？</h2><ul>
+<li>go支持闭包， 如果用了循环的这个i，里面的变量就可能出错，用临时变量的副本比较好。</li>
+<li>Goroutine 是异步执行的，它们可能会在循环变量发生变化之后才开始执行，导致不确定的结果</li>
+</ul>
+<h2 id="48-如果要等待所有goroutine结束，怎么做？【使用waitgroup】"><a href="#48-如果要等待所有goroutine结束，怎么做？【使用waitgroup】" class="headerlink" title="48. 如果要等待所有goroutine结束，怎么做？【使用waitgroup】"></a>48. 如果要等待所有goroutine结束，怎么做？【使用waitgroup】</h2><h2 id="55-goroutine为什么轻量"><a href="#55-goroutine为什么轻量" class="headerlink" title="55. goroutine为什么轻量"></a>55. goroutine为什么轻量</h2><p><strong>独立的栈空间</strong> 每个 Goroutine 都有自己独立的栈空间，相对于传统的线程来说，Goroutines 的栈空间通常会小很多。这使得创建和销毁 Goroutines 更加快速和节省内存。</p>
+<p><strong>灵活的调度器</strong> Go 的运行时（runtime）包含了一个高效的调度器，它可以在多个操作系统线程上调度 Goroutines，以便充分利用多核处理器的优势。这使得在单个程序中可以同时执行大量的 Goroutines，而不会导致线程过度切换和资源浪费。</p>
+<p><strong>快速的启动和停止</strong> 相对于传统的线程，创建和销毁 Goroutines 更加快速。这使得在需要短暂执行某些任务时，使用 Goroutines 更为合适。</p>
+<p><strong>共享的堆空间</strong> 所有 Goroutines 共享相同的堆空间，这意味着它们可以相对容易地共享数据，而不需要显式的同步机制。</p>
+<p><strong>通信通过通道</strong> Goroutines 之间的通信主要依赖于通道（channel），它们提供了一种安全且高效的方式来传递数据。通过通道，可以实现 Goroutines 之间的同步和数据传递，而无需显式的锁。</p>
+<p><strong>自动的垃圾回收</strong> Go 具有垃圾回收机制，它会自动管理内存的分配和释放，使得开发者无需手动管理内存，降低了并发程序中内存泄漏的风险。</p>
+<h2 id="85-使用两个channel实现a-b"><a href="#85-使用两个channel实现a-b" class="headerlink" title="85. 使用两个channel实现a+b"></a>85. 使用两个channel实现a+b</h2><h2 id="92-goroutine的实现方式"><a href="#92-goroutine的实现方式" class="headerlink" title="92. goroutine的实现方式"></a>92. goroutine的实现方式</h2><h2 id="100-并行goroutine如何实现"><a href="#100-并行goroutine如何实现" class="headerlink" title="100. 并行goroutine如何实现"></a>100. 并行goroutine如何实现</h2><h2 id="111-父-goroutine-退出，如何使得子goroutine也退出【waitgroup-用channel-，defer】"><a href="#111-父-goroutine-退出，如何使得子goroutine也退出【waitgroup-用channel-，defer】" class="headerlink" title="111. 父 goroutine 退出，如何使得子goroutine也退出【waitgroup 用channel ，defer】"></a>111. 父 goroutine 退出，如何使得子goroutine也退出【waitgroup 用channel ，defer】</h2><ul>
+<li>父 Goroutine 退出时，只要main不退出，所有的子 Goroutines 不会强制关闭</li>
+</ul>
+<h1 id="Go的GC机制"><a href="#Go的GC机制" class="headerlink" title="Go的GC机制"></a>Go的GC机制</h1><h2 id="24-go的gc什么是否触发"><a href="#24-go的gc什么是否触发" class="headerlink" title="24. go的gc什么是否触发"></a>24. go的gc什么是否触发</h2><p><strong>主动触发(手动触发)</strong>，通过调用 runtime.GC 来触发GC，此调用阻塞式地等待当前GC运行完毕。</p>
+<p><strong>被动触发</strong>，分为两种方式：</p>
+<ul>
+<li>使用步调（Pacing）算法，其核心思想是控制内存增长的比例,每次内存分配时检查当前内存分配量是否已达到阈值（环境变量GOGC）：默认100%，即当内存扩大一倍时启用GC。</li>
+<li>使用系统监控，当超过两分钟没有产生任何GC时，强制触发 GC。</li>
+</ul>
+<h2 id="148-Go-语言什么时候垃圾回收，写代码时，如何减少对象分配"><a href="#148-Go-语言什么时候垃圾回收，写代码时，如何减少对象分配" class="headerlink" title="148. Go 语言什么时候垃圾回收，写代码时，如何减少对象分配"></a>148. Go 语言什么时候垃圾回收，写代码时，如何减少对象分配</h2><p><strong>对象池</strong>：可以使用 sync.Pool 或者自定义对象池来重用对象，避免频繁分配和释放。</p>
+<p><strong>必要时使用数组而不是切片</strong>：如果你知道元素数量固定，可以使用数组而不是切片，因为切片底层数组可能会导致对象分配。</p>
+<p><strong>避免逃逸</strong>：逃逸发生在编译器无法确定一个变量的生命周期时，变量将会在堆上分配。尽量避免函数内部的变量逃逸到堆上</p>
+<p><strong>使用内置函数</strong>：Go 提供了一些内置函数（如 append、copy）来处理切片，它们会在底层做一些优化，避免不必要的分配。</p>
+<h2 id="176-Golang-内存分配和管理"><a href="#176-Golang-内存分配和管理" class="headerlink" title="176. Golang 内存分配和管理"></a>176. Golang 内存分配和管理</h2><p>Go语言内置运行时（就是runtime），抛弃了传统的内存分配方式，改为自主管理。这样可以自主地实现更好的内存使用模式，比如内存池、预分配等等。这样，不会每次内存分配都需要进行系统调用。</p>
+<p>Golang运行时的内存分配算法主要源自 Google 为 C 语言开发的TCMalloc算法，全称Thread-Caching Malloc。</p>
+<p>核心思想就是把内存分为多级管理，从而降低锁的粒度。它将可用的堆内存采用二级分配的方式进行管理：每个线程都会自行维护一个独立的内存池，进行内存分配时优先从该内存池中分配，当内存池不足时才会向全局内存池申请，以避免不同线程对全局内存池的频繁竞争。</p>
+<h3 id="管理如何管理？"><a href="#管理如何管理？" class="headerlink" title="管理如何管理？"></a>管理如何管理？</h3><p>Go自带GC，可以自动回收垃圾，对比C语言不用malloc申请内存及free释放，Go的GC采取三色标记法动态；</p>
+<p>Go自动分配内存，开发者可以不用关注堆、栈，Go在编译阶段会做变量的生命周期分析做逃逸分析，自动将变量分配在堆或栈上。</p>
+<h2 id="354-go的内存分配机制"><a href="#354-go的内存分配机制" class="headerlink" title="354. go的内存分配机制"></a>354. go的内存分配机制</h2><p>Go 的内存分配借鉴了 Google 的 TCMalloc 分配算法，其核心思想是内存池 + 多级对象管理。内存池主要是预先分配内存，减少向系统申请的频率；多级对象有：mheap、mspan、arenas、mcentral、mcache。<br>它们以 mspan 作为基本分配单位。具体的分配逻辑如下：</p>
+<ul>
+<li>当要分配大于 32K 的对象时，从 mheap 分配。</li>
+<li>当要分配的对象小于等于 32K 大于 16B 时，从 P 上的 mcache 分配，如果 mcache 没有内存，则从 mcentral 获取，如果 mcentral 也没有，则向 mheap 申请，如果 mheap 也没有，则从操作系统申请内存。</li>
+<li>当要分配的对象小于等于 16B 时，从 mcache 上的微型分配器上分配。<h2 id="324-go的内存分配机制中，有mcentral为什么要mcache"><a href="#324-go的内存分配机制中，有mcentral为什么要mcache" class="headerlink" title="324. go的内存分配机制中，有mcentral为什么要mcache"></a>324. go的内存分配机制中，有mcentral为什么要mcache</h2></li>
+</ul>
+<h2 id="177-如何避免内存逃逸【合理用指针，设定slice长度】"><a href="#177-如何避免内存逃逸【合理用指针，设定slice长度】" class="headerlink" title="177. 如何避免内存逃逸【合理用指针，设定slice长度】"></a>177. 如何避免内存逃逸【合理用指针，设定slice长度】</h2><ol>
+<li>不要盲目使用变量指针作为参数，虽然减少了复制，但变量逃逸的开销更大。</li>
+<li>预先设定好slice长度，避免频繁超出容量，重新分配。</li>
+<li>一个经验是，指针指向的数据大部分在堆上分配的，请注意。</li>
+</ol>
+<p>出现内存逃逸的情况有：</p>
+<ol>
+<li><p>发送指针或带有指针的值到channel，因为编译时候无法知道那个goroutine会在channel接受数据，编译器无法知道什么时候释放。</p>
+</li>
+<li><p>在一个切片上存储指针或带指针的值。比如[]*string，导致切片内容逃逸，其引用值一直在堆上。</p>
+</li>
+<li><p>切片的append导致超出容量，切片重新分配地址，切片背后的存储基于运行时的数据进行扩充，就会在堆上分配。</p>
+</li>
+<li><p>调用接口类型时，接口类型的方法调用是动态调度，实际使用的具体实现只能在运行时确定，如一个接口类型为io.Reader的变量r，对r.Read(b)的调用将导致r的值和字节片b的后续转义并因此分配到堆上。</p>
+</li>
+<li><p>在方法内把局部变量指针返回，被外部引用，其生命周期大于栈，导致内存溢出。</p>
+<h2 id="237-gc和-delete-free-有什么区别，优势？"><a href="#237-gc和-delete-free-有什么区别，优势？" class="headerlink" title="237. gc和 delete free 有什么区别，优势？"></a>237. gc和 delete free 有什么区别，优势？</h2></li>
+</ol>
+<ul>
+<li>delete free是手动释放的，一有忘记的就可能导致内存泄漏，产生内存碎片</li>
+<li>gc的话是自动释放堆的内存，<strong>能有效避免内存泄漏和内存碎片</strong>，没有垃圾回收的情况下，程序员可能需要手动释放不再使用的内存，以避免内存碎片的问题<ul>
+<li>内存碎片是指分配在堆上的内存块中，由于频繁的分配和释放操作，导致堆中的可用内存呈现出碎片化的状态，使得大块的连续内存难以分配。</li>
+</ul>
+</li>
+</ul>
+<h2 id="355-go的性能调优是怎么做的"><a href="#355-go的性能调优是怎么做的" class="headerlink" title="355. go的性能调优是怎么做的"></a>355. go的性能调优是怎么做的</h2><h3 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h3><p>A、将小对象合并成结构体一次分配，减少内存分配次数</p>
+<p>Go runtime底层采用内存池机制，每个span大小为4k，同时维护一个cache。cache有一个0到n的list数组，list数组的每个单元挂载的是一个链表，链表的每个节点就是一块可用的内存块，同一链表中的所有节点内存块都是大小相等的；但是不同链表的内存大小是不等的，即list数组的一个单元存储的是一类固定大小的内存块，不同单元里存储的内存块大小是不等的。cache缓存的是不同类大小的内存对象，申请的内存大小最接近于哪类缓存内存块时，就分配哪类内存块。当cache不够时再向spanalloc中分配。</p>
+<p>B、缓存区内容一次分配足够大小空间，并适当复用</p>
+<p>在协议编解码时，需要频繁地操作[]byte，可以使用bytes.Buffer或其它byte缓存区对象。<br>bytes.Buffer等通过预先分配足够大的内存，避免当增长时动态申请内存，减少内存分配次数。对于byte缓存区对象需要考虑适当地复用。<br>C、slice和map采make创建时，预估大小指定容量<br>slice和map与数组不一样，不存在固定空间大小，可以根据增加元素来动态扩容。<br>slice初始会指定一个数组，当对slice进行append等操作时，当容量不够时，会自动扩容：<br>如果新的大小是当前大小2倍以上，则容量增涨为新的大小；<br>否则循环以下操作：如果当前容量小于1024，按2倍增加；否则每次按当前容量1/4增涨，直到增涨的容量超过或等新大小。<br>map的扩容比较复杂，每次扩容会增加到上次容量的2倍。map的结构体中有一个buckets和oldbuckets，用于实现增量扩容：<br>正常情况下，直接使用buckets，oldbuckets为空；<br>如果正在扩容，则oldbuckets不为空，buckets是oldbuckets的2倍，<br>因此，建议初始化时预估大小指定容量</p>
+<p>D、长调用栈避免申请较多的临时对象</p>
+<p>Goroutine的调用栈默认大小是4K（1.7修改为2K），采用连续栈机制，当栈空间不够时，Go runtime会自动扩容：<br>当栈空间不够时，按2倍增加，原有栈的变量会直接copy到新的栈空间，变量指针指向新的空间地址；<br>退栈会释放栈空间的占用，GC时发现栈空间占用不到1/4时，则栈空间减少一半。<br>比如栈的最终大小2M，则极端情况下，就会有10次的扩栈操作，会带来性能下降。<br>因此，建议控制调用栈和函数的复杂度，不要在一个goroutine做完所有逻辑；如的确需要长调用栈，而考虑goroutine池化，避免频繁创建goroutine带来栈空间的变化。</p>
+<p>E、避免频繁创建临时对象</p>
+<p>Go在GC时会引发stop the world，即整个情况暂停。Go1.8最坏情况下GC为100us。但暂停时间还是取决于临时对象的个数，临时对象数量越多，暂停时间可能越长，并消耗CPU。<br>因此，建议GC优化方式是尽可能地减少临时对象的个数：尽量使用局部变量；所多个局部变量合并一个大的结构体或数组，减少扫描对象的次数，一次回尽可能多的内存。</p>
+<h3 id="并发优化"><a href="#并发优化" class="headerlink" title="并发优化"></a>并发优化</h3><p>A、高并发的任务处理使用goroutine池<br>Goroutine虽然轻量，但对于高并发的轻量任务处理，频繁来创建goroutine来执行，执行效率并不会太高，因为：过多的goroutine创建，会影响go runtime对goroutine调度，以及GC消耗；高并发时若出现调用异常阻塞积压，大量的goroutine短时间积压可能导致程序崩溃。<br>B、避免高并发调用同步系统接口<br>goroutine的实现，是通过同步来模拟异步操作。<br>网络IO、锁、channel、Time.sleep、基于底层系统异步调用的Syscall操作并不会阻塞go runtime的线程调度。<br>本地IO调用、基于底层系统同步调用的Syscall、CGo方式调用C语言动态库中的调用IO或其它阻塞会创建新的调度线程。<br>网络IO可以基于epoll的异步机制（或kqueue等异步机制），但对于一些系统函数并没有提供异步机制。例如常见的posix api中，对文件的操作就是同步操作。虽有开源的fileepoll来模拟异步文件操作。但Go的Syscall还是依赖底层的操作系统的API。系统API没有异步，Go也做不了异步化处理。<br>因此，建议：把涉及到同步调用的goroutine，隔离到可控的goroutine中，而不是直接高并的goroutine调用。<br>C、高并发时避免共享对象互斥<br>传统多线程编程时，当并发冲突在4~8线程时，性能可能会出现拐点。Go推荐不通过共享内存来通信，Go创建goroutine非常容易，当大量goroutine共享同一互斥对象时，也会在某一数量的goroutine出在拐点。<br>因此，建议：goroutine尽量独立，无冲突地执行；若goroutine间存在冲突，则可以采分区来控制goroutine的并发个数，减少同一互斥对象冲突并发数。</p>
+<h3 id="其它优化"><a href="#其它优化" class="headerlink" title="其它优化"></a>其它优化</h3><p>A、避免使用CGO或者减少CGO调用次数<br>GO可以调用C库函数，但Go带有垃圾收集器且Go的栈动态增涨，无法与C无缝地对接。Go的环境转入C代码执行前，必须为C创建一个新的调用栈，把栈变量赋值给C调用栈，调用结束现拷贝回来。调用开销较大，需要维护Go与C的调用上下文，两者调用栈的映射。相比直接的GO调用栈，单纯的调用栈可能有2个甚至3个数量级以上。<br>因此，建议：尽量避免使用CGO，无法避免时，要减少跨CGO的调用次数。<br>B、减少[]byte与string之间转换，尽量采用[]byte来字符串处理<br>GO里面的string类型是一个不可变类型，GO中[]byte与string底层是两个不同的结构，转换存在实实在在的值对象拷贝，所以尽量减少不必要的转化。<br>因此，建议：存在字符串拼接等处理，尽量采用[]byte。<br>C、字符串的拼接优先考虑bytes.Buffer<br>string类型是一个不可变类型，但拼接会创建新的string。GO中字符串拼接常见有如下几种方式：<br>string + 操作 ：导致多次对象的分配与值拷贝<br>fmt.Sprintf ：会动态解析参数，效率好不哪去<br>strings.Join ：内部是[]byte的append<br>bytes.Buffer ：可以预先分配大小，减少对象分配与拷贝<br>因此，建议：对于高性能要求，优先考虑bytes.Buffer，预先分配大小。fmt.Sprintf可以简化不同类型转换与拼</p>
+<h2 id="500-写屏障-插入写屏障-删除写屏障-混合写屏障"><a href="#500-写屏障-插入写屏障-删除写屏障-混合写屏障" class="headerlink" title="500. 写屏障-插入写屏障-删除写屏障-混合写屏障"></a>500. 写屏障-插入写屏障-删除写屏障-混合写屏障</h2><ul>
+<li>混合写屏障继承了插入写屏障的优点，起始无需 STW 打快照，直接并发扫 描垃圾即可；</li>
+<li>混合写屏障继承了删除写屏障的优点，赋值器是黑色赋值器，GC 期间，任 何在栈上创建的新对象，均为黑色。扫描过一次就不需要扫描了，这样就 消除了插入写屏障时期最后 STW 的重新扫描栈；</li>
+<li>混合写屏障扫描精度继承了删除写屏障，比插入写屏障更低，随着带来的 是 GC 过程全程无 STW；</li>
+<li>混合写屏障扫描栈虽然没有 STW，但是扫描某一个具体的栈的时候，还是 要停止这个 goroutine 赋值器的工作（针对一个 goroutine 栈来说，是 暂停扫的，要么全灰，要么全黑哈，原子状态切换）。</li>
+</ul>
+<h2 id="505-gc流程"><a href="#505-gc流程" class="headerlink" title="505. gc流程"></a>505. gc流程</h2><p>GCMark 标记准备阶段，为并发标记做准备工作，启动写屏障</p>
+<p>STWGCMark 扫描标记阶段，与赋值器并发执行，写屏障开启并发</p>
+<p>GCMarkTermination 标记终止阶段，保证一个周期内标记任务完成，停止写屏障</p>
+<p>GCoff 内存清扫阶段，将需要回收的内存归还到堆中，写屏障关闭</p>
+<p>GCoff 内存归还阶段，将过多的内存归还给操作系统，写屏障关闭。</p>
+<h2 id="506-GC是如何调优的"><a href="#506-GC是如何调优的" class="headerlink" title="506. GC是如何调优的"></a>506. GC是如何调优的</h2><h2 id="Go-内存分配机制？"><a href="#Go-内存分配机制？" class="headerlink" title="Go 内存分配机制？"></a>Go 内存分配机制？</h2><h2 id="Go-内存逃逸机制？"><a href="#Go-内存逃逸机制？" class="headerlink" title="Go 内存逃逸机制？"></a>Go 内存逃逸机制？</h2><h2 id="Go-内存对齐机制"><a href="#Go-内存对齐机制" class="headerlink" title="Go 内存对齐机制"></a>Go 内存对齐机制</h2><h2 id="563-waitgroup的底层实现"><a href="#563-waitgroup的底层实现" class="headerlink" title="563. waitgroup的底层实现"></a>563. waitgroup的底层实现</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A WaitGroup must not be copied after first use.</span></span><br><span class="line"><span class="keyword">type</span> WaitGroup <span class="keyword">struct</span> &#123;</span><br><span class="line"> noCopy noCopy</span><br><span class="line"> state1 [<span class="number">3</span>]<span class="keyword">uint32</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="564-cond实现原理"><a href="#564-cond实现原理" class="headerlink" title="564. cond实现原理"></a>564. cond实现原理</h2><h2 id="run-race能用于什么【排查逃逸，死锁，数据竞争等】"><a href="#run-race能用于什么【排查逃逸，死锁，数据竞争等】" class="headerlink" title="run -race能用于什么【排查逃逸，死锁，数据竞争等】"></a>run -race能用于什么【排查逃逸，死锁，数据竞争等】</h2><h1 id="go其他"><a href="#go其他" class="headerlink" title="go其他"></a>go其他</h1><h2 id="17-不重启实现热更新"><a href="#17-不重启实现热更新" class="headerlink" title="17. 不重启实现热更新"></a>17. 不重启实现热更新</h2><p>根据系统的 SIGHUP 信号量，以此信号量触发进程重启，达到热更新的效果。</p>
+<p>热部署我们需要考虑几个能力：</p>
+<ul>
+<li>新进程启动成功，老进程不会有资源残留</li>
+<li>新进程初始化的过程中，服务不会中断</li>
+<li>新进程初始化失败，老进程仍然继续工作</li>
+<li>同一时间，只能有一个更新动作执行<br>监听信号量的方法的环境是在 类 UNIX 系统中，在现在的 UNIX 内核中，允许多个进程同时监听一个端口。在收到 SIGHUP 信号量时，先 fork 出一个新的进程监听端口，同时等待旧进程处理完已经进来的连接，最后杀掉旧进程。</li>
+</ul>
+<p>示例代码，仓库地址：<a href="https://github.com/guowei-gong/tablefilp-example，" target="_blank" rel="noopener">https://github.com/guowei-gong/tablefilp-example，</a> 如果你希望动手来加深印象可以打开看看。</p>
+<h2 id="157-日志框架logrus"><a href="#157-日志框架logrus" class="headerlink" title="157. 日志框架logrus"></a>157. 日志框架logrus</h2><h2 id="go实现stack-和-set"><a href="#go实现stack-和-set" class="headerlink" title="go实现stack 和 set"></a>go实现stack 和 set</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Stack <span class="keyword">struct</span> &#123;</span><br><span class="line">    data []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Stack)</span> <span class="title">Push</span><span class="params">(item <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    s.data = <span class="built_in">append</span>(s.data, item)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Stack)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s.data) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    item := s.data[<span class="built_in">len</span>(s.data)<span class="number">-1</span>]</span><br><span class="line">    s.data = s.data[:<span class="built_in">len</span>(s.data)<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">interface</span>&#123;&#125;]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span> <span class="title">Add</span><span class="params">(item <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    s[item] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span> <span class="title">Remove</span><span class="params">(item <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    <span class="built_in">delete</span>(s, item)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span> <span class="title">Contains</span><span class="params">(item <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    _, exists := s[item]</span><br><span class="line">    <span class="keyword">return</span> exists</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="200-项目上线了，但是发现协程-内存泄漏，如何处理"><a href="#200-项目上线了，但是发现协程-内存泄漏，如何处理" class="headerlink" title="200. 项目上线了，但是发现协程/内存泄漏，如何处理"></a>200. 项目上线了，但是发现协程/内存泄漏，如何处理</h2><p>1.goroutine泄漏。<br>2.有一些全局的数据结构意外的挂住了本该释放的对象，虽然goroutine已经退出了，但是这些对象并没有从这类数据结构中删除，导致对象一直被引用，无法被收回。<br>所以发现有内存泄漏的话，具体问题具体分析。</p>
+<h2 id="RPC基础"><a href="#RPC基础" class="headerlink" title="RPC基础"></a>RPC基础</h2><p>讲一下RPC基础：</p>
+<p>RPC的概念<br>RPC（Romote Procedure Call，远程过程调用），作为分布式系统中不同节点之间的通信方式，是分布式系统的基石之一，RPC不是具体的方法，而是一种解决不同服务之间调用的设计。</p>
+<p>基于RPC开发的框架可以称为RPC框架，典型的有谷歌的gRPC、阿里的Dubbo、Facebook的Thrift等，当然成熟的RPC框架还会有服务注册与发现、服务治理、负载均衡等功能。</p>
+<p>RPC的四个要素<br>Client<br>服务调用的发起方</p>
+<p>Client Stub<br>用于存储要调用的服务器地址、以及将要请求的数据信息打包，通过网络请求发送给Server Stub，然后阻塞，直到接受到返回的数据，然后进行解析。</p>
+<p>Server<br>Server，包含要调用的方法</p>
+<p>Server Stub<br>用于接受Client Stub发送的请求数据包并进行解析，完成功能调用，最后将结果进行打包并返回给Client Stub。在没有接受到请求数据包时则处于阻塞状态。</p>
+<p>封装了Client Stub和Server Stub后，从Client的角度来看，似乎和本地调用一样。从Server的角度看，似乎就是客户直接调用。</p>
+<p>RPC的具体通信步骤<br>Client以类似本地调用的方式调Client Stub<br>Client Stub序列化生成消息，然后调用本地操作系统的通信模块， Stub阻塞<br>本地操作系统与远程Server进行通信，消息传输到远程操作系统<br>远程操作系统将消息传递给Server Stub<br>Server Stub进行反序列化，然后调用Server的对应方法<br>Server程序执行方法，将结果传递给Server Stub<br>Server Stub将结果进行序列化，然后传递给Server操作系统<br>Server操作系统将结果传递给Client<br>Client操作系统将其交给Client Stub， Stub从阻塞状态恢复<br>Client Stub对结果进行反序列化，并将值返回给Client程序<br>Client程序获得返回结果</p>
+<h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>乐观锁的概念其实很简单，就是在操作一个共享变量时，我们先认为多个线程之间没有冲突</p>
+<h3 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h3><p>CAS是乐观锁的一种实现，CAS全称是比较和替换，CAS的操作主要由以下几个步骤组成：</p>
+<ol>
+<li>先查询原始值</li>
+<li>操作时比较原始值是否修改</li>
+<li>如果修改，则操作失败，禁止更新操作，如果没有发生修改，则更新为新值<h3 id="CAS的缺点"><a href="#CAS的缺点" class="headerlink" title="CAS的缺点"></a>CAS的缺点</h3>CAS虽然在低并发量的情况下可以减少系统的开销，但是CAS也有一些问题：</li>
+<li>CPU开销过大问题</li>
+<li>ABA问题</li>
+<li>只能针对一个共享变量<h3 id="CPU开销过大"><a href="#CPU开销过大" class="headerlink" title="CPU开销过大"></a>CPU开销过大</h3>在我们使用CAS时，如果并发量过大，我们的程序有可能会一直自旋，长时间占用CPU资源。<h3 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h3>假设有个共享变量J，原始值为1。</li>
+<li>线程A读取变量J，值为1</li>
+<li>线程B读取变量J，值为1</li>
+<li>线程A变量J+1，CAS成功从1修改为2</li>
+<li>线程C读取变量J，值为2</li>
+<li>线程C将变量J-1，CAS成功从2修改为1</li>
+<li>线程A通过CAS比较和替换，依然可以改为自己想修改的值<br>上述过程，线程B和C已经将变量J的值已经改变了，但是线程A无法发现，依然可以修改共享变量，这就产生了ABA问题。<h3 id="共享变量单一"><a href="#共享变量单一" class="headerlink" title="共享变量单一"></a>共享变量单一</h3>CAS操作单个共享变量的时候可以保证原子的操作，无法操作多个变量。<br>但是在JDK5之后，AtomicReference可以用来保证对象之间的原子性，我们可以把多个对象放入CAS中操作。<h3 id="如何防止CAS的ABA"><a href="#如何防止CAS的ABA" class="headerlink" title="如何防止CAS的ABA"></a>如何防止CAS的ABA</h3>四个字：加标志位（version）。<br>至于标志位可以是自增的数字，也可以是时间戳。通过标志位我们可以精确的知道每次修改。</li>
+</ol>
+<h2 id="go-python-java的协程区别"><a href="#go-python-java的协程区别" class="headerlink" title="go python java的协程区别"></a>go python java的协程区别</h2><h3 id="python协程特点"><a href="#python协程特点" class="headerlink" title="python协程特点"></a>python协程特点</h3><ol>
+<li><p>单线程内切换，适用于IO密集型程序中，能够最大化IO多路复用的效果。</p>
+</li>
+<li><p>没法利用多核。</p>
+</li>
+<li><p>协程间彻底同步，不会并行。不须要考虑数据安全。</p>
+</li>
+<li><p>关键词yield</p>
+<h3 id="go协程特点"><a href="#go协程特点" class="headerlink" title="go协程特点"></a>go协程特点</h3></li>
+<li><p>协程间须要保证数据安全，好比经过channel或锁。</p>
+</li>
+<li><p>能够利用多核并行执行。</p>
+</li>
+<li><p>协程间不彻底同步，能够并行运行，具体要看channel的设计。</p>
+</li>
+<li><p>抢占式调度，可能没法实现公平。</p>
+</li>
+</ol>
+<h2 id="性能排查"><a href="#性能排查" class="headerlink" title="性能排查"></a>性能排查</h2><ol>
+<li>使用性能分析工具（如pprof）来获取详细的性能数据，了解哪些函数或代码段消耗了大量的时间。</li>
+<li>检查缓存、连接、数据库等</li>
+<li>日志里也可能有信息</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-29T16:44:54.484Z" itemprop="dateUpdated">2023-10-30 00:44:54</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/10/12/面经Go问题/&title=《No title》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/10/12/面经Go问题/&title=《No title》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/10/12/面经Go问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《No title》 — waynamigo's blog&url=http://waynamigo.github.io/2023/10/12/面经Go问题/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/10/12/面经Go问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/10/25/面试指北/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">No title</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/10/10/面试算法/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">No title</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/10/12/面经Go问题/&title=《No title》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/10/12/面经Go问题/&title=《No title》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/10/12/面经Go问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《No title》 — waynamigo's blog&url=http://waynamigo.github.io/2023/10/12/面经Go问题/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/10/12/面经Go问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aO27DMBAFwNz/0k6TIkBi+z2uZEDUqDKEmOaw2HA/X1/x8/jz5O9/v3m28rNvHfxgYGBclvF4+eQ/8Hrr+frJt/7ZCQYGxg0YSShMIl57QAkj+S0MDAyM/HMSpl+HbwwMDIyzGfNAjIGBgTFJYvPEtd3oR3NxDAyMCzLyqvvnP5/S38DAwLgU41E+efDNQ+pkPz/rYGBgbM1oi/5rYxbtUMXafjAwMHZl5OMRbfl+PpxRDIphYGBszZgHu2Sja2W1tl2KgYGxKyO52CULJe/bEltxTBgYGFsz2iQzGZtoy3BtYyDqx2JgYGzEaBPUySBF/iZPcUdzbRgYGBdhTAYdJuMRa82DN/8AMDAwbsDI08g2TU2umO1hPe3EYmBgbMpoA2I7ZrEWptcSZgwMjL0ZbWjLU9OkDHdUgMbAwNibkbcP21A7aVWecjXEwMC4IGMeLtvgO0mAi7PHwMDYgtEOaa1h2uGwA0bBMDAwNmKsDV4kRbd8nbzQFlExMDA2ZaxdBOe8yTjsm2ELDAyMrRlt6S1HnlEjxMDAuBsjKcDNRzGSv1yrrWFgYOzKeJTP2rDFUW2J4m6LgYGxEWM+YZWHzklh7oA+LQYGxsUZbbGsDcdr3cacjYGBcR9GkfUOmo751TM/dAwMDIwJKW8ntEdzQMDFwMC4JSO/JrbluWQFDAyMOzAmg195MW4thT643IaBgXFBRjvisDbT0Y5rzK+eGBgYWzC+ASeHapihR50bAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

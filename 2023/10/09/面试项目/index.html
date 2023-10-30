@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>No title | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="Go数字孪生项目背景：企业合作项目。负责设计开发数据采集与指令下发模块，实现车间物理设备与Unity模拟软件的实时状态映射。 这个项目是老师和科大讯飞与农科信创这个公司合作的一个数字化管理系统，这个项目虽然叫数字孪生但是您可以把它当作一个游戏前端+共享文档来看，客户端程序我们用的unity开发的，农科信创提供的了数字资产和传感器，科大讯飞提供了一部分深度学习模型，做的事包括产量预估、病虫害表型鉴定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="No title">
+<meta property="og:url" content="http://waynamigo.github.io/2023/10/09/面试项目/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="Go数字孪生项目背景：企业合作项目。负责设计开发数据采集与指令下发模块，实现车间物理设备与Unity模拟软件的实时状态映射。 这个项目是老师和科大讯飞与农科信创这个公司合作的一个数字化管理系统，这个项目虽然叫数字孪生但是您可以把它当作一个游戏前端+共享文档来看，客户端程序我们用的unity开发的，农科信创提供的了数字资产和传感器，科大讯飞提供了一部分深度学习模型，做的事包括产量预估、病虫害表型鉴定">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T07:16:14.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="No title">
+<meta name="twitter:description" content="Go数字孪生项目背景：企业合作项目。负责设计开发数据采集与指令下发模块，实现车间物理设备与Unity模拟软件的实时状态映射。 这个项目是老师和科大讯飞与农科信创这个公司合作的一个数字化管理系统，这个项目虽然叫数字孪生但是您可以把它当作一个游戏前端+共享文档来看，客户端程序我们用的unity开发的，农科信创提供的了数字资产和传感器，科大讯飞提供了一部分深度学习模型，做的事包括产量预估、病虫害表型鉴定">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">No title</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">No title</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-10-08T16:33:41.296Z" itemprop="datePublished" class="page-time">
+  2023-10-09
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Go数字孪生"><span class="post-toc-number">1.</span> <span class="post-toc-text">Go数字孪生</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Go-轻量聊天APP（Go-Kratos-GPT2）"><span class="post-toc-number">2.</span> <span class="post-toc-text">Go 轻量聊天APP（Go/Kratos/GPT2）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据库"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缓存"><span class="post-toc-number">4.</span> <span class="post-toc-text">缓存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用户信息服务"><span class="post-toc-number">5.</span> <span class="post-toc-text">用户信息服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#群组管理服务"><span class="post-toc-number">6.</span> <span class="post-toc-text">群组管理服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#消息传输服务"><span class="post-toc-number">7.</span> <span class="post-toc-text">消息传输服务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#消息传输的并发处理和消息分发问题是怎么解决的"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">消息传输的并发处理和消息分发问题是怎么解决的</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kratos进行微服务间的通信"><span class="post-toc-number">8.</span> <span class="post-toc-text">kratos进行微服务间的通信</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务注册"><span class="post-toc-number">9.</span> <span class="post-toc-text">服务注册</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用的是kratos的负载均衡器"><span class="post-toc-number">10.</span> <span class="post-toc-text">用的是kratos的负载均衡器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rpc是什么-远程过程调用-和rmi的区别【RMI相当于RPC的一种实现】"><span class="post-toc-number">11.</span> <span class="post-toc-text">rpc是什么 远程过程调用 和rmi的区别【RMI相当于RPC的一种实现】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RMI流程原理"><span class="post-toc-number">12.</span> <span class="post-toc-text">RMI流程原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#grpc"><span class="post-toc-number">12.1.</span> <span class="post-toc-text">grpc</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面试项目"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">No title</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-10-09 00:33:41" datetime="2023-10-08T16:33:41.296Z"  itemprop="datePublished">2023-10-09</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Go数字孪生"><a href="#Go数字孪生" class="headerlink" title="Go数字孪生"></a>Go数字孪生</h2><p>项目背景：企业合作项目。负责设计开发数据采集与指令下发模块，实现车间物理设备与Unity模拟软件的实时状态映射。</p>
+<p>这个项目是老师和<strong>科大讯飞与农科信创</strong>这个公司合作的一个数字化管理系统，这个项目虽然叫数字孪生但是您可以把它当作一个游戏前端+共享文档来看，客户端程序我们用的unity开发的，农科信创提供的了数字资产和传感器，科大讯飞提供了一部分深度学习模型，做的事包括产量预估、病虫害表型鉴定、采摘车的三维图像定位（通过ROS控制）、异常人员检测，这个项目我做的事就基于go做的后端，一个是监听、收集和预处理数据发送到模型端，一个是提供给unity接口支持多个用户去操作边缘设备（调整温度光照，要更改采摘车的采摘顺序），将模型处理后的统计数据、实体状态呈现给前端。</p>
+<p>项目难点：根据传感器文档构建指令，指令是通过状态写入协议来进行的；处理多个用户操作同一个对象的冲突问题。</p>
+<!-- ： 传感器数据发送到预测模型，处理的结果上传数据库，用户在unity客户端的指令，我要发送到边缘设备上更改前端unity可视化的作用。 -->
+
+<ul>
+<li>后端主要基于Gin和Zinx开发，连接Unity端收发实时数据，提供用户控制端Web服务接口</li>
+<li>使用gRPC对序列化后的对象消息进行流式传输，保证服务器端与Unity端的高效同步</li>
+<li>使用MongoDB存储服务器端的统计数据、历史设备指令与数字工厂状态的日志文件提供历史状态查询与回滚操作</li>
+</ul>
+<ol>
+<li>gin做的是登陆认证、资产文件上分片上传/拉取功能，存储在mongodb，资产文件用gridFS。以及获取grpc通信的结构体解析成XML的功能，unity前端有一个功能是鼠标移动到实例上就有一个悬浮框显示所有属性</li>
+<li>数据接收模块：传感器都是基于UDP的协议进行上传，频率有高有低，所以对一个传感器go了一个routine，在这个routine里接收解析所需的数据进行解析完，处理成结构体之后，用grpc的stream消息发到GPU服务器上部署的模型来处理。</li>
+<li>用户在unity端的操作和指令下发是用zinx实现的，它是一个TCP长连接框架，然后服务器端去实现温度、土壤、种植区、采摘车这些实体对象与现实状态的同步，（比如控制土壤ph、二氧化碳浓度、控温、光谱开关、采摘车路线修正）包括位置、惯导的方位角，角速度线速度等（用MSO格式封装的报文），在用户端封装的控制指令以bytes的形式用zinx的DataPack封装，封装的控制指令转发到终端设备的service</li>
+<li>如果有多个用户并发要对这个对象操作，在这个处理的goroutine中可能会造成冲突，我们维护了一个对象map，对这个map加锁处理，对于采摘车的话，是单独维护了一个处于三维坐标系下的对象。</li>
+<li>用到channel的场景：一个预测服务中，对发送数据的goroutine是配套的，</li>
+<li>历史状态查询的话，是根据mongo中存储各对象的历史状态，根据时间戳向前端的拉取。</li>
+<li>是做用户在本地对传感器做操作后，连接的控制终端，比如采摘车的路径校准、和毫米波雷达的控制，主要包括DIFOP设备信息输出协议，用户配置写入协议UCWP</li>
+<li>在服务器端连接mongodb，服务器数据收集、统计计算、上传数据库</li>
+</ol>
+<h2 id="Go-轻量聊天APP（Go-Kratos-GPT2）"><a href="#Go-轻量聊天APP（Go-Kratos-GPT2）" class="headerlink" title="Go 轻量聊天APP（Go/Kratos/GPT2）"></a>Go 轻量聊天APP（Go/Kratos/GPT2）</h2><p>项目角色：唯一贡献者<br>项目背景：该软件作为当时学习Go语言微服务框架与组件的个人练手项目。聊天以群组的形式进行，将基于GPT2的bot与聊天室服务拆分成微服务，主要包括用户信息服务、群组管理服务、消息传输服务、GPT会话存储服务四个。</p>
+<ul>
+<li>使用的微服务框架为Kratos，开发组件和工具主要包括Redis/Go-kit/Swagger</li>
+<li>遵循微服务部署流程，微服务使用k8s部署，dlv调试工具，godoc自动化生成文档等</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">用户表</span><br><span class="line">用户id，密码，密码哈希值，salt</span><br><span class="line">群组表</span><br><span class="line">群组id, 用户id, 权限值</span><br><span class="line">聊天记录表</span><br><span class="line">key：userid, groupid,timestamp做的索引</span><br></pre></td></tr></table></figure>
+
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h2 id="用户信息服务"><a href="#用户信息服务" class="headerlink" title="用户信息服务"></a>用户信息服务</h2><ul>
+<li>查看个人/他人信息功能</li>
+<li>更改字段功能</li>
+<li>增加删除(注销)功能<!-- - 登陆模块1：初始是获取MAC地址进行的，机器码和id作为key --></li>
+<li>登陆模块：用户输入用户名、密码<ul>
+<li>注册时提供密码，系统为用户生成唯一salt</li>
+<li>将密码的字符串salt与原字符串拼接，得到hash</li>
+<li>数据库存储 hash 和 salt</li>
+<li>登陆时将字符串与salt连接后的到hash’，判断hash’ == hash</li>
+<li>验证正确后，服务端使用jwt机制，进行API调用（库使用的jwt-go</li>
+</ul>
+</li>
+<li>jwt优点<ul>
+<li>更适用CDN: 可以通过内容分发网络请求你服务端的所有资料</li>
+<li>Token机制在服务端不需要存储session信息，因为Token 自身包含了所有登录用户的信息，只需要在客户端的cookie或本地介质存储状态信息.</li>
+<li>去耦: 不需要绑定到一个特定的身份验证方案。Token可以在任何地方生成，只要在你的API被调用的时候，你可以进行Token生成调用即可.</li>
+<li>更适用于移动应用: 当你的客户端是一个原生平台（iOS, Android，Windows 8等）时，Cookie是不被支持的（你需要通过Cookie容器进行处理），这时采用Token认证机制就会简单得多。</li>
+</ul>
+</li>
+</ul>
+<h2 id="群组管理服务"><a href="#群组管理服务" class="headerlink" title="群组管理服务"></a>群组管理服务</h2><ul>
+<li>邀请加入用户byID</li>
+<li>踢出用户byID<h2 id="消息传输服务"><a href="#消息传输服务" class="headerlink" title="消息传输服务"></a>消息传输服务</h2></li>
+<li>群组以聊天室为单位进行，一个聊天室对应一个Pod</li>
+<li>主要包括ChatRoomClient和ChatRoomServer</li>
+<li>ChatRoomClient 主要负责与前端通信和处理与当前用户相关的信息</li>
+<li>ChatRoomServer 则负责维护所有在线用户信息以及处理消息的分发<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ChatRoomClient <span class="keyword">struct</span> &#123;</span><br><span class="line">    roomId <span class="keyword">int</span></span><br><span class="line">    user User </span><br><span class="line">    conn net.Conn <span class="comment">//与前端维持的通信连接</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ChatRoomServer <span class="keyword">struct</span> &#123;</span><br><span class="line">    clients <span class="keyword">map</span>[<span class="keyword">string</span>]*ChatRoomClient <span class="comment">// 维护一个连接池</span></span><br><span class="line">    rooms   <span class="keyword">map</span>[<span class="keyword">string</span>][]*ChatRoomClient <span class="comment">// 用于维护聊天室与客户端的关系</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// SendMessage 方法用于发送消息给聊天室</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *ChatRoomClient)</span> <span class="title">SendMessage</span><span class="params">(message <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    c.server.BroadcastMessage(c.RoomID, c.UserID, c.UserName, message)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Disconnect 方法处理客户端断开连接的情况</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *ChatRoomClient)</span> <span class="title">Disconnect</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c.server.RemoveClient(c)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// NewChatRoomServer 方法用于创建一个新的ChatRoomServer对象</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewChatRoomServer</span><span class="params">()</span> *<span class="title">ChatRoomServer</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;ChatRoomServer&#123;</span><br><span class="line">        clients: <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]*ChatRoomClient),</span><br><span class="line">        rooms:   <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>][]*ChatRoomClient),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// AddClient 方法将一个客户端添加到服务器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ChatRoomServer)</span> <span class="title">AddClient</span><span class="params">(client *ChatRoomClient)</span></span> &#123;</span><br><span class="line">    s.clients[client.ConnectionID] = client</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// RemoveClient 方法将一个客户端从服务器移除</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ChatRoomServer)</span> <span class="title">RemoveClient</span><span class="params">(client *ChatRoomClient)</span></span> &#123;</span><br><span class="line">    <span class="built_in">delete</span>(s.clients, client.ConnectionID)</span><br><span class="line">    <span class="comment">// 在此处也可以将客户端从对应的聊天室中移除</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// JoinRoom 方法将一个客户端加入到指定聊天室中</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ChatRoomServer)</span> <span class="title">JoinRoom</span><span class="params">(client *ChatRoomClient, roomID <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    s.rooms[roomID] = <span class="built_in">append</span>(s.rooms[roomID], client)</span><br><span class="line">    client.RoomID = roomID</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// LeaveRoom 方法将一个客户端从指定聊天室中移除</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ChatRoomServer)</span> <span class="title">LeaveRoom</span><span class="params">(client *ChatRoomClient, roomID <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    clients := s.rooms[roomID]</span><br><span class="line">    <span class="keyword">for</span> i, c := <span class="keyword">range</span> clients &#123;</span><br><span class="line">        <span class="keyword">if</span> c.ConnectionID == client.ConnectionID &#123;</span><br><span class="line">            <span class="comment">// 从聊天室中移除客户端</span></span><br><span class="line">            s.rooms[roomID] = <span class="built_in">append</span>(clients[:i], clients[i+<span class="number">1</span>:]...)</span><br><span class="line">            client.RoomID = <span class="string">""</span> <span class="comment">// 将客户端的聊天室ID清空</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// BroadcastMessage 方法向指定聊天室内的所有客户端广播消息</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ChatRoomServer)</span> <span class="title">BroadcastMessage</span><span class="params">(roomID, userID, userName, message <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    clients := s.rooms[roomID]</span><br><span class="line">    <span class="keyword">for</span> _, client := <span class="keyword">range</span> clients &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(client *ChatRoomClient)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 在协程中处理消息发送</span></span><br><span class="line">            client.SendMessage(userID, userName, message)</span><br><span class="line">        &#125;(client)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="消息传输的并发处理和消息分发问题是怎么解决的"><a href="#消息传输的并发处理和消息分发问题是怎么解决的" class="headerlink" title="消息传输的并发处理和消息分发问题是怎么解决的"></a>消息传输的并发处理和消息分发问题是怎么解决的</h3><p>消息发送时，一个客户端的sendmessage用一个goroutine进行</p>
+<ul>
+<li>可能出现的并发安全问题<ol>
+<li>map互斥锁 在 ChatRoomServer 中的 rooms 和 clients 字典是共享的数据结构，多个goroutine可能会同时访问或修改这些数据结构，可能导致竞态条件（race condition）或数据不一致的问题。</li>
+</ol>
+</li>
+</ul>
+<h2 id="kratos进行微服务间的通信"><a href="#kratos进行微服务间的通信" class="headerlink" title="kratos进行微服务间的通信"></a>kratos进行微服务间的通信</h2><p>这些服务的通信都是一些很轻量的元数据，kratos的用protobuf定义的middleware</p>
+<p>gRPC API 进行接口交互，服务架构需要使用统一的元信息（Metadata）传输进行微服务间的传递。 目前 gRPC 中可以携带元信息传递，原理是将元信息放入 HTTP Header 中，这样上游即可收到对应的元信息 信息。 因此在Kratos的设计上，也是通过 HTTP Header 进行传递。在框架中先将元信息包封装成key/value结构，然后携带到 Transport Header 中。</p>
+<h2 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h2><p>创建一个 Registrar（以 consul 为例），将 Registrar 注入进 Kratos 应用实例中，Kratos 会自动完成实例注册和反注册</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    consul <span class="string">"github.com/go-kratos/kratos/contrib/registry/consul/v2"</span></span><br><span class="line">    <span class="string">"github.com/hashicorp/consul/api"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// new consul client</span></span><br><span class="line">client, err := api.NewClient(api.DefaultConfig())</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// new reg with consul client</span></span><br><span class="line">reg := consul.New(client)</span><br><span class="line"></span><br><span class="line">app := kratos.New(</span><br><span class="line">    <span class="comment">// service-name</span></span><br><span class="line">    kratos.Name(Name),</span><br><span class="line">    kratos.Version(Version),</span><br><span class="line">    kratos.Metadata(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;&#125;),</span><br><span class="line">    kratos.Logger(logger),</span><br><span class="line">    kratos.Server(</span><br><span class="line">        hs,</span><br><span class="line">        gs,</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">// with registrar</span></span><br><span class="line">    kratos.Registrar(reg),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="用的是kratos的负载均衡器"><a href="#用的是kratos的负载均衡器" class="headerlink" title="用的是kratos的负载均衡器"></a>用的是kratos的负载均衡器</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Selector <span class="keyword">interface</span> &#123;</span><br><span class="line">  <span class="comment">// Selector 内部维护的服务节点列表通过 Rebalancer 接口来更新</span></span><br><span class="line">  Rebalancer</span><br><span class="line">  <span class="comment">// Select nodes</span></span><br><span class="line">  <span class="comment">// if err == nil, selected and done must not be empty.</span></span><br><span class="line">  Select(ctx context.Context, opts ...SelectOption) </span><br><span class="line">        (selected Node, done DoneFunc, err error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 Rebalancer 实现服务节点变更感知</span></span><br><span class="line"><span class="keyword">type</span> Rebalancer <span class="keyword">interface</span> &#123;</span><br><span class="line">  Apply(nodes []Node)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用的默认的wrr算法 Weighted round robin</p>
+<h2 id="rpc是什么-远程过程调用-和rmi的区别【RMI相当于RPC的一种实现】"><a href="#rpc是什么-远程过程调用-和rmi的区别【RMI相当于RPC的一种实现】" class="headerlink" title="rpc是什么 远程过程调用 和rmi的区别【RMI相当于RPC的一种实现】"></a>rpc是什么 远程过程调用 和rmi的区别【RMI相当于RPC的一种实现】</h2><ul>
+<li><p>RPC (Remote Procedure Call) 采用客户端/服务器方式 (请求/响应)，发送请求到服务器端，服务端执行方法后返回结果。 优点是跨语言跨平台，缺点是编译期无法排错。返回的对象由外部数据表示</p>
+</li>
+<li><p>RMI (Remote Method Invocation) 客户端jvm调用服务端jvm的方法，直接获取远端方法的签名，进行调用。优点是强类型、编译期可检查错误；缺点是只限于java语言。返回的对象可以是java支持的所有对象名。</p>
+</li>
+</ul>
+<p>RPC的代理类stub，将消息序列化为RPCrequest/RPCresponse</p>
+<h2 id="RMI流程原理"><a href="#RMI流程原理" class="headerlink" title="RMI流程原理"></a>RMI流程原理</h2><ul>
+<li><p>定义远程接口<code>interface Rmiiface extends Remote</code></p>
+</li>
+<li><p>实现一个远程接口类<code>MyRemoteObject implements Rmiiface</code></p>
+</li>
+<li><p>服务器端注册和查找远程对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Rmiiface remoteObject = <span class="keyword">new</span> MyRemoteObject();</span><br><span class="line">            Registry registry = LocateRegistry.createRegistry(<span class="number">1099</span>); <span class="comment">// 默认 RMI 注册表端口号为 1099</span></span><br><span class="line">            registry.bind(<span class="string">"MyRemoteObject"</span>, remoteObject);</span><br><span class="line">            System.out.println(<span class="string">"Server is ready."</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端查找注册表来获取远程方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Registry registry = LocateRegistry.getRegistry(<span class="string">"localhost"</span>, <span class="number">1099</span>);</span><br><span class="line">            MyRemoteInterface remoteObject = (MyRemoteInterface) registry.lookup(<span class="string">"MyRemoteObject"</span>);</span><br><span class="line">            String response = remoteObject.sayHello();</span><br><span class="line">            System.out.println(response);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>通过JRMP协议来通信</p>
+<h3 id="grpc"><a href="#grpc" class="headerlink" title="grpc"></a>grpc</h3><p>基于protobuf序列化协议的通讯协议</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T07:16:14.563Z" itemprop="dateUpdated">2023-10-30 15:16:14</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/10/09/面试项目/&title=《No title》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/10/09/面试项目/&title=《No title》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/10/09/面试项目/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《No title》 — waynamigo's blog&url=http://waynamigo.github.io/2023/10/09/面试项目/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/10/09/面试项目/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/10/10/面试算法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">No title</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/10/07/审稿意见/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">No title</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/10/09/面试项目/&title=《No title》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/10/09/面试项目/&title=《No title》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/10/09/面试项目/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《No title》 — waynamigo's blog&url=http://waynamigo.github.io/2023/10/09/面试项目/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/10/09/面试项目/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aS27DMAxFUe9/0+4CWiv3kUoBi1ejIHYsnwwIfnRdeN2/1tPVp/vTX13fWDJkyHgt416u2j21b2r7ypAhYw7jKYKtP6+fc4O1Duh8LxkyZMjgQZCkeiRllCFDhoxdDFJ89lNJGTJkyOChk2xWe1pa4sqQIWMag3fd///zV+YbMmTIeBXjDhfh1QaTd2PJkCHjbAYPcDwt4020TsCVIUPGHMauzdat/1rSGTxHhgwZRzPSYLdm9xPHTmNOhgwZZzP2DhprBylqoVaGDBkTGPzAFmnA8cMWtdbe4xvKkCHjaMauFlsamslfsA7rrQGnDBkyXsggP9gbLvvNvj++kSFDxjAGeXVemvJ433qyDBkyhjHSArWWgdaGEGgkIEOGjIMYvOBMC1GSLHZKXDQplSFDxhGMWgAlByPSwjX97YekU4YMGQcx0hftH85Ii+FgSClDhoxDGf2DFGlamQbZ4KoMGTLGMHiI7DT9078M7StDhowxDF5M8sEnD+vkzseSWIYMGQMY6eCQb0CCchp2406hDBkyDmLw4xedJ5Cwy7tqMmTIOJtxh6vWbuOvxUekH3JbGTJkHMTYEK3D5K9zOKM14JQhQ8bLGXwMkLL3HvVARawMGTKOZqSBL726dxSKanEZMmSMZ9Sa+/zVNwwGZMiQMZjBi9v0+Zy9IeDKkCHjhYw0gasd8CLjTNLUkyFDxjRGrX1G2mHpdCJNGWXIkDGA8QM0wLJQsV2VjAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>MySQL questions | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Mysql">
+    <meta name="description" content="其他数据库mongodb(https://www.chaojimake.cn/question_8_88.html)hbase(https://www.chaojimake.cn/question_8_349.html) 为什么要分库如果业务量剧增，数据库可能会出现性能瓶颈，这时候我们就需要考虑拆分数据库。  磁盘存储业务量剧增，MySQL单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大降低。">
+<meta name="keywords" content="面试,Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL questions">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/03/面经MySQL问题/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="其他数据库mongodb(https://www.chaojimake.cn/question_8_88.html)hbase(https://www.chaojimake.cn/question_8_349.html) 为什么要分库如果业务量剧增，数据库可能会出现性能瓶颈，这时候我们就需要考虑拆分数据库。  磁盘存储业务量剧增，MySQL单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大降低。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://waynamigo.github.io/images/mysqlpagestructure.png">
+<meta property="og:image" content="http://waynamigo.github.io/images/Innodbmem.png">
+<meta property="og:updated_time" content="2023-10-30T07:13:03.147Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL questions">
+<meta name="twitter:description" content="其他数据库mongodb(https://www.chaojimake.cn/question_8_88.html)hbase(https://www.chaojimake.cn/question_8_349.html) 为什么要分库如果业务量剧增，数据库可能会出现性能瓶颈，这时候我们就需要考虑拆分数据库。  磁盘存储业务量剧增，MySQL单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大降低。">
+<meta name="twitter:image" content="http://waynamigo.github.io/images/mysqlpagestructure.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MySQL questions</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MySQL questions</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Mysql/">Mysql</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他数据库"><span class="post-toc-number">1.</span> <span class="post-toc-text">其他数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么要分库"><span class="post-toc-number">2.</span> <span class="post-toc-text">为什么要分库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么要分表"><span class="post-toc-number">3.</span> <span class="post-toc-text">为什么要分表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#考虑分库分表的时机"><span class="post-toc-number">4.</span> <span class="post-toc-text">考虑分库分表的时机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何分库分表？原则有哪些"><span class="post-toc-number">5.</span> <span class="post-toc-text">如何分库分表？原则有哪些</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据库垂直切分"><span class="post-toc-number">6.</span> <span class="post-toc-text">数据库垂直切分</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据库水平切分"><span class="post-toc-number">7.</span> <span class="post-toc-text">数据库水平切分</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一定规则"><span class="post-toc-number">8.</span> <span class="post-toc-text">一定规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分库分表的取模算法"><span class="post-toc-number">9.</span> <span class="post-toc-text">分库分表的取模算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分库分表的范围限定算法"><span class="post-toc-number">10.</span> <span class="post-toc-text">分库分表的范围限定算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分库后，事务问题如何解决"><span class="post-toc-number">11.</span> <span class="post-toc-text">分库后，事务问题如何解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分表后，跨节点的join和union问题"><span class="post-toc-number">12.</span> <span class="post-toc-text">分表后，跨节点的join和union问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分库分表后，orderby-groupby等聚合函数如何处理"><span class="post-toc-number">13.</span> <span class="post-toc-text">分库分表后，orderby groupby等聚合函数如何处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分库分表后，分页的处理方案"><span class="post-toc-number">14.</span> <span class="post-toc-text">分库分表后，分页的处理方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何生成全局唯一的分布式ID"><span class="post-toc-number">15.</span> <span class="post-toc-text">如何生成全局唯一的分布式ID</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主流分库分表中间件"><span class="post-toc-number">16.</span> <span class="post-toc-text">主流分库分表中间件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分表要停服吗，不停服怎么做"><span class="post-toc-number">17.</span> <span class="post-toc-text">分表要停服吗，不停服怎么做</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为了避免数据热点问题如何选择分表策略"><span class="post-toc-number">18.</span> <span class="post-toc-text">为了避免数据热点问题如何选择分表策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阐述常用的数据库中间件"><span class="post-toc-number">19.</span> <span class="post-toc-text">阐述常用的数据库中间件</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基础问题"><span class="post-toc-number"></span> <span class="post-toc-text">基础问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-数据类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-数据库三大范式-，范式和反范式是什么"><span class="post-toc-number">2.</span> <span class="post-toc-text">3. 数据库三大范式 ，范式和反范式是什么</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#索引问题"><span class="post-toc-number"></span> <span class="post-toc-text">索引问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-索引的分类"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.索引的分类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-索引优缺点"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.索引优缺点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-索引设计原则"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.索引设计原则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-索引的b-树"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.索引的b+树</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-hash索引和b-索引的区别"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.hash索引和b+索引的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-为什么b-树打败了二叉查找树和b树"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.为什么b+树打败了二叉查找树和b树</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-最左匹配原则"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.最左匹配原则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-覆盖索引"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.覆盖索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-索引下推"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.索引下推</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#存储引擎"><span class="post-toc-number"></span> <span class="post-toc-text">存储引擎</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-存储引擎InnoDB的四大特性"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.存储引擎InnoDB的四大特性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-MyISAM和InnoDB的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.MyISAM和InnoDB的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-为何推荐使用自增主键"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.为何推荐使用自增主键</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#存储结构"><span class="post-toc-number"></span> <span class="post-toc-text">存储结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-页Page，区Extend，段Segment"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.页Page，区Extend，段Segment</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">一行数据大于16kb，会发生什么，怎么解决【行溢出问题】</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-页由哪些数据组成"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.页由哪些数据组成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-页插入记录的过程"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.页插入记录的过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-bufferPool"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.bufferPool</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-change-buffer"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.change buffer</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#InnoDB"><span class="post-toc-number"></span> <span class="post-toc-text">InnoDB</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-架构设计【内存、线程】"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.架构设计【内存、线程】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-InnoDB有哪些线程"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.InnoDB有哪些线程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-double-writer是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.double writer是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-自适应hash是什么"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. 自适应hash是什么</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#事务"><span class="post-toc-number"></span> <span class="post-toc-text">事务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-什么是事务"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.什么是事务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-什么是事务的四大特性ACID"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.什么是事务的四大特性ACID</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-事务的并发问题【带来脏读、不可重复度、幻读问题】"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.事务的并发问题【带来脏读、不可重复度、幻读问题】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-事务的隔离级别"><span class="post-toc-number">4.</span> <span class="post-toc-text">5.事务的隔离级别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-ACID的特性如何实现"><span class="post-toc-number">5.</span> <span class="post-toc-text">6.ACID的特性如何实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#锁"><span class="post-toc-number"></span> <span class="post-toc-text">锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-数据库锁的特性，有哪些锁"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.数据库锁的特性，有哪些锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-隔离级别和锁的关系"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.隔离级别和锁的关系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-InnoDB的锁算法"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.InnoDB的锁算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-快照读和当前读"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.快照读和当前读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-innodb的可重复度如何实现"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.innodb的可重复度如何实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-MVCC以及实现（乐观锁）"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.MVCC以及实现（乐观锁）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-mysql优化手段有哪些"><span class="post-toc-number">7.</span> <span class="post-toc-text">7. mysql优化手段有哪些</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#集群"><span class="post-toc-number"></span> <span class="post-toc-text">集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-mysql的常见日志"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.mysql的常见日志</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-主从复制的作用"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.主从复制的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-主从复制的架构"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.主从复制的架构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-主从复制的原理"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.主从复制的原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-主从复制的异步复制和半同步"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.主从复制的异步复制和半同步</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-主从的常见问题和解决方式"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.主从的常见问题和解决方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#语法"><span class="post-toc-number"></span> <span class="post-toc-text">语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Where和Having的区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.Where和Having的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-In-和-Exists的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.In 和 Exists的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Union和Union-ALL的区别"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. Union和Union ALL的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-Drop-Delete-Truncate的区别"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. Drop Delete Truncate的区别</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SQL优化"><span class="post-toc-number"></span> <span class="post-toc-text">SQL优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-如何判断是否走了索引"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 如何判断是否走了索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-索引失效的几种情况"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 索引失效的几种情况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-where子句如何优化"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. where子句如何优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-超大分页和深度分页"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. 超大分页和深度分页</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-大表查询如何优化"><span class="post-toc-number">5.</span> <span class="post-toc-text">5. 大表查询如何优化</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#其他"><span class="post-toc-number"></span> <span class="post-toc-text">其他</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-存储过程（procedure）和函数的区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.存储过程（procedure）和函数的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-视图是什么"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.视图是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Trigger是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.Trigger是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sql优化的经验"><span class="post-toc-number">4.</span> <span class="post-toc-text">sql优化的经验</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-union-和-union-all-时需要注意些什么"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用 union 和 union all 时需要注意些什么?</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面经MySQL问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MySQL questions</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Mysql/">Mysql</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="其他数据库"><a href="#其他数据库" class="headerlink" title="其他数据库"></a>其他数据库</h2><p>mongodb(<a href="https://www.chaojimake.cn/question_8_88.html" target="_blank" rel="noopener">https://www.chaojimake.cn/question_8_88.html</a>)<br>hbase(<a href="https://www.chaojimake.cn/question_8_349.html" target="_blank" rel="noopener">https://www.chaojimake.cn/question_8_349.html</a>)</p>
+<h2 id="为什么要分库"><a href="#为什么要分库" class="headerlink" title="为什么要分库"></a>为什么要分库</h2><p>如果业务量剧增，数据库可能会出现性能瓶颈，这时候我们就需要考虑拆分数据库。</p>
+<ul>
+<li><strong>磁盘存储</strong><br>业务量剧增，MySQL单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大降低。</li>
+<li><strong>并发连接支撑</strong><br>知道数据库连接数是有限的（150个？）。在高并发的场景下，大量请求访问数据库，MySQL单机是扛不住的！高并发场景下，会出现too many connections报错。</li>
+</ul>
+<p>当前非常火的微服务架构出现，就是为了应对高并发。它把订单、用户、商品等不同模块，拆分成多个应用，并且把单个数据库也拆分成多个不同功能模块的数据库（订单库、用户库、商品库），以分担读写压力。</p>
+<h2 id="为什么要分表"><a href="#为什么要分表" class="headerlink" title="为什么要分表"></a>为什么要分表</h2><p>假如你的单表数据量非常大，存储和查询的性能就会遇到瓶颈了，如果你做了很多优化之后还是无法提升效率的时候，就需要考虑做分表了。一般千万级别数据量，就需要分表。<br>这是因为即使SQL命中了索引，如果表的数据量超过一千万的话，查询也是会明显变慢的。这是因为索引一般是B+树结构，数据千万级别的话，B+树的高度会增高，查询就变慢啦</p>
+<h2 id="考虑分库分表的时机"><a href="#考虑分库分表的时机" class="headerlink" title="考虑分库分表的时机"></a>考虑分库分表的时机</h2><p>一般数据量千万级别，B+树索引高度就会到3层以上了，查询的时候会多查磁盘的次数，SQL就会变慢。</p>
+<p>阿里巴巴的《Java开发手册》提出：<br><strong>单表行数超过500万行或者单表容量超过2GB，才推荐进行分库分表</strong>。<br>那我们是不是等到数据量到达五百万，才开始分库分表呢？<br>不是这样的，我们应该提前规划分库分表，如果估算3年后，你的表都不会到达这个五百万，则不需要分库分表。<br>MySQL服务器如果配置更好，是不是可以超过这个500万这个量级，才考虑分库分表？<br>虽然配置更好，可能数据量大之后，性能还是不错，但是如果持续发展的话，还是要考虑分库分表<br>一般什么类型业务表需要才分库分表？<br>通用是一些流水表、用户表等才考虑分库分表，如果是一些配置类的表，则完全不用考虑，因为不太可能到达这个量级。</p>
+<h2 id="如何分库分表？原则有哪些"><a href="#如何分库分表？原则有哪些" class="headerlink" title="如何分库分表？原则有哪些"></a>如何分库分表？原则有哪些</h2><h2 id="数据库垂直切分"><a href="#数据库垂直切分" class="headerlink" title="数据库垂直切分"></a>数据库垂直切分</h2><h2 id="数据库水平切分"><a href="#数据库水平切分" class="headerlink" title="数据库水平切分"></a>数据库水平切分</h2><h2 id="一定规则"><a href="#一定规则" class="headerlink" title="一定规则"></a>一定规则</h2><h2 id="分库分表的取模算法"><a href="#分库分表的取模算法" class="headerlink" title="分库分表的取模算法"></a>分库分表的取模算法</h2><h2 id="分库分表的范围限定算法"><a href="#分库分表的范围限定算法" class="headerlink" title="分库分表的范围限定算法"></a>分库分表的范围限定算法</h2><h2 id="分库后，事务问题如何解决"><a href="#分库后，事务问题如何解决" class="headerlink" title="分库后，事务问题如何解决"></a>分库后，事务问题如何解决</h2><h2 id="分表后，跨节点的join和union问题"><a href="#分表后，跨节点的join和union问题" class="headerlink" title="分表后，跨节点的join和union问题"></a>分表后，跨节点的join和union问题</h2><h2 id="分库分表后，orderby-groupby等聚合函数如何处理"><a href="#分库分表后，orderby-groupby等聚合函数如何处理" class="headerlink" title="分库分表后，orderby groupby等聚合函数如何处理"></a>分库分表后，orderby groupby等聚合函数如何处理</h2><h2 id="分库分表后，分页的处理方案"><a href="#分库分表后，分页的处理方案" class="headerlink" title="分库分表后，分页的处理方案"></a>分库分表后，分页的处理方案</h2><h2 id="如何生成全局唯一的分布式ID"><a href="#如何生成全局唯一的分布式ID" class="headerlink" title="如何生成全局唯一的分布式ID"></a>如何生成全局唯一的分布式ID</h2><h2 id="主流分库分表中间件"><a href="#主流分库分表中间件" class="headerlink" title="主流分库分表中间件"></a>主流分库分表中间件</h2><h2 id="分表要停服吗，不停服怎么做"><a href="#分表要停服吗，不停服怎么做" class="headerlink" title="分表要停服吗，不停服怎么做"></a>分表要停服吗，不停服怎么做</h2><h2 id="为了避免数据热点问题如何选择分表策略"><a href="#为了避免数据热点问题如何选择分表策略" class="headerlink" title="为了避免数据热点问题如何选择分表策略"></a>为了避免数据热点问题如何选择分表策略</h2><h2 id="阐述常用的数据库中间件"><a href="#阐述常用的数据库中间件" class="headerlink" title="阐述常用的数据库中间件"></a>阐述常用的数据库中间件</h2><h1 id="基础问题"><a href="#基础问题" class="headerlink" title="基础问题"></a>基础问题</h1><h2 id="1-数据类型"><a href="#1-数据类型" class="headerlink" title="1. 数据类型"></a>1. 数据类型</h2><ul>
+<li>int：tinyint(1byte) smallint(2byte)  mediumint(3byte)  int(4byte)  bigint(8byte) </li>
+<li>float,double</li>
+<li>decimal</li>
+</ul>
+<p><strong>字符串类型：varchar,char,text,blob</strong> </p>
+<ul>
+<li>varchar(n):n代表字符个数，不是字节个数</li>
+<li>char与varchar的区别<ul>
+<li>char定长，var不定长，存储效率较高</li>
+<li>varchar在开头两个字节存长度</li>
+</ul>
+</li>
+<li>text 和blob会使用临时表，开销损失大<br>【Tips】经常变更的数据使用char，char不容易产生碎片</li>
+</ul>
+<p><strong>时间类型</strong></p>
+<ul>
+<li><p>date</p>
+</li>
+<li><p>timestamp（优先使用，空间开销小）</p>
+<h2 id="3-数据库三大范式-，范式和反范式是什么"><a href="#3-数据库三大范式-，范式和反范式是什么" class="headerlink" title="3. 数据库三大范式 ，范式和反范式是什么"></a>3. 数据库三大范式 ，范式和反范式是什么</h2></li>
+<li><p>第一范式（1NF）：每个列都不可以再拆分，强调的是列的原子性。第一范式要求数据库中的表都是二维表。</p>
+</li>
+<li><p>第二范式（2NF）：在第一范式的基础上，一个表必须有一个主键，非主键列 完全依赖 于主键，而不能是依赖于主键的一部分。</p>
+</li>
+<li><p>第三范式（3NF）：在第二范式的基础上，非主键列只依赖（直接依赖）于主键，不依赖于其他非主键。</p>
+</li>
+<li><p><strong>范式</strong>：范式化的表减少了数据冗余，数据表更新操作快、占用存储空间少。    </p>
+</li>
+<li><p>但是查询时通常需要多表关联查询，更难进行索引优化</p>
+</li>
+<li><p><strong>反范式</strong>：反范式的过程就是通过冗余数据来提高查询性能，可以减少表关联和更好进行索引优化</p>
+</li>
+<li><p>存在大量冗余数据，并且数据的维护成本更高</p>
+</li>
+</ul>
+<h1 id="索引问题"><a href="#索引问题" class="headerlink" title="索引问题"></a>索引问题</h1><h2 id="1-索引的分类"><a href="#1-索引的分类" class="headerlink" title="1.索引的分类"></a>1.索引的分类</h2><h2 id="2-索引优缺点"><a href="#2-索引优缺点" class="headerlink" title="2.索引优缺点"></a>2.索引优缺点</h2><h2 id="3-索引设计原则"><a href="#3-索引设计原则" class="headerlink" title="3.索引设计原则"></a>3.索引设计原则</h2><ul>
+<li><p>唯一性</p>
+</li>
+<li><p>选择常用的字段</p>
+</li>
+<li><p>选用经常排序、分组、联合的字段</p>
+</li>
+<li><p>小表不建议索引（几万这种不需要，，几十万这种看情况）</p>
+<h2 id="4-索引的b-树"><a href="#4-索引的b-树" class="headerlink" title="4.索引的b+树"></a>4.索引的b+树</h2><h2 id="5-hash索引和b-索引的区别"><a href="#5-hash索引和b-索引的区别" class="headerlink" title="5.hash索引和b+索引的区别"></a>5.hash索引和b+索引的区别</h2><h2 id="6-为什么b-树打败了二叉查找树和b树"><a href="#6-为什么b-树打败了二叉查找树和b树" class="headerlink" title="6.为什么b+树打败了二叉查找树和b树"></a>6.为什么b+树打败了二叉查找树和b树</h2><h2 id="7-最左匹配原则"><a href="#7-最左匹配原则" class="headerlink" title="7.最左匹配原则"></a>7.最左匹配原则</h2><h2 id="8-覆盖索引"><a href="#8-覆盖索引" class="headerlink" title="8.覆盖索引"></a>8.覆盖索引</h2><h2 id="9-索引下推"><a href="#9-索引下推" class="headerlink" title="9.索引下推"></a>9.索引下推</h2><h1 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h1><p>InnoDB 适用于？<br>MyISAM 适用以插入为主的程序，比如博客系统、新闻门户</p>
+<h2 id="1-存储引擎InnoDB的四大特性"><a href="#1-存储引擎InnoDB的四大特性" class="headerlink" title="1.存储引擎InnoDB的四大特性"></a>1.存储引擎InnoDB的四大特性</h2><p>插入缓冲（insert buffer)<br>二次写(double write)<br>自适应哈希索引(ahi)<br>预读(read ahead)</p>
+<h2 id="2-MyISAM和InnoDB的区别"><a href="#2-MyISAM和InnoDB的区别" class="headerlink" title="2.MyISAM和InnoDB的区别"></a>2.MyISAM和InnoDB的区别</h2></li>
+<li><p>InnoDB 支持事务，而 MyISAM 不支持。</p>
+</li>
+<li><p>InnoDB 支持外键，而 MyISAM 不支持。因此将一个含有外键的 InnoDB 表 转为 MyISAM 表会失败。</p>
+</li>
+<li><p>InnoDB 和 MyISAM 均支持 B+ Tree 数据结构的索引。但 InnoDB 是聚集索引，而 MyISAM 是非聚集索引。</p>
+</li>
+<li><p>InnoDB 不保存表中数据行数，执行 select count(*) from table 时需要全表扫描。而 MyISAM 用一个变量记录了整个表的行数，速度相当快（注意不能有 WHERE 子句）。</p>
+</li>
+</ul>
+<p><strong>那为什么 InnoDB 没有使用这样的变量呢</strong> 因为InnoDB的事务特性，在同一时刻表中的行数对于不同的事务而言是不一样的。</p>
+<ul>
+<li><p>InnoDB 支持表、行（默认）级锁，而 MyISAM 支持表级锁。<br>InnoDB 的行锁是基于索引实现的，而不是物理行记录上。即访问如果没有命中索引，则也无法使用行锁，将要退化为表锁。</p>
+</li>
+<li><p>InnoDB 必须有唯一索引（如主键），如果没有指定，就会自动寻找或生产一个隐藏列 Row_id 来充当默认主键，而 Myisam 可以没有主键。</p>
+<h2 id="3-为何推荐使用自增主键"><a href="#3-为何推荐使用自增主键" class="headerlink" title="3.为何推荐使用自增主键"></a>3.为何推荐使用自增主键</h2><p>自增 ID 可以保证每次插入时 B+ 树索引是从右边扩展的，因此相比自定义 ID （如 UUID）可以避免 B+ 树的频繁合并和分裂。如果使用字符串主键和随机主键，会使得数据随机插入，效率比较差。</p>
+<h1 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h1><h2 id="1-页Page，区Extend，段Segment"><a href="#1-页Page，区Extend，段Segment" class="headerlink" title="1.页Page，区Extend，段Segment"></a>1.页Page，区Extend，段Segment</h2></li>
+</ul>
+<p><strong>页（数据页）：InnoDB中每个页16KB，Myisam是1KB</strong></p>
+<h3 id="一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"><a href="#一行数据大于16kb，会发生什么，怎么解决【行溢出问题】" class="headerlink" title="一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"></a>一行数据大于16kb，会发生什么，怎么解决【行溢出问题】</h3><p>内置的解决方式：将溢出的数据存到新页里，然后原始页里存放一个指针，需要额外一次IO去读取</p>
+<p>聚簇索引情况：</p>
+<ul>
+<li>如果表使用了聚簇索引（InnoDB的主键索引就是一个聚簇索引），那么数据行实际上是存储在聚簇索引的叶子节点中的。如果一行数据超出了页的大小，那么会发生行溢出，溢出部分会存储在一个溢出页中，而叶子节点中仍然包含原始行的数据和指向溢出页的指针。</li>
+</ul>
+<p>非聚簇索引情况：</p>
+<ul>
+<li>如果表使用了非聚簇索引（如普通索引），那么数据行是单独存储在聚簇索引的叶子节点之外的，这种情况下，如果一行数据超出了页的大小，会直接发生行溢出，溢出部分会存储在溢出页中，同时非聚簇索引中也会保留指向溢出页的指针。</li>
+</ul>
+<p><strong>区Extent：一个区默认是 64 个连续的页组成的，也就是 1MB</strong></p>
+<p><strong>段Segment：一段相邻的区的集合，逻辑上的组织，存放b+树</strong></p>
+<h2 id="2-页由哪些数据组成"><a href="#2-页由哪些数据组成" class="headerlink" title="2.页由哪些数据组成"></a>2.页由哪些数据组成</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/mysqlpagestructure.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>file header:用于描述数据页的外部信息，比如属于哪一个表空间、前后页的页号等</li>
+<li>page header:用来描述数据页中的具体信息，比如存在多少条纪录，第一条纪录的位置等。</li>
+<li>infimum 和 supremum 纪录:是系统生成的纪录，分别为最小和最大纪录值，infimum 的下一条是用户纪录中键值最小的纪录，supremum 的上一条是用户纪录中键值最大的纪录，通过 next_record 字段来相连。</li>
+<li>user records:据库表中对应的数据(Compact行格式)</li>
+<li>free space 可插入的空闲区域</li>
+<li>page dictionary：类似于字典的目录结构，根据主键大小，每隔 4-8 个纪录设置一个槽，用来纪录其位置，当根据主键查找数据时，首先一步到位找到数据所在的槽，然后在槽中线性搜素。这种方法比从前到后遍历页的链表的效率更快。</li>
+<li>File Header：存储刷盘前内存的校验和，Page Tailer储存刷盘后的校验和。当刷盘的时候，出现异常，Page Tailer和File Header中的校验和不一致，则说明出现刷盘错误。</li>
+</ul>
+<h2 id="3-页插入记录的过程"><a href="#3-页插入记录的过程" class="headerlink" title="3.页插入记录的过程"></a>3.页插入记录的过程</h2><p>1）如果 Free Space 的空间足够的话，直接分配空间来添加纪录，并将插入前最后一条纪录的 next_record 指向当前插入的纪录，将当前插入纪录的 next_record 指向 supremum 纪录。</p>
+<p>2）如果 Free Space的 空间不够的话，则首先将之前删除造成的碎片重新整理之后，按照上述步骤插入纪录。</p>
+<p>3）如果当前页空间整理碎片之后仍然不足的话，则重新申请一个页，将页初始化之后，按照上述步骤插入纪录</p>
+<h2 id="4-bufferPool"><a href="#4-bufferPool" class="headerlink" title="4.bufferPool"></a>4.bufferPool</h2><p>Buffer Pool 是 InnoDB 存储引擎层的缓冲池，不属于 MySQL 的 Server 层，注意跟 8.0 删掉的“查询缓存”功能区分。</p>
+<p>内存中以页（page）为单位缓存磁盘数据，减少磁盘IO，提升访问速度。缓冲池大小默认 128M，独立的 MySQL 服务器推荐设置缓冲池大小为总内存的 80%。主要存储数据页、索引页更新缓冲（change buffer）等。</p>
+<h2 id="5-change-buffer"><a href="#5-change-buffer" class="headerlink" title="5.change buffer"></a>5.change buffer</h2><p>​如果每次写操作，数据库都直接更新磁盘中的数据，会很占磁盘IO。为了减少磁盘IO，InnoDB在Buffer Pool中开辟了一块内存，用来存储变更记录，为了防止异常宕机丢失缓存，当事务提交时会将变更记录持久化到磁盘（redo log），等待时机更新磁盘的数据文件（刷脏），用来缓存写操作的内存，就是Change Buffer</p>
+<p>Change Buffer默认占Buffer Pool的25%，最大设置占用50%。</p>
+<h1 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h1><h2 id="1-架构设计【内存、线程】"><a href="#1-架构设计【内存、线程】" class="headerlink" title="1.架构设计【内存、线程】"></a>1.架构设计【内存、线程】</h2><ul>
+<li>内存数据区域划分<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/Innodbmem.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>四大线程<ul>
+<li>Master thread</li>
+<li>IO thread</li>
+<li>Purge thread</li>
+<li>Page Cleaner Thread</li>
+</ul>
+</li>
+</ul>
+<p>1）负责刷新内存池中的数据，保证缓冲池的内存缓冲的是最近的数据</p>
+<p>2）已修改的数据文件刷新到磁盘文件</p>
+<p>3）保证数据库发生异常的情况下InnoDB能恢复到正常状态</p>
+<h2 id="2-InnoDB有哪些线程"><a href="#2-InnoDB有哪些线程" class="headerlink" title="2.InnoDB有哪些线程"></a>2.InnoDB有哪些线程</h2><ul>
+<li>Master Thread</li>
+</ul>
+<p>负责将缓冲池中的数据异步刷新到磁盘，保证数据的一致性，包括脏页的刷新，合并插入缓冲（INSERT BUFFER），UNDO页的回收等。</p>
+<ul>
+<li>IO Thread</li>
+</ul>
+<p>负责 AIO 请求的回调处理。</p>
+<ul>
+<li>Purge Thread</li>
+</ul>
+<p>事务提交后，undo log 可能不再需要，由 Purge Thread 负责回收并重新分配的这些已经使用的 undo 页。</p>
+<ul>
+<li>Page Cleaner Thread</li>
+</ul>
+<p>将Master Threader中刷新脏页的工作移至该线程，如上面说的FLUSH LRU LIST Checkpoint以及Async/Sync Flush Checkpoint。</p>
+<h2 id="3-double-writer是什么"><a href="#3-double-writer是什么" class="headerlink" title="3.double writer是什么"></a>3.double writer是什么</h2><h2 id="4-自适应hash是什么"><a href="#4-自适应hash是什么" class="headerlink" title="4. 自适应hash是什么"></a>4. 自适应hash是什么</h2><p>InnoDB 会监控对表上各索引页的查询执行情况，如发现建立哈希索引可以提升速度，则建立哈希索引，这是过程不需要用户干预。（默认开启）</p>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="1-什么是事务"><a href="#1-什么是事务" class="headerlink" title="1.什么是事务"></a>1.什么是事务</h2><p>事务是逻辑上的一组操作，要么都执行，要么都不执行</p>
+<h2 id="2-什么是事务的四大特性ACID"><a href="#2-什么是事务的四大特性ACID" class="headerlink" title="2.什么是事务的四大特性ACID"></a>2.什么是事务的四大特性ACID</h2><h2 id="3-事务的并发问题【带来脏读、不可重复度、幻读问题】"><a href="#3-事务的并发问题【带来脏读、不可重复度、幻读问题】" class="headerlink" title="3.事务的并发问题【带来脏读、不可重复度、幻读问题】"></a>3.事务的并发问题【带来脏读、不可重复度、幻读问题】</h2><h2 id="5-事务的隔离级别"><a href="#5-事务的隔离级别" class="headerlink" title="5.事务的隔离级别"></a>5.事务的隔离级别</h2><p>串行化<br>可重复度（Innodb默认）<br>读已提交<br>读未提交</p>
+<h2 id="6-ACID的特性如何实现"><a href="#6-ACID的特性如何实现" class="headerlink" title="6.ACID的特性如何实现"></a>6.ACID的特性如何实现</h2><p>原子性是 undo 日志<br>持久性是 redo 日志</p>
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="1-数据库锁的特性，有哪些锁"><a href="#1-数据库锁的特性，有哪些锁" class="headerlink" title="1.数据库锁的特性，有哪些锁"></a>1.数据库锁的特性，有哪些锁</h2><ul>
+<li>行锁，表锁，页锁</li>
+<li>共享锁=读锁S，排他锁=写锁X，更新锁U锁</li>
+<li>乐观锁，悲观锁<h2 id="2-隔离级别和锁的关系"><a href="#2-隔离级别和锁的关系" class="headerlink" title="2.隔离级别和锁的关系"></a>2.隔离级别和锁的关系</h2></li>
+<li><h2 id="3-InnoDB的锁算法"><a href="#3-InnoDB的锁算法" class="headerlink" title="3.InnoDB的锁算法"></a>3.InnoDB的锁算法</h2><h2 id="4-快照读和当前读"><a href="#4-快照读和当前读" class="headerlink" title="4.快照读和当前读"></a>4.快照读和当前读</h2><h2 id="5-innodb的可重复度如何实现"><a href="#5-innodb的可重复度如何实现" class="headerlink" title="5.innodb的可重复度如何实现"></a>5.innodb的可重复度如何实现</h2>通过MVCC实现，为每个事务维护一个独立版本视图，执行期间保持一致性。<h2 id="6-MVCC以及实现（乐观锁）"><a href="#6-MVCC以及实现（乐观锁）" class="headerlink" title="6.MVCC以及实现（乐观锁）"></a>6.MVCC以及实现（乐观锁）</h2>MVCC 的基本思想是为每个事务创建一个独立的版本视图，以便在事务执行期间保持数据的一致性。它通过在修改数据时不覆盖原有的数据，而是为每个事务创建一个新的版本来实现。</li>
+</ul>
+<ol>
+<li>每行数据保存一个版本号/时间戳</li>
+<li>当一个事务对某行数据进行修改时，不会直接修改原始数据，而是会在数据库中创建一个新的版本，并将原始版本的数据保留下来</li>
+<li>查询时，根据版本号<h2 id="7-mysql优化手段有哪些"><a href="#7-mysql优化手段有哪些" class="headerlink" title="7. mysql优化手段有哪些"></a>7. mysql优化手段有哪些</h2></li>
+<li>给常用字段索引</li>
+<li>避免使用select *，避免全表扫描</li>
+<li>分表，分区，拆分子表</li>
+<li>使用覆盖索引：索引覆盖是指查询的列都包含在索引中，而无需再去访问表本身，可以减少IO和提高查询性能。<strong>不适合频繁变更的表和列</strong></li>
+<li>redis缓存分担压力</li>
+<li>连接池等<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><h2 id="1-mysql的常见日志"><a href="#1-mysql的常见日志" class="headerlink" title="1.mysql的常见日志"></a>1.mysql的常见日志</h2></li>
+</ol>
+<h2 id="2-主从复制的作用"><a href="#2-主从复制的作用" class="headerlink" title="2.主从复制的作用"></a>2.主从复制的作用</h2><h2 id="3-主从复制的架构"><a href="#3-主从复制的架构" class="headerlink" title="3.主从复制的架构"></a>3.主从复制的架构</h2><h2 id="4-主从复制的原理"><a href="#4-主从复制的原理" class="headerlink" title="4.主从复制的原理"></a>4.主从复制的原理</h2><h2 id="5-主从复制的异步复制和半同步"><a href="#5-主从复制的异步复制和半同步" class="headerlink" title="5.主从复制的异步复制和半同步"></a>5.主从复制的异步复制和半同步</h2><h2 id="6-主从的常见问题和解决方式"><a href="#6-主从的常见问题和解决方式" class="headerlink" title="6.主从的常见问题和解决方式"></a>6.主从的常见问题和解决方式</h2><p>主从延迟问题，不一致性问题<br><a href="https://zhuanlan.zhihu.com/p/642614348" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/642614348</a></p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="1-Where和Having的区别"><a href="#1-Where和Having的区别" class="headerlink" title="1.Where和Having的区别"></a>1.Where和Having的区别</h2><h2 id="2-In-和-Exists的区别"><a href="#2-In-和-Exists的区别" class="headerlink" title="2.In 和 Exists的区别"></a>2.In 和 Exists的区别</h2><h2 id="3-Union和Union-ALL的区别"><a href="#3-Union和Union-ALL的区别" class="headerlink" title="3. Union和Union ALL的区别"></a>3. Union和Union ALL的区别</h2><h2 id="4-Drop-Delete-Truncate的区别"><a href="#4-Drop-Delete-Truncate的区别" class="headerlink" title="4. Drop Delete Truncate的区别"></a>4. Drop Delete Truncate的区别</h2><h1 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h1><h2 id="1-如何判断是否走了索引"><a href="#1-如何判断是否走了索引" class="headerlink" title="1. 如何判断是否走了索引"></a>1. 如何判断是否走了索引</h2><h2 id="2-索引失效的几种情况"><a href="#2-索引失效的几种情况" class="headerlink" title="2. 索引失效的几种情况"></a>2. 索引失效的几种情况</h2><h2 id="3-where子句如何优化"><a href="#3-where子句如何优化" class="headerlink" title="3. where子句如何优化"></a>3. where子句如何优化</h2><h2 id="4-超大分页和深度分页"><a href="#4-超大分页和深度分页" class="headerlink" title="4. 超大分页和深度分页"></a>4. 超大分页和深度分页</h2><h2 id="5-大表查询如何优化"><a href="#5-大表查询如何优化" class="headerlink" title="5. 大表查询如何优化"></a>5. 大表查询如何优化</h2><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="1-存储过程（procedure）和函数的区别"><a href="#1-存储过程（procedure）和函数的区别" class="headerlink" title="1.存储过程（procedure）和函数的区别"></a>1.存储过程（procedure）和函数的区别</h2><h2 id="2-视图是什么"><a href="#2-视图是什么" class="headerlink" title="2.视图是什么"></a>2.视图是什么</h2><h2 id="3-Trigger是什么"><a href="#3-Trigger是什么" class="headerlink" title="3.Trigger是什么"></a>3.Trigger是什么</h2><h2 id="sql优化的经验"><a href="#sql优化的经验" class="headerlink" title="sql优化的经验"></a>sql优化的经验</h2><ol>
+<li>查询字段不使用函数或者大于等于表达式</li>
+<li>避免where中的不等于，大于小于，null等</li>
+<li>使用between and 替代in</li>
+<li>当操作字段规模大的时候，拆分delete和insert语句</li>
+<li>查询时使用索引的最左前缀原则</li>
+</ol>
+<h2 id="使用-union-和-union-all-时需要注意些什么"><a href="#使用-union-和-union-all-时需要注意些什么" class="headerlink" title="使用 union 和 union all 时需要注意些什么?"></a>使用 union 和 union all 时需要注意些什么?</h2><p>通过 union 连接的 SQL 分别单独取出的列数必须相同。 使用 union 时，多个相等的行将会被合并，由<br>于合升比较耗时，一般不直接使 用 union 进行合并，而是通常采用 union all 进行合并。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T07:13:03.147Z" itemprop="dateUpdated">2023-10-30 15:13:03</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/&title=《MySQL questions》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/&title=《MySQL questions》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/03/面经MySQL问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL questions》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/03/面经MySQL/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MySQL</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/03/面经Redis/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Redis</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/&title=《MySQL questions》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/&title=《MySQL questions》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/03/面经MySQL问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL questions》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/03/面经MySQL问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aOXLDMAwFUN//0krrRvQHYGdG5GPlSbTwqcBg4esVr+ttvf9lcv3dNesnjxYGBsZjGddyJdu6e3G+0eS9d9dgYGCcw7jbxDpc5netN7FmrN+CgYGB0ftdTTTzz4eBgYFRZUyK0iQcY2BgYFSL2LzRlrfe8uL5a7U4BgbGAxl5Mvf/v38y38DAwHgU4yquyTgh2dzVWhgYGHsz8gCXJ2fVkjV/woeGHQYGxtaM6qXrv+ehtnd0rJnVYmBgbMeoNujztn7eUMuPbmBgYOzNSA57VVv2eVCujhNu/4uBgXEMo/fKKiZPK/NyGgMD4wRGPgBIQuSkWO2lpxgYGKcxeqVmr1b+2hMwMDCOYSQRLC9081Qv6e1H7TYMDIytGfNytDpIyIvV6ONiYGAcwOgByi+LQ2peHmNgYJzA6KViOan3zHJqiIGBcQwjSfvy8rX3Fcvn13rzVQwMjAcy8sDaSyWrn7Ja3GJgYJzGmLTeRi2z+WgTAwPjAEZycy9EJpubHOnAwMDAqB4Cywefk+bah0EmBgbGpoxqkTkJjsm95UIXAwNjU8ZVXOvH9TaXPKeQFGJgYGzH6LXse8e28nuTrY/mtBgYGA9k9A5MJC2z3pdL9lDOWzEwMLZg5M2vSXE7CdkfQj8GBgZGr2js9f/ikeeXAy4GBsbWjLxlNhltNkeYGBgYGzHylK56OKN6V/V4BwYGxgmMPI2rtsaq04lkc6OEFQMD43mMP5T5k2HvNCCaAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

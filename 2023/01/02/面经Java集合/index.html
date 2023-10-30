@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java collection | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Java">
+    <meta name="description" content="Collection List ArrayList: Object[] Vector: Object[] LinkedList: 双向链表   Set HashSet(无序，唯一): 底">
+<meta name="keywords" content="面试,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java collection">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/02/面经Java集合/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="Collection List ArrayList: Object[] Vector: Object[] LinkedList: 双向链表   Set HashSet(无序，唯一): 底">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://oss.javaguide.cn/github/javaguide/java/collection/java-collection-hierarchy.png">
+<meta property="og:updated_time" content="2023-10-30T07:11:48.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java collection">
+<meta name="twitter:description" content="Collection List ArrayList: Object[] Vector: Object[] LinkedList: 双向链表   Set HashSet(无序，唯一): 底">
+<meta name="twitter:image" content="https://oss.javaguide.cn/github/javaguide/java/collection/java-collection-hierarchy.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java collection</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java collection</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Collection"><span class="post-toc-number">1.</span> <span class="post-toc-text">Collection</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Map"><span class="post-toc-number">2.</span> <span class="post-toc-text">Map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TIPs"><span class="post-toc-number">3.</span> <span class="post-toc-text">TIPs</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#List实现"><span class="post-toc-number">4.</span> <span class="post-toc-text">List实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ArrayList-和-Array-的区别"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">ArrayList 和 Array 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ArrayList-和-Vector-的区别"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">ArrayList 和 Vector 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vector-和-Stack-的区别"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">Vector 和 Stack 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ArrayList-可以添加-null-值吗？"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">ArrayList 可以添加 null 值吗？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Set实现"><span class="post-toc-number">5.</span> <span class="post-toc-text">Set实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Comparable-和-Comparator-的区别：都是用于排序"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Comparable 和 Comparator 的区别：都是用于排序</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Queue实现"><span class="post-toc-number">6.</span> <span class="post-toc-text">Queue实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Queue-与-Deque-的区别"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">Queue 与 Deque 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PriorityQueue实现：默认最小二叉堆"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">PriorityQueue实现：默认最小二叉堆</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BlockingQueue"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">BlockingQueue</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Map实现"><span class="post-toc-number">7.</span> <span class="post-toc-text">Map实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HashMap-和-Hashtable-淘汰-的区别"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">HashMap 和 Hashtable(淘汰) 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HashSet"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">HashSet</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HashMap的底层实现"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">HashMap的底层实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HashMap线程不安全"><span class="post-toc-number">7.4.</span> <span class="post-toc-text">HashMap线程不安全</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HashMap遍历"><span class="post-toc-number">7.5.</span> <span class="post-toc-text">HashMap遍历</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面经Java集合"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java collection</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-02 00:00:00" datetime="2023-01-01T16:00:00.000Z"  itemprop="datePublished">2023-01-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://oss.javaguide.cn/github/javaguide/java/collection/java-collection-hierarchy.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><ul>
+<li>List<ul>
+<li>ArrayList: Object[]</li>
+<li>Vector: Object[]</li>
+<li>LinkedList: 双向链表</li>
+</ul>
+</li>
+<li>Set<ul>
+<li>HashSet(无序，唯一): 底层采用 HashMap 来保存元素-</li>
+<li>LinkedHashSet: HashSet 的子类，通过 LinkedHashMap 来实现的</li>
+<li>TreeSet(有序，唯一): 红黑树(自平衡的排序二叉树)</li>
+</ul>
+</li>
+<li>Queue<ul>
+<li>PriorityQueue: Object[] 数组实现二叉堆</li>
+<li>ArrayQueue: Object[] 数组+双指针<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2></li>
+</ul>
+</li>
+<li>HashMap<ul>
+<li>开始是链表，链表长度大于阈值8，进行扩容，当容量大于64时，变成红黑树</li>
+</ul>
+</li>
+<li>LinkedHashMap<ul>
+<li>在HashMap的基础上，增加了一条双向链表，保持KV的插入顺序</li>
+</ul>
+</li>
+<li>Hashtable<ul>
+<li>数组+链表组成的，数组是 Hashtable 的主体，链表则是主要为了解决哈希冲突而存在的</li>
+</ul>
+</li>
+<li>TreeMap：红黑树<h2 id="TIPs"><a href="#TIPs" class="headerlink" title="TIPs"></a>TIPs</h2></li>
+</ul>
+<ol>
+<li>保证线程安全的手段？Concurrent修饰的Map等</li>
+<li>持续更新</li>
+</ol>
+<h2 id="List实现"><a href="#List实现" class="headerlink" title="List实现"></a>List实现</h2><h3 id="ArrayList-和-Array-的区别"><a href="#ArrayList-和-Array-的区别" class="headerlink" title="ArrayList 和 Array 的区别"></a>ArrayList 和 Array 的区别</h3><ul>
+<li>一个动态数组和静态数组</li>
+<li>区别类似于go语言和python的slice实现</li>
+</ul>
+<ol>
+<li>声明时不需要指定大小，动态扩容</li>
+<li>支持泛型</li>
+<li>支持插入、更改、删除<br>【面试题】说说ArrayList的扩容机制</li>
+</ol>
+<h3 id="ArrayList-和-Vector-的区别"><a href="#ArrayList-和-Vector-的区别" class="headerlink" title="ArrayList 和 Vector 的区别"></a>ArrayList 和 Vector 的区别</h3><ul>
+<li>ArrayList线程不安全</li>
+<li>Vector使用了synchronized关键字保证线程安全<h3 id="Vector-和-Stack-的区别"><a href="#Vector-和-Stack-的区别" class="headerlink" title="Vector 和 Stack 的区别"></a>Vector 和 Stack 的区别</h3>Vector 和 Stack 已经被淘汰，推荐使用并发集合类</li>
+</ul>
+<ol>
+<li>ConcurrentHashMap、CopyOnWriteArrayList等，</li>
+<li>或者手动实现线程安全的方法来提供安全的多线程操作支持。</li>
+</ol>
+<h3 id="ArrayList-可以添加-null-值吗？"><a href="#ArrayList-可以添加-null-值吗？" class="headerlink" title="ArrayList 可以添加 null 值吗？"></a>ArrayList 可以添加 null 值吗？</h3><p>ArrayList 中可以存储任何类型的对象，包括 null 值。不过，不建议向ArrayList 中添加 null 值， null 值无意义，会让代码难以维护比如忘记做判空处理就会导致空指针异常。</p>
+<h2 id="Set实现"><a href="#Set实现" class="headerlink" title="Set实现"></a>Set实现</h2><h3 id="Comparable-和-Comparator-的区别：都是用于排序"><a href="#Comparable-和-Comparator-的区别：都是用于排序" class="headerlink" title="Comparable 和 Comparator 的区别：都是用于排序"></a>Comparable 和 Comparator 的区别：都是用于排序</h3><ul>
+<li>Comparable 接口实际上是出自 java.lang 包 它有一个 compareTo(Object obj)方法用来排序</li>
+<li>Comparator 接口实际上是出自 java.util 包 它有一个 compare(Object obj1, Object obj2)方法用来排序</li>
+<li>需要对一个集合使用自定义排序时，我们就要重写compareTo()方法或compare()方法</li>
+</ul>
+<h2 id="Queue实现"><a href="#Queue实现" class="headerlink" title="Queue实现"></a>Queue实现</h2><h3 id="Queue-与-Deque-的区别"><a href="#Queue-与-Deque-的区别" class="headerlink" title="Queue 与 Deque 的区别"></a>Queue 与 Deque 的区别</h3><ul>
+<li>Queue是单端队列，遵循先进先出（FIFO）规则</li>
+<li>Deque 是双端队列，在队列的两端均可以插入或删除元素</li>
+</ul>
+<h3 id="PriorityQueue实现：默认最小二叉堆"><a href="#PriorityQueue实现：默认最小二叉堆" class="headerlink" title="PriorityQueue实现：默认最小二叉堆"></a>PriorityQueue实现：默认最小二叉堆</h3><ul>
+<li>P利用了二叉堆的数据结构来实现的，底层使用可变长的数组来存储数据</li>
+<li>PriorityQueue 通过堆元素的上浮和下沉，实现了在 O(logn) 的时间复杂度内插入元素和删除堆顶元素。</li>
+<li>PriorityQueue 是非线程安全的，且不支持存储 NULL 和 non-comparable 的对象。</li>
+<li>PriorityQueue 默认是小顶堆，但可以接收一个 Comparator 作为构造参数，从而来自定义元素优先级的先后。</li>
+<li>PriorityQueue 在面试中可能更多的会出现在手撕算法的时候，典型例题包括堆排序、求第 K 大的数、带权图的遍历等，所以需要会熟练使用才行。</li>
+</ul>
+<p>手撕一个priorityqueue</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h3><ul>
+<li>支持当队列没有元素时一直阻塞，用于生产者消费者模型</li>
+<li>生产者线程会向队列中添加数据，而消费者线程会从队列中取出数据进行处理</li>
+</ul>
+<p><strong>ArrayBlockingQueue</strong> 和 <strong>LinkedBlockingQueue</strong> 是 Java 并发包中常用的两种阻塞队列实现</p>
+<ul>
+<li>都线程安全，Array底层用的固定数组，Linked底层用的链表，也是扩容机制</li>
+<li>ArrayBlockingQueue 生产和消费用的是同一个锁</li>
+<li>LinkedBlockingQueue 生产用putLock，消费用的takelock，防止生产者和消费者线程之间的锁争夺</li>
+</ul>
+<h2 id="Map实现"><a href="#Map实现" class="headerlink" title="Map实现"></a>Map实现</h2><h3 id="HashMap-和-Hashtable-淘汰-的区别"><a href="#HashMap-和-Hashtable-淘汰-的区别" class="headerlink" title="HashMap 和 Hashtable(淘汰) 的区别"></a>HashMap 和 Hashtable(淘汰) 的区别</h3><ul>
+<li><p>HashMap 是线程不安全的，线程安全版ConcurrentHashMap</p>
+</li>
+<li><p>Hashtable 是线程安全的</p>
+</li>
+<li><p>HashMap 可以存储 null 的 kv，但 null 作为键只能有一个，null 作为值可以多个</p>
+</li>
+<li><p>Hashtable 不允许有 null 键和 null 值，否则会抛NullPointerException<br>HashMap的构造函数以及扩容函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</span><br><span class="line">                                            initialCapacity);</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</span><br><span class="line">                                            loadFactor);</span><br><span class="line">    <span class="keyword">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">tableSizeFor</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cap - <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><ul>
+<li>HashSet如何检查重复的： 底层使用HashMap<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HashMap的底层实现"><a href="#HashMap的底层实现" class="headerlink" title="HashMap的底层实现"></a>HashMap的底层实现</h3><ul>
+<li>hash()函数,拉链法解决冲突<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="comment">// key.hashCode()：返回散列值也就是hashcode</span></span><br><span class="line">    <span class="comment">// ^：按位异或</span></span><br><span class="line">    <span class="comment">// &gt;&gt;&gt;:无符号右移，忽略符号位，空位都以0补齐</span></span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h3><ul>
+<li>jdk1.7前，HashMap 扩容时会造成死循环和数据丢失的问题</li>
+<li>jdk1.8后，多个kv可能会被分配到同一个桶（bucket），并以链表或红黑树的形式存储。多个线程对 HashMap 的 put 操作会导致线程不安全，具体来说会有数据覆盖的风险。<h3 id="HashMap遍历"><a href="#HashMap遍历" class="headerlink" title="HashMap遍历"></a>HashMap遍历</h3><a href="https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw</a></li>
+<li>结论，尽量使用 entrySet 来实现 Map 集合的遍历</li>
+<li>不能再在遍历中使用集合 map.remove() 来删除数据，这是非安全的操作方式</li>
+<li>但可以使用迭代器的 iterator.remove() 的方法来删除数据，这是安全的删除集合的方式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMapTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建并赋值 HashMap</span></span><br><span class="line">        Map&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="number">1</span>, <span class="string">"Java"</span>);</span><br><span class="line">        map.put(<span class="number">2</span>, <span class="string">"JDK"</span>);</span><br><span class="line">        map.put(<span class="number">3</span>, <span class="string">"Spring Framework"</span>);</span><br><span class="line">        map.put(<span class="number">4</span>, <span class="string">"MyBatis framework"</span>);</span><br><span class="line">        map.put(<span class="number">5</span>, <span class="string">"Java中文社群"</span>);</span><br><span class="line">        <span class="comment">// 迭代器 entrySet 遍历</span></span><br><span class="line">        Iterator&lt;Map.Entry&lt;Integer, String&gt;&gt; iterator =</span><br><span class="line">            map.entrySet().iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            Map.Entry&lt;Integer, String&gt; entry = iterator.next();</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 迭代器 keySet 遍历</span></span><br><span class="line">        Iterator&lt;Integer&gt; iterator = map.keySet().iterator();</span><br><span class="line">        <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">            Integer key = iterator.next();</span><br><span class="line">            System.out.println(key);</span><br><span class="line">            System.out.println(map.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// for-each  遍历 entrySet()</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// for-each  遍历 keySet()</span></span><br><span class="line">        <span class="keyword">for</span> (Integer key : map.keySet()) &#123;</span><br><span class="line">            System.out.println(key);</span><br><span class="line">            System.out.println(map.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Lambda表达式</span></span><br><span class="line">        map.forEach((key, value) -&gt; &#123;</span><br><span class="line">            System.out.println(key);</span><br><span class="line">            System.out.println(value);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// Streams API 单线程</span></span><br><span class="line">        map.entrySet().stream().forEach((entry) -&gt; &#123;</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// Streams API 多线程</span></span><br><span class="line">        map.entrySet().parallelStream().forEach((entry) -&gt; &#123;</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T07:11:48.442Z" itemprop="dateUpdated">2023-10-30 15:11:48</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/02/面经Java集合/&title=《Java collection》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/02/面经Java集合/&title=《Java collection》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/02/面经Java集合/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java collection》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/02/面经Java集合/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/02/面经Java集合/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/02/面经Java并发/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java concur</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/02/面经Java问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java random</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/02/面经Java集合/&title=《Java collection》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/02/面经Java集合/&title=《Java collection》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/02/面经Java集合/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java collection》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/02/面经Java集合/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/02/面经Java集合/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3a2YrCQBAFUP//px2YJ0GM91bHYeycfhKXpE+Eopa+3eJ1/12Prx/X8zeP33/+zvE1T1sYGBhfy7gfrmNGfs327vneMDAwrsNIgmzyqzZ8H7OTvWFgYGC0CV/7CNpPMTAwMNqbzVLG/AoYGBgYbRGb3Ca/cftoTqvFMTAwvpAxGwz8zeuPzzcwMDD+PeM+Wiut/9mY881+MDAwtmbkxefnzjkcp5JFIMbAwLgMow2OUSMsfnBtgvgy4GJgYGzEmG09H1jmLbbkgRb/AwYGxnaMWf9qFijzkWcx7MTAwNia0RaN+dAx32jLqCtyDAyML2fk6V2brq0c2qhDMAYGxgUYK4cekgRu1r1PklEMDIzrMJIi9tzR40r4Xmq3YWBgfCFjJcjmI8w2NWwPdmBgYOzNOKsczRkrvJdUDAyMrRmzQ1rtwLJNMfMGHwYGxhUYeamZp4Ar7+fPPppvYGBgbMFok8XZVvKB6Kz1hoGBcQXGylGw2afDvuBK1xADA2MjRht822MTSZhugz4GBsZ1GJ8oPs96EMloEwMDY29GHvLywvLcAxbFDjEwMLZj3Mu10mhbSSvfFNgYGBhbM9pg1zb3Z+E1vwIGBsZ1GHkQzANrO5JMUkAMDAyMNvCtNOlmrbQ3v8XAwMAIUsNZsJ4d6bitR3cMDIxNGeuHwGaNtrrOxsDA2JSxcswrv+bsO1HDDgMDY2vGerM+4bVJZD6WwMDA2JrxA2PDQc8n8vutAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

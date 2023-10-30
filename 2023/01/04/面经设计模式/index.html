@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Operating System | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,设计模式,UML">
+    <meta name="description" content="设计模式六大原则开闭原则：软件实体（类、函数、模块）对扩展开放，对修改封闭 单一职责：每个类只做它负责的事情（一个类应该只有一个引起它修改的原因）里氏替换：子类可以完全代替父类 依赖倒置：细节依赖于抽象，抽象不依赖于细节，程序细节由底层完成 最少知道：迪米特法则，尽量降低类与类之间的耦合。一个类不应该知道自己操作的类的细节 接口隔离：一个接口实现时，如果有冗余，就应该把接口拆分，让实现的类只依赖自">
+<meta name="keywords" content="面试,设计模式,UML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Operating System">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/04/面经设计模式/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="设计模式六大原则开闭原则：软件实体（类、函数、模块）对扩展开放，对修改封闭 单一职责：每个类只做它负责的事情（一个类应该只有一个引起它修改的原因）里氏替换：子类可以完全代替父类 依赖倒置：细节依赖于抽象，抽象不依赖于细节，程序细节由底层完成 最少知道：迪米特法则，尽量降低类与类之间的耦合。一个类不应该知道自己操作的类的细节 接口隔离：一个接口实现时，如果有冗余，就应该把接口拆分，让实现的类只依赖自">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T07:15:44.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Operating System">
+<meta name="twitter:description" content="设计模式六大原则开闭原则：软件实体（类、函数、模块）对扩展开放，对修改封闭 单一职责：每个类只做它负责的事情（一个类应该只有一个引起它修改的原因）里氏替换：子类可以完全代替父类 依赖倒置：细节依赖于抽象，抽象不依赖于细节，程序细节由底层完成 最少知道：迪米特法则，尽量降低类与类之间的耦合。一个类不应该知道自己操作的类的细节 接口隔离：一个接口实现时，如果有冗余，就应该把接口拆分，让实现的类只依赖自">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Operating System</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Operating System</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-03T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设计模式六大原则"><span class="post-toc-number">1.</span> <span class="post-toc-text">设计模式六大原则</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创造型模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">创造型模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结构型模式"><span class="post-toc-number">3.</span> <span class="post-toc-text">结构型模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#行为型模式"><span class="post-toc-number">4.</span> <span class="post-toc-text">行为型模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#面试问题"><span class="post-toc-number">5.</span> <span class="post-toc-text">面试问题</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面经设计模式"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Operating System</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-04 00:00:00" datetime="2023-01-03T16:00:00.000Z"  itemprop="datePublished">2023-01-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h1><p>开闭原则：软件实体（类、函数、模块）对扩展开放，对修改封闭</p>
+<p>单一职责：每个类只做它负责的事情（一个类应该只有一个引起它修改的原因）<br>里氏替换：子类可以完全代替父类</p>
+<p>依赖倒置：细节依赖于抽象，抽象不依赖于细节，程序细节由底层完成</p>
+<p>最少知道：迪米特法则，尽量降低类与类之间的耦合。一个类不应该知道自己操作的类的细节</p>
+<p>接口隔离：一个接口实现时，如果有冗余，就应该把接口拆分，让实现的类只依赖自己需要的接口，客户端不应依赖于它不知道的接口</p>
+<h1 id="创造型模式"><a href="#创造型模式" class="headerlink" title="创造型模式"></a>创造型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">工厂方法模式：为每一类对象建立工厂，将对象交由工厂创建，客户端只和工厂打交道。</span><br><span class="line">抽象工厂模式：为每一类工厂提取出抽象接口，使得新增工厂、替换工厂变得非常容易。</span><br><span class="line">建造者模式：用于创建构造过程稳定的对象，不同的 Builder 可以定义不同的配置。</span><br><span class="line">单例模式：全局使用同一个对象，分为饿汉式和懒汉式。懒汉式有双检锁和内部类两种实现方式。</span><br><span class="line">原型模式：为一个类定义 clone 方法，使得创建相同的对象更方便。</span><br></pre></td></tr></table></figure>
+
+<p>饿汉：变量在声明时便初始化，但饿汉式有一个弊端，那就是即使这个单例不需要使用，它也会在类加载之后立即创建出来，占用一块内存，并增加类初始化时间。<br>懒汉：先声明一个空变量，需要用时才初始化。懒汉式解决了饿汉式的弊端，好处是按需加载，避免了内存浪费，减少了类初始化时间。<br>    - 但是懒汉不是线程安全的，要实现线程安全的懒汉，需要加同步锁</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"sync"</span><span class="comment">// 同步包</span></span><br><span class="line"><span class="keyword">type</span> Singleton <span class="keyword">struct</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//饿汉</span></span><br><span class="line"><span class="keyword">var</span> instance *Singleton = &amp;Singleton&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getInstance</span><span class="params">()</span> *<span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//懒汉线程安全</span></span><br><span class="line"><span class="keyword">var</span> once sync.Once</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getInstance</span><span class="params">()</span> *<span class="title">Singleton</span></span>&#123;</span><br><span class="line">    once.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">        instance := &amp;Singleton&#123;&#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>工厂模式</strong><br><strong>抽象工厂模式</strong><br><strong>单例模式</strong><br><strong>建造者模式</strong><br><strong>原型模式</strong></p>
+<h1 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">适配器模式：用于有相关性但不兼容的接口</span><br><span class="line">桥接模式：用于同等级的接口互相组合</span><br><span class="line">组合模式：用于整体与部分的结构</span><br><span class="line">外观模式：体现封装的思想</span><br><span class="line">享元模式：体现面向对象的可复用性</span><br><span class="line">代理模式：主要用于对某个对象加以控制</span><br></pre></td></tr></table></figure>
+
+<p><strong>适配器模式</strong><br><strong>装饰器模式</strong><br><strong>代理模式</strong><br><strong>享元模式</strong>：享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。</p>
+<p>FlyWeightFactory负责创建和管理享元单元，当一个客户端请求时，工厂需要检查当前对象池中是否有符合条件的对象，如果有，就返回已经存在的对象，如果没有，则创建一个新对象，FlyWeight是超类。<br>一提到共享池，我们很容易联想到Java里面的JDBC连接池，想想每个连接的特点，我们不难总结出：适用于作共享的一些个对象，他们有一些共有的属性，就拿数据库连接池来说，url、driverClassName、username、password及dbname，这些属性对于每个连接来说都是一样的，所以就适合用享元模式来处理，建一个工厂类，将上述类似属性作为内部数据，其它的作为外部数据，在方法调用时，当做参数传进来，这样就节省了空间，减少了实例的数量。</p>
+<p><strong>外观模式</strong><br><strong>桥接模式</strong><br><strong>组合模式</strong></p>
+<h1 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">行为型模式重点关注类与类之间的交互与协作。如同在工作中，每个人的行为都可能影响到其他同事，同时每个人也会受到别人的影响。我们一边接收上级的指令，一边派发任务给下级，在这样的协作中完成一项项伟大的工作。程序在运行时，每个对象都不是孤立的，他们可以通过通信与协作完成种种复杂的功能。</span><br><span class="line"></span><br><span class="line">责任链模式：处理职责相同，程度不同的对象，使其在一条链上传递</span><br><span class="line">命令模式：封装“方法调用”，将行为请求者和行为实现者解耦</span><br><span class="line">解释器模式：定义自己的语法规则</span><br><span class="line">迭代器模式：定义 next() 方法和 hasNext() 方法，让外部类使用这两个方法来遍历列表，以达到隐藏列表内部细节的目的</span><br><span class="line">中介者模式：通过引入中介者，将网状耦合结构变成星型结构</span><br><span class="line">备忘录模式：存储对象的状态，以便恢复</span><br><span class="line">观察者模式：处理一对多的依赖关系，被观察的对象改变时，多个观察者都能收到通知</span><br><span class="line">状态模式：关于多态的设计模式，每个状态类处理对象的一种状态</span><br><span class="line">策略模式：殊途同归，用多种方法做同一件事</span><br><span class="line">模板方法模式：关于继承的设计模式，父类是子类的模板</span><br><span class="line">访问者模式：将数据的结构和对数据的操作分离</span><br></pre></td></tr></table></figure>
+
+<p><strong>责任链模式</strong>：责任链模式：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止<br><strong>观察者模式</strong><br><strong>中介者模式</strong><br><strong>访问者模式</strong><br><strong>解释器模式</strong><br><strong>迭代器模式</strong><br><strong>命令模式</strong><br><strong>备忘录模式</strong></p>
+<h1 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h1><ol>
+<li>面向对象的特点是什么？</li>
+</ol>
+<p>👉查看答案👈<br>可维护、可复用、可扩展、灵活性好。</p>
+<ol start="2">
+<li>让面向对象保持结构良好的秘诀是什么？</li>
+</ol>
+<p>👉查看答案👈<br>让面向对象保持结构良好的秘诀就是设计模式，面向对象结合设计模式，才能真正体会到程序变得可维护、可复用、可扩展、灵活性好。</p>
+<ol start="3">
+<li>六大设计原则是什么？</li>
+</ol>
+<p>👉查看答案👈<br>开闭原则、单一职责原则、里氏替换原则、依赖倒置原则、迪米特原则、接口隔离原则。</p>
+<ol start="4">
+<li>什么是里氏替换原则？</li>
+</ol>
+<p>👉查看答案👈<br>子类应该可以完全替换父类。也就是说在使用继承时，只扩展新功能，而不要破坏父类原有的功能。</p>
+<ol start="5">
+<li>工厂模式是用于达到什么目的的设计模式？</li>
+</ol>
+<p>👉查看答案👈<br>封装对象。</p>
+<ol start="6">
+<li>工厂模式有哪三种？</li>
+</ol>
+<p>👉查看答案👈<br>简单工厂模式、工厂方法模式、抽象工厂模式。</p>
+<ol start="7">
+<li>工厂方法模式解决了简单工厂模式的哪两个弊端？</li>
+</ol>
+<p>👉查看答案👈<br>当生产的产品种类越来越多时，工厂类不会变成超级类。工厂类会越来越多，保持灵活。不会越来越大、变得臃肿。如果苹果的生产过程需要修改时，只需修改苹果工厂。梨子的生产过程需要修改时，只需修改梨子工厂。符合单一职责原则。<br>当需要生产新的产品时，无需更改既有的工厂，只需要添加新的工厂即可。保持了面向对象的可扩展性，符合开闭原则。</p>
+<ol start="8">
+<li>抽象工厂模式是什么样的？</li>
+</ol>
+<p>在创建时指定了具体的工厂类后，在使用时就无需再关心是哪个工厂类，只需要将此工厂当作抽象的 IFactory 接口使用即可。这种经过抽象的工厂方法模式被称作抽象工厂模式。</p>
+<ol>
+<li>抽象工厂模式很好的发挥了哪些原则？</li>
+</ol>
+<p>开闭原则、依赖倒置原则。</p>
+<ol>
+<li>抽象工厂模式的缺点是什么？</li>
+</ol>
+<p>缺点是抽象工厂模式太重了，如果 IFactory 接口需要新增功能，则会影响到所有的具体工厂类。使用抽象工厂模式，替换具体工厂时只需更改一行代码，但要新增抽象方法则需要修改所有的具体工厂类。</p>
+<ol>
+<li>抽象工厂模式适用于和不适用于哪些情况？</li>
+</ol>
+<p>适用于增加同类工厂这样的横向扩展需求，不适合新增功能这样的纵向扩展。</p>
+<ol>
+<li>什么时候可以使用单例模式？</li>
+</ol>
+<p>某个对象全局只需要一个实例时即可。</p>
+<ol>
+<li>单例模式的优点是什么？</li>
+</ol>
+<p>• 它能够避免对象重复创建，节约空间并提升效率<br>• 避免由于操作不同实例导致的逻辑错误</p>
+<ol>
+<li>单例模式有哪两种实现方式？请分别简单解释。</li>
+</ol>
+<p>饿汉式和懒汉式。饿汉式指变量在声明时便初始化。懒汉式指先声明一个空变量，需要用时才初始化。</p>
+<ol>
+<li>饿汉式的弊端是什么？</li>
+</ol>
+<p>即使这个单例不需要使用，它也会在类加载之后立即创建出来，占用一块内存，并增加类初始化时间。</p>
+<ol>
+<li>静态内部类方式是怎么保证线程安全的？</li>
+</ol>
+<p>Java 虚拟机的设计是非常稳定的，早已经考虑到了多线程并发执行的情况。虚拟机在加载类的 clinit 方法时，会保证 clinit 在多线程中被正确的加锁、同步。即使有多个线程同时去初始化一个类，一次也只有一个线程可以执行 clinit 方法，其他线程都需要阻塞等待，从而保证了线程安全。</p>
+<ol>
+<li>建造者模式用于什么时候？</li>
+</ol>
+<p>创建过程稳定，但配置多变的对象。</p>
+<ol>
+<li>建造者模式是什么意思？</li>
+</ol>
+<p>将一个复杂的构建与其表示相分离，使得同样的构建过程可以创建不同的表示。</p>
+<ol>
+<li>现在建造者模式主要用来做什么？</li>
+</ol>
+<p>通过链式调用生成不同的配置。</p>
+<ol>
+<li>使用建造者模式的好处是什么？</li>
+</ol>
+<p>不用担心忘了指定某个配置，保证了构建过程是稳定的。</p>
+<ol>
+<li>原型模式是什么？</li>
+</ol>
+<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+<ol>
+<li>适配器模式适用于什么结构？</li>
+</ol>
+<p>有相关性但不兼容的结构。</p>
+<ol>
+<li>什么是适配？什么是适配器？</li>
+</ol>
+<p>源接口通过一个中间件转换后才可以适用于目标接口，这个转换过程就是适配，这个中间件就称之为适配器。</p>
+<ol>
+<li>需要绘制矩形、圆形、三角形这三种图案，按照桥接模式的思想会怎么做？</li>
+</ol>
+<p>将形状和颜色分离，根据需要对形状和颜色进行组合。</p>
+<ol>
+<li>什么是桥接模式？</li>
+</ol>
+<p>将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体模式或接口模式。</p>
+<ol>
+<li>组合模式适用于什么结构？</li>
+</ol>
+<p>组合模式用于整体与部分的结构，当整体与部分有相似的结构，在操作时可以被一致对待时，就可以使用组合模式。</p>
+<ol>
+<li>组合模式最主要的功能是什么？</li>
+</ol>
+<p>组合模式最主要的功能是让用户可以一致对待整体和部分结构，将两者都作为一个相同的组件。</p>
+<ol>
+<li>什么是组合模式中的透明方式？</li>
+</ol>
+<p>违背了接口隔离原则的组合模式。</p>
+<ol>
+<li>什么是安全方式？</li>
+</ol>
+<p>在 Component 中不声明 add 和 remove 等管理子对象的方法，这样叶节点就无需实现它，只需在枝节点中实现管理子对象的方法即可。</p>
+<ol>
+<li>什么是透明装饰模式？</li>
+</ol>
+<p>装饰器仅用于增强功能，并不会改变 Me 原有的功能，这种装饰模式称之为透明装饰模式。</p>
+<ol>
+<li>装饰模式的缺点是什么？</li>
+</ol>
+<p>容易造成程序中有大量相似的类。</p>
+<ol>
+<li>动态代理相对于静态代理的优势是什么？</li>
+</ol>
+<p>节省代码量。</p>
+<ol>
+<li>简述责任链模式的有优点有哪些？</li>
+</ol>
+<p>• 降低了对象之间的耦合度。<br>• 扩展性强，满足开闭原则。可以根据需要增加新的请求处理类。<br>• 灵活性强。可以动态地改变链内的成员或者改变链的次序来适应流程的变化。<br>• 简化了对象之间的连接。每个对象只需保持一个指向其后继者的引用。</p>
+<ol>
+<li>什么是宏命令？</li>
+</ol>
+<p>宏命令是将多个命令合并起来组成的命令。</p>
+<ol>
+<li>请写出解释器模式的一个常见应用。</li>
+</ol>
+<p>在我们平时匹配字符串时，用到的正则表达式就是一个解释器。</p>
+<ol>
+<li>怎样使得外部类只能读取此列表中的数据，无法修改其中的任何数据，保证其安全性？</li>
+</ol>
+<p>• 提供一个 String next() 方法，使得外部类可以按照次序，一条一条的读取数据；<br>• 提供一个 boolean hasNext() 方法，告知外部类是否还有下一条数据。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T07:15:44.362Z" itemprop="dateUpdated">2023-10-30 15:15:44</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/04/面经设计模式/&title=《Operating System》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/面经设计模式/&title=《Operating System》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/04/面经设计模式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Operating System》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/04/面经设计模式/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/04/面经设计模式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/04/面经计算机网络/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">NetWorking</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/03/面经MySQL/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MySQL</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/04/面经设计模式/&title=《Operating System》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/面经设计模式/&title=《Operating System》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/04/面经设计模式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Operating System》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/04/面经设计模式/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/04/面经设计模式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQY6EMAwFUe5/aVqa1Ww61LehpZjKatRiII+FsR0fB17n3yK////lXK719ccTS4YMGdsy+MNSDPkv/tyLe8qQIeMFjPXmTrzS+5Dr0QdAhgwZMpYp4DookytJ4ihDhgwZnJEmkfx1yJAhQ8aaUWuKrVO9GvjxWlyGDBkbMtKDgV/+/eD5hgwZMjZhnOGq3Y2Xr8VdyZAhYzSj3+rigfKueZAgw5UhQ8YIBtl62sSv/ZK+0K/fDRkyZIxmrB/GDzLvSh+DlyhDhozRDN5cqwXNNJWslbIyZMiYzSA3Imlip1jljblgWkSGDBmjGTyB42GaD3Ckbb6vAVeGDBnjGGlpWitBCbI4rCZDhowXMPhGO/Vx+qy4ayhDhoyhDF581spdkkSmwxwXSaQMGTJGM3hI5Y2ztGHHA+vFfmTIkDGIwUMbD7VpmK6xZciQ8R5GJ2iSB/PwXWu3Hf3YL0OGjA0Z/BCxPyKWjqMFAVeGDBnjGOmRZGe7tSvRWIYMGTKGMtLUjR8A9DdKniVDhox3MkiIrLXDaptGHwAZMmSMZtwVItNUMjhTTUO5DBkyxjH6TfxOu78WsosZrgwZMrZl8EUa+nyLnTBdPM6UIUPG5oy03ZYGzTRX5QcVRzqdIUOGjM0ZdzX3+WhFv4iVIUOGjFpITcPlXeMdMmTIkEE2xyfROvX0RRErQ4aM0YxamcoDdG2jwSuQIUPGaEZnUoMngrUGHB8XkyFDxlDGBzyRo4nlBKXwAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

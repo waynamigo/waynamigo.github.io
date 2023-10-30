@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java concur | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Java">
+    <meta name="description" content="java线程和linux的C++线程有何区别Java线程：Java中的异常处理机制可以捕获和处理线程中的异常。 C++线程：C++线程中的异常会导致程序终止，除非显式地进行了异常处理。 java线程多个线程共享进程的堆和方法区 (JDK1.8 之后的元空间)资源，但是每个线程有自己的程序计数器、虚拟机栈 和 本地方法栈。  程序计数器PC，需要按顺序实行机器指令；多线程情况下，相当于一个指针指向执">
+<meta name="keywords" content="面试,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java concur">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/02/面经Java并发/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="java线程和linux的C++线程有何区别Java线程：Java中的异常处理机制可以捕获和处理线程中的异常。 C++线程：C++线程中的异常会导致程序终止，除非显式地进行了异常处理。 java线程多个线程共享进程的堆和方法区 (JDK1.8 之后的元空间)资源，但是每个线程有自己的程序计数器、虚拟机栈 和 本地方法栈。  程序计数器PC，需要按顺序实行机器指令；多线程情况下，相当于一个指针指向执">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T07:11:21.527Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java concur">
+<meta name="twitter:description" content="java线程和linux的C++线程有何区别Java线程：Java中的异常处理机制可以捕获和处理线程中的异常。 C++线程：C++线程中的异常会导致程序终止，除非显式地进行了异常处理。 java线程多个线程共享进程的堆和方法区 (JDK1.8 之后的元空间)资源，但是每个线程有自己的程序计数器、虚拟机栈 和 本地方法栈。  程序计数器PC，需要按顺序实行机器指令；多线程情况下，相当于一个指针指向执">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java concur</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java concur</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#java线程和linux的C-线程有何区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">java线程和linux的C++线程有何区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#java线程"><span class="post-toc-number">2.</span> <span class="post-toc-text">java线程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#java线程的生命周期"><span class="post-toc-number">3.</span> <span class="post-toc-text">java线程的生命周期</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程死锁"><span class="post-toc-number">4.</span> <span class="post-toc-text">线程死锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sleep-方法和-wait-方法对比"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">sleep() 方法和 wait() 方法对比</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么-wait-方法不定义在-Thread-中"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">为什么 wait() 方法不定义在 Thread 中</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么sleep方法定义在Thread中"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">为什么sleep方法定义在Thread中</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【面试题】可以直接调用-Thread-类的-run-方法吗"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">【面试题】可以直接调用 Thread 类的 run 方法吗</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Java内存模型"><span class="post-toc-number">5.</span> <span class="post-toc-text">Java内存模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#共享内存：volatile声明变量共享，防止jvm指令重排"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">共享内存：volatile声明变量共享，防止jvm指令重排</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#禁止指令重排序：volatile"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">禁止指令重排序：volatile</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#乐观锁悲观锁"><span class="post-toc-number">6.</span> <span class="post-toc-text">乐观锁悲观锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#两者使用方式"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">两者使用方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CAS算法流程"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">CAS算法流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#乐观锁的ABA问题"><span class="post-toc-number">7.</span> <span class="post-toc-text">乐观锁的ABA问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#乐观锁的循环时间长的问题"><span class="post-toc-number">8.</span> <span class="post-toc-text">乐观锁的循环时间长的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#synchronized关键字"><span class="post-toc-number">9.</span> <span class="post-toc-text">synchronized关键字</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题-静态-synchronized-方法和非静态-synchronized-方法之间的调用互斥么？"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">[问题]静态 synchronized 方法和非静态 synchronized 方法之间的调用互斥么？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#构造方法能不能使用-synchronized-关键字修饰【不能】"><span class="post-toc-number">10.</span> <span class="post-toc-text">构造方法能不能使用 synchronized 关键字修饰【不能】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#底层原理了解吗，很了解，通过对象监视器和访问标识来实现"><span class="post-toc-number">11.</span> <span class="post-toc-text">底层原理了解吗，很了解，通过对象监视器和访问标识来实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#synchronized-和-volatile关键字，互补"><span class="post-toc-number">12.</span> <span class="post-toc-text">synchronized 和 volatile关键字，互补</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReentrantLock是一个可重入的独占锁"><span class="post-toc-number">13.</span> <span class="post-toc-text">ReentrantLock是一个可重入的独占锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#synchronized-和-reentrantlock"><span class="post-toc-number">14.</span> <span class="post-toc-text">synchronized 和 reentrantlock</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#threadLocal（变量）"><span class="post-toc-number"></span> <span class="post-toc-text">threadLocal（变量）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#threadLocal原理"><span class="post-toc-number">1.</span> <span class="post-toc-text">threadLocal原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#threadlocal内存泄漏问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">threadlocal内存泄漏问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程池"><span class="post-toc-number">3.</span> <span class="post-toc-text">线程池</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现一个根据任务的优先级来执行的线程池【使用阻塞队列】"><span class="post-toc-number">4.</span> <span class="post-toc-text">实现一个根据任务的优先级来执行的线程池【使用阻塞队列】</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面经Java并发"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java concur</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-02 00:00:00" datetime="2023-01-01T16:00:00.000Z"  itemprop="datePublished">2023-01-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="java线程和linux的C-线程有何区别"><a href="#java线程和linux的C-线程有何区别" class="headerlink" title="java线程和linux的C++线程有何区别"></a>java线程和linux的C++线程有何区别</h2><p>Java线程：Java中的异常处理机制可以捕获和处理线程中的异常。</p>
+<p>C++线程：C++线程中的异常会导致程序终止，除非显式地进行了异常处理。</p>
+<h2 id="java线程"><a href="#java线程" class="headerlink" title="java线程"></a>java线程</h2><p>多个线程共享进程的堆和方法区 (JDK1.8 之后的元空间)资源，但是每个线程有自己的<strong>程序计数器、虚拟机栈 和 本地方法栈。</strong></p>
+<ul>
+<li>程序计数器PC，需要按顺序实行机器指令；多线程情况下，相当于一个指针指向执行位置，恢复上下文</li>
+<li>如果执行的是 native 方法，那么程序计数器记录的是 undefined 地址，只有执行的是 Java 代码时程序计数器记录的才是下一条指令的地址。</li>
+</ul>
+<p>虚拟机栈和本地方法栈为什么私有</p>
+<ul>
+<li>每个方法的栈帧用于存储局部变量表、操作数栈、常量池引用等信息。从方法调用直至执行完成的过程，就对应着一个栈帧在 Java 虚拟机栈中入栈和出栈的过程</li>
+<li>本地方法栈则为虚拟机使用到的 Native 方法服务。 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。<h2 id="java线程的生命周期"><a href="#java线程的生命周期" class="headerlink" title="java线程的生命周期"></a>java线程的生命周期</h2>Java 线程在运行的生命周期中的指定时刻只可能处于下面 6 种不同状态的其中一个状态：</li>
+<li>NEW: 初始状态，线程被创建出来但没有被调用 start() 。</li>
+<li>RUNNABLE: 运行状态，线程被调用了 start()等待运行的状态。</li>
+<li>BLOCKED：阻塞状态，需要等待锁释放。</li>
+<li>WAITING：等待状态，表示该线程需要等待其他线程做出一些特定动作（通知或中断）。</li>
+<li>TIME_WAITING：超时等待状态，可以在指定的时间后自行返回而不是像 WAITING 那样一直等待。</li>
+<li>TERMINATED：终止状态，表示该线程已经运行完毕。</li>
+</ul>
+<h2 id="线程死锁"><a href="#线程死锁" class="headerlink" title="线程死锁"></a>线程死锁</h2><h3 id="sleep-方法和-wait-方法对比"><a href="#sleep-方法和-wait-方法对比" class="headerlink" title="sleep() 方法和 wait() 方法对比"></a>sleep() 方法和 wait() 方法对比</h3><ol>
+<li>wait释放了锁，sleep没释放锁，所以wait会被用于线程间的同步，sleep常用于暂停程序</li>
+<li>wait的线程不自动苏醒，需要同一对象的其他线程使用notify去唤醒，sleep的时间过完会自动往下执行</li>
+</ol>
+<ul>
+<li>wait执行完释放了锁</li>
+<li>sleep没有释放锁，可能导致死锁</li>
+<li>wait() 通常被用于线程间交互/通信</li>
+<li>sleep()通常被用于暂停执行。</li>
+<li>wait() 方法被调用后，线程不会自动苏醒，需要别的线程调用同一个对象上的 notify()或者 notifyAll() 方法。</li>
+<li>sleep()方法执行完成后，线程会自动苏醒，或者也可以使用 wait(long timeout) 超时后线程会自动苏醒。</li>
+<li>sleep() 是 Thread 类的静态本地方法，wait() 则是 Object 类的本地方法。</li>
+</ul>
+<h3 id="为什么-wait-方法不定义在-Thread-中"><a href="#为什么-wait-方法不定义在-Thread-中" class="headerlink" title="为什么 wait() 方法不定义在 Thread 中"></a>为什么 wait() 方法不定义在 Thread 中</h3><ul>
+<li>wait() 是让获得对象锁的线程实现等待，会自动释放当前线程占有的对象锁。</li>
+<li>每个对象（Object）都拥有对象锁，既然要释放当前线程占有的对象锁并让其进入 WAITING 状态，自然是要操作对应的对象（Object）而非当前的线程（Thread）。<h3 id="为什么sleep方法定义在Thread中"><a href="#为什么sleep方法定义在Thread中" class="headerlink" title="为什么sleep方法定义在Thread中"></a>为什么sleep方法定义在Thread中</h3></li>
+<li>sleep() 是让当前线程暂停执行，不涉及到对象类，也不需要获得对象锁。</li>
+</ul>
+<h3 id="【面试题】可以直接调用-Thread-类的-run-方法吗"><a href="#【面试题】可以直接调用-Thread-类的-run-方法吗" class="headerlink" title="【面试题】可以直接调用 Thread 类的 run 方法吗"></a>【面试题】可以直接调用 Thread 类的 run 方法吗</h3><p>【回答】可以直接调用，但是直接执行 run() 方法，不经过start()时，jvm会把 run() 方法当成一个 main 线程下的普通方法去执行，并不会在某个线程中执行它</p>
+<ul>
+<li>调用 start() 方法方可启动线程并使线程进入就绪状态</li>
+<li>直接执行 run() 方法的话不会以多线程的方式执行</li>
+</ul>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><h3 id="共享内存：volatile声明变量共享，防止jvm指令重排"><a href="#共享内存：volatile声明变量共享，防止jvm指令重排" class="headerlink" title="共享内存：volatile声明变量共享，防止jvm指令重排"></a>共享内存：volatile声明变量共享，防止jvm指令重排</h3><ul>
+<li>该变量可能会被多个线程同时访问</li>
+<li>每次读区都从内存读，不会被本地线程缓存</li>
+<li>可确保可见性和有序性，但<strong>不能保证原子性</strong></li>
+</ul>
+<p><strong>这个变量在堆上还是在栈上</strong>？</p>
+<ul>
+<li>至于变量在哪里存储，volatile 关键字主要影响了变量的可见性，在堆还是栈上取决于它是成员变量还是局部变量<h3 id="禁止指令重排序：volatile"><a href="#禁止指令重排序：volatile" class="headerlink" title="禁止指令重排序：volatile"></a>禁止指令重排序：volatile</h3>一个jvm调优的办法，jvm会自动重排，有可能导致性能下降。unsafe类提供了直接操作内存的方法，volatile的变量在读写时，插入读写屏障来禁止指令重排<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">loadFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">storeFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">fullFence</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="乐观锁悲观锁"><a href="#乐观锁悲观锁" class="headerlink" title="乐观锁悲观锁"></a>乐观锁悲观锁</h2><ul>
+<li>乐观锁是线程无需等待，只在提交修改的时候验证资源是否被修改</li>
+<li>悲观锁是显式的synchronized或者reentrantlock独占锁</li>
+</ul>
+<p><strong>CAS算法</strong>，<code>java.util.concurrent.atomic</code>包下面的原子变量类（比如<code>AtomicInteger</code>、<code>LongAdder</code>）就是使用了乐观锁的一种实现方式 CAS Compare And Swap（比较与交换）实现的。</p>
+<h3 id="区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。"><a href="#区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。" class="headerlink" title="区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。"></a>区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。</h3><ul>
+<li><p>高并发的场景下，乐观锁相比悲观锁来说，不存在锁竞争造成线程阻塞，也不会有死锁的问题，在性能上往往会更胜一筹。</p>
+</li>
+<li><p>但是，如果冲突频繁发生（写占比非常多的情况），会频繁失败和重试，这样同样会非常影响性能，导致 CPU 飙升。</p>
+<h3 id="两者使用方式"><a href="#两者使用方式" class="headerlink" title="两者使用方式"></a>两者使用方式</h3></li>
+<li><p>悲观锁通常多用于写比较多的情况（多写场景，竞争激烈），这样可以避免频繁失败和重试影响性能，悲观锁的开销是固定的。</p>
+</li>
+<li><p>不过，如果乐观锁解决了频繁失败和重试这个问题的话（比如LongAdder），也是可以考虑使用乐观锁的，要视实际情况而定。乐观锁通常多用于写比较少的情况（多读场景，竞争较少），这样可以避免频繁加锁影响性能。不过，乐观锁主要针对的对象是单个共享变量（参考<code>java.util.concurrent.atomic</code>包下面的原子变量类）。</p>
+</li>
+</ul>
+<h3 id="CAS算法流程"><a href="#CAS算法流程" class="headerlink" title="CAS算法流程"></a>CAS算法流程</h3><ul>
+<li>是一个原子操作</li>
+<li>涉及到 var变量，expected预期值，new预期写入的新值</li>
+<li>当v = e时，通过new更新v，如果v != e,就说明其他进程要写，当前线程放弃更新</li>
+<li>当多个线程同时使用 CAS 操作一个变量时，只有一个会成功更新，其余均会失败，但失败的线程并不会被挂起，仅是被告知失败，并且允许再次尝试，当然也允许失败的线程放弃操作。</li>
+</ul>
+<ol>
+<li>java语言中的cas类是通过<code>unsafe</code>类里的<code>compareAndSwapObject</code>实现的</li>
+<li>它是C++内联汇编的产物</li>
+</ol>
+<h2 id="乐观锁的ABA问题"><a href="#乐观锁的ABA问题" class="headerlink" title="乐观锁的ABA问题"></a>乐观锁的ABA问题</h2><p><strong>检查变量的时候，原值为A，要赋值为B时检测为A，但是不能保证这之前没有被其他线程修改过</strong></p>
+<p>解决思路：在变量前追加版本号/时间戳：<code>AtomicStampedReference</code></p>
+<h2 id="乐观锁的循环时间长的问题"><a href="#乐观锁的循环时间长的问题" class="headerlink" title="乐观锁的循环时间长的问题"></a>乐观锁的循环时间长的问题</h2><p>CAS使用自旋锁来进行重试，降低消耗使用pause指令</p>
+<h2 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h2><ul>
+<li>修饰实例方法：锁当前对象实例</li>
+<li>修饰静态方法：锁当前类</li>
+<li>修饰代码块：对括号里指定的对象/类加锁<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给当前对象实例加锁，进入同步代码前要获得 当前对象实例的锁 。</span></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//业务代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 给当前类加锁，会作用于类的所有对象实例 ，进入同步代码前要获得 当前 class 的锁</span></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//业务代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// synchronized(object) 表示进入同步代码库前要获得 给定对象的锁。</span></span><br><span class="line"><span class="comment">// synchronized(类.class) 表示进入同步代码前要获得 给定 Class 的锁</span></span><br><span class="line"><span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="comment">//业务代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>synchronized(A.class) 和修饰static方法都是要锁的class</li>
+<li>synchronized+方法是给实例对象加锁</li>
+</ol>
+<h3 id="问题-静态-synchronized-方法和非静态-synchronized-方法之间的调用互斥么？"><a href="#问题-静态-synchronized-方法和非静态-synchronized-方法之间的调用互斥么？" class="headerlink" title="[问题]静态 synchronized 方法和非静态 synchronized 方法之间的调用互斥么？"></a>[问题]静态 synchronized 方法和非静态 synchronized 方法之间的调用互斥么？</h3><p>不互斥！锁的是两种不同的方法，静态用的是当前类的锁，非静态锁的是单个实例对象</p>
+<h2 id="构造方法能不能使用-synchronized-关键字修饰【不能】"><a href="#构造方法能不能使用-synchronized-关键字修饰【不能】" class="headerlink" title="构造方法能不能使用 synchronized 关键字修饰【不能】"></a>构造方法能不能使用 synchronized 关键字修饰【不能】</h2><ul>
+<li>因为构造方法本身属于线程安全，构造一个对象是原子操作<br>多线程可能有些特殊情况造成不安全。</li>
+<li>比如说逃逸问题：<br>如果在构造方法中将未完全初始化的对象引用传递给其他线程，其他线程可能会在对象完全初始化之前访问它，这也可能导致线程不安全<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EscapingExample</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SomeObject sharedObject;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EscapingExample</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sharedObject = <span class="keyword">new</span> SomeObject(); <span class="comment">// 逃逸</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>构造时，可以使用静态工厂方法构造对象</p>
+<h2 id="底层原理了解吗，很了解，通过对象监视器和访问标识来实现"><a href="#底层原理了解吗，很了解，通过对象监视器和访问标识来实现" class="headerlink" title="底层原理了解吗，很了解，通过对象监视器和访问标识来实现"></a>底层原理了解吗，很了解，通过对象监视器和访问标识来实现</h2><ul>
+<li>synchronized 同步语句块：使用的是 monitorenter 和 monitorexit 指令，其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。</li>
+<li>修饰方法：JVM通过一个访问标识<code>ACC_SYNCHRONIZED</code> 指明这一个同步方法</li>
+</ul>
+<h2 id="synchronized-和-volatile关键字，互补"><a href="#synchronized-和-volatile关键字，互补" class="headerlink" title="synchronized 和 volatile关键字，互补"></a>synchronized 和 volatile关键字，互补</h2><ul>
+<li>volatile 修饰变量，synchronized修饰方法和代码块</li>
+<li>volatile 保证顺序性可见性，synchronized保证可见性和原子性</li>
+<li>volatile 解决变量在多个线程之间的可见性，synchronized解决多线程访问资源的同步性</li>
+</ul>
+<h2 id="ReentrantLock是一个可重入的独占锁"><a href="#ReentrantLock是一个可重入的独占锁" class="headerlink" title="ReentrantLock是一个可重入的独占锁"></a>ReentrantLock是一个可重入的独占锁</h2><ul>
+<li>底层用<code>AbstractQueuedSynchronizer</code> 实现,内部的Sync类继承了AQS类，</li>
+<li>实现公平锁和非公平锁 <code>UnFairSync和FairSync</code>，都是继承的内部类Sync实现的，默认使用公平锁</li>
+</ul>
+<p><strong>可重入锁</strong> 也叫递归锁，指的是线程可以再次获取自己的内部锁。比如一个线程获得了某个对象的锁，此时这个对象锁还没有释放，当其再次想要获取这个对象的锁的时候还是可以获取的，如果是不可重入锁的话，就会造成死锁。</p>
+<h2 id="synchronized-和-reentrantlock"><a href="#synchronized-和-reentrantlock" class="headerlink" title="synchronized 和 reentrantlock"></a>synchronized 和 reentrantlock</h2><ul>
+<li>sychronized 依赖于 jvm的对象监视器monitor、访问标识，reentrantlock依赖于jdk层面</li>
+<li>reentrantlock需要配合trycatch，抛出的异常是InterruptedException</li>
+</ul>
+<h1 id="threadLocal（变量）"><a href="#threadLocal（变量）" class="headerlink" title="threadLocal（变量）"></a>threadLocal（变量）</h1><p>可以让每个线程绑定自己的值，可以将ThreadLocal类形象的比喻成存放数据的盒子，盒子中可以存储每个线程的私有数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 常用方法</span></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalExample</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// SimpleDateFormat 不是线程安全的，所以每个线程都要有自己独立的副本withInitial(obj)作为本地线程的一个对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;SimpleDateFormat&gt; formatter = ThreadLocal.withInitial(() -&gt; <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd HHmm"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ThreadLocalExample obj = <span class="keyword">new</span> ThreadLocalExample();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span> ; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">            Thread t = <span class="keyword">new</span> Thread(obj, <span class="string">""</span>+i);</span><br><span class="line">            t.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Thread Name= "</span>+Thread.currentThread().getName()+<span class="string">" default Formatter = "</span>+formatter.get().toPattern());</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//formatter pattern is changed here by thread, but it won't reflect to other threads</span></span><br><span class="line">        formatter.set(<span class="keyword">new</span> SimpleDateFormat());</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"Thread Name= "</span>+Thread.currentThread().getName()+<span class="string">" formatter = "</span>+formatter.get().toPattern());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="threadLocal原理"><a href="#threadLocal原理" class="headerlink" title="threadLocal原理"></a>threadLocal原理</h2><ul>
+<li>通过维护threadlocalmap类型的两个变量<code>threadLocals</code>,<code>inheritableThreadLocals</code>可继承threadlocals</li>
+<li>初始化为null，当当前线程调用set get时，进行创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Thread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//与此线程有关的ThreadLocal值。由ThreadLocal类维护</span></span><br><span class="line">    ThreadLocal.ThreadLocalMap threadLocals = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//与此线程有关的InheritableThreadLocal值。由InheritableThreadLocal类维护</span></span><br><span class="line">    ThreadLocal.ThreadLocalMap inheritableThreadLocals = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="threadlocal内存泄漏问题"><a href="#threadlocal内存泄漏问题" class="headerlink" title="threadlocal内存泄漏问题"></a>threadlocal内存泄漏问题</h2><ul>
+<li><p>ThreadLocalMap 中使用的 key 为 ThreadLocal 的弱引用，而 value 是强引用。</p>
+</li>
+<li><p>所以，如果 ThreadLocal 没有被外部强引用的情况下，在垃圾回收的时候，key 会被清理掉，而 value 不会被清理掉，导致了内存泄漏</p>
+</li>
+<li><p>ThreadLocalMap 中就会出现 key 为 null 的 Entry。假如我们不做任何措施的话，value 永远无法被 GC 回收，这个时候就可能会产生内存泄露。</p>
+</li>
+<li><p>ThreadLocalMap 实现中已经考虑了这种情况，在调用 set()、get()、remove() 方法的时候，会清理掉 key 为 null 的记录。使用完 ThreadLocal方法后最好手动调用remove()方法</p>
+</li>
+<li><p>弱引用WeakReference</p>
+</li>
+<li><p>强引用指可以直接访问对象的引用，一般不会被gc，弱引用的话，弱引用不会阻止被引用对象的垃圾回收，也就是说，当只有弱引用引用一个对象时，垃圾回收器可以随时回收该对象，而不考虑当前内存是否足够。这使得弱引用非常适合用于缓存等场景，当内存资源不足时，缓存中的对象可以被及时释放。</p>
+</li>
+</ul>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>使用ThreadPoolExecutor构造方法去创建</p>
+<ul>
+<li><strong>FixedThreadPool</strong>：该方法返回一个固定线程数量的线程池。该线程池中的线程数量始终不变。当有一个新的任务提交时，线程池中若有空闲线程，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待有线程空闲时，便处理在任务队列中的任务。</li>
+<li><strong>SingleThreadExecutor</strong>： 该方法返回一个只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在一个任务队列中，待线程空闲，按先入先出的顺序执行队列中的任务。</li>
+<li><strong>CachedThreadPool</strong>： 该方法返回一个可根据实际情况调整线程数量的线程池。初始大小为 0。当有新任务提交时，如果当前线程池中没有线程可用，它会创建一个新的线程来处理该任务。如果在一段时间内（默认为 60 秒）没有新任务提交，核心线程会超时并被销毁，从而缩小线程池的大小。</li>
+<li><strong>ScheduledThreadPool</strong>：该方法返回一个用来在给定的延迟后运行任务或者定期执行任务的线程池。</li>
+</ul>
+<h3 id="内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】"><a href="#内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】" class="headerlink" title="内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】"></a>内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】</h3><p>使用线程池的好处是减少在创建和销毁线程上所消耗的时间以及系统资源开销，解决资源不足的问题。如果不使用线程池，有可能会造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。</p>
+<p><strong>使用executors返回的线程池可能导致的问题如下：</strong></p>
+<ol>
+<li>FixedThreadPool 和 SingleThreadExecutor：使用的是无界的 LinkedBlockingQueue，任务队列最大长度为 Integer.MAX_VALUE,可能堆积大量的请求，从而导致 OOM</li>
+<li>CachedThreadPool：使用的是同步队列 SynchronousQueue, 允许创建的线程数量为 Integer.MAX_VALUE ，如果任务数量过多且执行速度较慢，可能会创建大量的线程，从而导致 OOM</li>
+<li>ScheduledThreadPool 和 SingleThreadScheduledExecutor : 使用的无界的延迟阻塞队列DelayedWorkQueue，任务队列最大长度为 Integer.MAX_VALUE,可能堆积大量的请求，从而导致 OOM</li>
+</ol>
+<h2 id="实现一个根据任务的优先级来执行的线程池【使用阻塞队列】"><a href="#实现一个根据任务的优先级来执行的线程池【使用阻塞队列】" class="headerlink" title="实现一个根据任务的优先级来执行的线程池【使用阻塞队列】"></a>实现一个根据任务的优先级来执行的线程池【使用阻塞队列】</h2><p>通过构造函数，传入一个<code>ProorityBlockingQueue&lt;Runnable&gt;</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T07:11:21.527Z" itemprop="dateUpdated">2023-10-30 15:11:21</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/02/面经Java并发/&title=《Java concur》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/02/面经Java并发/&title=《Java concur》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/02/面经Java并发/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java concur》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/02/面经Java并发/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/02/面经Java并发/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/03/面经Redis问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Redis questions</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/02/面经Java集合/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java collection</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/02/面经Java并发/&title=《Java concur》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/02/面经Java并发/&title=《Java concur》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/02/面经Java并发/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java concur》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/02/面经Java并发/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/02/面经Java并发/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aMY7DMAxEUd//0l4grRHnDxktYuqrSuG19FzMkpKOA4/zNa6/+ZPnZdw/c6wYMmTIeCzjvB3vJiAY8jyf990zMmTI2IdBovP65IdXlyKV42XIkCHj/nWk7OPPk8JRhgwZMvrt6H1R2CkNZciQISMNPj7l2RgLe3EZMmQ8kNE5GFj9+5/ON2TIkPHDjE4IpkUeCeXiqmTIkDGakZZ6tTb1u/8NggpXhgwZgxjkkLI2AQ/TTnssQ4aM2QweqUHk4U6TN8wfqDJkyBjNSI8q+SL40WNtdhkyZOzD6G+NkYhMDx7iUlWGDBkbMHgD+a0LGeRvg5JRhgwZoxnptho/gEwx6ZUyFL4yZMgYzSDRRiKSfCaOQdt2MmTI2IZBFhpPgMOdf1AZMmTswEjDrlY4koKPl5Vve3EZMmQMZXSWReKVL3RFrMuQIWMG4/6hFU1m7bgUNa4yZMjYgMGDj2+0kc+UHlIG18JkyJAxgsEXSppPXix2DgzQrqEMGTIGMWoFXGcTLf1wqKCUIUPGNow0RtOJ+aIJ/ki/ogwZMh7LqF22SDfXaiHOG2MZMmTMZpzhSLf4a9v96SagDBkyZjP4SAMxuDmLw714Z0SGDBkjGCtCMI3sWrl5rM5yGTJk/BijH4LpJdR+oMuQIUNGbVs/jcv+Np8MGTJkkO17PnHnSAA1sTJkyBjN4E1s8OrSth2/2CFDhox9GLXWsXYtrHOo0IlpGTJkPJbxB7ULFBkq6q7LAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

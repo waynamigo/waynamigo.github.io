@@ -148,14 +148,14 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-2019-07-15-sqlmap-1"
+            <article id="post-面经Redis问题"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-07-15 00:00:00" datetime="2019-07-14T16:00:00.000Z"  itemprop="datePublished">2019-07-15</time>
+        <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/渗透/">渗透</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
 
 
 
@@ -166,7 +166,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/15/2019-07-15-sqlmap-1/">sqlmap注入拿后台</a>
+      <a class="post-title-link" href="/2023/01/03/面经Redis问题/">Redis questions</a>
     </h3>
   
 
@@ -176,17 +176,38 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p><strong>本文过程中无破坏性操作</strong><br>对于这种php的无防站，直接用sqlmap+msf就可以拿。<br>对于那些暴露参数的php站的可以直接拿库，刚刚随便找了个。<br>2019-07-16:被发现了。。ip被黑名单，于是换了个节点。。。还可以登录</p>
+        <h2 id="1-memcached和redis区别有哪些，优势劣势？"><a href="#1-memcached和redis区别有哪些，优势劣势？" class="headerlink" title="1.memcached和redis区别有哪些，优势劣势？"></a>1.memcached和redis区别有哪些，优势劣势？</h2><p>redis支持多种数据类型，并且支持持久化策略，</p>
+<h2 id="2-实现本地缓存，有哪些方案？go本地，redis"><a href="#2-实现本地缓存，有哪些方案？go本地，redis" class="headerlink" title="2.实现本地缓存，有哪些方案？go本地，redis"></a>2.实现本地缓存，有哪些方案？go本地，redis</h2><h2 id="3-redis通讯协议？特点是什么"><a href="#3-redis通讯协议？特点是什么" class="headerlink" title="3.redis通讯协议？特点是什么"></a>3.redis通讯协议？特点是什么</h2><h2 id="4-字符串最大长度是多少？512MB"><a href="#4-字符串最大长度是多少？512MB" class="headerlink" title="4.字符串最大长度是多少？512MB"></a>4.字符串最大长度是多少？512MB</h2><h2 id="5-介绍一下zset及底层实现机制"><a href="#5-介绍一下zset及底层实现机制" class="headerlink" title="5.介绍一下zset及底层实现机制"></a>5.介绍一下zset及底层实现机制</h2><h2 id="6-redis事务？原理是什么"><a href="#6-redis事务？原理是什么" class="headerlink" title="6.redis事务？原理是什么"></a>6.redis事务？原理是什么</h2><h2 id="7-事务相关命令？支持回滚吗"><a href="#7-事务相关命令？支持回滚吗" class="headerlink" title="7.事务相关命令？支持回滚吗"></a>7.事务相关命令？支持回滚吗</h2><h2 id="8-介绍一下pipeline和使用场景：批量读取写入"><a href="#8-介绍一下pipeline和使用场景：批量读取写入" class="headerlink" title="8.介绍一下pipeline和使用场景：批量读取写入"></a>8.介绍一下pipeline和使用场景：批量读取写入</h2><p>批量执行Redis命令的机制，它可以在客户端发送多个命令后，一次性将它们发送到服务器，然后一次性接收服务器的响应</p>
+<h3 id="和批量命令有什么不同"><a href="#和批量命令有什么不同" class="headerlink" title="和批量命令有什么不同"></a>和批量命令有什么不同</h3><ol>
+<li>pipeline是同时发送/执行不同命令的机制，批量是都需要执行相似的</li>
+<li>pipeline是顺序执行所有命令，执行一个一个状态，而批量需要等待所有的返回<h2 id="9-设置生存时间和过期时间用什么命令"><a href="#9-设置生存时间和过期时间用什么命令" class="headerlink" title="9.设置生存时间和过期时间用什么命令"></a>9.设置生存时间和过期时间用什么命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPIRE key n_seconds</span><br><span class="line">PEXPIRE mykey n_milseconds</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="10-介绍下redis的发布订阅功能"><a href="#10-介绍下redis的发布订阅功能" class="headerlink" title="10.介绍下redis的发布订阅功能"></a>10.介绍下redis的发布订阅功能</h2><ul>
+<li>允许多个客户端之间通过消息中间件来发送和接收消息。在这种模式下，消息的发送者称为发布者（Publisher），而消息的接收者称为订阅者（Subscriber）</li>
+<li>Redis的发布订阅功能是异步的，消息的发送和接收是非阻塞的，因此在订阅者接收消息时需要特别注意处理并发和同步的问题。<h2 id="11-redis单线程为什么那么快"><a href="#11-redis单线程为什么那么快" class="headerlink" title="11.redis单线程为什么那么快"></a>11.redis单线程为什么那么快</h2>单线程没有锁，主线程异步处理IO，避免多线程上下文切换<h2 id="12-分布式缓存要注意哪些问题"><a href="#12-分布式缓存要注意哪些问题" class="headerlink" title="12. 分布式缓存要注意哪些问题"></a>12. 分布式缓存要注意哪些问题</h2></li>
+</ul>
+<ol>
+<li>缓存一致性 </li>
+<li>缓存击穿 </li>
+<li>缓存雪崩</li>
+</ol>
+<h2 id="13-redis的key删除策略"><a href="#13-redis的key删除策略" class="headerlink" title="13. redis的key删除策略"></a>13. redis的key删除策略</h2><ol>
+<li>定期删除，每 100 毫秒检查 20 个随机选择的过期 key，如果发现有过期的 key，就会将其删除。</li>
+<li>惰性删除，<br>设置过期时间+一个随机的时间，防止缓存雪崩</li>
+</ol>
+
     
 
-        <a href="/2019/07/15/2019-07-15-sqlmap-1/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/03/面经Redis问题/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/msf/">msf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlmap/">sqlmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -195,14 +216,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-07-09-我的ubuntu设置界面风格"
+            <article id="post-面经Java并发"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-07-09 00:00:00" datetime="2019-07-08T16:00:00.000Z"  itemprop="datePublished">2019-07-09</time>
+        <time class="post-time" title="2023-01-02 00:00:00" datetime="2023-01-01T16:00:00.000Z"  itemprop="datePublished">2023-01-02</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
 
 
 
@@ -213,7 +234,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/09/2019-07-09-我的ubuntu设置界面风格/">部分MACOS风格的ubuntu</a>
+      <a class="post-title-link" href="/2023/01/02/面经Java并发/">Java concur</a>
     </h3>
   
 
@@ -223,17 +244,171 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>记录一下以防以后电脑崩了还得重新配,感觉撑不住了</p>
+        <h2 id="java线程和linux的C-线程有何区别"><a href="#java线程和linux的C-线程有何区别" class="headerlink" title="java线程和linux的C++线程有何区别"></a>java线程和linux的C++线程有何区别</h2><p>Java线程：Java中的异常处理机制可以捕获和处理线程中的异常。</p>
+<p>C++线程：C++线程中的异常会导致程序终止，除非显式地进行了异常处理。</p>
+<h2 id="java线程"><a href="#java线程" class="headerlink" title="java线程"></a>java线程</h2><p>多个线程共享进程的堆和方法区 (JDK1.8 之后的元空间)资源，但是每个线程有自己的<strong>程序计数器、虚拟机栈 和 本地方法栈。</strong></p>
+<ul>
+<li>程序计数器PC，需要按顺序实行机器指令；多线程情况下，相当于一个指针指向执行位置，恢复上下文</li>
+<li>如果执行的是 native 方法，那么程序计数器记录的是 undefined 地址，只有执行的是 Java 代码时程序计数器记录的才是下一条指令的地址。</li>
+</ul>
+<p>虚拟机栈和本地方法栈为什么私有</p>
+<ul>
+<li>每个方法的栈帧用于存储局部变量表、操作数栈、常量池引用等信息。从方法调用直至执行完成的过程，就对应着一个栈帧在 Java 虚拟机栈中入栈和出栈的过程</li>
+<li>本地方法栈则为虚拟机使用到的 Native 方法服务。 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。<h2 id="java线程的生命周期"><a href="#java线程的生命周期" class="headerlink" title="java线程的生命周期"></a>java线程的生命周期</h2>Java 线程在运行的生命周期中的指定时刻只可能处于下面 6 种不同状态的其中一个状态：</li>
+<li>NEW: 初始状态，线程被创建出来但没有被调用 start() 。</li>
+<li>RUNNABLE: 运行状态，线程被调用了 start()等待运行的状态。</li>
+<li>BLOCKED：阻塞状态，需要等待锁释放。</li>
+<li>WAITING：等待状态，表示该线程需要等待其他线程做出一些特定动作（通知或中断）。</li>
+<li>TIME_WAITING：超时等待状态，可以在指定的时间后自行返回而不是像 WAITING 那样一直等待。</li>
+<li>TERMINATED：终止状态，表示该线程已经运行完毕。</li>
+</ul>
+<h2 id="线程死锁"><a href="#线程死锁" class="headerlink" title="线程死锁"></a>线程死锁</h2><h3 id="sleep-方法和-wait-方法对比"><a href="#sleep-方法和-wait-方法对比" class="headerlink" title="sleep() 方法和 wait() 方法对比"></a>sleep() 方法和 wait() 方法对比</h3><ol>
+<li>wait释放了锁，sleep没释放锁，所以wait会被用于线程间的同步，sleep常用于暂停程序</li>
+<li>wait的线程不自动苏醒，需要同一对象的其他线程使用notify去唤醒，sleep的时间过完会自动往下执行</li>
+</ol>
+<ul>
+<li>wait执行完释放了锁</li>
+<li>sleep没有释放锁，可能导致死锁</li>
+<li>wait() 通常被用于线程间交互/通信</li>
+<li>sleep()通常被用于暂停执行。</li>
+<li>wait() 方法被调用后，线程不会自动苏醒，需要别的线程调用同一个对象上的 notify()或者 notifyAll() 方法。</li>
+<li>sleep()方法执行完成后，线程会自动苏醒，或者也可以使用 wait(long timeout) 超时后线程会自动苏醒。</li>
+<li>sleep() 是 Thread 类的静态本地方法，wait() 则是 Object 类的本地方法。</li>
+</ul>
+<h3 id="为什么-wait-方法不定义在-Thread-中"><a href="#为什么-wait-方法不定义在-Thread-中" class="headerlink" title="为什么 wait() 方法不定义在 Thread 中"></a>为什么 wait() 方法不定义在 Thread 中</h3><ul>
+<li>wait() 是让获得对象锁的线程实现等待，会自动释放当前线程占有的对象锁。</li>
+<li>每个对象（Object）都拥有对象锁，既然要释放当前线程占有的对象锁并让其进入 WAITING 状态，自然是要操作对应的对象（Object）而非当前的线程（Thread）。<h3 id="为什么sleep方法定义在Thread中"><a href="#为什么sleep方法定义在Thread中" class="headerlink" title="为什么sleep方法定义在Thread中"></a>为什么sleep方法定义在Thread中</h3></li>
+<li>sleep() 是让当前线程暂停执行，不涉及到对象类，也不需要获得对象锁。</li>
+</ul>
+<h3 id="【面试题】可以直接调用-Thread-类的-run-方法吗"><a href="#【面试题】可以直接调用-Thread-类的-run-方法吗" class="headerlink" title="【面试题】可以直接调用 Thread 类的 run 方法吗"></a>【面试题】可以直接调用 Thread 类的 run 方法吗</h3><p>【回答】可以直接调用，但是直接执行 run() 方法，不经过start()时，jvm会把 run() 方法当成一个 main 线程下的普通方法去执行，并不会在某个线程中执行它</p>
+<ul>
+<li>调用 start() 方法方可启动线程并使线程进入就绪状态</li>
+<li>直接执行 run() 方法的话不会以多线程的方式执行</li>
+</ul>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><h3 id="共享内存：volatile声明变量共享，防止jvm指令重排"><a href="#共享内存：volatile声明变量共享，防止jvm指令重排" class="headerlink" title="共享内存：volatile声明变量共享，防止jvm指令重排"></a>共享内存：volatile声明变量共享，防止jvm指令重排</h3><ul>
+<li>该变量可能会被多个线程同时访问</li>
+<li>每次读区都从内存读，不会被本地线程缓存</li>
+<li>可确保可见性和有序性，但<strong>不能保证原子性</strong></li>
+</ul>
+<p><strong>这个变量在堆上还是在栈上</strong>？</p>
+<ul>
+<li>至于变量在哪里存储，volatile 关键字主要影响了变量的可见性，在堆还是栈上取决于它是成员变量还是局部变量<h3 id="禁止指令重排序：volatile"><a href="#禁止指令重排序：volatile" class="headerlink" title="禁止指令重排序：volatile"></a>禁止指令重排序：volatile</h3>一个jvm调优的办法，jvm会自动重排，有可能导致性能下降。unsafe类提供了直接操作内存的方法，volatile的变量在读写时，插入读写屏障来禁止指令重排<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">loadFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">storeFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">fullFence</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="乐观锁悲观锁"><a href="#乐观锁悲观锁" class="headerlink" title="乐观锁悲观锁"></a>乐观锁悲观锁</h2><ul>
+<li>乐观锁是线程无需等待，只在提交修改的时候验证资源是否被修改</li>
+<li>悲观锁是显式的synchronized或者reentrantlock独占锁</li>
+</ul>
+<p><strong>CAS算法</strong>，<code>java.util.concurrent.atomic</code>包下面的原子变量类（比如<code>AtomicInteger</code>、<code>LongAdder</code>）就是使用了乐观锁的一种实现方式 CAS Compare And Swap（比较与交换）实现的。</p>
+<h3 id="区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。"><a href="#区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。" class="headerlink" title="区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。"></a>区别：高并发场景下，乐观锁不会造成死锁或阻塞问题。</h3><ul>
+<li><p>高并发的场景下，乐观锁相比悲观锁来说，不存在锁竞争造成线程阻塞，也不会有死锁的问题，在性能上往往会更胜一筹。</p>
+</li>
+<li><p>但是，如果冲突频繁发生（写占比非常多的情况），会频繁失败和重试，这样同样会非常影响性能，导致 CPU 飙升。</p>
+<h3 id="两者使用方式"><a href="#两者使用方式" class="headerlink" title="两者使用方式"></a>两者使用方式</h3></li>
+<li><p>悲观锁通常多用于写比较多的情况（多写场景，竞争激烈），这样可以避免频繁失败和重试影响性能，悲观锁的开销是固定的。</p>
+</li>
+<li><p>不过，如果乐观锁解决了频繁失败和重试这个问题的话（比如LongAdder），也是可以考虑使用乐观锁的，要视实际情况而定。乐观锁通常多用于写比较少的情况（多读场景，竞争较少），这样可以避免频繁加锁影响性能。不过，乐观锁主要针对的对象是单个共享变量（参考<code>java.util.concurrent.atomic</code>包下面的原子变量类）。</p>
+</li>
+</ul>
+<h3 id="CAS算法流程"><a href="#CAS算法流程" class="headerlink" title="CAS算法流程"></a>CAS算法流程</h3><ul>
+<li>是一个原子操作</li>
+<li>涉及到 var变量，expected预期值，new预期写入的新值</li>
+<li>当v = e时，通过new更新v，如果v != e,就说明其他进程要写，当前线程放弃更新</li>
+<li>当多个线程同时使用 CAS 操作一个变量时，只有一个会成功更新，其余均会失败，但失败的线程并不会被挂起，仅是被告知失败，并且允许再次尝试，当然也允许失败的线程放弃操作。</li>
+</ul>
+<ol>
+<li>java语言中的cas类是通过<code>unsafe</code>类里的<code>compareAndSwapObject</code>实现的</li>
+<li>它是C++内联汇编的产物</li>
+</ol>
+<h2 id="乐观锁的ABA问题"><a href="#乐观锁的ABA问题" class="headerlink" title="乐观锁的ABA问题"></a>乐观锁的ABA问题</h2><p><strong>检查变量的时候，原值为A，要赋值为B时检测为A，但是不能保证这之前没有被其他线程修改过</strong></p>
+<p>解决思路：在变量前追加版本号/时间戳：<code>AtomicStampedReference</code></p>
+<h2 id="乐观锁的循环时间长的问题"><a href="#乐观锁的循环时间长的问题" class="headerlink" title="乐观锁的循环时间长的问题"></a>乐观锁的循环时间长的问题</h2><p>CAS使用自旋锁来进行重试，降低消耗使用pause指令</p>
+<h2 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h2><ul>
+<li>修饰实例方法：锁当前对象实例</li>
+<li>修饰静态方法：锁当前类</li>
+<li>修饰代码块：对括号里指定的对象/类加锁<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给当前对象实例加锁，进入同步代码前要获得 当前对象实例的锁 。</span></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//业务代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 给当前类加锁，会作用于类的所有对象实例 ，进入同步代码前要获得 当前 class 的锁</span></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//业务代码</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// synchronized(object) 表示进入同步代码库前要获得 给定对象的锁。</span></span><br><span class="line"><span class="comment">// synchronized(类.class) 表示进入同步代码前要获得 给定 Class 的锁</span></span><br><span class="line"><span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="comment">//业务代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>synchronized(A.class) 和修饰static方法都是要锁的class</li>
+<li>synchronized+方法是给实例对象加锁</li>
+</ol>
+<h3 id="问题-静态-synchronized-方法和非静态-synchronized-方法之间的调用互斥么？"><a href="#问题-静态-synchronized-方法和非静态-synchronized-方法之间的调用互斥么？" class="headerlink" title="[问题]静态 synchronized 方法和非静态 synchronized 方法之间的调用互斥么？"></a>[问题]静态 synchronized 方法和非静态 synchronized 方法之间的调用互斥么？</h3><p>不互斥！锁的是两种不同的方法，静态用的是当前类的锁，非静态锁的是单个实例对象</p>
+<h2 id="构造方法能不能使用-synchronized-关键字修饰【不能】"><a href="#构造方法能不能使用-synchronized-关键字修饰【不能】" class="headerlink" title="构造方法能不能使用 synchronized 关键字修饰【不能】"></a>构造方法能不能使用 synchronized 关键字修饰【不能】</h2><ul>
+<li>因为构造方法本身属于线程安全，构造一个对象是原子操作<br>多线程可能有些特殊情况造成不安全。</li>
+<li>比如说逃逸问题：<br>如果在构造方法中将未完全初始化的对象引用传递给其他线程，其他线程可能会在对象完全初始化之前访问它，这也可能导致线程不安全<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EscapingExample</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SomeObject sharedObject;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EscapingExample</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sharedObject = <span class="keyword">new</span> SomeObject(); <span class="comment">// 逃逸</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>构造时，可以使用静态工厂方法构造对象</p>
+<h2 id="底层原理了解吗，很了解，通过对象监视器和访问标识来实现"><a href="#底层原理了解吗，很了解，通过对象监视器和访问标识来实现" class="headerlink" title="底层原理了解吗，很了解，通过对象监视器和访问标识来实现"></a>底层原理了解吗，很了解，通过对象监视器和访问标识来实现</h2><ul>
+<li>synchronized 同步语句块：使用的是 monitorenter 和 monitorexit 指令，其中 monitorenter 指令指向同步代码块的开始位置，monitorexit 指令则指明同步代码块的结束位置。</li>
+<li>修饰方法：JVM通过一个访问标识<code>ACC_SYNCHRONIZED</code> 指明这一个同步方法</li>
+</ul>
+<h2 id="synchronized-和-volatile关键字，互补"><a href="#synchronized-和-volatile关键字，互补" class="headerlink" title="synchronized 和 volatile关键字，互补"></a>synchronized 和 volatile关键字，互补</h2><ul>
+<li>volatile 修饰变量，synchronized修饰方法和代码块</li>
+<li>volatile 保证顺序性可见性，synchronized保证可见性和原子性</li>
+<li>volatile 解决变量在多个线程之间的可见性，synchronized解决多线程访问资源的同步性</li>
+</ul>
+<h2 id="ReentrantLock是一个可重入的独占锁"><a href="#ReentrantLock是一个可重入的独占锁" class="headerlink" title="ReentrantLock是一个可重入的独占锁"></a>ReentrantLock是一个可重入的独占锁</h2><ul>
+<li>底层用<code>AbstractQueuedSynchronizer</code> 实现,内部的Sync类继承了AQS类，</li>
+<li>实现公平锁和非公平锁 <code>UnFairSync和FairSync</code>，都是继承的内部类Sync实现的，默认使用公平锁</li>
+</ul>
+<p><strong>可重入锁</strong> 也叫递归锁，指的是线程可以再次获取自己的内部锁。比如一个线程获得了某个对象的锁，此时这个对象锁还没有释放，当其再次想要获取这个对象的锁的时候还是可以获取的，如果是不可重入锁的话，就会造成死锁。</p>
+<h2 id="synchronized-和-reentrantlock"><a href="#synchronized-和-reentrantlock" class="headerlink" title="synchronized 和 reentrantlock"></a>synchronized 和 reentrantlock</h2><ul>
+<li>sychronized 依赖于 jvm的对象监视器monitor、访问标识，reentrantlock依赖于jdk层面</li>
+<li>reentrantlock需要配合trycatch，抛出的异常是InterruptedException</li>
+</ul>
+<h1 id="threadLocal（变量）"><a href="#threadLocal（变量）" class="headerlink" title="threadLocal（变量）"></a>threadLocal（变量）</h1><p>可以让每个线程绑定自己的值，可以将ThreadLocal类形象的比喻成存放数据的盒子，盒子中可以存储每个线程的私有数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 常用方法</span></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalExample</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// SimpleDateFormat 不是线程安全的，所以每个线程都要有自己独立的副本withInitial(obj)作为本地线程的一个对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;SimpleDateFormat&gt; formatter = ThreadLocal.withInitial(() -&gt; <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd HHmm"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ThreadLocalExample obj = <span class="keyword">new</span> ThreadLocalExample();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span> ; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">            Thread t = <span class="keyword">new</span> Thread(obj, <span class="string">""</span>+i);</span><br><span class="line">            t.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Thread Name= "</span>+Thread.currentThread().getName()+<span class="string">" default Formatter = "</span>+formatter.get().toPattern());</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//formatter pattern is changed here by thread, but it won't reflect to other threads</span></span><br><span class="line">        formatter.set(<span class="keyword">new</span> SimpleDateFormat());</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"Thread Name= "</span>+Thread.currentThread().getName()+<span class="string">" formatter = "</span>+formatter.get().toPattern());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="threadLocal原理"><a href="#threadLocal原理" class="headerlink" title="threadLocal原理"></a>threadLocal原理</h2><ul>
+<li>通过维护threadlocalmap类型的两个变量<code>threadLocals</code>,<code>inheritableThreadLocals</code>可继承threadlocals</li>
+<li>初始化为null，当当前线程调用set get时，进行创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Thread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//与此线程有关的ThreadLocal值。由ThreadLocal类维护</span></span><br><span class="line">    ThreadLocal.ThreadLocalMap threadLocals = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//与此线程有关的InheritableThreadLocal值。由InheritableThreadLocal类维护</span></span><br><span class="line">    ThreadLocal.ThreadLocalMap inheritableThreadLocals = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="threadlocal内存泄漏问题"><a href="#threadlocal内存泄漏问题" class="headerlink" title="threadlocal内存泄漏问题"></a>threadlocal内存泄漏问题</h2><ul>
+<li><p>ThreadLocalMap 中使用的 key 为 ThreadLocal 的弱引用，而 value 是强引用。</p>
+</li>
+<li><p>所以，如果 ThreadLocal 没有被外部强引用的情况下，在垃圾回收的时候，key 会被清理掉，而 value 不会被清理掉，导致了内存泄漏</p>
+</li>
+<li><p>ThreadLocalMap 中就会出现 key 为 null 的 Entry。假如我们不做任何措施的话，value 永远无法被 GC 回收，这个时候就可能会产生内存泄露。</p>
+</li>
+<li><p>ThreadLocalMap 实现中已经考虑了这种情况，在调用 set()、get()、remove() 方法的时候，会清理掉 key 为 null 的记录。使用完 ThreadLocal方法后最好手动调用remove()方法</p>
+</li>
+<li><p>弱引用WeakReference</p>
+</li>
+<li><p>强引用指可以直接访问对象的引用，一般不会被gc，弱引用的话，弱引用不会阻止被引用对象的垃圾回收，也就是说，当只有弱引用引用一个对象时，垃圾回收器可以随时回收该对象，而不考虑当前内存是否足够。这使得弱引用非常适合用于缓存等场景，当内存资源不足时，缓存中的对象可以被及时释放。</p>
+</li>
+</ul>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>使用ThreadPoolExecutor构造方法去创建</p>
+<ul>
+<li><strong>FixedThreadPool</strong>：该方法返回一个固定线程数量的线程池。该线程池中的线程数量始终不变。当有一个新的任务提交时，线程池中若有空闲线程，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待有线程空闲时，便处理在任务队列中的任务。</li>
+<li><strong>SingleThreadExecutor</strong>： 该方法返回一个只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在一个任务队列中，待线程空闲，按先入先出的顺序执行队列中的任务。</li>
+<li><strong>CachedThreadPool</strong>： 该方法返回一个可根据实际情况调整线程数量的线程池。初始大小为 0。当有新任务提交时，如果当前线程池中没有线程可用，它会创建一个新的线程来处理该任务。如果在一段时间内（默认为 60 秒）没有新任务提交，核心线程会超时并被销毁，从而缩小线程池的大小。</li>
+<li><strong>ScheduledThreadPool</strong>：该方法返回一个用来在给定的延迟后运行任务或者定期执行任务的线程池。</li>
+</ul>
+<h3 id="内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】"><a href="#内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】" class="headerlink" title="内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】"></a>内置线程池Executor是什么，为什么不建议使用【容易导致内存泄漏】</h3><p>使用线程池的好处是减少在创建和销毁线程上所消耗的时间以及系统资源开销，解决资源不足的问题。如果不使用线程池，有可能会造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。</p>
+<p><strong>使用executors返回的线程池可能导致的问题如下：</strong></p>
+<ol>
+<li>FixedThreadPool 和 SingleThreadExecutor：使用的是无界的 LinkedBlockingQueue，任务队列最大长度为 Integer.MAX_VALUE,可能堆积大量的请求，从而导致 OOM</li>
+<li>CachedThreadPool：使用的是同步队列 SynchronousQueue, 允许创建的线程数量为 Integer.MAX_VALUE ，如果任务数量过多且执行速度较慢，可能会创建大量的线程，从而导致 OOM</li>
+<li>ScheduledThreadPool 和 SingleThreadScheduledExecutor : 使用的无界的延迟阻塞队列DelayedWorkQueue，任务队列最大长度为 Integer.MAX_VALUE,可能堆积大量的请求，从而导致 OOM</li>
+</ol>
+<h2 id="实现一个根据任务的优先级来执行的线程池【使用阻塞队列】"><a href="#实现一个根据任务的优先级来执行的线程池【使用阻塞队列】" class="headerlink" title="实现一个根据任务的优先级来执行的线程池【使用阻塞队列】"></a>实现一个根据任务的优先级来执行的线程池【使用阻塞队列】</h2><p>通过构造函数，传入一个<code>ProorityBlockingQueue&lt;Runnable&gt;</code></p>
+
     
 
-        <a href="/2019/07/09/2019-07-09-我的ubuntu设置界面风格/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/02/面经Java并发/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tweak/">tweak</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -242,14 +417,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-07-03-经管同学的tomcat项目"
+            <article id="post-面经Java集合"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-07-03 00:00:00" datetime="2019-07-02T16:00:00.000Z"  itemprop="datePublished">2019-07-03</time>
+        <time class="post-time" title="2023-01-02 00:00:00" datetime="2023-01-01T16:00:00.000Z"  itemprop="datePublished">2023-01-02</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
 
 
 
@@ -260,7 +435,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/03/2019-07-03-经管同学的tomcat项目/">用了个bash手动打包java项目并在tomcat中运行</a>
+      <a class="post-title-link" href="/2023/01/02/面经Java集合/">Java collection</a>
     </h3>
   
 
@@ -270,17 +445,138 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>觉得之前的那个jekyll的主题太丑了，今天翻新了一下，并把文章和live2d模型迁到了hexo(indigo主题，这次再也不改了)<br>帮信管专业的同学把项目部署到服务器上，因为没打包过war，中间有个地方卡住了，好麻烦记一下, （推荐了maven</p>
+        <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://oss.javaguide.cn/github/javaguide/java/collection/java-collection-hierarchy.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><ul>
+<li>List<ul>
+<li>ArrayList: Object[]</li>
+<li>Vector: Object[]</li>
+<li>LinkedList: 双向链表</li>
+</ul>
+</li>
+<li>Set<ul>
+<li>HashSet(无序，唯一): 底层采用 HashMap 来保存元素-</li>
+<li>LinkedHashSet: HashSet 的子类，通过 LinkedHashMap 来实现的</li>
+<li>TreeSet(有序，唯一): 红黑树(自平衡的排序二叉树)</li>
+</ul>
+</li>
+<li>Queue<ul>
+<li>PriorityQueue: Object[] 数组实现二叉堆</li>
+<li>ArrayQueue: Object[] 数组+双指针<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2></li>
+</ul>
+</li>
+<li>HashMap<ul>
+<li>开始是链表，链表长度大于阈值8，进行扩容，当容量大于64时，变成红黑树</li>
+</ul>
+</li>
+<li>LinkedHashMap<ul>
+<li>在HashMap的基础上，增加了一条双向链表，保持KV的插入顺序</li>
+</ul>
+</li>
+<li>Hashtable<ul>
+<li>数组+链表组成的，数组是 Hashtable 的主体，链表则是主要为了解决哈希冲突而存在的</li>
+</ul>
+</li>
+<li>TreeMap：红黑树<h2 id="TIPs"><a href="#TIPs" class="headerlink" title="TIPs"></a>TIPs</h2></li>
+</ul>
+<ol>
+<li>保证线程安全的手段？Concurrent修饰的Map等</li>
+<li>持续更新</li>
+</ol>
+<h2 id="List实现"><a href="#List实现" class="headerlink" title="List实现"></a>List实现</h2><h3 id="ArrayList-和-Array-的区别"><a href="#ArrayList-和-Array-的区别" class="headerlink" title="ArrayList 和 Array 的区别"></a>ArrayList 和 Array 的区别</h3><ul>
+<li>一个动态数组和静态数组</li>
+<li>区别类似于go语言和python的slice实现</li>
+</ul>
+<ol>
+<li>声明时不需要指定大小，动态扩容</li>
+<li>支持泛型</li>
+<li>支持插入、更改、删除<br>【面试题】说说ArrayList的扩容机制</li>
+</ol>
+<h3 id="ArrayList-和-Vector-的区别"><a href="#ArrayList-和-Vector-的区别" class="headerlink" title="ArrayList 和 Vector 的区别"></a>ArrayList 和 Vector 的区别</h3><ul>
+<li>ArrayList线程不安全</li>
+<li>Vector使用了synchronized关键字保证线程安全<h3 id="Vector-和-Stack-的区别"><a href="#Vector-和-Stack-的区别" class="headerlink" title="Vector 和 Stack 的区别"></a>Vector 和 Stack 的区别</h3>Vector 和 Stack 已经被淘汰，推荐使用并发集合类</li>
+</ul>
+<ol>
+<li>ConcurrentHashMap、CopyOnWriteArrayList等，</li>
+<li>或者手动实现线程安全的方法来提供安全的多线程操作支持。</li>
+</ol>
+<h3 id="ArrayList-可以添加-null-值吗？"><a href="#ArrayList-可以添加-null-值吗？" class="headerlink" title="ArrayList 可以添加 null 值吗？"></a>ArrayList 可以添加 null 值吗？</h3><p>ArrayList 中可以存储任何类型的对象，包括 null 值。不过，不建议向ArrayList 中添加 null 值， null 值无意义，会让代码难以维护比如忘记做判空处理就会导致空指针异常。</p>
+<h2 id="Set实现"><a href="#Set实现" class="headerlink" title="Set实现"></a>Set实现</h2><h3 id="Comparable-和-Comparator-的区别：都是用于排序"><a href="#Comparable-和-Comparator-的区别：都是用于排序" class="headerlink" title="Comparable 和 Comparator 的区别：都是用于排序"></a>Comparable 和 Comparator 的区别：都是用于排序</h3><ul>
+<li>Comparable 接口实际上是出自 java.lang 包 它有一个 compareTo(Object obj)方法用来排序</li>
+<li>Comparator 接口实际上是出自 java.util 包 它有一个 compare(Object obj1, Object obj2)方法用来排序</li>
+<li>需要对一个集合使用自定义排序时，我们就要重写compareTo()方法或compare()方法</li>
+</ul>
+<h2 id="Queue实现"><a href="#Queue实现" class="headerlink" title="Queue实现"></a>Queue实现</h2><h3 id="Queue-与-Deque-的区别"><a href="#Queue-与-Deque-的区别" class="headerlink" title="Queue 与 Deque 的区别"></a>Queue 与 Deque 的区别</h3><ul>
+<li>Queue是单端队列，遵循先进先出（FIFO）规则</li>
+<li>Deque 是双端队列，在队列的两端均可以插入或删除元素</li>
+</ul>
+<h3 id="PriorityQueue实现：默认最小二叉堆"><a href="#PriorityQueue实现：默认最小二叉堆" class="headerlink" title="PriorityQueue实现：默认最小二叉堆"></a>PriorityQueue实现：默认最小二叉堆</h3><ul>
+<li>P利用了二叉堆的数据结构来实现的，底层使用可变长的数组来存储数据</li>
+<li>PriorityQueue 通过堆元素的上浮和下沉，实现了在 O(logn) 的时间复杂度内插入元素和删除堆顶元素。</li>
+<li>PriorityQueue 是非线程安全的，且不支持存储 NULL 和 non-comparable 的对象。</li>
+<li>PriorityQueue 默认是小顶堆，但可以接收一个 Comparator 作为构造参数，从而来自定义元素优先级的先后。</li>
+<li>PriorityQueue 在面试中可能更多的会出现在手撕算法的时候，典型例题包括堆排序、求第 K 大的数、带权图的遍历等，所以需要会熟练使用才行。</li>
+</ul>
+<p>手撕一个priorityqueue</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h3><ul>
+<li>支持当队列没有元素时一直阻塞，用于生产者消费者模型</li>
+<li>生产者线程会向队列中添加数据，而消费者线程会从队列中取出数据进行处理</li>
+</ul>
+<p><strong>ArrayBlockingQueue</strong> 和 <strong>LinkedBlockingQueue</strong> 是 Java 并发包中常用的两种阻塞队列实现</p>
+<ul>
+<li>都线程安全，Array底层用的固定数组，Linked底层用的链表，也是扩容机制</li>
+<li>ArrayBlockingQueue 生产和消费用的是同一个锁</li>
+<li>LinkedBlockingQueue 生产用putLock，消费用的takelock，防止生产者和消费者线程之间的锁争夺</li>
+</ul>
+<h2 id="Map实现"><a href="#Map实现" class="headerlink" title="Map实现"></a>Map实现</h2><h3 id="HashMap-和-Hashtable-淘汰-的区别"><a href="#HashMap-和-Hashtable-淘汰-的区别" class="headerlink" title="HashMap 和 Hashtable(淘汰) 的区别"></a>HashMap 和 Hashtable(淘汰) 的区别</h3><ul>
+<li><p>HashMap 是线程不安全的，线程安全版ConcurrentHashMap</p>
+</li>
+<li><p>Hashtable 是线程安全的</p>
+</li>
+<li><p>HashMap 可以存储 null 的 kv，但 null 作为键只能有一个，null 作为值可以多个</p>
+</li>
+<li><p>Hashtable 不允许有 null 键和 null 值，否则会抛NullPointerException<br>HashMap的构造函数以及扩容函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</span><br><span class="line">                                            initialCapacity);</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</span><br><span class="line">                                            loadFactor);</span><br><span class="line">    <span class="keyword">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">&#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">tableSizeFor</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = cap - <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><ul>
+<li>HashSet如何检查重复的： 底层使用HashMap<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HashMap的底层实现"><a href="#HashMap的底层实现" class="headerlink" title="HashMap的底层实现"></a>HashMap的底层实现</h3><ul>
+<li>hash()函数,拉链法解决冲突<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="comment">// key.hashCode()：返回散列值也就是hashcode</span></span><br><span class="line">    <span class="comment">// ^：按位异或</span></span><br><span class="line">    <span class="comment">// &gt;&gt;&gt;:无符号右移，忽略符号位，空位都以0补齐</span></span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h3><ul>
+<li>jdk1.7前，HashMap 扩容时会造成死循环和数据丢失的问题</li>
+<li>jdk1.8后，多个kv可能会被分配到同一个桶（bucket），并以链表或红黑树的形式存储。多个线程对 HashMap 的 put 操作会导致线程不安全，具体来说会有数据覆盖的风险。<h3 id="HashMap遍历"><a href="#HashMap遍历" class="headerlink" title="HashMap遍历"></a>HashMap遍历</h3><a href="https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw</a></li>
+<li>结论，尽量使用 entrySet 来实现 Map 集合的遍历</li>
+<li>不能再在遍历中使用集合 map.remove() 来删除数据，这是非安全的操作方式</li>
+<li>但可以使用迭代器的 iterator.remove() 的方法来删除数据，这是安全的删除集合的方式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMapTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建并赋值 HashMap</span></span><br><span class="line">        Map&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="number">1</span>, <span class="string">"Java"</span>);</span><br><span class="line">        map.put(<span class="number">2</span>, <span class="string">"JDK"</span>);</span><br><span class="line">        map.put(<span class="number">3</span>, <span class="string">"Spring Framework"</span>);</span><br><span class="line">        map.put(<span class="number">4</span>, <span class="string">"MyBatis framework"</span>);</span><br><span class="line">        map.put(<span class="number">5</span>, <span class="string">"Java中文社群"</span>);</span><br><span class="line">        <span class="comment">// 迭代器 entrySet 遍历</span></span><br><span class="line">        Iterator&lt;Map.Entry&lt;Integer, String&gt;&gt; iterator =</span><br><span class="line">            map.entrySet().iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            Map.Entry&lt;Integer, String&gt; entry = iterator.next();</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 迭代器 keySet 遍历</span></span><br><span class="line">        Iterator&lt;Integer&gt; iterator = map.keySet().iterator();</span><br><span class="line">        <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">            Integer key = iterator.next();</span><br><span class="line">            System.out.println(key);</span><br><span class="line">            System.out.println(map.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// for-each  遍历 entrySet()</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// for-each  遍历 keySet()</span></span><br><span class="line">        <span class="keyword">for</span> (Integer key : map.keySet()) &#123;</span><br><span class="line">            System.out.println(key);</span><br><span class="line">            System.out.println(map.get(key));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Lambda表达式</span></span><br><span class="line">        map.forEach((key, value) -&gt; &#123;</span><br><span class="line">            System.out.println(key);</span><br><span class="line">            System.out.println(value);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// Streams API 单线程</span></span><br><span class="line">        map.entrySet().stream().forEach((entry) -&gt; &#123;</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// Streams API 多线程</span></span><br><span class="line">        map.entrySet().parallelStream().forEach((entry) -&gt; &#123;</span><br><span class="line">            System.out.println(entry.getKey());</span><br><span class="line">            System.out.println(entry.getValue());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
     
 
-        <a href="/2019/07/03/2019-07-03-经管同学的tomcat项目/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/02/面经Java集合/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bash/">bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tomcat/">tomcat</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -289,14 +585,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-06-25-machinelearning"
+            <article id="post-面经Java问题"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-06-25 00:00:00" datetime="2019-06-24T16:00:00.000Z"  itemprop="datePublished">2019-06-25</time>
+        <time class="post-time" title="2023-01-02 00:00:00" datetime="2023-01-01T16:00:00.000Z"  itemprop="datePublished">2023-01-02</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/复习/">复习</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
 
 
 
@@ -307,7 +603,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/06/25/2019-06-25-machinelearning/">机器学习考试</a>
+      <a class="post-title-link" href="/2023/01/02/面经Java问题/">Java random</a>
     </h3>
   
 
@@ -317,17 +613,280 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>统  计  学  习<br>真正的统计学习笔记待更新，包括李航统计学习方法和All of Statics两本，</p>
+        <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="1-重载和重写的区别"><a href="#1-重载和重写的区别" class="headerlink" title="1. 重载和重写的区别"></a>1. 重载和重写的区别</h2><ul>
+<li><p>重载 overload：方法名相同，返回值和形参，访问修饰符可能不同，发生在一个类中；编译时发生</p>
+</li>
+<li><p>重写 override：发生在继承中，（覆盖），方法名和形参都相同，修饰符大于等于父类，子类不能重写父类的private方法，</p>
+<h2 id="2-string-stringbuffer-stringbuilder"><a href="#2-string-stringbuffer-stringbuilder" class="headerlink" title="2. string stringbuffer stringbuilder"></a>2. string stringbuffer stringbuilder</h2></li>
+</ul>
+<ol>
+<li>string用final修饰，底层用byte[]，java9之前用的char[]，节省字符串占用的内存</li>
+<li>stringbuffer对原对象操作，线程安全，用了sychronized修饰？</li>
+<li>stringbuilder线程不安全，单线程使用这个<h2 id="3-接口interface和抽象类abstract-class的区别"><a href="#3-接口interface和抽象类abstract-class的区别" class="headerlink" title="3. 接口interface和抽象类abstract class的区别"></a>3. 接口interface和抽象类abstract class的区别</h2></li>
+<li>抽象类只能继承一个，接口可以有多个实现</li>
+<li>抽象类中可以有普通成员函数（及实现），包括构造方法，接口只能有public的abstract方法</li>
+<li>抽象类中可以有普通成员变量，            接口只能有public static final类型成员<br>abstract class：只能继承一个<br>interface</li>
+<li>抽象类用于代码复用，比如抽象工厂，接口用于对类的行为进行约束，关注某些操作时用接口</li>
+</ol>
+<h2 id="4-hashcode和equals"><a href="#4-hashcode和equals" class="headerlink" title="4. hashcode和equals"></a>4. hashcode和equals</h2><ul>
+<li>hashcode是获取对象的hash码，作用是确定在哈希表的位置，java任何类都有hashcode()函数，在Object父类里<h2 id="5-ArrayList和LinkedList"><a href="#5-ArrayList和LinkedList" class="headerlink" title="5. ArrayList和LinkedList"></a>5. ArrayList和LinkedList</h2></li>
+<li>ArrayList基于动态数组，连续内存存储，动态用扩容实现，类似于C++的vector和Java、python的slice</li>
+<li>LinkedList基于链表实现，存储分散的内存，适合插入删除，不适合查询，根据下标get(i)需要遍历<h2 id="6-HashMap和HashTable"><a href="#6-HashMap和HashTable" class="headerlink" title="6. HashMap和HashTable"></a>6. HashMap和HashTable</h2></li>
+<li>HashMap并发不安全，HashTable用sychronized修饰，并发安全</li>
+<li>数组+链表实现的，<h2 id="7-jdk7-concurrentHashMap原理"><a href="#7-jdk7-concurrentHashMap原理" class="headerlink" title="7. jdk7.concurrentHashMap原理"></a>7. jdk7.concurrentHashMap原理</h2></li>
+</ul>
+<ol>
+<li>数据结构使用ReentrantLock + Segment + HashEntry  ，一个Segment包含一个HashEntry数组，每个HashEntry是一个链表</li>
+<li>元素查询：使用二次hash，第一次找到segment，第二次定位到元素所在的头部</li>
+<li>锁使用了Segment分段锁，Segment继承ReentrantLock，其他Segment不受影响，数组扩容不影响其他Segment<h2 id="8-jdk8-concurrentHashMap原理"><a href="#8-jdk8-concurrentHashMap原理" class="headerlink" title="8. jdk8.concurrentHashMap原理"></a>8. jdk8.concurrentHashMap原理</h2></li>
+<li>数据结构使用sychronized + CAS +红黑树，Node的next和val都用volatile修饰，查找替换赋值使用CAS</li>
+<li>元素查询：使用CAS查找【】</li>
+<li>锁：锁了head结点，其他元素的读写不受影响，<strong>读操作无锁</strong><h3 id="9-IOC容器和AOP是什么"><a href="#9-IOC容器和AOP是什么" class="headerlink" title="9. IOC容器和AOP是什么"></a>9. IOC容器和AOP是什么</h3></li>
+<li>Inversion of Control 控制反转，就是把对象的创建管理的权利反转给外部的环境</li>
+<li>Aspect Oriented Programming 面向切片编程，将日志、权限、接口等关注点从核心业务分离出来，通过<strong>动态代理</strong>等技术。<strong>各种注解就是以AOP的思想和机制实现的</strong><h2 id="10-Spring的AOP如何实现的【动态代理】"><a href="#10-Spring的AOP如何实现的【动态代理】" class="headerlink" title="10. Spring的AOP如何实现的【动态代理】"></a>10. Spring的AOP如何实现的【动态代理】</h2></li>
+<li>Spring AOP：如果需要代理的对象实现了某个<strong>接口</strong>，SpringAOP使用JDKProxy创建代理对象，如果存在没有实现接口的对象，使用<strong>cglib</strong>生成一个被代理对象的子类作为代理</li>
+<li>Aspect J：切面多的情况下使用，性能有优势<h2 id="11-java程序运行的流程"><a href="#11-java程序运行的流程" class="headerlink" title="11.java程序运行的流程"></a>11.java程序运行的流程</h2></li>
+<li>源码 .java</li>
+<li>编译器</li>
+<li>字节码 .class</li>
+<li>jvm解释器</li>
+<li>机器的二进制码</li>
+<li>运行<h2 id="12-equals-和-的区别"><a href="#12-equals-和-的区别" class="headerlink" title="12. equals 和 == 的区别"></a>12. equals 和 == 的区别</h2></li>
+<li>==比较基础类型，和引用类型的地址是否相同</li>
+<li>equals比较两个对象是否相同</li>
+<li>Integer 与int的比较，<strong>以右边为基础</strong>，使用 Integer == int 发生拆箱；使用int == Integer发生装箱</li>
+<li>Integer.equals(int)发生装箱，再比较内容<h2 id="13-final-finally-finalize的区别"><a href="#13-final-finally-finalize的区别" class="headerlink" title="13. final finally finalize的区别"></a>13. final finally finalize的区别</h2></li>
+<li>final修饰类（不可继承）、方法（不可重写）、变量（不可修改）</li>
+<li>finally修饰代码块，常用于释放资源、关闭连接等</li>
+<li>finalize用于垃圾回收，已经被废弃<h2 id="14-BIO-NIO-AIO"><a href="#14-BIO-NIO-AIO" class="headerlink" title="14. BIO NIO AIO"></a>14. BIO NIO AIO</h2></li>
+<li>阻塞与非阻塞：<ul>
+<li>BIO是阻塞式I/O模型，线程会一直被阻塞等待操作完成。</li>
+<li>NIO是非阻塞式I/O模型，线程可以去做其他任务，当I/O操作完成时得到通知。</li>
+<li>AIO也是非阻塞式I/O模型，不需要用户线程关注I/O事件，由操作系统通过回调机制处理。</li>
+</ul>
+</li>
+<li>缓冲区：<ul>
+<li>BIO使用传统的字节流和字符流，需要为输入输出流分别创建缓冲区。</li>
+<li>NIO引入了基于通道和缓冲区的I/O方式，使用一个缓冲区完成数据读写操作。</li>
+<li>AIO则不需要缓冲区，使用异步回调方式进行操作。</li>
+</ul>
+</li>
+<li>线程模型：<ul>
+<li>BIO采用一个线程处理一个请求方式，面对高并发时线程数量急剧增加，容易导致系统崩溃。</li>
+<li>NIO采用多路复用器来监听多个客户端请求，使用一个线程处理，减少线程数量，提高系统性能。</li>
+<li>AIO依靠操作系统完成I/O操作，不需要额外的线程池或多路复用器。<h4 id="Java-中-3-种常见-IO-模型"><a href="#Java-中-3-种常见-IO-模型" class="headerlink" title="Java 中 3 种常见 IO 模型"></a>Java 中 3 种常见 IO 模型</h4></li>
+</ul>
+</li>
+</ol>
+<h5 id="BIO-Blocking-I-O"><a href="#BIO-Blocking-I-O" class="headerlink" title="BIO (Blocking I/O)"></a>BIO (Blocking I/O)</h5><p><strong>BIO 属于同步阻塞 IO 模型 。</strong></p>
+<p>同步阻塞 IO 模型中，应用程序发起 read 调用后，会一直阻塞，直到在内核把数据拷贝到用户空间。</p>
+<p> <img src="/images/%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8C%97.assets/1624285967500-eb053522-effc-475a-a1dc-eb410d76f572.png" alt="img"></p>
+<p>在客户端连接数量不高的情况下，是没问题的。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。因此，我们需要一种更高效的 I/O 处理模型来应对更高的并发量。</p>
+<h5 id="NIO-Non-blocking-New-I-O"><a href="#NIO-Non-blocking-New-I-O" class="headerlink" title="NIO (Non-blocking/New I/O)"></a>NIO (Non-blocking/New I/O)</h5><p>Java 中的 NIO 于 Java 1.4 中引入，对应 java.nio 包，提供了 Channel , Selector，Buffer 等抽象。NIO 中的 N 可以理解为 Non-blocking，不单纯是 New。它支持面向缓冲的，基于通道的 I/O 操作方法。 对于高负载、高并发的（网络）应用，应使用 NIO 。</p>
+<p>Java 中的 NIO 可以看作是 <strong>I/O 多路复用模型</strong>。也有很多人认为，Java 中的 NIO 属于同步非阻塞 IO 模型。</p>
+<p>跟着我的思路往下看看，相信你会得到答案！</p>
+<p>我们先来看看 <strong>同步非阻塞 IO 模型</strong>。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="F:\面试指北\面试指北.assets\1624285967455-d13860a6-06cb-4397-ac09-ca3789187e1a.png" alt="img" title>
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+
+<p>同步非阻塞 IO 模型中，应用程序会一直发起 read 调用，等待数据从内核空间拷贝到用户空间的这段时间里，线程依然是阻塞的，直到在内核把数据拷贝到用户空间。</p>
+<p>相比于同步阻塞 IO 模型，同步非阻塞 IO 模型确实有了很大改进。通过轮询操作，避免了一直阻塞。</p>
+<p>但是，这种 IO 模型同样存在问题：<strong>应用程序不断进行 I/O 系统调用轮询数据是否已经准备好的过程是十分消耗 CPU 资源的</strong>。</p>
+<p>这个时候，<strong>I/O 多路复用模型</strong> 就上场了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="F:\面试指北\面试指北.assets\1624285967508-983b174a-58dd-4327-b345-8027a3f42a21.png" alt="img" title>
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+
+<p>IO 多路复用模型中，线程首先发起 select 调用，询问内核数据是否准备就绪，等内核把数据准备好了，用户线程再发起 read 调用。read 调用的过程（数据从内核空间-&gt;用户空间）还是阻塞的。</p>
+<blockquote>
+<p>目前支持 IO 多路复用的系统调用，有 select，epoll 等等。select 系统调用，是目前几乎在所有的操作系统上都有支持</p>
+<ul>
+<li>select 调用 ：内核提供的系统调用，它支持一次查询多个系统调用的可用状态。几乎所有的操作系统都支持。</li>
+<li>epoll 调用 ：linux 2.6 内核，属于 select 调用的增强版本，优化了 IO 的执行效率。</li>
+</ul>
+</blockquote>
+<p><strong>IO 多路复用模型，通过减少无效的系统调用，减少了对 CPU 资源的消耗。</strong></p>
+<p>Java 中的 NIO ，有一个非常重要的<strong>选择器 ( Selector )</strong> 的概念，也可以被称为 <strong>多路复用器</strong>。通过它，只需要一个线程便可以管理多个客户端连接。当客户端数据到了之后，才会为其服务。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/javajob.assets/1624285967445-1152e468-bef7-4d9a-924b-4ef3dad343e0.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h5 id="AIO-Asynchronous-I-O"><a href="#AIO-Asynchronous-I-O" class="headerlink" title="AIO (Asynchronous I/O)"></a>AIO (Asynchronous I/O)</h5><p>AIO 也就是 NIO 2。Java 7 中引入了 NIO 的改进版 NIO 2,它是异步 IO 模型。</p>
+<p>异步 IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/javajob.assets/1624285967551-d3b2369c-21de-4c90-9777-928091acb617.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>目前来说 AIO 的应用还不是很广泛。Netty 之前也尝试使用过 AIO，不过又放弃了。这是因为，Netty 使用了 AIO 之后，在 Linux 系统上的性能并没有多少提升。</p>
+<p>最后，来一张图，简单总结一下 Java 中的 BIO、NIO、AIO。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/面试指北.assets/1624285968982-79ae67ec-fef4-4dc9-8b65-80d1830a78c4.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="15-反射用途和实现原理"><a href="#15-反射用途和实现原理" class="headerlink" title="15. 反射用途和实现原理"></a>15. 反射用途和实现原理</h2><p>反射是通过<strong>运行时</strong>检查类信息完成的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; cls = ClassName.class;</span><br><span class="line">Class&lt;?&gt; cls = obj.getClass();</span><br><span class="line">Class&lt;?&gt; cls = Class.forName(<span class="string">"ClassName"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>原理：反射API实现，Class，Method，Field，Constructor</p>
+<h3 id="Class-forName和ClassLoader的区别"><a href="#Class-forName和ClassLoader的区别" class="headerlink" title="Class.forName和ClassLoader的区别"></a>Class.forName和ClassLoader的区别</h3><ul>
+<li>Class.forName是一个<strong>静态</strong>方法，通过提供类的完全限定名，在运行时加载类。此方法还会执行类的静态初始化块。如果类名不存在或无法访问，将抛出ClassNotFoundException异常。</li>
+<li>ClassLoader<strong>是一个抽象类，类加载器</strong>，负责将类文件加载到Java虚拟机中。ClassLoader可以<strong>动态加载类</strong>，从不同来源加载类文件，如本地文件系统、网络等。</li>
+</ul>
+<h2 id="16-可重入锁是什么？解释ReentrantLock和sychronized的区别"><a href="#16-可重入锁是什么？解释ReentrantLock和sychronized的区别" class="headerlink" title="16. 可重入锁是什么？解释ReentrantLock和sychronized的区别"></a>16. 可重入锁是什么？解释ReentrantLock和sychronized的区别</h2><p>可重入锁是允许重新获取机制的锁。就像拿钥匙开锁一样，你可以反复用同一把钥匙开锁。这种锁在同一线程内是安全的，因为它可以被同一线程多次获取，而不会产生不一致的状态。<br>举个例子，假设有一个线程A在执行一个方法，同时这个方法内部又调用另一个方法，那么线程A可以重复获取同一个锁，而不会出现死锁的情况。因为同一线程可以多次获取同一个锁，所以这种锁机制避免了死锁的发生。<br>但是需要注意，在使用可重入锁时，必须保证在释放锁之前已经获取了该锁，否则会导致死锁。同时还需要保证在获取锁的时候没有嵌套地获取其他锁，否则也会导致死锁。另外，还必须保证在获取锁的时候没有阻塞其他线程，否则同样会导致死锁。<br>总之，可重入锁是一种安全的锁机制，可以避免死锁的发生。但是在使用时需要注意以上几点，以确保程序的正确性和安全性。</p>
+<ul>
+<li><strong>实现上</strong>：synchronized 是一个关键字，是在JVM层面通过监视器实现的，而 ReentrantLock 是基于AQS（AbstractQueuedSynchronizer）实现的。</li>
+<li><strong>用法上</strong>：reentrantlock修饰代码块，synchronized修饰方法，静态方法和代码块</li>
+<li><strong>显隐式</strong>：Synchronized 是隐式锁，进入synchronized代码块之后自动加锁，离开后自动释放锁；ReentrantLock显示定义，然后手动用lockunlock</li>
+<li><strong>中断响应</strong>：sync不能直接响应终端，reentrantlock可以响应中断，避免死锁<h2 id="17-java序列化讲一下"><a href="#17-java序列化讲一下" class="headerlink" title="17. java序列化讲一下"></a>17. java序列化讲一下</h2>指将Java对象转换为字节流的过程，可以将这些字节流保存到文件中或通过网络传输。使用implements Serializable接口<h2 id="18-notify-和-notifyall-的区别"><a href="#18-notify-和-notifyall-的区别" class="headerlink" title="18. notify()和 notifyall()的区别"></a>18. notify()和 notifyall()的区别</h2></li>
+<li>notify方法用于唤醒在当前对象上等待的单个线程,具体是哪个线程被唤醒是不确定的，取决于线程调度器的实现</li>
+<li>notifyall 用于唤醒在当前对象上等待的所有线程。<ul>
+<li>如果有多个线程在某个对象上等待，调用notifyAll()方法后，所有等待的线程都会被唤醒并竞争该对象的锁。其中一个线程获得锁后继续执行，其他线程则继续等待。<h2 id="19-静态内部类和非静态内部类"><a href="#19-静态内部类和非静态内部类" class="headerlink" title="19. 静态内部类和非静态内部类"></a>19. 静态内部类和非静态内部类</h2></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>实例化方式：静态内部类可以直接通过外部类名来实例化，而非静态内部类必须要通过外部类的实例来实例化。</li>
+<li>对外部类的引用：静态内部类不持有对外部类实例的引用，而非静态内部类则会持有对外部类实例的引用。这意味着在静态内部类中不能直接访问外部类的非静态成员（方法或字段），而非静态内部类可以。</li>
+<li>生命周期：静态内部类的生命周期与外部类相互独立，即使外部类实例被销毁，静态内部类仍然存在。非静态内部类的生命周期与外部类实例绑定，只有在外部类实例存在时才能创建非静态内部类的实例。</li>
+<li>访问权限：静态内部类对外部类的访问权限与其他类一样，根据访问修饰符而定。非静态内部类可以访问外部类的所有成员，包括私有成员<h2 id="20-自定义注解的场景和实现"><a href="#20-自定义注解的场景和实现" class="headerlink" title="20. 自定义注解的场景和实现"></a>20. 自定义注解的场景和实现</h2></li>
+<li>扩展框架</li>
+<li>运行时检查，单元测试，配和写Log等</li>
+<li>规范约束<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a><strong>实现方式</strong></h3></li>
+<li>使用@interface关键字定义注解。</li>
+<li>可在注解中定义属性，并指定默认值。</li>
+<li>根据需求，可添加元注解来控制注解的使用方式。</li>
+<li>在代码中使用自定义注解。</li>
+<li>使用反射机制解析注解信息。<h2 id="21-java的构造器能否被重写-override【不可以，只能在子类super父类进行增量更改】"><a href="#21-java的构造器能否被重写-override【不可以，只能在子类super父类进行增量更改】" class="headerlink" title="21. java的构造器能否被重写 override【不可以，只能在子类super父类进行增量更改】"></a>21. java的构造器能否被重写 override【不可以，只能在子类super父类进行增量更改】</h2></li>
+</ol>
+<h2 id="22-java实现对象克隆【深拷贝浅拷贝】"><a href="#22-java实现对象克隆【深拷贝浅拷贝】" class="headerlink" title="22. java实现对象克隆【深拷贝浅拷贝】"></a>22. java实现对象克隆【深拷贝浅拷贝】</h2><ol>
+<li>浅拷贝：通过创建一个新对象，并将原对象的非静态字段值复制给新对象实现。新对象和原对象共享引用数据。在Java中，可以使用clone()方法实现浅拷贝。要实现一个类的克隆操作，需要满足以下条件<ul>
+<li>实现Cloneable接口。</li>
+<li>重写Object类的clone()方法，声明为public访问权限。</li>
+<li>在clone()方法中调用super.clone()，并处理引用类型字段。</li>
+</ul>
+</li>
+<li>深拷贝：通过创建一个新对象，并将原对象的所有字段值复制给新对象，包括引用类型数据。新对象和原对象拥有独立的引用数据。实现深拷贝有以下方式：<ul>
+<li>使用序列化和反序列化实现深拷贝，要求对象及其引用类型字段实现Serializable接口。</li>
+<li>自定义拷贝方法，递归拷贝引用类型字段。<h2 id="23-java中常见的运行时异常"><a href="#23-java中常见的运行时异常" class="headerlink" title="23. java中常见的运行时异常"></a>23. java中常见的运行时异常</h2></li>
+</ul>
+</li>
+<li>空指针异常：当应用程序尝试使用 null 对象时抛出。</li>
+<li>数组越界异常：当应用程序尝试访问数组元素的时候，数组下标超出了数组的范围。</li>
+<li>类转换异常：当应用程序尝试将一个对象强制转换为不是其实例的子类时抛出。</li>
+<li>非法参数异）：当应用程序传递了一个无效或不合法的参数时抛出。</li>
+<li>非法状态异常：当应用程序调用了一个不合适的方法或处于不正确的状态时抛出<h2 id="24-synchronized的实现原理是什么"><a href="#24-synchronized的实现原理是什么" class="headerlink" title="24. synchronized的实现原理是什么"></a>24. synchronized的实现原理是什么</h2>通过互斥锁来控制线程对共享变量的访问。</li>
+<li>synchronized的实现基础是对象内部的锁（也称为监视器锁或管程），每个锁关联着一个对象实例。</li>
+<li>当synchronized作用于某个对象时，它就会尝试获取这个对象的锁，如果锁没有被其他线程占用，则当前线程获取到锁，并可以执行同步代码块；如果锁已经被其他线程占用，那么当前线程就会阻塞在同步块之外，直到获取到锁才能进入同步块。</li>
+<li>synchronized还支持作用于类上，此时它锁住的是整个类，而不是类的某个实例。在这种情况下，由于只有一个锁存在，所以所有使用该类的线程都需要等待锁的释放。</li>
+<li>在JVM内部，每个Java对象都有头信息，其中包含了对象的一些元信息和状态标志。synchronized通过修改头信息的状态标志来实现锁的获取和释放。</li>
+<li>synchronized还支持<strong>可重入性，即在同一个线程中可以多次获取同一个锁，这样可以避免死锁问题</strong>。</li>
+<li>Java虚拟机会通过锁升级的方式来提升synchronized的效率，比如偏向锁、轻量级锁和重量级锁等机制，使得在竞争不激烈的情况下，synchronized的性能可以达到与非同步代码相当的水平。<h2 id="25-ThreadLocal和场景和原理"><a href="#25-ThreadLocal和场景和原理" class="headerlink" title="25. ThreadLocal和场景和原理"></a>25. ThreadLocal和场景和原理</h2></li>
+<li>为每个线程创建独立的变量副本，避免竞争状态，代码层面的体验是一定程度上简化了多线程设计</li>
+<li>原理是每个线程都有自己的threadlocalmap，<strong>ThreadLocal 对象充当键，线程的变量副本作为对应键的值</strong>，set get进行资源设置和获取<h3 id="注意避坑【内存泄漏，线程安全性，数据隔离】"><a href="#注意避坑【内存泄漏，线程安全性，数据隔离】" class="headerlink" title="注意避坑【内存泄漏，线程安全性，数据隔离】"></a>注意避坑【内存泄漏，线程安全性，数据隔离】</h3><h3 id="应用场景【线程池，数据库连接管理，传递上下文信息】"><a href="#应用场景【线程池，数据库连接管理，传递上下文信息】" class="headerlink" title="应用场景【线程池，数据库连接管理，传递上下文信息】"></a>应用场景【线程池，数据库连接管理，传递上下文信息】</h3><h3 id="如何防止内存泄漏"><a href="#如何防止内存泄漏" class="headerlink" title="如何防止内存泄漏"></a>如何防止内存泄漏</h3></li>
+</ol>
+<ul>
+<li>内存泄漏是由于 ThreadLocalMap 中的 Entry 没有被及时清理导致的</li>
+</ul>
+<ol>
+<li>使用完 ThreadLocal 后及时调用 remove() 方法</li>
+<li>使用 try-with-resources 或 try-finally 块，在finally释放资源</li>
+<li>使用InheritableThreadLocal<h2 id="26-BigDecimal避坑"><a href="#26-BigDecimal避坑" class="headerlink" title="26. BigDecimal避坑"></a>26. BigDecimal避坑</h2></li>
+<li>使用浮点数初始化时，使用valueOf()，而不是使用new Bigdecimal()：valueof()内部先转换string再初始化</li>
+<li>使用equals时，精度（scale）不同也返回false；使用compareTo方法，-1小于，0等于，1大于</li>
+<li>divide时，指定一个结果精度，避免无限循环抛出arith异常；使用RoundingMode类选四舍五入等<h2 id="27-阻塞队列BQ，类似于channel"><a href="#27-阻塞队列BQ，类似于channel" class="headerlink" title="27. 阻塞队列BQ，类似于channel"></a>27. 阻塞队列BQ，类似于channel</h2></li>
+</ol>
+<ul>
+<li>特点1:队列为空，读进程阻塞</li>
+<li>特点2:队列为满，写进程阻塞</li>
+</ul>
+<ol>
+<li>ArrayBlockingQueue</li>
+<li>LinkedBlockingQueue</li>
+<li>PriorityBlockingQueue<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3></li>
+<li>生产消费者模型</li>
+<li>线程池任务队列</li>
+<li>线程同步问题：goroutine，多个线程可以共享一个阻塞队列<h2 id="28-守护线程和普通线程的区别"><a href="#28-守护线程和普通线程的区别" class="headerlink" title="28. 守护线程和普通线程的区别"></a>28. 守护线程和普通线程的区别</h2><h2 id="29-启动线程使用start，而不是用run"><a href="#29-启动线程使用start，而不是用run" class="headerlink" title="29. 启动线程使用start，而不是用run"></a>29. 启动线程使用start，而不是用run</h2></li>
+<li>start方法告诉jvm新建了一个线程，并在新线程中执行与run方法相关联的代码块</li>
+<li>run方法仅是一个方法调用，没有新线程创建<h2 id="30-java的线程如何通信"><a href="#30-java的线程如何通信" class="headerlink" title="30. java的线程如何通信"></a>30. java的线程如何通信</h2></li>
+<li>共享内存：使用volatile保证共享变量的可见性</li>
+<li>消息传递：消息队列/管道/信号量<h2 id="31-线程调度算法【抢占式算法】"><a href="#31-线程调度算法【抢占式算法】" class="headerlink" title="31. 线程调度算法【抢占式算法】"></a>31. 线程调度算法【抢占式算法】</h2>线程优先级是如何设定的？<h2 id="32-死锁与活锁，饥饿是什么"><a href="#32-死锁与活锁，饥饿是什么" class="headerlink" title="32. 死锁与活锁，饥饿是什么"></a>32. 死锁与活锁，饥饿是什么</h2></li>
+<li><strong>死锁</strong>是进程间互斥且一直等待对方释放资源，都无法继续执行的情况</li>
+<li><strong>活锁</strong>是运行状态下，多个线程不断地改变自己的状态以回应对方，但最终无法取得进展，导致线程不断重试相同的操作，却无法成功</li>
+<li><strong>饥饿</strong>,一个比较宽泛的概念，指一个或多个线程或进程由于某种原因无法获得所需的资源或执行机会</li>
+</ol>
+<h2 id="33-什么时候进入waiting状态"><a href="#33-什么时候进入waiting状态" class="headerlink" title="33. 什么时候进入waiting状态"></a>33. 什么时候进入waiting状态</h2><ol>
+<li>等待获取锁的时候</li>
+<li>等待IO时</li>
+<li>使用Object.wait()方法，等待其他线程调用同对象的notify和notifyall方法唤醒</li>
+<li>使用Thread.join()，使当前线程等待目标线程的结束，目标线程结束后，当前线程被唤醒</li>
+<li>使用LockSupport.park()，使当前线程等待，直到获取LockSupport指定的许可或者线程被中断、调度。<h3 id="为什么wait和notify要在同步块中调用"><a href="#为什么wait和notify要在同步块中调用" class="headerlink" title="为什么wait和notify要在同步块中调用"></a>为什么wait和notify要在同步块中调用</h3></li>
+</ol>
+<p><strong>同步块提供了互斥性</strong></p>
+<ul>
+<li>希望同一时刻只有一个线程能执行wait/notify，避免并发修改问题，不在互斥时进行wait/notify会导致错误的上下文，还有导致竞争状态<h2 id="36-自动拆箱导致的-空指针-问题"><a href="#36-自动拆箱导致的-空指针-问题" class="headerlink" title="36. 自动拆箱导致的 空指针 问题"></a>36. 自动拆箱导致的 空指针 问题</h2>数据库的查询结果可能是 null，因为自动拆箱，用基本数据类型接收有 NPE 风险.<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/javajob.assets/51eb094e11b71dfeff75f93e99dc7856.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+减少自动拆箱问题<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/javajob.assets/10f950d32f14aa81d0677156837572c5.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+</li>
+</ul>
+<h2 id="35-线程安全如何实现【加锁，原子操作，ThreadLocal减少共享资源，线程安全的设计模式】"><a href="#35-线程安全如何实现【加锁，原子操作，ThreadLocal减少共享资源，线程安全的设计模式】" class="headerlink" title="35. 线程安全如何实现【加锁，原子操作，ThreadLocal减少共享资源，线程安全的设计模式】"></a>35. 线程安全如何实现【加锁，原子操作，ThreadLocal减少共享资源，线程安全的设计模式】</h2><ul>
+<li>线程安全的设计模式：使用单例模式中的双重检查锁定<br>实现，其实就是线程安全的singleton<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="34-三个线程如何顺序执行"><a href="#34-三个线程如何顺序执行" class="headerlink" title="34. 三个线程如何顺序执行"></a>34. 三个线程如何顺序执行</h2><ol>
+<li>思路是2等1的锁，3等2的锁，1等3的锁。实现用join和LockSupport的park和unpark方法。</li>
+<li>CountDownLatch。设置初始计数为 2，分别在 T1 和 T2 的线程内等待计数器减少到 0，然后释放 T3 线程。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Thread T1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="comment">// 线程 T1 的任务</span></span><br><span class="line">&#125;);</span><br><span class="line">Thread T2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        T1.join(); <span class="comment">// 等待 T1 执行完成</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 线程 T2 的任务</span></span><br><span class="line">&#125;);</span><br><span class="line">Thread T3 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        T2.join(); <span class="comment">// 等待 T2 执行完成</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 线程 T3 的任务</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>LockSupport</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Thread t1;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Thread t2;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Thread t3;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"T1 is running."</span>);</span><br><span class="line">        LockSupport.unpark(t2); <span class="comment">// 唤醒线程T2</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        LockSupport.park(); <span class="comment">// 阻塞线程T2</span></span><br><span class="line">        System.out.println(<span class="string">"T2 is running."</span>);</span><br><span class="line">        LockSupport.unpark(t3); <span class="comment">// 唤醒线程T3</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    t3 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        LockSupport.park(); <span class="comment">// 阻塞线程T3</span></span><br><span class="line">        System.out.println(<span class="string">"T3 is running."</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line">    t2.start();</span><br><span class="line">    t3.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CountDownLatch</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">CountDownLatch latch1 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line">CountDownLatch latch2 = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">"T1 running."</span>);</span><br><span class="line">    latch1.countDown(); <span class="comment">// T1 执行完后释放 latch1</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        latch1.await(); <span class="comment">// 等待 latch1 的释放</span></span><br><span class="line">      	System.out.println(<span class="string">"T2 running."</span>);</span><br><span class="line">        latch2.countDown(); <span class="comment">// T2 执行完后释放 latch2</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Thread t3 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        latch2.await(); <span class="comment">// 等待 latch2 的释放</span></span><br><span class="line">      	System.out.println(<span class="string">"T3 running."</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">t1.start();</span><br><span class="line">t2.start();</span><br><span class="line">t3.start();</span><br></pre></td></tr></table></figure>
+
+
     
 
-        <a href="/2019/06/25/2019-06-25-machinelearning/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/02/面经Java问题/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -336,14 +895,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-06-12-项目坑"
+            <article id="post-2023-01-01-kubernets_tutorial(Overview)"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-06-12 00:00:00" datetime="2019-06-11T16:00:00.000Z"  itemprop="datePublished">2019-06-12</time>
+        <time class="post-time" title="2023-01-01 00:00:00" datetime="2022-12-31T16:00:00.000Z"  itemprop="datePublished">2023-01-01</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Kubernetes/">Kubernetes</a></li></ul>
 
 
 
@@ -354,7 +913,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/06/12/2019-06-12-项目坑/">这学期项目中的坑</a>
+      <a class="post-title-link" href="/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/">Kubernetes Tutorial and Implementation(Overview)</a>
     </h3>
   
 
@@ -364,17 +923,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>佛了</p>
+        <p>本篇为OverView，内容包括kubectl的基础操作，整理的知识框架基于kubernetes官方文档<a href="https://kubernetes.io/docs/tutorials/" target="_blank" rel="noopener">v1.26</a>， 元旦期间系统整理一下。</p>
     
 
-        <a href="/2019/06/12/2019-06-12-项目坑/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CloudComputing/">CloudComputing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
 
     </div>
     
@@ -383,14 +942,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-05-14-jekyll加入live2d模型"
+            <article id="post-面经Go"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-05-14 00:00:00" datetime="2019-05-13T16:00:00.000Z"  itemprop="datePublished">2019-05-14</time>
+        <time class="post-time" title="2023-01-01 00:00:00" datetime="2022-12-31T16:00:00.000Z"  itemprop="datePublished">2023-01-01</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Golang/">Golang</a></li></ul>
 
 
 
@@ -401,7 +960,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/14/2019-05-14-jekyll加入live2d模型/">jekyll加入live2d的模型</a>
+      <a class="post-title-link" href="/2023/01/01/面经Go/">Golang</a>
     </h3>
   
 
@@ -411,17 +970,325 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p><del>由于不打算再迁到hexo了，把jekyll加入live2d模型的方法记录一下</del><br>2019-8-1: 迁hexo了。</p>
+        <p>总 ：<a href="https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md" target="_blank" rel="noopener">https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md</a></p>
+<h1 id="不要通过共享内存来通信，要通过通信来共享内存"><a href="#不要通过共享内存来通信，要通过通信来共享内存" class="headerlink" title="不要通过共享内存来通信，要通过通信来共享内存"></a>不要通过共享内存来通信，要通过通信来共享内存</h1><ul>
+<li>降低共享内存的使用，本来就是解耦和的重要手段之一</li>
+<li>理解时go使用主动的channel通信以最小限度使用这些存在channel里的内存空间，与其他通信的goroutine共享这个channel，范围可以控制在必要的最小规模；而不是先设定好共享内存，再其他开发过程中通过互斥锁、条件变量等方式提供给不同线程去共享内容，导致<h2 id="阐述golang并发机制"><a href="#阐述golang并发机制" class="headerlink" title="阐述golang并发机制"></a>阐述golang并发机制</h2></li>
+</ul>
+<h2 id="为什么小对象多了会造成gc压力"><a href="#为什么小对象多了会造成gc压力" class="headerlink" title="为什么小对象多了会造成gc压力"></a>为什么小对象多了会造成gc压力</h2><ol>
+<li>内存碎片</li>
+<li>gc时会移堆，将对象从一个堆移动到另一个堆（内存拷贝）</li>
+<li>标记的内存块也变多了，遍历的时间变长了<h2 id="gc的触发条件"><a href="#gc的触发条件" class="headerlink" title="gc的触发条件"></a>gc的触发条件</h2></li>
+<li>内存使用量超阈值，用GOGC设置</li>
+<li>使用runtime.GC手动触发<h2 id="gc的栈空间管理机制是什么"><a href="#gc的栈空间管理机制是什么" class="headerlink" title="gc的栈空间管理机制是什么"></a>gc的栈空间管理机制是什么</h2></li>
+<li>runtime负责，</li>
+<li>每个goroutine分配一个固定栈空间，大小大概在2kb到4kb左右</li>
+<li>栈空间不够时，runtime自动扩展栈的大小，回收时runtime回收栈空间变量<h2 id="defer原理"><a href="#defer原理" class="headerlink" title="defer原理"></a>defer原理</h2>defer的原理是先进后出的栈顺序，遇到defer时，将defer后的函数用语句进行压栈处理<h2 id="select原理，多路复用机制"><a href="#select原理，多路复用机制" class="headerlink" title="select原理，多路复用机制"></a>select原理，多路复用机制</h2>监听多个channel，机制是多个case打乱之后轮训</li>
+<li>有多个case执行，随机选一个执行，</li>
+<li>case都不满足，执行default，再不满足就阻塞<h2 id="go的逃逸分析"><a href="#go的逃逸分析" class="headerlink" title="go的逃逸分析"></a>go的逃逸分析</h2></li>
+</ol>
+<p><strong>是在编译过程中的静态分析机制，优化内存分配</strong>用来决定各个变量分配在堆上还是栈上，如果一个变量在函数内部初始化，但是传递到外部了，就说发生逃逸，分配到heap上</p>
+<h2 id="线程模型有哪些？为什么go-scheduler需要实现M：N方案？scheduler-由哪些元素组成"><a href="#线程模型有哪些？为什么go-scheduler需要实现M：N方案？scheduler-由哪些元素组成" class="headerlink" title="线程模型有哪些？为什么go scheduler需要实现M：N方案？scheduler 由哪些元素组成"></a>线程模型有哪些？为什么go scheduler需要实现M：N方案？scheduler 由哪些元素组成</h2><h2 id="解释hand-off，work-stealing"><a href="#解释hand-off，work-stealing" class="headerlink" title="解释hand off，work stealing"></a>解释hand off，work stealing</h2><h2 id="mutex-有几种模式【正常和饥饿】"><a href="#mutex-有几种模式【正常和饥饿】" class="headerlink" title="mutex 有几种模式【正常和饥饿】"></a>mutex 有几种模式【正常和饥饿】</h2><p>正常模式保证了公平竞争，适用于大多数情况，而饥饿模式则优先保证了长时间等待的协程能够获得锁。</p>
+<ul>
+<li>mutex没有提供接口，要引入一个计数器来实现饥饿模式<h2 id="defer和return的先后顺序"><a href="#defer和return的先后顺序" class="headerlink" title="defer和return的先后顺序"></a>defer和return的先后顺序</h2>return先执行获取返回值，然后暂停函数的执行，接下来就按defer的压栈顺序执行defer语句，顺序是后进先出的顺序<h2 id="go-recover的执行时机"><a href="#go-recover的执行时机" class="headerlink" title="go recover的执行时机"></a>go recover的执行时机</h2></li>
+</ul>
+<p><strong>需要进行defer func捕获上级的panic</strong>：<br>recover 必须在 defer 函数中运行。recover 捕获的是祖父级调用时的异常，直接调用时无效。</p>
+<h2 id="闭包错误引用同一个变量问题怎么处理-？"><a href="#闭包错误引用同一个变量问题怎么处理-？" class="headerlink" title="闭包错误引用同一个变量问题怎么处理 ？"></a>闭包错误引用同一个变量问题怎么处理 ？</h2><ol>
+<li>将闭包需要<strong>引用的变量作为参数</strong>传递给闭包函数，而不是直接在闭包内部引用外部变量。</li>
+<li>在闭包函数里创建一个新的临时变量<h2 id="循环内部执行defer会发生什么"><a href="#循环内部执行defer会发生什么" class="headerlink" title="循环内部执行defer会发生什么"></a>循环内部执行defer会发生什么</h2>正常压栈，</li>
+</ol>
+<h2 id="golang中的大端序和小端序"><a href="#golang中的大端序和小端序" class="headerlink" title="golang中的大端序和小端序"></a>golang中的大端序和小端序</h2><p>大端序是低地址存高字节，高地址存低字节，同时也是网络字节序【大端就是顺序从左到右存放】<br>小端时低地址存低字节，高地址存高字节，是主机序【golang默认小端序，主机x86和arm64都是小端】</p>
+<h2 id="syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】"><a href="#syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】" class="headerlink" title="syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】"></a>syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】</h2><h2 id="routine为什么比thread轻量"><a href="#routine为什么比thread轻量" class="headerlink" title="routine为什么比thread轻量"></a>routine为什么比thread轻量</h2><ol>
+<li>routine是纯用户态调度，非抢占，由runtime管理，创建，切换的开销不需要内核态参与</li>
+<li>协程在同一个地址空间共享堆栈，每个线程都有自己独立的堆栈</li>
+</ol>
+<h2 id="原子操作和锁的区别"><a href="#原子操作和锁的区别" class="headerlink" title="原子操作和锁的区别"></a>原子操作和锁的区别</h2><ol>
+<li>原子操作是对共享变量的单一操作，要么执行完药么全不执行；锁对一段临界区代码，操作的变量可以有一堆</li>
+<li>原子操作开销小，锁开销较大，涉及到上下文切换等<h2 id="go的多返回值如何实现"><a href="#go的多返回值如何实现" class="headerlink" title="go的多返回值如何实现"></a>go的多返回值如何实现</h2><h2 id="uintptr和unsafe-Pointer的区别"><a href="#uintptr和unsafe-Pointer的区别" class="headerlink" title="uintptr和unsafe.Pointer的区别"></a>uintptr和unsafe.Pointer的区别</h2></li>
+</ol>
+<ul>
+<li><strong>uintptr</strong>：将指针转换整数表示，不包含指针的类型信息。</li>
+<li><strong>unsafe.Pointer</strong>：包含任意类型指针，将任意类型的指针转换为通用指针类型，很灵活<br>uintptr 是一个整数类型，它被用于<strong>存储指针的整数表示</strong>形式。<br>使用 uintptr 可以<strong>将指针转换为整数，也可以将整数转换为指针</strong>，但这种转换是不安全的，可能会导致未定义的行为。<br>因为 uintptr 只是整数，<strong>不包含指针的类型信息</strong>，因此在转换后需要谨慎使用，可能会导致类型不匹配或内存安全问题。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p *<span class="keyword">int</span></span><br><span class="line">uintptrValue := <span class="keyword">uintptr</span>(unsafe.Pointer(p))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>unsafe.Pointer</strong><br>unsafe.Pointer 是一个特殊的指针类型，它可以包含任意类型的指针，并允许在不进行类型检查的情况下进行指针操作。<br>使用 unsafe.Pointer 可以将任意类型的指针转换为通用的指针类型，也可以将通用指针转换为具体类型的指针。这种转换也是不安全的，可能会导致未定义的行为。<br>示例：<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p *<span class="keyword">int</span></span><br><span class="line">pointerValue := unsafe.Pointer(p)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个-case-的代码】"><a href="#switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个-case-的代码】" class="headerlink" title="switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个 case 的代码】"></a>switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个 case 的代码】</h2><h2 id="如何关闭http响应体"><a href="#如何关闭http响应体" class="headerlink" title="如何关闭http响应体"></a>如何关闭http响应体</h2><p>在defer里close，或者用完就close</p>
+<h2 id="解析json时，默认将数值当作哪种类型【数值默认为float64】"><a href="#解析json时，默认将数值当作哪种类型【数值默认为float64】" class="headerlink" title="解析json时，默认将数值当作哪种类型【数值默认为float64】"></a>解析json时，默认将数值当作哪种类型【数值默认为float64】</h2><h2 id="如何从panic中恢复"><a href="#如何从panic中恢复" class="headerlink" title="如何从panic中恢复"></a>如何从panic中恢复</h2><p>defer func(){ recover()}</p>
+<h2 id="解释一下静态类型声明"><a href="#解释一下静态类型声明" class="headerlink" title="解释一下静态类型声明"></a>解释一下静态类型声明</h2><p>golang生命变量时是<strong>在编译阶段确定类型</strong></p>
+<h2 id="Golang的可变参数是什么，怎么用，要注意什么"><a href="#Golang的可变参数是什么，怎么用，要注意什么" class="headerlink" title="Golang的可变参数是什么，怎么用，要注意什么"></a>Golang的可变参数是什么，怎么用，要注意什么</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(nums ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    total := nums[<span class="number">0</span>]+<span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br><span class="line">sum()</span><br><span class="line">sum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ol>
+<li>可变参数必须是函数参数列表的最后一个参数：如果函数有多个参数，可变参数必须放在参数列表的最后。</li>
+<li>可变参数可以不传递：如果调用者不传递任何参数，可变参数会被初始化为空切片。</li>
+<li>可变参数可以传递多个值：可以传递任意数量的参数，甚至可以传递零个。</li>
+<li>调用时可以传递切片：如果已经有一个切片，可以在调用函数时使用 … 操作符将其展开为可变参数。<h2 id="golang支持接口的多继承（C-extends-A-and-C）吗【不支持，依靠组合实现】"><a href="#golang支持接口的多继承（C-extends-A-and-C）吗【不支持，依靠组合实现】" class="headerlink" title="golang支持接口的多继承（C extends A and C）吗【不支持，依靠组合实现】"></a>golang支持接口的多继承（C extends A and C）吗【不支持，依靠组合实现】</h2></li>
+</ol>
+<h2 id="简述scheduler函数"><a href="#简述scheduler函数" class="headerlink" title="简述scheduler函数"></a>简述scheduler函数</h2><h2 id="简述全局运行队列中获取goroutine的时机"><a href="#简述全局运行队列中获取goroutine的时机" class="headerlink" title="简述全局运行队列中获取goroutine的时机"></a>简述全局运行队列中获取goroutine的时机</h2><h2 id="简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】"><a href="#简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】" class="headerlink" title="简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】"></a>简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】</h2><h2 id="init是什么时候执行的【包初始化阶段，程序开始执行前】"><a href="#init是什么时候执行的【包初始化阶段，程序开始执行前】" class="headerlink" title="init是什么时候执行的【包初始化阶段，程序开始执行前】"></a>init是什么时候执行的【包初始化阶段，程序开始执行前】</h2><h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><h2 id="1-map的key为什么无序，如何处理冲突的【默认】"><a href="#1-map的key为什么无序，如何处理冲突的【默认】" class="headerlink" title="1. map的key为什么无序，如何处理冲突的【默认】"></a>1. map的key为什么无序，如何处理冲突的【默认】</h2><p>底层用hash实现的，</p>
+<h2 id="2-map可以边遍历边删元素吗【不能】为什么"><a href="#2-map可以边遍历边删元素吗【不能】为什么" class="headerlink" title="2. map可以边遍历边删元素吗【不能】为什么"></a>2. map可以边遍历边删元素吗【不能】为什么</h2><p>线程不安全，删除的时候会导致存储结构发生变化，</p>
+<h2 id="3-float类型可以作为key吗，哪些不可以作为map的key"><a href="#3-float类型可以作为key吗，哪些不可以作为map的key" class="headerlink" title="3. float类型可以作为key吗，哪些不可以作为map的key"></a>3. float类型可以作为key吗，哪些不可以作为map的key</h2><p>从语法上看，是可以的。Go 语言中只要是可比较的类型都可以作为 key。除开 slice，map，functions 这几种类型，其他类型都是 OK 的。具体包括：布尔值、整型、字符串、指针、通道、接口类型、结构体、只包含上述类型的数组。<br><strong>channel 也可以当key</strong>，可以比较</p>
+<h2 id="4-非接口的任意类型都能调用-T方法吗"><a href="#4-非接口的任意类型都能调用-T方法吗" class="headerlink" title="4. 非接口的任意类型都能调用 *T方法吗"></a>4. 非接口的任意类型都能调用 *T方法吗</h2><p>不能吧，至少引用类型不能</p>
+<h2 id="5-map的赋值过程-mapassign"><a href="#5-map的赋值过程-mapassign" class="headerlink" title="5. map的赋值过程 mapassign"></a>5. map的赋值过程 mapassign</h2><p>对 key 计算 hash 值，根据 hash 值按照之前的流程，找到要赋值的位置（可能是插入新 key，也可能是更新老 key），对相应位置进行赋值。</p>
+<h2 id="6-如何实现两种get操作"><a href="#6-如何实现两种get操作" class="headerlink" title="6. 如何实现两种get操作"></a>6. 如何实现两种get操作</h2><p>map重载了两个函数一个带comma的一个不带comma的</p>
+<h2 id="7-map删除一个key，内存会释放吗【不会，要等gc扫描过来】"><a href="#7-map删除一个key，内存会释放吗【不会，要等gc扫描过来】" class="headerlink" title="7. map删除一个key，内存会释放吗【不会，要等gc扫描过来】"></a>7. map删除一个key，内存会释放吗【不会，要等gc扫描过来】</h2><h2 id="8-解析tag怎么实现的"><a href="#8-解析tag怎么实现的" class="headerlink" title="8. 解析tag怎么实现的"></a>8. 解析tag怎么实现的</h2><p>反射实现的，用Field(i).Tag</p>
+<h2 id="map可以取地址吗【不能】"><a href="#map可以取地址吗【不能】" class="headerlink" title="map可以取地址吗【不能】"></a>map可以取地址吗【不能】</h2><p>本身就是一个指向其他地址的指针，会导致编译错误</p>
+<h2 id="9-rune是int32"><a href="#9-rune是int32" class="headerlink" title="9. rune是int32"></a>9. rune是int32</h2><h2 id="10-值receiver-和-指针receiver的区别"><a href="#10-值receiver-和-指针receiver的区别" class="headerlink" title="10. 值receiver 和 指针receiver的区别"></a>10. 值receiver 和 指针receiver的区别</h2><p>值receiver 是创建结构体的一个副本，不修改原始字段的value<br>指针rcver是在原结构体实例上操作</p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">数值类型：</span><br><span class="line">int：有符号整数类型，根据平台可能为32位或64位。</span><br><span class="line">uint：无符号整数类型，根据平台可能为32位或64位。</span><br><span class="line">int8、int16、int32、int64：分别为8位、16位、32位、64位的有符号整数类型。</span><br><span class="line">uint8、uint16、uint32、uint64：分别为8位、16位、32位、64位的无符号整数类型。</span><br><span class="line">float32、float64：分别为32位和64位的浮点数类型。</span><br><span class="line">complex64、complex128：分别为64位和128位的复数类型。</span><br><span class="line">布尔类型：</span><br><span class="line">bool：表示逻辑值，只能取 true 或 false。</span><br><span class="line">字符串类型：</span><br><span class="line">string：表示一串字符，是不可变的。</span><br><span class="line">字符类型：</span><br><span class="line">rune：表示一个Unicode字符。</span><br><span class="line">错误类型：</span><br><span class="line">error：表示错误的接口类型。</span><br><span class="line">派生类型：</span><br><span class="line">byte：实际上是 uint8 的别名，用于表示一个字节的值。</span><br><span class="line">rune：实际上是 int32 的别名，用于表示一个Unicode字符。</span><br><span class="line">uintptr：用于存储一个指针的值，适用于底层编程。</span><br><span class="line">复合类型：</span><br><span class="line">数组（array）：具有固定长度的、相同类型的元素序列。</span><br><span class="line">切片（slice）：是对数组的一个引用，它可以动态增长。</span><br><span class="line">映射（map）：用于存储键-值对的集合，类似于字典或哈希表。</span><br><span class="line">结构体（struct）：可以包含不同类型的字段。</span><br><span class="line">接口（interface）：定义了一组方法的集合。</span><br><span class="line">通道（channel）：用于在多个goroutine之间传递数据。</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-什么是协程"><a href="#1-什么是协程" class="headerlink" title="1.什么是协程"></a>1.什么是协程</h2><p>是Golang提供的线程调度的基本单位。</p>
+<ul>
+<li>一个Goroutine会以一个很小的栈启动2KB或4KB，当遇到栈空间不足时，栈会自动伸缩，因此可以轻易实现成千上万个goroutine同时启动。</li>
+<li>每个goroutine（Go程序并发执行的基本单元）都会分配一块独立的栈内存，用于保存函数的局部变量、参数等信息。<h2 id="2-介绍一下channel"><a href="#2-介绍一下channel" class="headerlink" title="2.介绍一下channel"></a>2.介绍一下channel</h2></li>
+<li>channel时go提供的用于并发编程的特殊类型，使 goroutine 之间的进行数据传递和共享，避免了显式的锁机制，比较安全和高效</li>
+</ul>
+<p><strong>Go以通信的手段来共享内存</strong></p>
+<h3 id="new和make"><a href="#new和make" class="headerlink" title="new和make"></a>new和make</h3><p>new返回一个指向某类型指针，make创建slice map channel的实例</p>
+<h3 id="【问题】有缓冲channel和无缓冲channel的区别"><a href="#【问题】有缓冲channel和无缓冲channel的区别" class="headerlink" title="【问题】有缓冲channel和无缓冲channel的区别"></a>【问题】有缓冲channel和无缓冲channel的区别</h3><ul>
+<li>对于无缓冲区channel:<br>发送的数据如果没有被接收方接收，那么发送方阻塞;如果一直接收不到发送方的数据，接收方阻塞;</li>
+<li>有缓冲的channel:<br>发送方在缓冲区满的时候阻塞，接收方不阻塞; 接收方在缓冲区为空的时候阻塞，发送方不阻塞。<h3 id="【问题】channel的等待队列如果写满了，内存占用很高，怎么解决"><a href="#【问题】channel的等待队列如果写满了，内存占用很高，怎么解决" class="headerlink" title="【问题】channel的等待队列如果写满了，内存占用很高，怎么解决"></a>【问题】channel的等待队列如果写满了，内存占用很高，怎么解决</h3></li>
+</ul>
+<ol>
+<li>读协程可能出现问题，去修改</li>
+<li>限制写操作的并发数量，避免大量写</li>
+<li>使用select和超时机制<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">case</span> ch &lt;- value:</span><br><span class="line">    <span class="comment">// 写入成功</span></span><br><span class="line"><span class="keyword">case</span> &lt;-time.After(time.Second):</span><br><span class="line">    <span class="comment">// 超时处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="【问题】协程泄漏是什么，什么引发的，怎么解决"><a href="#【问题】协程泄漏是什么，什么引发的，怎么解决" class="headerlink" title="【问题】协程泄漏是什么，什么引发的，怎么解决"></a>【问题】协程泄漏是什么，什么引发的，怎么解决</h3><ul>
+<li>程序中创建的某些协程没有被正确地释放或终止（或者发生死锁），从而导致这些协程持续存在并占用资源（阻塞，死锁，无限循环）</li>
+<li><strong>解决方法</strong><ul>
+<li>defer：在需要释放资源的地方使用 defer</li>
+<li>使用go tool trace进行检查<h2 id="3-介绍一下Go语言的内存分配模型：src-runtime-mheap"><a href="#3-介绍一下Go语言的内存分配模型：src-runtime-mheap" class="headerlink" title="3.介绍一下Go语言的内存分配模型：src/runtime/mheap"></a>3.介绍一下Go语言的内存分配模型：src/runtime/mheap</h2></li>
+</ul>
+</li>
+<li>内存分配器：维护一块大的全局内存，每个线程(Golang中为P)维护一块小的私有内存，私有内存不足再从全局申请。</li>
+<li>预申请的内存划分为span（512MB），bitmap（16G），arena（512G堆区域），span和bitmap是管理堆区域，每个页的大小为8KB。<h2 id="4-介绍一下Go的GC机制：以防止内存泄漏"><a href="#4-介绍一下Go的GC机制：以防止内存泄漏" class="headerlink" title="4.介绍一下Go的GC机制：以防止内存泄漏"></a>4.介绍一下Go的GC机制：以防止内存泄漏</h2></li>
+<li>Go使用的是三色标记法，已被引用的被mark表示不可回收，未引用的被回收掉。</li>
+<li>这里的标记由一个管理内存分配的数据结构mspan管理，按内存块维护资源</li>
+<li>mspan这个结构体中，使用allocBits位图表示每个内存块的分配情况，使用gcmarkBits标记内存块被引用的情况</li>
+<li>这里的标记是从<strong>根对象进行递归扫描</strong>记录的，因为存在指针变量和记录的逻辑地址</li>
+<li>标记队列存放待标记的对象，<strong>灰色表示等待，白色未被标记，黑色被标记</strong>，把标记值记录在gcmarkBits中，标记的表示正在被引用<ul>
+<li>白色对象：尚未被访问，处于初始状态。</li>
+<li>灰色对象：已被访问，但其子对象还未被访问。</li>
+<li>黑色对象：已被访问，且其子对象也已被访问。</li>
+</ul>
+</li>
+<li>STW机制：停掉所有的goroutine，专心做垃圾回收，结束后恢复goroutine<h3 id="【问题】对STW的优化是什么？混合写"><a href="#【问题】对STW的优化是什么？混合写" class="headerlink" title="【问题】对STW的优化是什么？混合写"></a>【问题】对STW的优化是什么？混合写</h3></li>
+<li>并发标记</li>
+<li>混合写，将并发标记和 STW 结合起来的阶段。在这个阶段，部分垃圾回收工作会在并发进行，同时也会暂停所有 Goroutine 进行一些必要的 STW 操作。</li>
+<li>并发清理<h3 id="混合写导致的问题，为了减少停顿时间"><a href="#混合写导致的问题，为了减少停顿时间" class="headerlink" title="混合写导致的问题，为了减少停顿时间"></a>混合写导致的问题，为了减少停顿时间</h3></li>
+</ul>
+<ol>
+<li>内存和CPU开销，因为要引入额外元信息</li>
+<li>在某些情况下，混合写屏障可能会导致一些额外的延迟，尤其是对于极短寿命的对象，因为它们在逃逸到堆之前可能会留在栈上</li>
+</ol>
+<h3 id="【问题】根对象是什么"><a href="#【问题】根对象是什么" class="headerlink" title="【问题】根对象是什么"></a>【问题】根对象是什么</h3><p>在Go语言中，<strong>全局变量、栈上的变量以及程序计数器指向的对象</strong>等都被认为是根对象。</p>
+<p>垃圾回收器会从这些根对象出发，逐步遍历所有可以访问到的对象，并标记它们。</p>
+<h3 id="【问题】goroutine-可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑"><a href="#【问题】goroutine-可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑" class="headerlink" title="【问题】goroutine 可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑"></a>【问题】goroutine 可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑</h3><p>理论上可以无限创建，取决于操作系统的限制，比如内存大小</p>
+<ul>
+<li>goroutine执行完会产生垃圾，增大gc压力</li>
+<li>标记阶段时会遍历对象，goroutine多了会导致标记的压力增加</li>
+<li>停顿时间变长：需要回收大量的内存，可能会导致垃圾回收器的停顿时间变长<h3 id="【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。"><a href="#【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。" class="headerlink" title="【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。"></a>【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。</h3></li>
+</ul>
+<h3 id="如何优化STW机制"><a href="#如何优化STW机制" class="headerlink" title="如何优化STW机制"></a>如何优化STW机制</h3><ul>
+<li>混合写屏障：类似于一种开关，在GC的特定时机开启，开启后指针传递时会把指针标记，即 本轮不回收，下次GC时再确定</li>
+<li>辅助GC：新分配的goroutine如果要分配内存，那就去辅助完成一部分gc工作，也就是自己的资源自己挣的感觉</li>
+</ul>
+<h2 id="4-介绍一下GMP"><a href="#4-介绍一下GMP" class="headerlink" title="4.介绍一下GMP"></a>4.介绍一下GMP</h2><ol>
+<li>G : 协程   goroutine</li>
+<li>P : 处理器 processor ： 和M一对一，runtime.Gomaxprocs配置 </li>
+<li>M : 线程   thread    ：runtime.setMaxThreads最大10000个，<ol>
+<li>有一个M阻塞，会创建一个新M</li>
+<li>有M空闲，就回收或睡眠M</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>线程是运行 goroutine 的实体，调度器的功能是把可运行的 G 分配到工作线程<br>M 上</li>
+<li>全局队列：存放正在等待运行的G</li>
+<li>本地队列：不超过256个G<h2 id="【问题】调度器P的workstealing机制和handoff机制"><a href="#【问题】调度器P的workstealing机制和handoff机制" class="headerlink" title="【问题】调度器P的workstealing机制和handoff机制"></a>【问题】调度器P的workstealing机制和handoff机制</h2></li>
+<li>work stealing<ul>
+<li>当本线程M没有可运行的G时，尝试从其他线程绑定的P中偷G</li>
+<li>当从其他线程偷不到时，从全局队列偷取（为什么？因为全局队列有锁）</li>
+</ul>
+</li>
+<li>hand off<ul>
+<li>当本线程M因为有G阻塞时，会释放自己的P给另一个唤醒/新建的M执行（runtime调度器来做detach）</li>
+</ul>
+</li>
+</ul>
+<h2 id="【问题】go-func-的执行流程"><a href="#【问题】go-func-的执行流程" class="headerlink" title="【问题】go func(){} 的执行流程"></a>【问题】go func(){} 的执行流程</h2><ol>
+<li>创建一个G，优先加入到func所在线程M对应P的本底队列中，满了的话，放在全局队列中</li>
+<li>G运行在M中，如果本地G队列为空，就去其他M P组合去偷</li>
+<li>【问题】当M系统调用结束时，所属的G会尝试获取一个空闲P去执行，并加入到这个P的G队列，如果找不到，就休眠这个M，并将这个G加入到全局队列</li>
+</ol>
+<h2 id="【问题】Go的生命周期-M0，G0是什么"><a href="#【问题】Go的生命周期-M0，G0是什么" class="headerlink" title="【问题】Go的生命周期 M0，G0是什么"></a>【问题】Go的生命周期 M0，G0是什么</h2><p><strong>M0</strong></p>
+<ul>
+<li>M0指程序启动时，编号为0主线程，runtime的M0</li>
+<li>M0负责初始化和启动第一个G</li>
+<li>启动G之后，和其他M地位一样了</li>
+</ul>
+<p><strong>G0</strong></p>
+<ul>
+<li>每次启动一个M，都会有一个G0</li>
+<li>G0仅负责调度其他的G1，G2</li>
+<li>G0本身不执行任何func</li>
+<li>G1执行完，先执行G0，G0再切换其他的G2</li>
+</ul>
+<h3 id="【场景1】G1嵌套创建G3"><a href="#【场景1】G1嵌套创建G3" class="headerlink" title="【场景1】G1嵌套创建G3"></a>【场景1】G1嵌套创建G3</h3><p>保证局部性，G3优先加入G1所在的本底队列，满了的话看场景3</p>
+<h3 id="【场景2】G执行完毕"><a href="#【场景2】G执行完毕" class="headerlink" title="【场景2】G执行完毕"></a>【场景2】G执行完毕</h3><p>执行完毕后，切换G0，G0调度切换下一个G</p>
+<h3 id="【场景3】连续创建多个G导致本地队列满"><a href="#【场景3】连续创建多个G导致本地队列满" class="headerlink" title="【场景3】连续创建多个G导致本地队列满"></a>【场景3】连续创建多个G导致本地队列满</h3><ol>
+<li>对队列头部的一半打乱，放在全局队列</li>
+<li>新创建的G也放在全局队列中</li>
+<li>当前的本底队列变成原来长度的1/2<h3 id="【场景4】唤醒正在休眠的M"><a href="#【场景4】唤醒正在休眠的M" class="headerlink" title="【场景4】唤醒正在休眠的M"></a>【场景4】唤醒正在休眠的M</h3></li>
+</ol>
+<ul>
+<li>什么时候唤醒？调度器自动唤醒，当某个 Goroutine 可以被执行时，当一个被阻塞的 Channel 操作可以继续执行时。</li>
+</ul>
+<p>新M所在的G队列如果为空，称为<strong>自旋线程</strong>，不断寻找G</p>
+<ul>
+<li>由于自旋线程拥有P，handoff机制不会把P给自旋线程<h3 id="【场景5】自旋线程从哪里获取G"><a href="#【场景5】自旋线程从哪里获取G" class="headerlink" title="【场景5】自旋线程从哪里获取G"></a>【场景5】自旋线程从哪里获取G</h3></li>
+<li>首先从全局队列获取</li>
+<li>全局队列如果为空，触发workstealing，从其他队列队尾偷一半<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h2>strings.Join ≈ strings.Builder &gt; bytes.Buffer &gt; “+” &gt; fmt.Sprintf</li>
+</ul>
+<h2 id="slice中删除具体的值"><a href="#slice中删除具体的值" class="headerlink" title="slice中删除具体的值"></a>slice中删除具体的值</h2><p>移位法最快。</p>
+<p>原地删除，扫描到具体值后，使用<figure class="highlight plain"><figcaption><span>slice[index+1:])```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## b = b[:len(a)] 作用</span><br><span class="line">- 优化边界检查 Bounds Check ELimination</span><br><span class="line">- 在运行时，Go 语言每次都会对 b[i] 做边界检查，看看是否越界了，如果越界了，就 panic。</span><br><span class="line">- 如果加上这一句，Go语言在编译时，能够做一些简单的静态分析，发现 b[i] 是不可能越界的</span><br><span class="line"></span><br><span class="line">## error</span><br><span class="line">【面试问题】如果一个函数的返回值是error，里面执行了多个defer，并且这些defer里面调用了不同的方法，也会返回error，但是这些error的格式是不一样的（比如有一些方法返回的是官方的errors，有一些是业务定义的错误，比如错误码和错误信息）。怎么样能统一处理这些defer的错误并且返回？</span><br><span class="line">- go泛型</span><br><span class="line"></span><br><span class="line">## 【问题】控制goroutine超时退出</span><br><span class="line">- 使用 context 包</span><br><span class="line">```go</span><br><span class="line">func main() &#123;</span><br><span class="line">	// 创建一个上下文，设置超时时间为 2 秒</span><br><span class="line">	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)</span><br><span class="line">	defer cancel() // 在完成任务后取消上下文以释放资源</span><br><span class="line"></span><br><span class="line">	// 在另一个 goroutine 中执行任务</span><br><span class="line">	go func() &#123;</span><br><span class="line">		// 模拟一个耗时的任务</span><br><span class="line">		time.Sleep(3 * time.Second)</span><br><span class="line"></span><br><span class="line">		// 判断上下文是否被取消</span><br><span class="line">		if ctx.Err() == context.Canceled &#123;</span><br><span class="line">			fmt.Println(&quot;Task canceled due to timeout&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	// 等待一段时间，以确保上下文超时</span><br><span class="line">	time.Sleep(4 * time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="【问题】Go语言闭包"><a href="#【问题】Go语言闭包" class="headerlink" title="【问题】Go语言闭包"></a>【问题】Go语言闭包</h2><p>简单来说，闭包允许一个函数记住并访问了它创建时所在的环境，即使在这个函数在其他地方被调用时仍然可以使用这个环境中的变量</p>
+<ul>
+<li>闭包用来减少全局变量，在函数调用过程中隐式传递共享变量</li>
+<li>编译器检测到闭包，将外部变量分配到堆上</li>
+<li>下面的程序中，a分配在堆上</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fn</span><span class="params">(a <span class="keyword">int</span>)</span> <span class="title">func</span><span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">		fmt.Println(a)</span><br><span class="line">		a = a + i</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">f:= fn(<span class="number">3</span>)</span><br><span class="line">g:= fn(<span class="number">3</span>)</span><br><span class="line">f(<span class="number">1</span>) <span class="comment">//输出 4</span></span><br><span class="line">f(<span class="number">1</span>) <span class="comment">//输出 5</span></span><br><span class="line">g(<span class="number">1</span>) <span class="comment">//输出 4</span></span><br><span class="line">g(<span class="number">1</span>) <span class="comment">//输出 5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="panic和recover"><a href="#panic和recover" class="headerlink" title="panic和recover"></a>panic和recover</h2><p>函数签名</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span>(i <span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line"><span class="built_in">recover</span>() <span class="keyword">interface</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主动调用-抛出panic"><a href="#主动调用-抛出panic" class="headerlink" title="主动调用/抛出panic"></a>主动调用/抛出panic</h3><ol>
+<li>主动调用panic结束程序运行</li>
+<li>调试时用panic快速退出，并打印出来堆栈信息</li>
+<li>需要主动在程序分支流程上调用recover拦截错误</li>
+</ol>
+<h2 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h2><h3 id="IO操作"><a href="#IO操作" class="headerlink" title="IO操作"></a>IO操作</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">os.Stdin：标准输入的文件实例，类型为*File</span><br><span class="line">os.Stdout：标准输出的文件实例，类型为*File</span><br><span class="line">os.Stderr：标准错误输出的文件实例，类型为*File</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Create</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="params">(file *File, err Error)</span></span></span><br><span class="line"><span class="function">//根据提供的文件名创建新的文件，返回一个文件对象，默认权限是0666</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">NewFile</span><span class="params">(fd <span class="keyword">uintptr</span>, name <span class="keyword">string</span>)</span> *<span class="title">File</span></span></span><br><span class="line"><span class="function">// 根据文件描述符创建相应的文件，返回一个文件对象</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">Open</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="params">(file *File, err Error)</span></span></span><br><span class="line"><span class="function">// 只读方式打开一个名称为<span class="title">name</span>的文件</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">OpenFile</span><span class="params">(name <span class="keyword">string</span>, flag <span class="keyword">int</span>, perm <span class="keyword">uint32</span>)</span> <span class="params">(file *File, err Error)</span></span></span><br><span class="line"><span class="function">// 打开名称为<span class="title">name</span>的文件，<span class="title">flag</span>是打开的方式，只读、读写等，<span class="title">perm</span>是权限</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">Write</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">写入<span class="title">byte</span>类型的信息到文件</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">WriteAt</span><span class="params">(b []<span class="keyword">byte</span>, off <span class="keyword">int64</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">在指定位置开始写入<span class="title">byte</span>类型的信息</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">WriteString</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">(ret <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">写入<span class="title">string</span>信息到文件</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">Read</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">读取数据到<span class="title">b</span>中</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">ReadAt</span><span class="params">(b []<span class="keyword">byte</span>, off <span class="keyword">int64</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">从<span class="title">off</span>开始读取数据到<span class="title">b</span>中</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">Remove</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="title">Error</span></span></span><br><span class="line"><span class="function">删除文件名为<span class="title">name</span>的文件</span></span><br><span class="line"><span class="function"></span></span><br><span class="line">logFile, err := os.OpenFile("./xx.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现一个cat命令"><a href="#实现一个cat命令" class="headerlink" title="实现一个cat命令"></a>实现一个cat命令</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cat命令实现</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cat</span><span class="params">(r *bufio.Reader)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        buf, err := r.ReadBytes(<span class="string">'\n'</span>) <span class="comment">//注意是字符</span></span><br><span class="line">        <span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Fprintf(os.Stdout, <span class="string">"%s"</span>, buf)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    flag.Parse() <span class="comment">// 解析命令行参数</span></span><br><span class="line">    <span class="keyword">if</span> flag.NArg() == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有参数默认从标准输入读取内容</span></span><br><span class="line">        cat(bufio.NewReader(os.Stdin))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 依次读取每个指定文件的内容并打印到终端</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; flag.NArg(); i++ &#123;</span><br><span class="line">        f, err := os.Open(flag.Arg(i))</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Fprintf(os.Stdout, <span class="string">"reading from %s failed, err:%v\n"</span>, flag.Arg(i), err)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        cat(bufio.NewReader(f))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="net包"><a href="#net包" class="headerlink" title="net包"></a>net包</h2><h2 id="context包"><a href="#context包" class="headerlink" title="context包"></a>context包</h2><p>当一个请求被取消或超时时，所有用来处理该请求的 goroutine 都应该迅速退出，然后系统才能释放这些 goroutine 占用的资源。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始的例子</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"worker"</span>)</span><br><span class="line">        time.Sleep(time.Second)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如何接收外部命令实现退出</span></span><br><span class="line">    wg.Done()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    wg.Add(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> worker()</span><br><span class="line">    <span class="comment">// 如何优雅的实现结束子goroutine</span></span><br><span class="line">    wg.Wait()</span><br><span class="line">    fmt.Println(<span class="string">"over"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Zinx"><a href="#Zinx" class="headerlink" title="Zinx"></a>Zinx</h2><h3 id="ziface"><a href="#ziface" class="headerlink" title="ziface"></a><strong>ziface</strong></h3><p>  接口包括</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- IService 基础服务的启动</span><br><span class="line">  - Start() <span class="comment">//启动服务器</span></span><br><span class="line">  - Stop()  <span class="comment">//停止服务器</span></span><br><span class="line">  - Serve() <span class="comment">//开启业务服务方法</span></span><br><span class="line">  - AddRouter(router IRouter)<span class="comment">//路由功能：给当前服务注册一个路由业务方法，供客户端链接处理使用</span></span><br><span class="line">- IConnection 基于net库</span><br><span class="line">  - Start() <span class="comment">//启动连接，让当前连接开始工作</span></span><br><span class="line">  - Stop()  <span class="comment">//停止连接，结束当前连接状态M</span></span><br><span class="line">  - GetTCPConnection() * net.TCPConn <span class="comment">//从当前连接获取原始的socket TCPConn</span></span><br><span class="line">  - GetConnID() <span class="keyword">uint32</span>    <span class="comment">//获取当前连接ID</span></span><br><span class="line">  - RemoteAddr() net.Addr <span class="comment">//获取远程客户端地址信息</span></span><br><span class="line"></span><br><span class="line">  - <span class="keyword">type</span> HandFunc <span class="function"><span class="keyword">func</span><span class="params">(*net.TCPConn, []<span class="keyword">byte</span>, <span class="keyword">int</span>)</span> <span class="title">error</span> //定义一个统一处理链接业务的接口,是所有<span class="title">conn</span>链接在处理业务的函数接口，第一参数是<span class="title">socket</span>原生链接，第二个参数是客户端请求的数据，第三个参数是客户端请求的数据长度。这样，如果我们想要指定一个<span class="title">conn</span>的处理业务，只要定义一个<span class="title">HandFunc</span>类型的函数，然后和该链接绑定就可以了。</span></span><br><span class="line"><span class="function">- <span class="title">IRequest</span> //每次客户端的全部请求数据，一起放到一个<span class="title">Request</span>结构体里</span></span><br><span class="line"><span class="function">  - <span class="title">GetConnection</span><span class="params">()</span> <span class="title">IConnection</span>    //获取请求连接信息</span></span><br><span class="line"><span class="function">  - <span class="title">GetData</span><span class="params">()</span> []<span class="title">byte</span>            //获取请求消息的数据</span></span><br><span class="line"><span class="function">- <span class="title">IRouter</span>  //路由配置类</span></span><br><span class="line"><span class="function">  - <span class="title">PreHandle</span><span class="params">(request IRequest)</span>  //在处理<span class="title">conn</span>业务之前的钩子方法</span></span><br><span class="line"><span class="function">  - <span class="title">Handle</span><span class="params">(request IRequest)</span>     //处理<span class="title">conn</span>业务的方法</span></span><br><span class="line"><span class="function">  - <span class="title">PostHandle</span><span class="params">(request IRequest)</span> //处理<span class="title">conn</span>业务之后的钩子方法</span></span><br><span class="line"><span class="function">- <span class="title">IMessage</span> //消息封装</span></span><br><span class="line"><span class="function">  - <span class="title">GetDataLen</span><span class="params">()</span> <span class="title">uint32</span> //获取消息数据段长度</span></span><br><span class="line"><span class="function">  - <span class="title">GetMsgId</span><span class="params">()</span> <span class="title">uint32</span>   //获取消息<span class="title">ID</span></span></span><br><span class="line"><span class="function">  - <span class="title">GetData</span><span class="params">()</span> []<span class="title">byte</span>    //获取消息内容</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  - <span class="title">SetMsgId</span><span class="params">(<span class="keyword">uint32</span>)</span>    //设计消息<span class="title">ID</span></span></span><br><span class="line"><span class="function">  - <span class="title">SetData</span><span class="params">([]<span class="keyword">byte</span>)</span>     //设计消息内容</span></span><br><span class="line"><span class="function">  - <span class="title">SetDataLen</span><span class="params">(<span class="keyword">uint32</span>)</span>  //设置消息数据段长度</span></span><br><span class="line"><span class="function">- <span class="title">IDataPack</span> //消息封包拆包</span></span><br><span class="line"><span class="function">  - <span class="title">GetHeadLen</span><span class="params">()</span> <span class="title">uint32</span>                  //获取包头长度方法</span></span><br><span class="line"><span class="function">  - <span class="title">Pack</span><span class="params">(msg IMessage)</span><span class="params">([]<span class="keyword">byte</span>, error)</span>   //封包方法</span></span><br><span class="line"><span class="function">    // 通过<span class="title">encoding</span>/<span class="title">binary</span>.<span class="title">write</span>方法将<span class="title">byte</span>数组小端写入<span class="title">bytes</span>来压缩数据</span></span><br><span class="line"><span class="function">  - <span class="title">Unpack</span><span class="params">([]<span class="keyword">byte</span>)</span><span class="params">(IMessage, error)</span>     //拆包方法</span></span><br><span class="line"><span class="function">- <span class="title">IMsgHandle</span> //消息管理模块</span></span><br><span class="line"><span class="function">  - <span class="title">DoMsgHandler</span><span class="params">(request IRequest)</span>          //马上以非阻塞方式处理消息</span></span><br><span class="line"><span class="function">  - <span class="title">AddRouter</span><span class="params">(msgId <span class="keyword">uint32</span>, router IRouter)</span> //为消息添加具体的处理逻辑</span></span><br><span class="line"><span class="function">  - <span class="title">StartWorkerPool</span><span class="params">()</span>                       //启动<span class="title">worker</span>工作池</span></span><br><span class="line"><span class="function">  - <span class="title">SendMsgToTaskQueue</span><span class="params">(request IRequest)</span>    //将消息交给<span class="title">MsgHandle</span>的消息队列<span class="title">TaskQueue</span>,由<span class="title">worker</span>进行处理</span></span><br><span class="line"><span class="function">- <span class="title">IConnManager</span> // <span class="title">TCP</span>的链接管理模块</span></span><br><span class="line"><span class="function">  - <span class="title">Add</span><span class="params">(conn IConnection)</span>                   //添加链接</span></span><br><span class="line"><span class="function">  - <span class="title">Remove</span><span class="params">(conn IConnection)</span>                //删除连接</span></span><br><span class="line"><span class="function">  - <span class="title">Get</span><span class="params">(connID <span class="keyword">uint32</span>)</span> <span class="params">(IConnection, error)</span> //利用<span class="title">ConnID</span>获取链接</span></span><br><span class="line"><span class="function">  - <span class="title">Len</span><span class="params">()</span> <span class="title">int</span>                               //获取当前连接</span></span><br><span class="line"><span class="function">  - <span class="title">ClearConn</span><span class="params">()</span>                             //删除并停止所有链接</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Job <span class="keyword">struct</span> &#123;</span><br><span class="line">    id <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Worker <span class="keyword">struct</span> &#123;</span><br><span class="line">    id         <span class="keyword">int</span></span><br><span class="line">    jobChannel <span class="keyword">chan</span> Job</span><br><span class="line">    quit       <span class="keyword">chan</span> <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pool <span class="keyword">struct</span> &#123;</span><br><span class="line">    workerCount <span class="keyword">int</span></span><br><span class="line">    jobChannel  <span class="keyword">chan</span> Job</span><br><span class="line">    workers     []Worker</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewJob</span><span class="params">(id <span class="keyword">int</span>)</span> <span class="title">Job</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Job&#123;id: id&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewWorker</span><span class="params">(id <span class="keyword">int</span>, jobChannel <span class="keyword">chan</span> Job)</span> <span class="title">Worker</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Worker&#123;</span><br><span class="line">        id:         id,</span><br><span class="line">        jobChannel: jobChannel,</span><br><span class="line">        quit:       <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewPool</span><span class="params">(workerCount, jobCount <span class="keyword">int</span>)</span> <span class="title">Pool</span></span> &#123;</span><br><span class="line">    jobChannel := <span class="built_in">make</span>(<span class="keyword">chan</span> Job, jobCount)</span><br><span class="line">    workers := <span class="built_in">make</span>([]Worker, workerCount)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; workerCount; i++ &#123;</span><br><span class="line">        workers[i] = NewWorker(i, jobChannel)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Pool&#123;</span><br><span class="line">        workerCount: workerCount,</span><br><span class="line">        jobChannel:  jobChannel,</span><br><span class="line">        workers:     workers,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w Worker)</span> <span class="title">Start</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> job := &lt;-w.jobChannel:</span><br><span class="line">                fmt.Printf(<span class="string">"Worker %d processing job %d\n"</span>, w.id, job.id)</span><br><span class="line">            <span class="keyword">case</span> &lt;-w.quit:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w Worker)</span> <span class="title">Stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        w.quit &lt;- <span class="literal">true</span></span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Pool)</span> <span class="title">Start</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; p.workerCount; i++ &#123;</span><br><span class="line">        p.workers[i].Start()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Pool)</span> <span class="title">Stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; p.workerCount; i++ &#123;</span><br><span class="line">        p.workers[i].Stop()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Pool)</span> <span class="title">AddJob</span><span class="params">(job Job)</span></span> &#123;</span><br><span class="line">    p.jobChannel &lt;- job</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    pool := NewPool(<span class="number">3</span>, <span class="number">10</span>)</span><br><span class="line">    pool.Start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        job := NewJob(i)</span><br><span class="line">        pool.AddJob(job)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 等待一段时间，以便观察协程池的工作</span></span><br><span class="line">    <span class="comment">// 在实际应用中，你可能需要使用 sync.WaitGroup 或其他同步方法来确保所有任务完成后再关闭协程池</span></span><br><span class="line">    <span class="comment">// 这里仅做演示，实际中请根据需要进行调整</span></span><br><span class="line">    fmt.Println(<span class="string">"等待一段时间，以观察协程池的工作..."</span>)</span><br><span class="line">    <span class="keyword">select</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><code>Job</code> 结构体:</p>
+<ul>
+<li><code>id int</code>: 用于表示一个任务的唯一标识。</li>
+</ul>
+</li>
+<li><p><code>Worker</code> 结构体:</p>
+<ul>
+<li><code>id int</code>: 表示工作者的唯一标识。</li>
+<li><code>jobChannel chan Job</code>: 是一个任务通道，用于接收工作者执行的任务。</li>
+<li><code>quit chan bool</code>: 是一个退出通道，用于通知工作者停止运行。</li>
+</ul>
+</li>
+<li><p><code>Pool</code> 结构体:</p>
+<ul>
+<li><code>workerCount int</code>: 表示协程池中的工作者数量。</li>
+<li><code>jobChannel chan Job</code>: 是一个任务通道，用于向协程池中添加任务。</li>
+<li><code>workers []Worker</code>: 存储了所有的工作者。</li>
+</ul>
+</li>
+</ol>
+<h3 id="方法解析："><a href="#方法解析：" class="headerlink" title="方法解析："></a>方法解析：</h3><ol>
+<li><p><code>NewJob(id int) Job</code>:</p>
+<ul>
+<li>返回一个新的任务 <code>Job</code> 对象，带有指定的任务ID。</li>
+</ul>
+</li>
+<li><p><code>NewWorker(id int, jobChannel chan Job) Worker</code>:</p>
+<ul>
+<li>返回一个新的工作者 <code>Worker</code> 对象，使用指定的工作者ID和任务通道。</li>
+</ul>
+</li>
+<li><p><code>NewPool(workerCount, jobCount int) Pool</code>:</p>
+<ul>
+<li>创建一个新的协程池，初始化了工作者和任务通道。</li>
+<li>参数 <code>workerCount</code> 表示协程池中的工作者数量。</li>
+<li>参数 <code>jobCount</code> 表示任务通道的缓冲区大小。</li>
+</ul>
+</li>
+<li><p><code>Worker.Start()</code>:</p>
+<ul>
+<li>启动了一个工作者协程，该协程会不断地监听任务通道和退出通道。</li>
+<li>当从任务通道收到任务时，工作者会执行任务；当从退出通道收到信号时，工作者会停止运行。</li>
+</ul>
+</li>
+<li><p><code>Worker.Stop()</code>:</p>
+<ul>
+<li>启动了一个协程，向退出通道发送信号，通知工作者停止运行。</li>
+</ul>
+</li>
+<li><p><code>Pool.Start()</code>:</p>
+<ul>
+<li>启动了协程池中所有工作者。</li>
+</ul>
+</li>
+<li><p><code>Pool.Stop()</code>:</p>
+<ul>
+<li>停止协程池中所有工作者。</li>
+</ul>
+</li>
+<li><p><code>Pool.AddJob(job Job)</code>:</p>
+<ul>
+<li>向任务通道中添加一个任务。</li>
+</ul>
+</li>
+</ol>
+<h3 id="主函数-main-解析："><a href="#主函数-main-解析：" class="headerlink" title="主函数 main 解析："></a>主函数 <code>main</code> 解析：</h3><ol>
+<li><p>创建一个协程池 <code>pool</code>，包括了 3 个工作者和 10 个任务的通道缓冲区。</p>
+</li>
+<li><p>调用 <code>pool.Start()</code> 启动所有工作者。</p>
+</li>
+<li><p>循环创建了 5 个任务，每个任务被添加到协程池的任务通道中。</p>
+</li>
+<li><p>由于在主函数结束后，主协程也会结束，所以在这里使用了 <code>select{}</code> 语句使主协程保持活跃状态。</p>
+</li>
+</ol>
+<h3 id="运行流程："><a href="#运行流程：" class="headerlink" title="运行流程："></a>运行流程：</h3><ol>
+<li><p>在主函数中创建了一个协程池 <code>pool</code>，初始化了 3 个工作者和一个任务通道。</p>
+</li>
+<li><p>每个工作者通过 <code>Worker.Start()</code> 方法启动了一个独立的协程，开始监听任务通道和退出通道。</p>
+</li>
+<li><p>主函数循环创建了 5 个任务，并通过 <code>pool.AddJob(job)</code> 方法将它们添加到协程池的任务通道中。</p>
+</li>
+<li><p>每个工作者从任务通道中接收到任务后，会执行相应的任务。</p>
+</li>
+<li><p>当主函数结束后，通过 <code>select{}</code> 语句使主协程保持活跃状态，保证所有工作者有足够的时间来处理任务。</p>
+</li>
+</ol>
+<p>请注意，实际应用中，你可能需要使用合适的同步机制（例如 <code>sync.WaitGroup</code>）来确保所有任务完成后再关闭协程池，以及处理一些错误和异常情况。</p>
+<h2 id="3-下面赋值正确的是"><a href="#3-下面赋值正确的是" class="headerlink" title="3.下面赋值正确的是()"></a>3.下面赋值正确的是()</h2><p>A. var x = nil<br>B. var x interface{} = nil<br>C. var x string = nil<br>D. var x error = nil<br>参考答案及解析：BD。知识点：nil 值。nil 只能赋值给指针、chan、func、interface、map 或 slice 类型的变量。强调下 D 选项的 error 类型，它是一种内置接口类型，看下方贴出的源码就知道，所以 D 是对的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="GIN问题"><a href="#GIN问题" class="headerlink" title="GIN问题"></a>GIN问题</h2>
     
 
-        <a href="/2019/05/14/2019-05-14-jekyll加入live2d模型/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/01/面经Go/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/live2d/">live2d</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -430,14 +1297,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-05-04-软件工程经济学"
+            <article id="post-面经dockerk8s"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-05-04 00:00:00" datetime="2019-05-03T16:00:00.000Z"  itemprop="datePublished">2019-05-04</time>
+        <time class="post-time" title="2023-01-01 00:00:00" datetime="2022-12-31T16:00:00.000Z"  itemprop="datePublished">2023-01-01</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程经济学/">软件工程经济学</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Kubernetes/">Kubernetes</a></li></ul>
 
 
 
@@ -448,7 +1315,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/04/2019-05-04-软件工程经济学/">软件工程经济学</a>
+      <a class="post-title-link" href="/2023/01/01/面经dockerk8s/">Kubernetes Tutorial</a>
     </h3>
   
 
@@ -458,17 +1325,182 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>from 华南理工大学 左保和老师<br>软件项目如何进行融资、分析风险、敏感性因素等</p>
+        <h1 id="pod生命周期-Pending-Runing-Succeed-Failed-Unknown"><a href="#pod生命周期-Pending-Runing-Succeed-Failed-Unknown" class="headerlink" title="pod生命周期 Pending Runing Succeed Failed Unknown"></a>pod生命周期 Pending Runing Succeed Failed Unknown</h1><ul>
+<li>Pending(挂起):API server已经创建pod，但是该pod还有一个或多个容器的镜像没有创建，包括正 在下载镜像的过程; </li>
+<li>Running(运行中):Pod内所有的容器已经创建，且至少有一个容器处于运行状态、正在启动括正在重 启状态;</li>
+<li>Succeed(成功):Pod内所有容器均已退出，且不会再重启; </li>
+<li>Failed(失败):Pod内所有容器均已退出，且至少有一个容器为退出失败状态 </li>
+<li>Unknown(未知):某于某种原因apiserver无法获取该pod的状态，可能由于网络通行问题导致<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1></li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/571931032" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/571931032</a></p>
+<h2 id="cgroup"><a href="#cgroup" class="headerlink" title="cgroup"></a>cgroup</h2><p>CGroups 全称control group，</p>
+<ul>
+<li>用来限定一个进程的资源使用，</li>
+<li>由 Linux 内核支持，可以限制和隔离Linux进程组 (process groups) 所使用的物理资源，比如cpu，内存，磁盘和网络IO，是Linux container技术的物理基础。</li>
+</ul>
+<h2 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h2><ul>
+<li><p>如果CGroup设计出来的目的是为了隔离上面描述的物理资源，那么namespace则用来隔离PID(进程ID),IPC,Network等系统资源。</p>
+</li>
+<li><p>将它们分配给特定的Namespace，每个Namespace里面的资源对其他Namespace都是透明的。</p>
+</li>
+<li><p>不同container内的进程属于不同的Namespace，彼此透明，互不干扰。</p>
+<h2 id="unionFS（storage-driver：overlay2）"><a href="#unionFS（storage-driver：overlay2）" class="headerlink" title="unionFS（storage driver：overlay2）"></a>unionFS（storage driver：overlay2）</h2></li>
+<li><p>unionFS可以把文件系统上多个目录(也叫分支)内容联合挂载到同一个目录下，而目录的物理位置是分开的</p>
+</li>
+<li><p>借助Linux的unionFS，宿主机只需要在磁盘上保存一份base镜像，内存中也只需要加载一份，就能被所有基于这个镜像的容器共享</p>
+</li>
+</ul>
+<h1 id="k8s是什么"><a href="#k8s是什么" class="headerlink" title="k8s是什么"></a>k8s是什么</h1><p>K8S 负责自动化运维管理多个 Docker 程序的集群</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://amos-x.com/wp-content/uploads/2019/11/image.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="组件1-etcd"><a href="#组件1-etcd" class="headerlink" title="组件1 etcd"></a>组件1 etcd</h2><p>分布式键值存储，用于保存Kubernetes集群的所有重要信息，例如配置数据、状态信息等</p>
+<h2 id="组件2-apiserver-kube-apiserver"><a href="#组件2-apiserver-kube-apiserver" class="headerlink" title="组件2 apiserver: kube-apiserver"></a>组件2 apiserver: kube-apiserver</h2><p>kube-apiserver是Kubernetes API的前端，提供了Kubernetes控制平面的统一接口</p>
+<h2 id="组件3-controller-kube-controller-manager"><a href="#组件3-controller-kube-controller-manager" class="headerlink" title="组件3 controller: kube-controller-manager"></a>组件3 controller: kube-controller-manager</h2><p>kube-controller-manager负责管理控制器，这些控制器包括节点控制器、副本控制器、端点控制器等，它们负责保证系统的状态符合用户定义的期望状态</p>
+<h2 id="组件4-scheduler-kube-scheduler"><a href="#组件4-scheduler-kube-scheduler" class="headerlink" title="组件4 scheduler: kube-scheduler"></a>组件4 scheduler: kube-scheduler</h2><p>kube-scheduler负责将Pod调度到具体的节点上，它考虑了诸如资源需求、硬件/软件约束等因素</p>
+<h2 id="组件5-kubelet"><a href="#组件5-kubelet" class="headerlink" title="组件5 kubelet"></a>组件5 kubelet</h2><p>kubelet是每个节点上运行的代理，负责确保Pods按照规定运行 </p>
+<h2 id="组件6-kube-proxy"><a href="#组件6-kube-proxy" class="headerlink" title="组件6 kube-proxy"></a>组件6 kube-proxy</h2><p>kube-proxy负责维护节点上的网络规则，使得服务可以被正确地路由</p>
+<h2 id="组件7-container-runtime"><a href="#组件7-container-runtime" class="headerlink" title="组件7 container runtime"></a>组件7 container runtime</h2><p>容器运行时，比如docker，containerd</p>
+<h2 id="组件8-container-advisor"><a href="#组件8-container-advisor" class="headerlink" title="组件8 container advisor"></a>组件8 container advisor</h2><p>是一个监控代理，用于收集容器资源使用情况和性能数据</p>
+<h2 id="【面试题】一个网络请求来了，还没处理要怎么办"><a href="#【面试题】一个网络请求来了，还没处理要怎么办" class="headerlink" title="【面试题】一个网络请求来了，还没处理要怎么办"></a>【面试题】一个网络请求来了，还没处理要怎么办</h2><p>kube-proxy处理，负责集群内部外部流量，正确路由到正确的pod上，实现高可用</p>
+<h2 id="1-etcd是什么？分布式键值存储系统"><a href="#1-etcd是什么？分布式键值存储系统" class="headerlink" title="1.etcd是什么？分布式键值存储系统"></a>1.etcd是什么？分布式键值存储系统</h2><h2 id="2-etcd适用场景是什么，"><a href="#2-etcd适用场景是什么，" class="headerlink" title="2.etcd适用场景是什么，"></a>2.etcd适用场景是什么，</h2><h2 id="1-简述K8s的工作流程"><a href="#1-简述K8s的工作流程" class="headerlink" title="1. 简述K8s的工作流程"></a>1. 简述K8s的工作流程</h2><ol>
+<li>创建一个包含应用程序的Deployment的yml文件，然后通过kubectl客户端工具发送给ApiServer。</li>
+<li>ApiServer接收到客户端的请求并将资源内容存储到数据库(etcd)中。</li>
+<li>Controller组件(包含scheduler、replication、endpoint)监控资源变化并作出反应。</li>
+<li>ReplicaSet检查数据库变化，创建期望数量的pod实例。</li>
+<li>Scheduler再次检查数据库变化，发现尚未被分配到具体执行节点(Node)的Pod，然后根据一组相关规则将Pod分配到可以运行它们的节点(Node)上，并更新数据库，记录Pod分配情况。</li>
+<li>Kubelet监控数据库变化，管理后续Pod的生命周期，发现被分配到它所在的节点上运行的那些Pod。如果找到新Pod，则会在该节点上运行这个新Pod。例如当有数据发送到主机时，将其路由到正确的pod或容器。<h2 id="2-简述控制器类型Deployment，StatefulSet，DaemonSet的区别"><a href="#2-简述控制器类型Deployment，StatefulSet，DaemonSet的区别" class="headerlink" title="2. 简述控制器类型Deployment，StatefulSet，DaemonSet的区别"></a>2. 简述控制器类型Deployment，StatefulSet，DaemonSet的区别</h2></li>
+<li><strong>应用场景</strong><ul>
+<li>Deployment适用于无状态的应用场景，副本可以动态增加和减少</li>
+<li>StatefulSet适用于有状态的应用场景，副本要顺序启动停止</li>
+<li>DaemonSet适用于每个节点都运行一个或多个pod的场景</li>
+</ul>
+</li>
+<li><strong>存储</strong><ul>
+<li>Deployment不需要特别的存储支持</li>
+<li>StatefulSet需要为每个Pod提供独立的存储，这可以通过后端存储完成</li>
+<li>DaemonSet的每个pod要挂载 volume<h2 id="3-简述一下k8s的存储管理"><a href="#3-简述一下k8s的存储管理" class="headerlink" title="3. 简述一下k8s的存储管理"></a>3. 简述一下k8s的存储管理</h2></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>持久卷，持久卷声明（PV，PVC）：适用于持久化数据的应用，比如数据库</li>
+<li>存储类（StroageClass），根据PVC动态创建PV，适用于需要动态创建存储的场景，如云存储、分布式存储</li>
+<li>子路径卷 (Subpath Volume)，多个pod共享存储</li>
+<li>本地卷（Local Volume），节点的本地卷映射到pod中，节点间共享存储<h2 id="4-如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】"><a href="#4-如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】" class="headerlink" title="4. 如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】"></a>4. 如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】</h2></li>
+<li>滚动更新逐步将pod下线，由新deployment进行更新<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建pod副本,在执行Deployment和升级的时候最好带上record参数，便于查看历史版本信息。</span></span><br><span class="line">kubectl apply -f abcdocker-test.yaml  --record</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新1.替换镜像版本去更新</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 我们可以看到pod执行过程是等待新的pod启动完成，在进行销毁旧的pod，这样就完成了集群的更新工作我们可以看到pod执行过程是等待新的pod启动完成，在进行销毁旧的pod，这样就完成了集群的更新工作</span></span><br><span class="line">sed -i 's#1.13.0-alpine#1.10.0-alpine#g' abcdocker-test.yaml</span><br><span class="line">kubectl apply -f abcdocker-test.yaml --record</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新2.直接更新deployment【不是修改yaml文件】，要用kubctl edit deployment</span></span><br><span class="line">kubectl get deployment</span><br><span class="line">kubectl edit deployments deployment_name</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新3. kubctl <span class="built_in">set</span>替换镜像</span></span><br><span class="line">kubectl set image deployment/SVC_NAME -n namespace_name container_name=images:v1</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>回滚,使用 kubectl rollout</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl rollout history deployment [deployment_name]查看所有的history</span><br><span class="line">kubectl rollout undo deploy_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-如何进行日志管理"><a href="#5-如何进行日志管理" class="headerlink" title="5. 如何进行日志管理"></a>5. 如何进行日志管理</h2><ol>
+<li>使用kubectl的logs，获取制定pod的日志<code>kubectl logs [pod_name]</code></li>
+<li>修改Kube-proxy的配置文件，通常位于<code>/etc/kubernetes/manifests/kube-proxy.yaml</code>将Pod的日志输出到宿主机的日志文件中，一般使用本地卷挂载</li>
+<li>重启kube-proxy，使用宿主机的日志轮转工具，logrotate，设置轮转策略<code>sudo logrotate -d /etc/logrotate.d/pod-logs</code><h2 id="6-如何进行监控管理"><a href="#6-如何进行监控管理" class="headerlink" title="6. 如何进行监控管理"></a>6. 如何进行监控管理</h2></li>
+<li>k8s提供了一个metrics，访问这个http请求就返回一个表单，是以#开头的注释行和以指标名称为前缀的键值对</li>
+<li>工具有Prometheus比较常用，Grafana进行可视化展示</li>
+<li>使用Heapster对Kubernetes集群进行监控数据的采集和存储<h2 id="7-etcd的作用"><a href="#7-etcd的作用" class="headerlink" title="7. etcd的作用"></a>7. etcd的作用</h2></li>
+<li>存储所有资源信息，保证数据的强一致性，作用是<strong>数据存储、配置管理、故障恢复</strong></li>
+<li>这些资源信息包括：服务发现、分布式锁、分布式数据队列、分布式通知和协调等功能<h2 id="8-etc的基本原理"><a href="#8-etc的基本原理" class="headerlink" title="8. etc的基本原理"></a>8. etc的基本原理</h2></li>
+<li>分布式存储：Etcd采用分布式存储方式，可以配置多节点群集，通过数据同步来保证数据可靠性。</li>
+<li>高可用性：Etcd通过选举算法来保证在任何时候都有一个领导者节点负责数据的写入和更新，从而保证了数据的强一致性。</li>
+<li>数据持久化：Etcd中的数据会定期进行持久化存储，即使在系统崩溃时也可以保证数据的完整性。<h2 id="9-k8s的kube-scheduler调度器"><a href="#9-k8s的kube-scheduler调度器" class="headerlink" title="9. k8s的kube-scheduler调度器"></a>9. k8s的kube-scheduler调度器</h2></li>
+</ol>
+<h2 id="10-k8s怎样负载均衡的"><a href="#10-k8s怎样负载均衡的" class="headerlink" title="10. k8s怎样负载均衡的"></a>10. k8s怎样负载均衡的</h2><ol>
+<li>Kubernetes的内置负载均衡器：Service组件，Service会根据服务后端的Pod IP和端口，将流量均衡地转发给每个Pod。这种方式是基于IP的负载均衡，支持TCP和UDP协议。</li>
+<li>用传统的Nginx负载均衡服务器做边车（Sidecar）容器运行，监控流量<h2 id="11-k8s的Labels和Selectors的作用"><a href="#11-k8s的Labels和Selectors的作用" class="headerlink" title="11. k8s的Labels和Selectors的作用"></a>11. k8s的Labels和Selectors的作用</h2></li>
+</ol>
+<p><strong>Label：用于标识和选择资源对象。</strong></p>
+<ul>
+<li>附加在资源对象上的键值对标签，标pod，service</li>
+<li>标在资源上，可以供Selector进行服务发现，关联选择资源，监控日志等</li>
+</ul>
+<p><strong>Selector：用于选择资源，服务发现</strong></p>
+<h2 id="12-k8s的Service是什么"><a href="#12-k8s的Service是什么" class="headerlink" title="12. k8s的Service是什么"></a>12. k8s的Service是什么</h2><p>Service为一组pod定义一个服务的入口地址，提供给前端用Ingress访问这个集群实例，可以起到服务发现，负载均衡，故障隔离的作用。</p>
+<ol>
+<li>提供服务的稳定入口：Service为前端的应用程序或者ingress提供了稳定的服务入口，这个入口拥有一个全局唯一的虚拟IP地址，前端的应用可以通过这个IP地址访问后端的Pod集群。</li>
+<li>实现负载均衡：Service内部实现了负载均衡机制，它会将所有进入的请求均匀地分配给后端的Pod副本，确保每个请求都能得到正确的响应。</li>
+<li>实现故障隔离：当某个Pod发生故障时，Service会自动将该Pod从服务池中剔除，保证请求不会被故障的Pod处理，从而实现了故障隔离。</li>
+<li>实现服务发现：Service允许前端的应用程序通过Label Selector来找到提供特定服务的Pod，从而实现了服务的自动发现。</li>
+</ol>
+<h2 id="13-Pod是什么，简述生命周期"><a href="#13-Pod是什么，简述生命周期" class="headerlink" title="13. Pod是什么，简述生命周期"></a>13. Pod是什么，简述生命周期</h2><p>Pod由一个或多个容器组成。<br>周期：创建启动运行停止</p>
+<h1 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h1><h2 id="1-pod的原理"><a href="#1-pod的原理" class="headerlink" title="1. pod的原理"></a>1. pod的原理</h2><h2 id="2-pod的特点"><a href="#2-pod的特点" class="headerlink" title="2. pod的特点"></a>2. pod的特点</h2><h2 id="3-pause容器作用"><a href="#3-pause容器作用" class="headerlink" title="3. pause容器作用"></a>3. pause容器作用</h2><h2 id="4-pod的重启策略"><a href="#4-pod的重启策略" class="headerlink" title="4. pod的重启策略"></a>4. pod的重启策略</h2><h2 id="5-pod的镜像拉取策略"><a href="#5-pod的镜像拉取策略" class="headerlink" title="5. pod的镜像拉取策略"></a>5. pod的镜像拉取策略</h2><h2 id="6-pod的存活探针有哪几种"><a href="#6-pod的存活探针有哪几种" class="headerlink" title="6. pod的存活探针有哪几种"></a>6. pod的存活探针有哪几种</h2><h2 id="7-存活探针的属性参数"><a href="#7-存活探针的属性参数" class="headerlink" title="7. 存活探针的属性参数"></a>7. 存活探针的属性参数</h2><h2 id="8-pod的就绪探针有哪几种"><a href="#8-pod的就绪探针有哪几种" class="headerlink" title="8. pod的就绪探针有哪几种"></a>8. pod的就绪探针有哪几种</h2><h2 id="9-就绪探针的属性参数"><a href="#9-就绪探针的属性参数" class="headerlink" title="9. 就绪探针的属性参数"></a>9. 就绪探针的属性参数</h2><h2 id="10-就绪探针和存活探针的区别是什么"><a href="#10-就绪探针和存活探针的区别是什么" class="headerlink" title="10.就绪探针和存活探针的区别是什么"></a>10.就绪探针和存活探针的区别是什么</h2><ul>
+<li>存活探针是将检查失败的容器杀死，创建新的启动容器来保持pod正常工作</li>
+<li>就绪探针是，当就绪探针检查失败，并不重启容器，而是将pod移出endpoint，<strong>就绪探针确保了service 中的pod都是可用的</strong>，确保客户端只与正常的pod交互并且客户端永远不会知道系统存在问题<h2 id="11-pod创建过程"><a href="#11-pod创建过程" class="headerlink" title="11. pod创建过程"></a>11. pod创建过程</h2></li>
+</ul>
+<ol>
+<li><p>kubectl run 创建pod</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、首先，用户通过kubectl或其他api客户端工具提交需要创建的pod信息给apiserver; </span><br><span class="line">2、apiserver验证客户端的用户权限信息，验证通过开始处理创建请求生成pod对象信息，并将信息存入 etcd，然后返回确认信息给客户端; </span><br><span class="line">3、apiserver开始反馈etcd中pod对象的变化，其他组件使用watch机制跟踪apiserver上的变动; </span><br><span class="line">4、scheduler发现有新的pod对象要创建，开始调用内部算法机制为pod分配最佳的主机，并将结果信息 更新至apiserver; </span><br><span class="line">5、node节点上的kubelet通过watch机制跟踪apiserver发现有pod调度到本节点，尝试调用docker启动 容器，并将结果反馈apiserver;</span><br><span class="line">6、apiserver将收到的pod状态信息存入etcd中。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用deployment创建pod</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、kubectl apply -f mydeployment.yaml</span><br><span class="line"></span><br><span class="line">2、api-server收到创建资源的请求后，会对客户端操作进行身份认证，在客户端的~/.kube文件夹下，已 经设置好了相关的用户认证信息，这样api-server会知道我是哪个用户，并对此用户进行鉴权，当api- server确定客户端的请求合法后，就会接受本次操作，并把相关的信息保存到etcd中，然后返回确认信 息给客户端。 </span><br><span class="line"></span><br><span class="line">3、apiserver开始反馈etcd中过程创建的对象的变化，其他组件使用watch机制跟踪apiserver上的变动。</span><br><span class="line"></span><br><span class="line">4、controller-manager组件会监听api-server的信息，controller-manager是有多个类型的，比如 Deployment Controller, 它的作用就是负责监听Deployment，此时Deployment Controller发现有新的deployment要创建，那么它就会去创建一个ReplicaSet，一个ReplicaSet的产生，又被另一个叫做 ReplicaSet Controller监听到了，紧接着它就会去分析ReplicaSet的语义，它了解到是要依照ReplicaSet 的template去创建Pod, 它一看这个Pod并不存在，那么就新建此Pod，当Pod刚被创建时，它的 nodeName属性值为空，代表着此Pod未被调度。 </span><br><span class="line"></span><br><span class="line">5、调度器Scheduler组件开始介入工作，Scheduler也是通过watch机制跟踪apiserver上的变动，发现 有未调度的Pod，则根据内部算法、节点资源情况，pod定义的亲和性反亲和性等等，调度器会综合的选 出一批候选节点，在候选节点中选择一个最优的节点，然后将pod绑定该该节点，将信息反馈给api- server。</span><br><span class="line"></span><br><span class="line">6、kubelet组件布署于Node之上，它也是通过watch机制跟踪apiserver上的变动，监听到有一个Pod应 该要被调度到自身所在Node上来，kubelet首先判断本地是否在此Pod，如果不存在，则会进入创建Pod 流程，创建Pod有分为几种情况，第一种是容器不需要挂载外部存储，则相当于直接docker run把容器 启动，但不会直接挂载docker网络，而是通过CNI调用网络插件配置容器网络，如果需要挂载外部存 储，则还要调用CSI来挂载存储。kubelet创建完pod，将信息反馈给api-server，api-servier将pod信息 写入etcd</span><br><span class="line"></span><br><span class="line">7、Pod建立成功后，ReplicaSet Controller会对其持续进行关注，如果Pod因意外或被我们手动退出， ReplicaSet Controller会知道，并创建新的Pod，以保持replicas数量期望值。</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-pod的终止过程"><a href="#12-pod的终止过程" class="headerlink" title="12.pod的终止过程"></a>12.pod的终止过程</h2><ol>
+<li>用户向apiserver发送pod删除的命令</li>
+<li>kubectl监控pod为terminating状态，就启动关闭pod过程</li>
+<li>endpoint控制器监控pod对象的关闭行为时，讲所有资源从endpoint列表删除</li>
+<li>如果当前pod对象定义了preStop钩子处理器，则在其被标记为terminating后会意同步的方式启动执行</li>
+<li>pod对象容器进程收到了停止信息</li>
+<li>宽限期过后，kubelet请求apiserver讲pod资源宽限期设0，对用户不可见<h2 id="13-pod的初始化容器-init-container"><a href="#13-pod的初始化容器-init-container" class="headerlink" title="13. pod的初始化容器 init container"></a>13. pod的初始化容器 init container</h2></li>
+</ol>
+<ul>
+<li>负责在主应用容器启动之前执行一些预处理工作或者初始化任务，挂载volume，等待外部服务就绪，安全检查等<h2 id="14-pod的资源请求、限制如何定义"><a href="#14-pod的资源请求、限制如何定义" class="headerlink" title="14.pod的资源请求、限制如何定义"></a>14.pod的资源请求、限制如何定义</h2>resources下的limits和requests，cpu核数和内存大小<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><h2 id="1-service如何与pod关联"><a href="#1-service如何与pod关联" class="headerlink" title="1. service如何与pod关联"></a>1. service如何与pod关联</h2>pod后跟了label，然后service使用标签选择器，selector选择关联哪些pod作为后段<h2 id="2-service的域名解析格式"><a href="#2-service的域名解析格式" class="headerlink" title="2. service的域名解析格式"></a>2. service的域名解析格式</h2><code>&lt;service-name&gt;.&lt;namespace&gt;.svc.&lt;cluster-domain&gt;</code></li>
+<li><code>&lt;service-name&gt;</code> 是服务的名称，是在创建服务时指定的。</li>
+<li><code>&lt;namespace&gt;</code> 是服务所在的命名空间，默认为 “default”。</li>
+<li><code>&lt;cluster-domain&gt;</code> 是集群的域名，通常为 “cluster.local”。<h2 id="3-service的类型"><a href="#3-service的类型" class="headerlink" title="3. service的类型"></a>3. service的类型</h2></li>
+</ul>
+<p><strong>一般情况下service都是ClusterIP类型的，通过ingress接入的外部流量</strong></p>
+<ol>
+<li>ClusterIP：仅供集群内部使用，默认ClusterIP</li>
+<li>NodePort：service可以对外访问应用，在每个节点暴露一个端口，外部访问任意NodeIP:port就可以脸上service</li>
+<li>LoadBalancer：service对外访问应用，公有云环境下，需要公网IP地址</li>
+<li>ExternalName:这种类型的service会把集群外部的服务引入集群内部，这样集群内直接访问service就 可以间接的使用集群外部服务了<h2 id="4-一个应用pod如何连接service"><a href="#4-一个应用pod如何连接service" class="headerlink" title="4. 一个应用pod如何连接service"></a>4. 一个应用pod如何连接service</h2></li>
+<li>环境变量，配置注入</li>
+<li>DNS方式，k8s集群内有DNS服务器<h2 id="5-如何创建一个service代理外部的服务-集群内的应用如何访问外部的数据库服务？"><a href="#5-如何创建一个service代理外部的服务-集群内的应用如何访问外部的数据库服务？" class="headerlink" title="5. 如何创建一个service代理外部的服务/集群内的应用如何访问外部的数据库服务？"></a>5. 如何创建一个service代理外部的服务/集群内的应用如何访问外部的数据库服务？</h2>创建一个没有标签选择器的service代理集群外部服务。</li>
+<li>创建service时不指定selector，没了selector就不会自动创建endpoint</li>
+<li>手动创建一个<strong>与service同名的</strong>endpoint，在这个endpoint里定义外部服务的IP和端口，然后就自动关联了<h2 id="6-service-endpoint-kubeproxy的关系"><a href="#6-service-endpoint-kubeproxy的关系" class="headerlink" title="6. service endpoint kubeproxy的关系"></a>6. service endpoint kubeproxy的关系</h2></li>
+</ol>
+<ul>
+<li><strong>service</strong>:在kubernetes中，service是一种为一组功能相同的pod提供单一不变的接入点的资源。当 service被建立时，service的IP和端口不会改变，这样外部的客户端(也可以是集群内部的客户端)通过 service的IP和端口来建立链接，这些链接会被路由到提供该服务的任意一个pod上。通过这样的方式， 客户端不需要知道每个单独提供服务的pod地址，这样pod就可以在集群中随时被创建或销毁。 </li>
+<li><strong>endpoint</strong>:service维护一个叫endpoint的资源列表，endpoint资源对象保存着service关联的pod的ip和 端口。从表面上看，当pod消失，service会在endpoint列表中剔除pod，当有新的pod加入，service就 会将pod ip加入endpoint列表;但是正在底层的逻辑是，endpoint的这种自动剔除、添加、更新pod的 地址其实底层是由endpoint controller控制的，endpoint controller负责监听service和对应的pod副本 的变化，如果监听到service被删除，则删除和该service同名的endpoint对象，如果监听到新的service 被创建或者修改，则根据该service信息获取得相关pod列表，然后创建或更新service对应的endpoint对 象，如果监听到pod事件，则更新它所对应的service的endpoint对象。 </li>
+<li><strong>kube-proxy</strong>:kube-proxy运行在node节点上，在Node节点上实现Pod网络代理，维护网络规则和四层 负载均衡工作，kube-proxy会监听api-server中从而获取service和endpoint的变化情况，创建并维护路 由规则以提供服务IP和负载均衡功能。简单理解此进程是Service的透明代理兼负载均衡器，其核心功能 是将到某个Service的访问请求转发到后端的多个Pod实例上<h2 id="kubelet的功能和作用"><a href="#kubelet的功能和作用" class="headerlink" title="kubelet的功能和作用"></a>kubelet的功能和作用</h2></li>
+</ul>
+<ol>
+<li>Node管理，kubelet启动时向kubeproxy注册，定时向apiserver汇报节点和资源状态</li>
+<li>Pod管理，kubelet维护pod的生命周期，当kubelet监听到master的下发到自己节点的任务时，比如要创建、更新、删除一个pod，kubelet 就会通过CRI(容器运行时接口)插件来调用不同的容器运行时来创建、更新、删除容器。</li>
+<li>容器健康检查。Pod中可以定义<strong>启动探针-存活探针-就绪探针</strong>，定期调用容器的探针检测Pod的生命周期，对失败的容器进行重启等操作</li>
+<li>在Node上部署Metrics server进行资源监控<h2 id="kube-apiserver的功能和作用，端口号是8080和6443"><a href="#kube-apiserver的功能和作用，端口号是8080和6443" class="headerlink" title="kube-apiserver的功能和作用，端口号是8080和6443"></a>kube-apiserver的功能和作用，端口号是8080和6443</h2>在命名空间的kube-system命名空间里，有一个名称为kube-api-master的pod，这个pod就是运行着 kube-api-server进程，它绑定了master主机的ip地址和6443端口，但是在default命名空间下，存在一个叫kubernetes的服务，该服务对外暴露端口为443，目标端口6443，这个服务的ip地址是clusterip地 址池里面的第一个地址，同时这个服务的yaml定义里面并没有指定标签选择器，也就是说这个 kubernetes服务所对应的endpoint是手动创建的，该endpoint也是名称叫做kubernetes，该endpoint 的yaml定义里面代理到master节点的6443端口，也就是kube-api-server的IP和端口。这样一来，其他 pod 访问kube-api-server的整个流程就是: pod创建后嵌入了环境变量，pod获取到了kubernetes这个服务的ip和443端口，请求到kubernetes这个服务其实就是转发到了master节点上的6443端口的kube-api-server这个pod里面<h2 id="pod挂了，原本到这个pod的流量要怎么办【面试题】"><a href="#pod挂了，原本到这个pod的流量要怎么办【面试题】" class="headerlink" title="pod挂了，原本到这个pod的流量要怎么办【面试题】"></a>pod挂了，原本到这个pod的流量要怎么办【面试题】</h2>首先请求到<br>kubelet用存活探针检测到这个pod挂了，<h2 id="k8s的namespace是什么"><a href="#k8s的namespace是什么" class="headerlink" title="k8s的namespace是什么"></a>k8s的namespace是什么</h2>实现多套环境的资源隔离，限定不同租户能占用的资源，比如CPU和内存Usage等</li>
+</ol>
+<h2 id="持续集成CI的好处，用途是什么"><a href="#持续集成CI的好处，用途是什么" class="headerlink" title="持续集成CI的好处，用途是什么"></a>持续集成CI的好处，用途是什么</h2><p>用于整合团队开发 中不同开发者提交到开发仓库 中的项目代码变化，并即时整合编译，检查整合 编译错误的服务。它需要一天中多次整合编译代码的能力，若出现整合错误， 可以优异地准确定位提交错误源</p>
+<h2 id="14-Docker-Swarm？docker集群"><a href="#14-Docker-Swarm？docker集群" class="headerlink" title="14. Docker Swarm？docker集群"></a>14. Docker Swarm？docker集群</h2><p><strong>是原生的 Docker 集群服务工具。</strong>它将一群 Docker 主机集成为单一一个 虚拟 Docker 主机。利用一个 Docker 守护进程， 通过标准的 Docker API 和任何完善的通讯工具， Docker Swarm 提供透明地将 Docker 主机扩散到多台主机上的服务</p>
+<h2 id="15-Docker-Compose？"><a href="#15-Docker-Compose？" class="headerlink" title="15. Docker Compose？"></a>15. Docker Compose？</h2><h2 id="16-Dockerfile里，ADD和COPY"><a href="#16-Dockerfile里，ADD和COPY" class="headerlink" title="16. Dockerfile里，ADD和COPY"></a>16. Dockerfile里，ADD和COPY</h2><p>差不多，都用来向镜像加文件，一般就COPY就行<br>有必要使用 ADD 指令的最好例子是需要在本地自动解压归档文件到容器中的情况，如 ADD rootfs.tar.xz 。</p>
+<h2 id="17-Dockerfile里，ONBUILD命令"><a href="#17-Dockerfile里，ONBUILD命令" class="headerlink" title="17 Dockerfile里，ONBUILD命令"></a>17 Dockerfile里，ONBUILD命令</h2><p>构建阶段的触发器，当一个镜像被用作另一个镜像的基础镜像时，ONBUILD 指令将在构建过程中自动触发，一般后接一些COPY命令。</p>
+<p>## </p>
+<h2 id="容灾"><a href="#容灾" class="headerlink" title="容灾"></a>容灾</h2><p>主要指在发生硬件故障时，通过备份和恢复机制保证业务连续性（能够继续正常运行）的手段。适用于对业务连续性要求非常高的场景。</p>
+<h2 id="【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷"><a href="#【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷" class="headerlink" title="【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷"></a>【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷</h2><ul>
+<li>使用kubectl describe podname</li>
+<li>长时间都在pending，可能是schduler无法为pod分配node，Scheduer调度器无法为pod分配一个合适的node节点。而这又会有很多种情况， 比如，node节点处在cpu、内存压力，导致无节点可调度;pod定义了资源请求，没有node节点满足资 源请求;node节点上有污点而pod没有定义容忍;pod中定义了亲和性或反亲和性而没有节点满足这些 亲和性或反亲和性;以上是调度器调度失败的几种情况。</li>
+<li>pvc，pv无法动态创建。比如要使用StatefulSet 创建redis集群，因为粗心大意，定义的storageClassName名称写错了，那么会造成 无法创建pvc，这种情况pod也会一直处于pending状态，或者，即使pvc是正常创建了，但是由于某些异 常原因导致动态供应存储无法正常创建pv，那么这种情况pod也会一直处于pending状态</li>
+</ul>
+
     
 
-        <a href="/2019/05/04/2019-05-04-软件工程经济学/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/01/面经dockerk8s/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/其他/">其他</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CloudComputing/">CloudComputing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -477,14 +1509,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-04-17-备忘的一些烦人操作"
+            <article id="post-2022-10-01-水上机器视觉-桥洞场景业务功能模块设计"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-04-17 00:00:00" datetime="2019-04-16T16:00:00.000Z"  itemprop="datePublished">2019-04-17</time>
+        <time class="post-time" title="2022-10-01 00:00:00" datetime="2022-09-30T16:00:00.000Z"  itemprop="datePublished">2022-10-01</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Notes/">Notes</a></li></ul>
 
 
 
@@ -495,7 +1527,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/04/17/2019-04-17-备忘的一些烦人操作/">备忘的一些操作</a>
+      <a class="post-title-link" href="/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/">业务数据需求及数据处理概要-水上机器视觉场景</a>
     </h3>
   
 
@@ -505,17 +1537,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>包括用linux自带openssl签postfix证书、流媒体证书按网上教程（找不到之类的问题，最后自己把证书试出来了，见第一部分，还有博客cdn换成tx云因为配置不一样导致好久没发现cdn没启用等尴尬的问题</p>
+        <p>水上机器视觉场景业务分析</p>
     
 
-        <a href="/2019/04/17/2019-04-17-备忘的一些烦人操作/" class="post-more waves-effect waves-button">
+        <a href="/2022/10/01/2022-10-01-水上机器视觉-桥洞场景业务功能模块设计/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PointCloud/">PointCloud</a></li></ul>
 
     </div>
     
@@ -524,14 +1556,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-04-01-评估模型算法指标的计算"
+            <article id="post-2022-10-01-VGApproachs"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-04-01 00:00:00" datetime="2019-03-31T16:00:00.000Z"  itemprop="datePublished">2019-04-01</time>
+        <time class="post-time" title="2022-10-01 00:00:00" datetime="2022-09-30T16:00:00.000Z"  itemprop="datePublished">2022-10-01</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/深度学习/">深度学习</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VisualGrounding/">VisualGrounding</a></li></ul>
 
 
 
@@ -542,7 +1574,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/04/01/2019-04-01-评估模型算法指标的计算/">NeuralRecon for 3D reconstruction in real-time</a>
+      <a class="post-title-link" href="/2022/10/01/2022-10-01-VGApproachs/">Paper Routing for Visual Grounding</a>
     </h3>
   
 
@@ -552,17 +1584,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        
+        <p>Visual Grounding<br>Referring Expressions<br>Phrase Grounding</p>
     
 
-        <a href="/2019/04/01/2019-04-01-评估模型算法指标的计算/" class="post-more waves-effect waves-button">
+        <a href="/2022/10/01/2022-10-01-VGApproachs/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DL/">DL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Object-Detection/">Object Detection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Segmentation/">Segmentation</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Multimodal/">Multimodal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Paper/">Paper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VisualGrounding/">VisualGrounding</a></li></ul>
 
     </div>
     
@@ -571,14 +1603,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-2019-03-27-docker笔记二"
+            <article id="post-2022-09-14-点云ROS业务"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-03-27 00:00:00" datetime="2019-03-26T16:00:00.000Z"  itemprop="datePublished">2019-03-27</time>
+        <time class="post-time" title="2022-09-14 00:00:00" datetime="2022-09-13T16:00:00.000Z"  itemprop="datePublished">2022-09-14</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/PointCloud/">PointCloud</a></li></ul>
 
 
 
@@ -589,7 +1621,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/27/2019-03-27-docker笔记二/">docker笔记整理（二）</a>
+      <a class="post-title-link" href="/2022/09/14/2022-09-14-点云ROS业务/">点云业务开发(ROS,Autoware)及嵌入式开发的一些备忘</a>
     </h3>
   
 
@@ -599,17 +1631,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <p>咕</p>
+        <p>ROS, Autoware编译, rk3399开发板在实验室网络设置等的一些备忘</p>
     
 
-        <a href="/2019/03/27/2019-03-27-docker笔记二/" class="post-more waves-effect waves-button">
+        <a href="/2022/09/14/2022-09-14-点云ROS业务/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autoware/">Autoware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Embedded/">Embedded</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PointCloud/">PointCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/">ROS</a></li></ul>
 
     </div>
     
@@ -622,7 +1654,7 @@
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
     </div>
 </nav>
 
