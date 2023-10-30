@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Golang | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,go">
+    <meta name="description" content="总 ：https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md">
+<meta name="keywords" content="面试,go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/02/面经Go/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="总 ：https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T16:55:18.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golang">
+<meta name="twitter:description" content="总 ：https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Golang</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Golang</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Golang/">Golang</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#不要通过共享内存来通信，要通过通信来共享内存"><span class="post-toc-number">1.</span> <span class="post-toc-text">不要通过共享内存来通信，要通过通信来共享内存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阐述golang并发机制"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">阐述golang并发机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么小对象多了会造成gc压力"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">为什么小对象多了会造成gc压力</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gc的触发条件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">gc的触发条件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gc的栈空间管理机制是什么"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">gc的栈空间管理机制是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#defer原理"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">defer原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#select原理，多路复用机制"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">select原理，多路复用机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go的逃逸分析"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">go的逃逸分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程模型有哪些？为什么go-scheduler需要实现M：N方案？scheduler-由哪些元素组成"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">线程模型有哪些？为什么go scheduler需要实现M：N方案？scheduler 由哪些元素组成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解释hand-off，work-stealing"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">解释hand off，work stealing</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mutex-有几种模式【正常和饥饿】"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">mutex 有几种模式【正常和饥饿】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#defer和return的先后顺序"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">defer和return的先后顺序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go-recover的执行时机"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">go recover的执行时机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#闭包错误引用同一个变量问题怎么处理-？"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">闭包错误引用同一个变量问题怎么处理 ？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环内部执行defer会发生什么"><span class="post-toc-number">1.14.</span> <span class="post-toc-text">循环内部执行defer会发生什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#golang中的大端序和小端序"><span class="post-toc-number">1.15.</span> <span class="post-toc-text">golang中的大端序和小端序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】"><span class="post-toc-number">1.16.</span> <span class="post-toc-text">syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#routine为什么比thread轻量"><span class="post-toc-number">1.17.</span> <span class="post-toc-text">routine为什么比thread轻量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原子操作和锁的区别"><span class="post-toc-number">1.18.</span> <span class="post-toc-text">原子操作和锁的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go的多返回值如何实现"><span class="post-toc-number">1.19.</span> <span class="post-toc-text">go的多返回值如何实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uintptr和unsafe-Pointer的区别"><span class="post-toc-number">1.20.</span> <span class="post-toc-text">uintptr和unsafe.Pointer的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个-case-的代码】"><span class="post-toc-number">1.21.</span> <span class="post-toc-text">switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个 case 的代码】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何关闭http响应体"><span class="post-toc-number">1.22.</span> <span class="post-toc-text">如何关闭http响应体</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解析json时，默认将数值当作哪种类型【数值默认为float64】"><span class="post-toc-number">1.23.</span> <span class="post-toc-text">解析json时，默认将数值当作哪种类型【数值默认为float64】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何从panic中恢复"><span class="post-toc-number">1.24.</span> <span class="post-toc-text">如何从panic中恢复</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解释一下静态类型声明"><span class="post-toc-number">1.25.</span> <span class="post-toc-text">解释一下静态类型声明</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Golang的可变参数是什么，怎么用，要注意什么"><span class="post-toc-number">1.26.</span> <span class="post-toc-text">Golang的可变参数是什么，怎么用，要注意什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#golang支持接口的多继承（C-extends-A-and-C）吗【不支持，依靠组合实现】"><span class="post-toc-number">1.27.</span> <span class="post-toc-text">golang支持接口的多继承（C extends A and C）吗【不支持，依靠组合实现】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简述scheduler函数"><span class="post-toc-number">1.28.</span> <span class="post-toc-text">简述scheduler函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简述全局运行队列中获取goroutine的时机"><span class="post-toc-number">1.29.</span> <span class="post-toc-text">简述全局运行队列中获取goroutine的时机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】"><span class="post-toc-number">1.30.</span> <span class="post-toc-text">简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#init是什么时候执行的【包初始化阶段，程序开始执行前】"><span class="post-toc-number">1.31.</span> <span class="post-toc-text">init是什么时候执行的【包初始化阶段，程序开始执行前】</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Map"><span class="post-toc-number">2.</span> <span class="post-toc-text">Map</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-map的key为什么无序，如何处理冲突的【默认】"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1. map的key为什么无序，如何处理冲突的【默认】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-map可以边遍历边删元素吗【不能】为什么"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2. map可以边遍历边删元素吗【不能】为什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-float类型可以作为key吗，哪些不可以作为map的key"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">3. float类型可以作为key吗，哪些不可以作为map的key</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-非接口的任意类型都能调用-T方法吗"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">4. 非接口的任意类型都能调用 *T方法吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-map的赋值过程-mapassign"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">5. map的赋值过程 mapassign</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-如何实现两种get操作"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">6. 如何实现两种get操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-map删除一个key，内存会释放吗【不会，要等gc扫描过来】"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">7. map删除一个key，内存会释放吗【不会，要等gc扫描过来】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-解析tag怎么实现的"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">8. 解析tag怎么实现的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#map可以取地址吗【不能】"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">map可以取地址吗【不能】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-rune是int32"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">9. rune是int32</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-值receiver-和-指针receiver的区别"><span class="post-toc-number">2.11.</span> <span class="post-toc-text">10. 值receiver 和 指针receiver的区别</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#概念"><span class="post-toc-number">3.</span> <span class="post-toc-text">概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类型"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-什么是协程"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">1.什么是协程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-介绍一下channel"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">2.介绍一下channel</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#new和make"><span class="post-toc-number">3.3.1.</span> <span class="post-toc-text">new和make</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】有缓冲channel和无缓冲channel的区别"><span class="post-toc-number">3.3.2.</span> <span class="post-toc-text">【问题】有缓冲channel和无缓冲channel的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】channel的等待队列如果写满了，内存占用很高，怎么解决"><span class="post-toc-number">3.3.3.</span> <span class="post-toc-text">【问题】channel的等待队列如果写满了，内存占用很高，怎么解决</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】协程泄漏是什么，什么引发的，怎么解决"><span class="post-toc-number">3.3.4.</span> <span class="post-toc-text">【问题】协程泄漏是什么，什么引发的，怎么解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-介绍一下Go语言的内存分配模型：src-runtime-mheap"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">3.介绍一下Go语言的内存分配模型：src/runtime/mheap</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-介绍一下Go的GC机制：以防止内存泄漏"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">4.介绍一下Go的GC机制：以防止内存泄漏</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】对STW的优化是什么？混合写"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">【问题】对STW的优化是什么？混合写</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#混合写导致的问题，为了减少停顿时间"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">混合写导致的问题，为了减少停顿时间</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】根对象是什么"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">【问题】根对象是什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】goroutine-可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑"><span class="post-toc-number">3.5.4.</span> <span class="post-toc-text">【问题】goroutine 可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。"><span class="post-toc-number">3.5.5.</span> <span class="post-toc-text">【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何优化STW机制"><span class="post-toc-number">3.5.6.</span> <span class="post-toc-text">如何优化STW机制</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-介绍一下GMP"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">4.介绍一下GMP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【问题】调度器P的workstealing机制和handoff机制"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">【问题】调度器P的workstealing机制和handoff机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【问题】go-func-的执行流程"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">【问题】go func(){} 的执行流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【问题】Go的生命周期-M0，G0是什么"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">【问题】Go的生命周期 M0，G0是什么</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【场景1】G1嵌套创建G3"><span class="post-toc-number">3.9.1.</span> <span class="post-toc-text">【场景1】G1嵌套创建G3</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【场景2】G执行完毕"><span class="post-toc-number">3.9.2.</span> <span class="post-toc-text">【场景2】G执行完毕</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【场景3】连续创建多个G导致本地队列满"><span class="post-toc-number">3.9.3.</span> <span class="post-toc-text">【场景3】连续创建多个G导致本地队列满</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【场景4】唤醒正在休眠的M"><span class="post-toc-number">3.9.4.</span> <span class="post-toc-text">【场景4】唤醒正在休眠的M</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【场景5】自旋线程从哪里获取G"><span class="post-toc-number">3.9.5.</span> <span class="post-toc-text">【场景5】自旋线程从哪里获取G</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基本操作"><span class="post-toc-number">4.</span> <span class="post-toc-text">基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字符串拼接"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">字符串拼接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#slice中删除具体的值"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">slice中删除具体的值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【问题】Go语言闭包"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">【问题】Go语言闭包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#panic和recover"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">panic和recover</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主动调用-抛出panic"><span class="post-toc-number">4.4.1.</span> <span class="post-toc-text">主动调用/抛出panic</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#标准库"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">标准库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IO操作"><span class="post-toc-number">4.5.1.</span> <span class="post-toc-text">IO操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现一个cat命令"><span class="post-toc-number">4.5.2.</span> <span class="post-toc-text">实现一个cat命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#net包"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">net包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#context包"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">context包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zinx"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">Zinx</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ziface"><span class="post-toc-number">4.8.1.</span> <span class="post-toc-text">ziface</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法解析："><span class="post-toc-number">4.8.2.</span> <span class="post-toc-text">方法解析：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主函数-main-解析："><span class="post-toc-number">4.8.3.</span> <span class="post-toc-text">主函数 main 解析：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行流程："><span class="post-toc-number">4.8.4.</span> <span class="post-toc-text">运行流程：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-下面赋值正确的是"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">3.下面赋值正确的是()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GIN问题"><span class="post-toc-number">4.10.</span> <span class="post-toc-text">GIN问题</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-面经Go"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Golang</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-02 00:00:00" datetime="2023-01-01T16:00:00.000Z"  itemprop="datePublished">2023-01-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Golang/">Golang</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>总 ：<a href="https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md" target="_blank" rel="noopener">https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md</a></p>
+<a id="more"></a>
+<h1 id="不要通过共享内存来通信，要通过通信来共享内存"><a href="#不要通过共享内存来通信，要通过通信来共享内存" class="headerlink" title="不要通过共享内存来通信，要通过通信来共享内存"></a>不要通过共享内存来通信，要通过通信来共享内存</h1><ul>
+<li>降低共享内存的使用，本来就是解耦和的重要手段之一</li>
+<li>理解时go使用主动的channel通信以最小限度使用这些存在channel里的内存空间，与其他通信的goroutine共享这个channel，范围可以控制在必要的最小规模；而不是先设定好共享内存，再其他开发过程中通过互斥锁、条件变量等方式提供给不同线程去共享内容，导致<h2 id="阐述golang并发机制"><a href="#阐述golang并发机制" class="headerlink" title="阐述golang并发机制"></a>阐述golang并发机制</h2></li>
+</ul>
+<h2 id="为什么小对象多了会造成gc压力"><a href="#为什么小对象多了会造成gc压力" class="headerlink" title="为什么小对象多了会造成gc压力"></a>为什么小对象多了会造成gc压力</h2><ol>
+<li>内存碎片</li>
+<li>gc时会移堆，将对象从一个堆移动到另一个堆（内存拷贝）</li>
+<li>标记的内存块也变多了，遍历的时间变长了<h2 id="gc的触发条件"><a href="#gc的触发条件" class="headerlink" title="gc的触发条件"></a>gc的触发条件</h2></li>
+<li>内存使用量超阈值，用GOGC设置</li>
+<li>使用runtime.GC手动触发<h2 id="gc的栈空间管理机制是什么"><a href="#gc的栈空间管理机制是什么" class="headerlink" title="gc的栈空间管理机制是什么"></a>gc的栈空间管理机制是什么</h2></li>
+<li>runtime负责，</li>
+<li>每个goroutine分配一个固定栈空间，大小大概在2kb到4kb左右</li>
+<li>栈空间不够时，runtime自动扩展栈的大小，回收时runtime回收栈空间变量<h2 id="defer原理"><a href="#defer原理" class="headerlink" title="defer原理"></a>defer原理</h2>defer的原理是先进后出的栈顺序，遇到defer时，将defer后的函数用语句进行压栈处理<h2 id="select原理，多路复用机制"><a href="#select原理，多路复用机制" class="headerlink" title="select原理，多路复用机制"></a>select原理，多路复用机制</h2>监听多个channel，机制是多个case打乱之后轮训</li>
+<li>有多个case执行，随机选一个执行，</li>
+<li>case都不满足，执行default，再不满足就阻塞<h2 id="go的逃逸分析"><a href="#go的逃逸分析" class="headerlink" title="go的逃逸分析"></a>go的逃逸分析</h2></li>
+</ol>
+<p><strong>是在编译过程中的静态分析机制，优化内存分配</strong>用来决定各个变量分配在堆上还是栈上，如果一个变量在函数内部初始化，但是传递到外部了，就说发生逃逸，分配到heap上</p>
+<h2 id="线程模型有哪些？为什么go-scheduler需要实现M：N方案？scheduler-由哪些元素组成"><a href="#线程模型有哪些？为什么go-scheduler需要实现M：N方案？scheduler-由哪些元素组成" class="headerlink" title="线程模型有哪些？为什么go scheduler需要实现M：N方案？scheduler 由哪些元素组成"></a>线程模型有哪些？为什么go scheduler需要实现M：N方案？scheduler 由哪些元素组成</h2><h2 id="解释hand-off，work-stealing"><a href="#解释hand-off，work-stealing" class="headerlink" title="解释hand off，work stealing"></a>解释hand off，work stealing</h2><h2 id="mutex-有几种模式【正常和饥饿】"><a href="#mutex-有几种模式【正常和饥饿】" class="headerlink" title="mutex 有几种模式【正常和饥饿】"></a>mutex 有几种模式【正常和饥饿】</h2><p>正常模式保证了公平竞争，适用于大多数情况，而饥饿模式则优先保证了长时间等待的协程能够获得锁。</p>
+<ul>
+<li>mutex没有提供接口，要引入一个计数器来实现饥饿模式<h2 id="defer和return的先后顺序"><a href="#defer和return的先后顺序" class="headerlink" title="defer和return的先后顺序"></a>defer和return的先后顺序</h2>return先执行获取返回值，然后暂停函数的执行，接下来就按defer的压栈顺序执行defer语句，顺序是后进先出的顺序<h2 id="go-recover的执行时机"><a href="#go-recover的执行时机" class="headerlink" title="go recover的执行时机"></a>go recover的执行时机</h2></li>
+</ul>
+<p><strong>需要进行defer func捕获上级的panic</strong>：<br>recover 必须在 defer 函数中运行。recover 捕获的是祖父级调用时的异常，直接调用时无效。</p>
+<h2 id="闭包错误引用同一个变量问题怎么处理-？"><a href="#闭包错误引用同一个变量问题怎么处理-？" class="headerlink" title="闭包错误引用同一个变量问题怎么处理 ？"></a>闭包错误引用同一个变量问题怎么处理 ？</h2><ol>
+<li>将闭包需要<strong>引用的变量作为参数</strong>传递给闭包函数，而不是直接在闭包内部引用外部变量。</li>
+<li>在闭包函数里创建一个新的临时变量<h2 id="循环内部执行defer会发生什么"><a href="#循环内部执行defer会发生什么" class="headerlink" title="循环内部执行defer会发生什么"></a>循环内部执行defer会发生什么</h2>正常压栈，</li>
+</ol>
+<h2 id="golang中的大端序和小端序"><a href="#golang中的大端序和小端序" class="headerlink" title="golang中的大端序和小端序"></a>golang中的大端序和小端序</h2><p>大端序是低地址存高字节，高地址存低字节，同时也是网络字节序【大端就是顺序从左到右存放】<br>小端时低地址存低字节，高地址存高字节，是主机序【golang默认小端序，主机x86和arm64都是小端】</p>
+<h2 id="syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】"><a href="#syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】" class="headerlink" title="syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】"></a>syncOnce是什么【确保一个代码块只执行一次，一般用来实现一个线程安全的单例模式】</h2><h2 id="routine为什么比thread轻量"><a href="#routine为什么比thread轻量" class="headerlink" title="routine为什么比thread轻量"></a>routine为什么比thread轻量</h2><ol>
+<li>routine是纯用户态调度，非抢占，由runtime管理，创建，切换的开销不需要内核态参与</li>
+<li>协程在同一个地址空间共享堆栈，每个线程都有自己独立的堆栈</li>
+</ol>
+<h2 id="原子操作和锁的区别"><a href="#原子操作和锁的区别" class="headerlink" title="原子操作和锁的区别"></a>原子操作和锁的区别</h2><ol>
+<li>原子操作是对共享变量的单一操作，要么执行完药么全不执行；锁对一段临界区代码，操作的变量可以有一堆</li>
+<li>原子操作开销小，锁开销较大，涉及到上下文切换等<h2 id="go的多返回值如何实现"><a href="#go的多返回值如何实现" class="headerlink" title="go的多返回值如何实现"></a>go的多返回值如何实现</h2><h2 id="uintptr和unsafe-Pointer的区别"><a href="#uintptr和unsafe-Pointer的区别" class="headerlink" title="uintptr和unsafe.Pointer的区别"></a>uintptr和unsafe.Pointer的区别</h2></li>
+</ol>
+<ul>
+<li><strong>uintptr</strong>：将指针转换整数表示，不包含指针的类型信息。</li>
+<li><strong>unsafe.Pointer</strong>：包含任意类型指针，将任意类型的指针转换为通用指针类型，很灵活<br>uintptr 是一个整数类型，它被用于<strong>存储指针的整数表示</strong>形式。<br>使用 uintptr 可以<strong>将指针转换为整数，也可以将整数转换为指针</strong>，但这种转换是不安全的，可能会导致未定义的行为。<br>因为 uintptr 只是整数，<strong>不包含指针的类型信息</strong>，因此在转换后需要谨慎使用，可能会导致类型不匹配或内存安全问题。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p *<span class="keyword">int</span></span><br><span class="line">uintptrValue := <span class="keyword">uintptr</span>(unsafe.Pointer(p))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>unsafe.Pointer</strong><br>unsafe.Pointer 是一个特殊的指针类型，它可以包含任意类型的指针，并允许在不进行类型检查的情况下进行指针操作。<br>使用 unsafe.Pointer 可以将任意类型的指针转换为通用的指针类型，也可以将通用指针转换为具体类型的指针。这种转换也是不安全的，可能会导致未定义的行为。<br>示例：<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p *<span class="keyword">int</span></span><br><span class="line">pointerValue := unsafe.Pointer(p)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个-case-的代码】"><a href="#switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个-case-的代码】" class="headerlink" title="switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个 case 的代码】"></a>switch中如何强制执行下一个case块【fallthrough关键字，忽略后续条件的判断，直接执行下一个 case 的代码】</h2><h2 id="如何关闭http响应体"><a href="#如何关闭http响应体" class="headerlink" title="如何关闭http响应体"></a>如何关闭http响应体</h2><p>在defer里close，或者用完就close</p>
+<h2 id="解析json时，默认将数值当作哪种类型【数值默认为float64】"><a href="#解析json时，默认将数值当作哪种类型【数值默认为float64】" class="headerlink" title="解析json时，默认将数值当作哪种类型【数值默认为float64】"></a>解析json时，默认将数值当作哪种类型【数值默认为float64】</h2><h2 id="如何从panic中恢复"><a href="#如何从panic中恢复" class="headerlink" title="如何从panic中恢复"></a>如何从panic中恢复</h2><p>defer func(){ recover()}</p>
+<h2 id="解释一下静态类型声明"><a href="#解释一下静态类型声明" class="headerlink" title="解释一下静态类型声明"></a>解释一下静态类型声明</h2><p>golang生命变量时是<strong>在编译阶段确定类型</strong></p>
+<h2 id="Golang的可变参数是什么，怎么用，要注意什么"><a href="#Golang的可变参数是什么，怎么用，要注意什么" class="headerlink" title="Golang的可变参数是什么，怎么用，要注意什么"></a>Golang的可变参数是什么，怎么用，要注意什么</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(nums ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    total := nums[<span class="number">0</span>]+<span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br><span class="line">sum()</span><br><span class="line">sum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ol>
+<li>可变参数必须是函数参数列表的最后一个参数：如果函数有多个参数，可变参数必须放在参数列表的最后。</li>
+<li>可变参数可以不传递：如果调用者不传递任何参数，可变参数会被初始化为空切片。</li>
+<li>可变参数可以传递多个值：可以传递任意数量的参数，甚至可以传递零个。</li>
+<li>调用时可以传递切片：如果已经有一个切片，可以在调用函数时使用 … 操作符将其展开为可变参数。<h2 id="golang支持接口的多继承（C-extends-A-and-C）吗【不支持，依靠组合实现】"><a href="#golang支持接口的多继承（C-extends-A-and-C）吗【不支持，依靠组合实现】" class="headerlink" title="golang支持接口的多继承（C extends A and C）吗【不支持，依靠组合实现】"></a>golang支持接口的多继承（C extends A and C）吗【不支持，依靠组合实现】</h2></li>
+</ol>
+<h2 id="简述scheduler函数"><a href="#简述scheduler函数" class="headerlink" title="简述scheduler函数"></a>简述scheduler函数</h2><h2 id="简述全局运行队列中获取goroutine的时机"><a href="#简述全局运行队列中获取goroutine的时机" class="headerlink" title="简述全局运行队列中获取goroutine的时机"></a>简述全局运行队列中获取goroutine的时机</h2><h2 id="简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】"><a href="#简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】" class="headerlink" title="简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】"></a>简述如何从工作线程的本底运行队列中获取routine【运行队列为空时】</h2><h2 id="init是什么时候执行的【包初始化阶段，程序开始执行前】"><a href="#init是什么时候执行的【包初始化阶段，程序开始执行前】" class="headerlink" title="init是什么时候执行的【包初始化阶段，程序开始执行前】"></a>init是什么时候执行的【包初始化阶段，程序开始执行前】</h2><h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><h2 id="1-map的key为什么无序，如何处理冲突的【默认】"><a href="#1-map的key为什么无序，如何处理冲突的【默认】" class="headerlink" title="1. map的key为什么无序，如何处理冲突的【默认】"></a>1. map的key为什么无序，如何处理冲突的【默认】</h2><p>底层用hash实现的，</p>
+<h2 id="2-map可以边遍历边删元素吗【不能】为什么"><a href="#2-map可以边遍历边删元素吗【不能】为什么" class="headerlink" title="2. map可以边遍历边删元素吗【不能】为什么"></a>2. map可以边遍历边删元素吗【不能】为什么</h2><p>线程不安全，删除的时候会导致存储结构发生变化，</p>
+<h2 id="3-float类型可以作为key吗，哪些不可以作为map的key"><a href="#3-float类型可以作为key吗，哪些不可以作为map的key" class="headerlink" title="3. float类型可以作为key吗，哪些不可以作为map的key"></a>3. float类型可以作为key吗，哪些不可以作为map的key</h2><p>从语法上看，是可以的。Go 语言中只要是可比较的类型都可以作为 key。除开 slice，map，functions 这几种类型，其他类型都是 OK 的。具体包括：布尔值、整型、字符串、指针、通道、接口类型、结构体、只包含上述类型的数组。<br><strong>channel 也可以当key</strong>，可以比较</p>
+<h2 id="4-非接口的任意类型都能调用-T方法吗"><a href="#4-非接口的任意类型都能调用-T方法吗" class="headerlink" title="4. 非接口的任意类型都能调用 *T方法吗"></a>4. 非接口的任意类型都能调用 *T方法吗</h2><p>不能吧，至少引用类型不能</p>
+<h2 id="5-map的赋值过程-mapassign"><a href="#5-map的赋值过程-mapassign" class="headerlink" title="5. map的赋值过程 mapassign"></a>5. map的赋值过程 mapassign</h2><p>对 key 计算 hash 值，根据 hash 值按照之前的流程，找到要赋值的位置（可能是插入新 key，也可能是更新老 key），对相应位置进行赋值。</p>
+<h2 id="6-如何实现两种get操作"><a href="#6-如何实现两种get操作" class="headerlink" title="6. 如何实现两种get操作"></a>6. 如何实现两种get操作</h2><p>map重载了两个函数一个带comma的一个不带comma的</p>
+<h2 id="7-map删除一个key，内存会释放吗【不会，要等gc扫描过来】"><a href="#7-map删除一个key，内存会释放吗【不会，要等gc扫描过来】" class="headerlink" title="7. map删除一个key，内存会释放吗【不会，要等gc扫描过来】"></a>7. map删除一个key，内存会释放吗【不会，要等gc扫描过来】</h2><h2 id="8-解析tag怎么实现的"><a href="#8-解析tag怎么实现的" class="headerlink" title="8. 解析tag怎么实现的"></a>8. 解析tag怎么实现的</h2><p>反射实现的，用Field(i).Tag</p>
+<h2 id="map可以取地址吗【不能】"><a href="#map可以取地址吗【不能】" class="headerlink" title="map可以取地址吗【不能】"></a>map可以取地址吗【不能】</h2><p>本身就是一个指向其他地址的指针，会导致编译错误</p>
+<h2 id="9-rune是int32"><a href="#9-rune是int32" class="headerlink" title="9. rune是int32"></a>9. rune是int32</h2><h2 id="10-值receiver-和-指针receiver的区别"><a href="#10-值receiver-和-指针receiver的区别" class="headerlink" title="10. 值receiver 和 指针receiver的区别"></a>10. 值receiver 和 指针receiver的区别</h2><p>值receiver 是创建结构体的一个副本，不修改原始字段的value<br>指针rcver是在原结构体实例上操作</p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">数值类型：</span><br><span class="line">int：有符号整数类型，根据平台可能为32位或64位。</span><br><span class="line">uint：无符号整数类型，根据平台可能为32位或64位。</span><br><span class="line">int8、int16、int32、int64：分别为8位、16位、32位、64位的有符号整数类型。</span><br><span class="line">uint8、uint16、uint32、uint64：分别为8位、16位、32位、64位的无符号整数类型。</span><br><span class="line">float32、float64：分别为32位和64位的浮点数类型。</span><br><span class="line">complex64、complex128：分别为64位和128位的复数类型。</span><br><span class="line">布尔类型：</span><br><span class="line">bool：表示逻辑值，只能取 true 或 false。</span><br><span class="line">字符串类型：</span><br><span class="line">string：表示一串字符，是不可变的。</span><br><span class="line">字符类型：</span><br><span class="line">rune：表示一个Unicode字符。</span><br><span class="line">错误类型：</span><br><span class="line">error：表示错误的接口类型。</span><br><span class="line">派生类型：</span><br><span class="line">byte：实际上是 uint8 的别名，用于表示一个字节的值。</span><br><span class="line">rune：实际上是 int32 的别名，用于表示一个Unicode字符。</span><br><span class="line">uintptr：用于存储一个指针的值，适用于底层编程。</span><br><span class="line">复合类型：</span><br><span class="line">数组（array）：具有固定长度的、相同类型的元素序列。</span><br><span class="line">切片（slice）：是对数组的一个引用，它可以动态增长。</span><br><span class="line">映射（map）：用于存储键-值对的集合，类似于字典或哈希表。</span><br><span class="line">结构体（struct）：可以包含不同类型的字段。</span><br><span class="line">接口（interface）：定义了一组方法的集合。</span><br><span class="line">通道（channel）：用于在多个goroutine之间传递数据。</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-什么是协程"><a href="#1-什么是协程" class="headerlink" title="1.什么是协程"></a>1.什么是协程</h2><p>是Golang提供的线程调度的基本单位。</p>
+<ul>
+<li>一个Goroutine会以一个很小的栈启动2KB或4KB，当遇到栈空间不足时，栈会自动伸缩，因此可以轻易实现成千上万个goroutine同时启动。</li>
+<li>每个goroutine（Go程序并发执行的基本单元）都会分配一块独立的栈内存，用于保存函数的局部变量、参数等信息。<h2 id="2-介绍一下channel"><a href="#2-介绍一下channel" class="headerlink" title="2.介绍一下channel"></a>2.介绍一下channel</h2></li>
+<li>channel时go提供的用于并发编程的特殊类型，使 goroutine 之间的进行数据传递和共享，避免了显式的锁机制，比较安全和高效</li>
+</ul>
+<p><strong>Go以通信的手段来共享内存</strong></p>
+<h3 id="new和make"><a href="#new和make" class="headerlink" title="new和make"></a>new和make</h3><p>new返回一个指向某类型指针，make创建slice map channel的实例</p>
+<h3 id="【问题】有缓冲channel和无缓冲channel的区别"><a href="#【问题】有缓冲channel和无缓冲channel的区别" class="headerlink" title="【问题】有缓冲channel和无缓冲channel的区别"></a>【问题】有缓冲channel和无缓冲channel的区别</h3><ul>
+<li>对于无缓冲区channel:<br>发送的数据如果没有被接收方接收，那么发送方阻塞;如果一直接收不到发送方的数据，接收方阻塞;</li>
+<li>有缓冲的channel:<br>发送方在缓冲区满的时候阻塞，接收方不阻塞; 接收方在缓冲区为空的时候阻塞，发送方不阻塞。<h3 id="【问题】channel的等待队列如果写满了，内存占用很高，怎么解决"><a href="#【问题】channel的等待队列如果写满了，内存占用很高，怎么解决" class="headerlink" title="【问题】channel的等待队列如果写满了，内存占用很高，怎么解决"></a>【问题】channel的等待队列如果写满了，内存占用很高，怎么解决</h3></li>
+</ul>
+<ol>
+<li>读协程可能出现问题，去修改</li>
+<li>限制写操作的并发数量，避免大量写</li>
+<li>使用select和超时机制<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">case</span> ch &lt;- value:</span><br><span class="line">    <span class="comment">// 写入成功</span></span><br><span class="line"><span class="keyword">case</span> &lt;-time.After(time.Second):</span><br><span class="line">    <span class="comment">// 超时处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="【问题】协程泄漏是什么，什么引发的，怎么解决"><a href="#【问题】协程泄漏是什么，什么引发的，怎么解决" class="headerlink" title="【问题】协程泄漏是什么，什么引发的，怎么解决"></a>【问题】协程泄漏是什么，什么引发的，怎么解决</h3><ul>
+<li>程序中创建的某些协程没有被正确地释放或终止（或者发生死锁），从而导致这些协程持续存在并占用资源（阻塞，死锁，无限循环）</li>
+<li><strong>解决方法</strong><ul>
+<li>defer：在需要释放资源的地方使用 defer</li>
+<li>使用go tool trace进行检查<h2 id="3-介绍一下Go语言的内存分配模型：src-runtime-mheap"><a href="#3-介绍一下Go语言的内存分配模型：src-runtime-mheap" class="headerlink" title="3.介绍一下Go语言的内存分配模型：src/runtime/mheap"></a>3.介绍一下Go语言的内存分配模型：src/runtime/mheap</h2></li>
+</ul>
+</li>
+<li>内存分配器：维护一块大的全局内存，每个线程(Golang中为P)维护一块小的私有内存，私有内存不足再从全局申请。</li>
+<li>预申请的内存划分为span（512MB），bitmap（16G），arena（512G堆区域），span和bitmap是管理堆区域，每个页的大小为8KB。<h2 id="4-介绍一下Go的GC机制：以防止内存泄漏"><a href="#4-介绍一下Go的GC机制：以防止内存泄漏" class="headerlink" title="4.介绍一下Go的GC机制：以防止内存泄漏"></a>4.介绍一下Go的GC机制：以防止内存泄漏</h2></li>
+<li>Go使用的是三色标记法，已被引用的被mark表示不可回收，未引用的被回收掉。</li>
+<li>这里的标记由一个管理内存分配的数据结构mspan管理，按内存块维护资源</li>
+<li>mspan这个结构体中，使用allocBits位图表示每个内存块的分配情况，使用gcmarkBits标记内存块被引用的情况</li>
+<li>这里的标记是从<strong>根对象进行递归扫描</strong>记录的，因为存在指针变量和记录的逻辑地址</li>
+<li>标记队列存放待标记的对象，<strong>灰色表示等待，白色未被标记，黑色被标记</strong>，把标记值记录在gcmarkBits中，标记的表示正在被引用<ul>
+<li>白色对象：尚未被访问，处于初始状态。</li>
+<li>灰色对象：已被访问，但其子对象还未被访问。</li>
+<li>黑色对象：已被访问，且其子对象也已被访问。</li>
+</ul>
+</li>
+<li>STW机制：停掉所有的goroutine，专心做垃圾回收，结束后恢复goroutine<h3 id="【问题】对STW的优化是什么？混合写"><a href="#【问题】对STW的优化是什么？混合写" class="headerlink" title="【问题】对STW的优化是什么？混合写"></a>【问题】对STW的优化是什么？混合写</h3></li>
+<li>并发标记</li>
+<li>混合写，将并发标记和 STW 结合起来的阶段。在这个阶段，部分垃圾回收工作会在并发进行，同时也会暂停所有 Goroutine 进行一些必要的 STW 操作。</li>
+<li>并发清理<h3 id="混合写导致的问题，为了减少停顿时间"><a href="#混合写导致的问题，为了减少停顿时间" class="headerlink" title="混合写导致的问题，为了减少停顿时间"></a>混合写导致的问题，为了减少停顿时间</h3></li>
+</ul>
+<ol>
+<li>内存和CPU开销，因为要引入额外元信息</li>
+<li>在某些情况下，混合写屏障可能会导致一些额外的延迟，尤其是对于极短寿命的对象，因为它们在逃逸到堆之前可能会留在栈上</li>
+</ol>
+<h3 id="【问题】根对象是什么"><a href="#【问题】根对象是什么" class="headerlink" title="【问题】根对象是什么"></a>【问题】根对象是什么</h3><p>在Go语言中，<strong>全局变量、栈上的变量以及程序计数器指向的对象</strong>等都被认为是根对象。</p>
+<p>垃圾回收器会从这些根对象出发，逐步遍历所有可以访问到的对象，并标记它们。</p>
+<h3 id="【问题】goroutine-可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑"><a href="#【问题】goroutine-可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑" class="headerlink" title="【问题】goroutine 可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑"></a>【问题】goroutine 可以无限创建吗，如果创建过多会有什么后果？从GC的角度来考虑</h3><p>理论上可以无限创建，取决于操作系统的限制，比如内存大小</p>
+<ul>
+<li>goroutine执行完会产生垃圾，增大gc压力</li>
+<li>标记阶段时会遍历对象，goroutine多了会导致标记的压力增加</li>
+<li>停顿时间变长：需要回收大量的内存，可能会导致垃圾回收器的停顿时间变长<h3 id="【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。"><a href="#【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。" class="headerlink" title="【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。"></a>【TIPs】在程序中要避免在短时间内产生大量临时对象，以减小垃圾回收的压力。</h3></li>
+</ul>
+<h3 id="如何优化STW机制"><a href="#如何优化STW机制" class="headerlink" title="如何优化STW机制"></a>如何优化STW机制</h3><ul>
+<li>混合写屏障：类似于一种开关，在GC的特定时机开启，开启后指针传递时会把指针标记，即 本轮不回收，下次GC时再确定</li>
+<li>辅助GC：新分配的goroutine如果要分配内存，那就去辅助完成一部分gc工作，也就是自己的资源自己挣的感觉</li>
+</ul>
+<h2 id="4-介绍一下GMP"><a href="#4-介绍一下GMP" class="headerlink" title="4.介绍一下GMP"></a>4.介绍一下GMP</h2><ol>
+<li>G : 协程   goroutine</li>
+<li>P : 处理器 processor ： 和M一对一，runtime.Gomaxprocs配置 </li>
+<li>M : 线程   thread    ：runtime.setMaxThreads最大10000个，<ol>
+<li>有一个M阻塞，会创建一个新M</li>
+<li>有M空闲，就回收或睡眠M</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>线程是运行 goroutine 的实体，调度器的功能是把可运行的 G 分配到工作线程<br>M 上</li>
+<li>全局队列：存放正在等待运行的G</li>
+<li>本地队列：不超过256个G<h2 id="【问题】调度器P的workstealing机制和handoff机制"><a href="#【问题】调度器P的workstealing机制和handoff机制" class="headerlink" title="【问题】调度器P的workstealing机制和handoff机制"></a>【问题】调度器P的workstealing机制和handoff机制</h2></li>
+<li>work stealing<ul>
+<li>当本线程M没有可运行的G时，尝试从其他线程绑定的P中偷G</li>
+<li>当从其他线程偷不到时，从全局队列偷取（为什么？因为全局队列有锁）</li>
+</ul>
+</li>
+<li>hand off<ul>
+<li>当本线程M因为有G阻塞时，会释放自己的P给另一个唤醒/新建的M执行（runtime调度器来做detach）</li>
+</ul>
+</li>
+</ul>
+<h2 id="【问题】go-func-的执行流程"><a href="#【问题】go-func-的执行流程" class="headerlink" title="【问题】go func(){} 的执行流程"></a>【问题】go func(){} 的执行流程</h2><ol>
+<li>创建一个G，优先加入到func所在线程M对应P的本底队列中，满了的话，放在全局队列中</li>
+<li>G运行在M中，如果本地G队列为空，就去其他M P组合去偷</li>
+<li>【问题】当M系统调用结束时，所属的G会尝试获取一个空闲P去执行，并加入到这个P的G队列，如果找不到，就休眠这个M，并将这个G加入到全局队列</li>
+</ol>
+<h2 id="【问题】Go的生命周期-M0，G0是什么"><a href="#【问题】Go的生命周期-M0，G0是什么" class="headerlink" title="【问题】Go的生命周期 M0，G0是什么"></a>【问题】Go的生命周期 M0，G0是什么</h2><p><strong>M0</strong></p>
+<ul>
+<li>M0指程序启动时，编号为0主线程，runtime的M0</li>
+<li>M0负责初始化和启动第一个G</li>
+<li>启动G之后，和其他M地位一样了</li>
+</ul>
+<p><strong>G0</strong></p>
+<ul>
+<li>每次启动一个M，都会有一个G0</li>
+<li>G0仅负责调度其他的G1，G2</li>
+<li>G0本身不执行任何func</li>
+<li>G1执行完，先执行G0，G0再切换其他的G2</li>
+</ul>
+<h3 id="【场景1】G1嵌套创建G3"><a href="#【场景1】G1嵌套创建G3" class="headerlink" title="【场景1】G1嵌套创建G3"></a>【场景1】G1嵌套创建G3</h3><p>保证局部性，G3优先加入G1所在的本底队列，满了的话看场景3</p>
+<h3 id="【场景2】G执行完毕"><a href="#【场景2】G执行完毕" class="headerlink" title="【场景2】G执行完毕"></a>【场景2】G执行完毕</h3><p>执行完毕后，切换G0，G0调度切换下一个G</p>
+<h3 id="【场景3】连续创建多个G导致本地队列满"><a href="#【场景3】连续创建多个G导致本地队列满" class="headerlink" title="【场景3】连续创建多个G导致本地队列满"></a>【场景3】连续创建多个G导致本地队列满</h3><ol>
+<li>对队列头部的一半打乱，放在全局队列</li>
+<li>新创建的G也放在全局队列中</li>
+<li>当前的本底队列变成原来长度的1/2<h3 id="【场景4】唤醒正在休眠的M"><a href="#【场景4】唤醒正在休眠的M" class="headerlink" title="【场景4】唤醒正在休眠的M"></a>【场景4】唤醒正在休眠的M</h3></li>
+</ol>
+<ul>
+<li>什么时候唤醒？调度器自动唤醒，当某个 Goroutine 可以被执行时，当一个被阻塞的 Channel 操作可以继续执行时。</li>
+</ul>
+<p>新M所在的G队列如果为空，称为<strong>自旋线程</strong>，不断寻找G</p>
+<ul>
+<li>由于自旋线程拥有P，handoff机制不会把P给自旋线程<h3 id="【场景5】自旋线程从哪里获取G"><a href="#【场景5】自旋线程从哪里获取G" class="headerlink" title="【场景5】自旋线程从哪里获取G"></a>【场景5】自旋线程从哪里获取G</h3></li>
+<li>首先从全局队列获取</li>
+<li>全局队列如果为空，触发workstealing，从其他队列队尾偷一半<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h2>strings.Join ≈ strings.Builder &gt; bytes.Buffer &gt; “+” &gt; fmt.Sprintf</li>
+</ul>
+<h2 id="slice中删除具体的值"><a href="#slice中删除具体的值" class="headerlink" title="slice中删除具体的值"></a>slice中删除具体的值</h2><p>移位法最快。</p>
+<p>原地删除，扫描到具体值后，使用<figure class="highlight plain"><figcaption><span>slice[index+1:])```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## b = b[:len(a)] 作用</span><br><span class="line">- 优化边界检查 Bounds Check ELimination</span><br><span class="line">- 在运行时，Go 语言每次都会对 b[i] 做边界检查，看看是否越界了，如果越界了，就 panic。</span><br><span class="line">- 如果加上这一句，Go语言在编译时，能够做一些简单的静态分析，发现 b[i] 是不可能越界的</span><br><span class="line"></span><br><span class="line">## error</span><br><span class="line">【面试问题】如果一个函数的返回值是error，里面执行了多个defer，并且这些defer里面调用了不同的方法，也会返回error，但是这些error的格式是不一样的（比如有一些方法返回的是官方的errors，有一些是业务定义的错误，比如错误码和错误信息）。怎么样能统一处理这些defer的错误并且返回？</span><br><span class="line">- go泛型</span><br><span class="line"></span><br><span class="line">## 【问题】控制goroutine超时退出</span><br><span class="line">- 使用 context 包</span><br><span class="line">```go</span><br><span class="line">func main() &#123;</span><br><span class="line">	// 创建一个上下文，设置超时时间为 2 秒</span><br><span class="line">	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)</span><br><span class="line">	defer cancel() // 在完成任务后取消上下文以释放资源</span><br><span class="line"></span><br><span class="line">	// 在另一个 goroutine 中执行任务</span><br><span class="line">	go func() &#123;</span><br><span class="line">		// 模拟一个耗时的任务</span><br><span class="line">		time.Sleep(3 * time.Second)</span><br><span class="line"></span><br><span class="line">		// 判断上下文是否被取消</span><br><span class="line">		if ctx.Err() == context.Canceled &#123;</span><br><span class="line">			fmt.Println(&quot;Task canceled due to timeout&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	// 等待一段时间，以确保上下文超时</span><br><span class="line">	time.Sleep(4 * time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="【问题】Go语言闭包"><a href="#【问题】Go语言闭包" class="headerlink" title="【问题】Go语言闭包"></a>【问题】Go语言闭包</h2><p>简单来说，闭包允许一个函数记住并访问了它创建时所在的环境，即使在这个函数在其他地方被调用时仍然可以使用这个环境中的变量</p>
+<ul>
+<li>闭包用来减少全局变量，在函数调用过程中隐式传递共享变量</li>
+<li>编译器检测到闭包，将外部变量分配到堆上</li>
+<li>下面的程序中，a分配在堆上</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fn</span><span class="params">(a <span class="keyword">int</span>)</span> <span class="title">func</span><span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">		fmt.Println(a)</span><br><span class="line">		a = a + i</span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">f:= fn(<span class="number">3</span>)</span><br><span class="line">g:= fn(<span class="number">3</span>)</span><br><span class="line">f(<span class="number">1</span>) <span class="comment">//输出 4</span></span><br><span class="line">f(<span class="number">1</span>) <span class="comment">//输出 5</span></span><br><span class="line">g(<span class="number">1</span>) <span class="comment">//输出 4</span></span><br><span class="line">g(<span class="number">1</span>) <span class="comment">//输出 5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="panic和recover"><a href="#panic和recover" class="headerlink" title="panic和recover"></a>panic和recover</h2><p>函数签名</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span>(i <span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line"><span class="built_in">recover</span>() <span class="keyword">interface</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主动调用-抛出panic"><a href="#主动调用-抛出panic" class="headerlink" title="主动调用/抛出panic"></a>主动调用/抛出panic</h3><ol>
+<li>主动调用panic结束程序运行</li>
+<li>调试时用panic快速退出，并打印出来堆栈信息</li>
+<li>需要主动在程序分支流程上调用recover拦截错误</li>
+</ol>
+<h2 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h2><h3 id="IO操作"><a href="#IO操作" class="headerlink" title="IO操作"></a>IO操作</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">os.Stdin：标准输入的文件实例，类型为*File</span><br><span class="line">os.Stdout：标准输出的文件实例，类型为*File</span><br><span class="line">os.Stderr：标准错误输出的文件实例，类型为*File</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Create</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="params">(file *File, err Error)</span></span></span><br><span class="line"><span class="function">//根据提供的文件名创建新的文件，返回一个文件对象，默认权限是0666</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">NewFile</span><span class="params">(fd <span class="keyword">uintptr</span>, name <span class="keyword">string</span>)</span> *<span class="title">File</span></span></span><br><span class="line"><span class="function">// 根据文件描述符创建相应的文件，返回一个文件对象</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">Open</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="params">(file *File, err Error)</span></span></span><br><span class="line"><span class="function">// 只读方式打开一个名称为<span class="title">name</span>的文件</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">OpenFile</span><span class="params">(name <span class="keyword">string</span>, flag <span class="keyword">int</span>, perm <span class="keyword">uint32</span>)</span> <span class="params">(file *File, err Error)</span></span></span><br><span class="line"><span class="function">// 打开名称为<span class="title">name</span>的文件，<span class="title">flag</span>是打开的方式，只读、读写等，<span class="title">perm</span>是权限</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">Write</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">写入<span class="title">byte</span>类型的信息到文件</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">WriteAt</span><span class="params">(b []<span class="keyword">byte</span>, off <span class="keyword">int64</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">在指定位置开始写入<span class="title">byte</span>类型的信息</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">WriteString</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">(ret <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">写入<span class="title">string</span>信息到文件</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">Read</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">读取数据到<span class="title">b</span>中</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(file *File)</span> <span class="title">ReadAt</span><span class="params">(b []<span class="keyword">byte</span>, off <span class="keyword">int64</span>)</span> <span class="params">(n <span class="keyword">int</span>, err Error)</span></span></span><br><span class="line"><span class="function">从<span class="title">off</span>开始读取数据到<span class="title">b</span>中</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">Remove</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="title">Error</span></span></span><br><span class="line"><span class="function">删除文件名为<span class="title">name</span>的文件</span></span><br><span class="line"><span class="function"></span></span><br><span class="line">logFile, err := os.OpenFile("./xx.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现一个cat命令"><a href="#实现一个cat命令" class="headerlink" title="实现一个cat命令"></a>实现一个cat命令</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cat命令实现</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cat</span><span class="params">(r *bufio.Reader)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        buf, err := r.ReadBytes(<span class="string">'\n'</span>) <span class="comment">//注意是字符</span></span><br><span class="line">        <span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Fprintf(os.Stdout, <span class="string">"%s"</span>, buf)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    flag.Parse() <span class="comment">// 解析命令行参数</span></span><br><span class="line">    <span class="keyword">if</span> flag.NArg() == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有参数默认从标准输入读取内容</span></span><br><span class="line">        cat(bufio.NewReader(os.Stdin))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 依次读取每个指定文件的内容并打印到终端</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; flag.NArg(); i++ &#123;</span><br><span class="line">        f, err := os.Open(flag.Arg(i))</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Fprintf(os.Stdout, <span class="string">"reading from %s failed, err:%v\n"</span>, flag.Arg(i), err)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        cat(bufio.NewReader(f))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="net包"><a href="#net包" class="headerlink" title="net包"></a>net包</h2><h2 id="context包"><a href="#context包" class="headerlink" title="context包"></a>context包</h2><p>当一个请求被取消或超时时，所有用来处理该请求的 goroutine 都应该迅速退出，然后系统才能释放这些 goroutine 占用的资源。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始的例子</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"worker"</span>)</span><br><span class="line">        time.Sleep(time.Second)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如何接收外部命令实现退出</span></span><br><span class="line">    wg.Done()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    wg.Add(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> worker()</span><br><span class="line">    <span class="comment">// 如何优雅的实现结束子goroutine</span></span><br><span class="line">    wg.Wait()</span><br><span class="line">    fmt.Println(<span class="string">"over"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Zinx"><a href="#Zinx" class="headerlink" title="Zinx"></a>Zinx</h2><h3 id="ziface"><a href="#ziface" class="headerlink" title="ziface"></a><strong>ziface</strong></h3><p>  接口包括</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- IService 基础服务的启动</span><br><span class="line">  - Start() <span class="comment">//启动服务器</span></span><br><span class="line">  - Stop()  <span class="comment">//停止服务器</span></span><br><span class="line">  - Serve() <span class="comment">//开启业务服务方法</span></span><br><span class="line">  - AddRouter(router IRouter)<span class="comment">//路由功能：给当前服务注册一个路由业务方法，供客户端链接处理使用</span></span><br><span class="line">- IConnection 基于net库</span><br><span class="line">  - Start() <span class="comment">//启动连接，让当前连接开始工作</span></span><br><span class="line">  - Stop()  <span class="comment">//停止连接，结束当前连接状态M</span></span><br><span class="line">  - GetTCPConnection() * net.TCPConn <span class="comment">//从当前连接获取原始的socket TCPConn</span></span><br><span class="line">  - GetConnID() <span class="keyword">uint32</span>    <span class="comment">//获取当前连接ID</span></span><br><span class="line">  - RemoteAddr() net.Addr <span class="comment">//获取远程客户端地址信息</span></span><br><span class="line"></span><br><span class="line">  - <span class="keyword">type</span> HandFunc <span class="function"><span class="keyword">func</span><span class="params">(*net.TCPConn, []<span class="keyword">byte</span>, <span class="keyword">int</span>)</span> <span class="title">error</span> //定义一个统一处理链接业务的接口,是所有<span class="title">conn</span>链接在处理业务的函数接口，第一参数是<span class="title">socket</span>原生链接，第二个参数是客户端请求的数据，第三个参数是客户端请求的数据长度。这样，如果我们想要指定一个<span class="title">conn</span>的处理业务，只要定义一个<span class="title">HandFunc</span>类型的函数，然后和该链接绑定就可以了。</span></span><br><span class="line"><span class="function">- <span class="title">IRequest</span> //每次客户端的全部请求数据，一起放到一个<span class="title">Request</span>结构体里</span></span><br><span class="line"><span class="function">  - <span class="title">GetConnection</span><span class="params">()</span> <span class="title">IConnection</span>    //获取请求连接信息</span></span><br><span class="line"><span class="function">  - <span class="title">GetData</span><span class="params">()</span> []<span class="title">byte</span>            //获取请求消息的数据</span></span><br><span class="line"><span class="function">- <span class="title">IRouter</span>  //路由配置类</span></span><br><span class="line"><span class="function">  - <span class="title">PreHandle</span><span class="params">(request IRequest)</span>  //在处理<span class="title">conn</span>业务之前的钩子方法</span></span><br><span class="line"><span class="function">  - <span class="title">Handle</span><span class="params">(request IRequest)</span>     //处理<span class="title">conn</span>业务的方法</span></span><br><span class="line"><span class="function">  - <span class="title">PostHandle</span><span class="params">(request IRequest)</span> //处理<span class="title">conn</span>业务之后的钩子方法</span></span><br><span class="line"><span class="function">- <span class="title">IMessage</span> //消息封装</span></span><br><span class="line"><span class="function">  - <span class="title">GetDataLen</span><span class="params">()</span> <span class="title">uint32</span> //获取消息数据段长度</span></span><br><span class="line"><span class="function">  - <span class="title">GetMsgId</span><span class="params">()</span> <span class="title">uint32</span>   //获取消息<span class="title">ID</span></span></span><br><span class="line"><span class="function">  - <span class="title">GetData</span><span class="params">()</span> []<span class="title">byte</span>    //获取消息内容</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">  - <span class="title">SetMsgId</span><span class="params">(<span class="keyword">uint32</span>)</span>    //设计消息<span class="title">ID</span></span></span><br><span class="line"><span class="function">  - <span class="title">SetData</span><span class="params">([]<span class="keyword">byte</span>)</span>     //设计消息内容</span></span><br><span class="line"><span class="function">  - <span class="title">SetDataLen</span><span class="params">(<span class="keyword">uint32</span>)</span>  //设置消息数据段长度</span></span><br><span class="line"><span class="function">- <span class="title">IDataPack</span> //消息封包拆包</span></span><br><span class="line"><span class="function">  - <span class="title">GetHeadLen</span><span class="params">()</span> <span class="title">uint32</span>                  //获取包头长度方法</span></span><br><span class="line"><span class="function">  - <span class="title">Pack</span><span class="params">(msg IMessage)</span><span class="params">([]<span class="keyword">byte</span>, error)</span>   //封包方法</span></span><br><span class="line"><span class="function">    // 通过<span class="title">encoding</span>/<span class="title">binary</span>.<span class="title">write</span>方法将<span class="title">byte</span>数组小端写入<span class="title">bytes</span>来压缩数据</span></span><br><span class="line"><span class="function">  - <span class="title">Unpack</span><span class="params">([]<span class="keyword">byte</span>)</span><span class="params">(IMessage, error)</span>     //拆包方法</span></span><br><span class="line"><span class="function">- <span class="title">IMsgHandle</span> //消息管理模块</span></span><br><span class="line"><span class="function">  - <span class="title">DoMsgHandler</span><span class="params">(request IRequest)</span>          //马上以非阻塞方式处理消息</span></span><br><span class="line"><span class="function">  - <span class="title">AddRouter</span><span class="params">(msgId <span class="keyword">uint32</span>, router IRouter)</span> //为消息添加具体的处理逻辑</span></span><br><span class="line"><span class="function">  - <span class="title">StartWorkerPool</span><span class="params">()</span>                       //启动<span class="title">worker</span>工作池</span></span><br><span class="line"><span class="function">  - <span class="title">SendMsgToTaskQueue</span><span class="params">(request IRequest)</span>    //将消息交给<span class="title">MsgHandle</span>的消息队列<span class="title">TaskQueue</span>,由<span class="title">worker</span>进行处理</span></span><br><span class="line"><span class="function">- <span class="title">IConnManager</span> // <span class="title">TCP</span>的链接管理模块</span></span><br><span class="line"><span class="function">  - <span class="title">Add</span><span class="params">(conn IConnection)</span>                   //添加链接</span></span><br><span class="line"><span class="function">  - <span class="title">Remove</span><span class="params">(conn IConnection)</span>                //删除连接</span></span><br><span class="line"><span class="function">  - <span class="title">Get</span><span class="params">(connID <span class="keyword">uint32</span>)</span> <span class="params">(IConnection, error)</span> //利用<span class="title">ConnID</span>获取链接</span></span><br><span class="line"><span class="function">  - <span class="title">Len</span><span class="params">()</span> <span class="title">int</span>                               //获取当前连接</span></span><br><span class="line"><span class="function">  - <span class="title">ClearConn</span><span class="params">()</span>                             //删除并停止所有链接</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Job <span class="keyword">struct</span> &#123;</span><br><span class="line">    id <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Worker <span class="keyword">struct</span> &#123;</span><br><span class="line">    id         <span class="keyword">int</span></span><br><span class="line">    jobChannel <span class="keyword">chan</span> Job</span><br><span class="line">    quit       <span class="keyword">chan</span> <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pool <span class="keyword">struct</span> &#123;</span><br><span class="line">    workerCount <span class="keyword">int</span></span><br><span class="line">    jobChannel  <span class="keyword">chan</span> Job</span><br><span class="line">    workers     []Worker</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewJob</span><span class="params">(id <span class="keyword">int</span>)</span> <span class="title">Job</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Job&#123;id: id&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewWorker</span><span class="params">(id <span class="keyword">int</span>, jobChannel <span class="keyword">chan</span> Job)</span> <span class="title">Worker</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Worker&#123;</span><br><span class="line">        id:         id,</span><br><span class="line">        jobChannel: jobChannel,</span><br><span class="line">        quit:       <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewPool</span><span class="params">(workerCount, jobCount <span class="keyword">int</span>)</span> <span class="title">Pool</span></span> &#123;</span><br><span class="line">    jobChannel := <span class="built_in">make</span>(<span class="keyword">chan</span> Job, jobCount)</span><br><span class="line">    workers := <span class="built_in">make</span>([]Worker, workerCount)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; workerCount; i++ &#123;</span><br><span class="line">        workers[i] = NewWorker(i, jobChannel)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Pool&#123;</span><br><span class="line">        workerCount: workerCount,</span><br><span class="line">        jobChannel:  jobChannel,</span><br><span class="line">        workers:     workers,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w Worker)</span> <span class="title">Start</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> job := &lt;-w.jobChannel:</span><br><span class="line">                fmt.Printf(<span class="string">"Worker %d processing job %d\n"</span>, w.id, job.id)</span><br><span class="line">            <span class="keyword">case</span> &lt;-w.quit:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w Worker)</span> <span class="title">Stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        w.quit &lt;- <span class="literal">true</span></span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Pool)</span> <span class="title">Start</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; p.workerCount; i++ &#123;</span><br><span class="line">        p.workers[i].Start()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Pool)</span> <span class="title">Stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; p.workerCount; i++ &#123;</span><br><span class="line">        p.workers[i].Stop()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Pool)</span> <span class="title">AddJob</span><span class="params">(job Job)</span></span> &#123;</span><br><span class="line">    p.jobChannel &lt;- job</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    pool := NewPool(<span class="number">3</span>, <span class="number">10</span>)</span><br><span class="line">    pool.Start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        job := NewJob(i)</span><br><span class="line">        pool.AddJob(job)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 等待一段时间，以便观察协程池的工作</span></span><br><span class="line">    <span class="comment">// 在实际应用中，你可能需要使用 sync.WaitGroup 或其他同步方法来确保所有任务完成后再关闭协程池</span></span><br><span class="line">    <span class="comment">// 这里仅做演示，实际中请根据需要进行调整</span></span><br><span class="line">    fmt.Println(<span class="string">"等待一段时间，以观察协程池的工作..."</span>)</span><br><span class="line">    <span class="keyword">select</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><code>Job</code> 结构体:</p>
+<ul>
+<li><code>id int</code>: 用于表示一个任务的唯一标识。</li>
+</ul>
+</li>
+<li><p><code>Worker</code> 结构体:</p>
+<ul>
+<li><code>id int</code>: 表示工作者的唯一标识。</li>
+<li><code>jobChannel chan Job</code>: 是一个任务通道，用于接收工作者执行的任务。</li>
+<li><code>quit chan bool</code>: 是一个退出通道，用于通知工作者停止运行。</li>
+</ul>
+</li>
+<li><p><code>Pool</code> 结构体:</p>
+<ul>
+<li><code>workerCount int</code>: 表示协程池中的工作者数量。</li>
+<li><code>jobChannel chan Job</code>: 是一个任务通道，用于向协程池中添加任务。</li>
+<li><code>workers []Worker</code>: 存储了所有的工作者。</li>
+</ul>
+</li>
+</ol>
+<h3 id="方法解析："><a href="#方法解析：" class="headerlink" title="方法解析："></a>方法解析：</h3><ol>
+<li><p><code>NewJob(id int) Job</code>:</p>
+<ul>
+<li>返回一个新的任务 <code>Job</code> 对象，带有指定的任务ID。</li>
+</ul>
+</li>
+<li><p><code>NewWorker(id int, jobChannel chan Job) Worker</code>:</p>
+<ul>
+<li>返回一个新的工作者 <code>Worker</code> 对象，使用指定的工作者ID和任务通道。</li>
+</ul>
+</li>
+<li><p><code>NewPool(workerCount, jobCount int) Pool</code>:</p>
+<ul>
+<li>创建一个新的协程池，初始化了工作者和任务通道。</li>
+<li>参数 <code>workerCount</code> 表示协程池中的工作者数量。</li>
+<li>参数 <code>jobCount</code> 表示任务通道的缓冲区大小。</li>
+</ul>
+</li>
+<li><p><code>Worker.Start()</code>:</p>
+<ul>
+<li>启动了一个工作者协程，该协程会不断地监听任务通道和退出通道。</li>
+<li>当从任务通道收到任务时，工作者会执行任务；当从退出通道收到信号时，工作者会停止运行。</li>
+</ul>
+</li>
+<li><p><code>Worker.Stop()</code>:</p>
+<ul>
+<li>启动了一个协程，向退出通道发送信号，通知工作者停止运行。</li>
+</ul>
+</li>
+<li><p><code>Pool.Start()</code>:</p>
+<ul>
+<li>启动了协程池中所有工作者。</li>
+</ul>
+</li>
+<li><p><code>Pool.Stop()</code>:</p>
+<ul>
+<li>停止协程池中所有工作者。</li>
+</ul>
+</li>
+<li><p><code>Pool.AddJob(job Job)</code>:</p>
+<ul>
+<li>向任务通道中添加一个任务。</li>
+</ul>
+</li>
+</ol>
+<h3 id="主函数-main-解析："><a href="#主函数-main-解析：" class="headerlink" title="主函数 main 解析："></a>主函数 <code>main</code> 解析：</h3><ol>
+<li><p>创建一个协程池 <code>pool</code>，包括了 3 个工作者和 10 个任务的通道缓冲区。</p>
+</li>
+<li><p>调用 <code>pool.Start()</code> 启动所有工作者。</p>
+</li>
+<li><p>循环创建了 5 个任务，每个任务被添加到协程池的任务通道中。</p>
+</li>
+<li><p>由于在主函数结束后，主协程也会结束，所以在这里使用了 <code>select{}</code> 语句使主协程保持活跃状态。</p>
+</li>
+</ol>
+<h3 id="运行流程："><a href="#运行流程：" class="headerlink" title="运行流程："></a>运行流程：</h3><ol>
+<li><p>在主函数中创建了一个协程池 <code>pool</code>，初始化了 3 个工作者和一个任务通道。</p>
+</li>
+<li><p>每个工作者通过 <code>Worker.Start()</code> 方法启动了一个独立的协程，开始监听任务通道和退出通道。</p>
+</li>
+<li><p>主函数循环创建了 5 个任务，并通过 <code>pool.AddJob(job)</code> 方法将它们添加到协程池的任务通道中。</p>
+</li>
+<li><p>每个工作者从任务通道中接收到任务后，会执行相应的任务。</p>
+</li>
+<li><p>当主函数结束后，通过 <code>select{}</code> 语句使主协程保持活跃状态，保证所有工作者有足够的时间来处理任务。</p>
+</li>
+</ol>
+<p>请注意，实际应用中，你可能需要使用合适的同步机制（例如 <code>sync.WaitGroup</code>）来确保所有任务完成后再关闭协程池，以及处理一些错误和异常情况。</p>
+<h2 id="3-下面赋值正确的是"><a href="#3-下面赋值正确的是" class="headerlink" title="3.下面赋值正确的是()"></a>3.下面赋值正确的是()</h2><p>A. var x = nil<br>B. var x interface{} = nil<br>C. var x string = nil<br>D. var x error = nil<br>参考答案及解析：BD。知识点：nil 值。nil 只能赋值给指针、chan、func、interface、map 或 slice 类型的变量。强调下 D 选项的 error 类型，它是一种内置接口类型，看下方贴出的源码就知道，所以 D 是对的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="GIN问题"><a href="#GIN问题" class="headerlink" title="GIN问题"></a>GIN问题</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T16:55:18.104Z" itemprop="dateUpdated">2023-10-31 00:55:18</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/02/面经Go/&title=《Golang》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/02/面经Go/&title=《Golang》 — waynamigo's blog&source=总 ：https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/02/面经Go/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Golang》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/02/面经Go/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/02/面经Go/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/03/面经Redis问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Redis questions</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/02/面经Go问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Golang questions</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/02/面经Go/&title=《Golang》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/02/面经Go/&title=《Golang》 — waynamigo's blog&source=总 ：https://www.bookstack.cn/read/qcrao-Go-Questions/interface.md" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/02/面经Go/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Golang》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/02/面经Go/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/02/面经Go/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aO3LjMBAFQN//0tx0E9LvDShXCWhELpkk2ApGmM/PT7yu/1by3+tm3d2b7PLCwsDA+FrG9bjy13q+6+457ee3VAwMjAMYSSh8DpHPsPbK/N0wMDAwnq9pA25+0MTAwMBYZ7TBcXbsw8DAwJg9bpbufu5pGBgYJzDyqvvf//2R/gYGBsZXMa5ytc9pG5PXaGFgYOzNmJXS2uS2HaqYlfYwMDD2ZrRFtNngxfpeS1NsGBgYWzCSLdskc6Wslg95YGBgnMN4KyAmgTiJk8nxEQMD4xzGSlE+KcmtBNliRwwMjE0ZeaqZf/J8gMvbBgUPAwPjGEay2XqKmxw0668YAwNja8ZKm7BNaGeF/o+U2zAwMLZgtLW6doCsDc3tLhgYGDsx3k1Qk1ZlG6CjIyAGBsYBjLbRmI9QJF9E3tq8BWNgYGzNyEtgs8HWWQiepbsYGBi7Mt5qDDy/xPpx85cfAwwMjK0ZbWOgfa23UtYXfk8wMDC+nDFLZZMS23qprjjIYmBgHMBINlu/8o9GKzAwMDZlvJWy5rB6BuT53TAwMDZlXOWa3btSz4+COAYGxtaM9ep6W9BfH7AY1g4xMDC+nNEWy1aq8fm99YEVAwPjAMas+NUOeOXNhvZAiYGBgTEbgMhT37xR+kvRDQMDAyN4uU/k1tFIGQYGxgGMJImdHfjyJyetCAwMjDMZ7YhDXg5rByzyBsOwkYmBgfF9jH+p6UupvfPPTQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

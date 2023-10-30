@@ -148,179 +148,6 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-面经数据结构"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2023-09-23 23:34:47" datetime="2023-09-23T15:34:47.974Z"  itemprop="datePublished">2023-09-23</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2023/09/23/面经数据结构/">No title</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-    
-
-        <a href="/2023/09/23/面经数据结构/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-面经场景"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2023-09-23 14:00:17" datetime="2023-09-23T06:00:17.405Z"  itemprop="datePublished">2023-09-23</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2023/09/23/面经场景/">No title</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        <p><a href="https://juejin.cn/post/6844904003998842887" target="_blank" rel="noopener">https://juejin.cn/post/6844904003998842887</a></p>
-<h2 id="merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】"><a href="#merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】" class="headerlink" title="merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】"></a>merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】</h2><p><strong>git merge：</strong></p>
-<ul>
-<li>将目标分支的最新提交合并到当前分支，创建一个新的合并提交，保留了分支的历史记录。</li>
-<li>合并后会产生一个新的合并提交，记录了分支的合并操作。</li>
-<li>适合公共分支的合并</li>
-</ul>
-<p><strong>git rebase：</strong></p>
-<ul>
-<li>将当前分支的提交“移动”到目标分支的最新提交之后，使得分支历史看起来更线性。</li>
-<li>实际上是将当前分支的提交重新应用在目标分支的最新提交之后，形成一系列新的提交。</li>
-<li>适合本地工作分支的合并</li>
-<li>然后rebase 合并一些提交记录<br>git merge：<br>保留了分支的整个历史记录，可以清晰地看到分支的合并过程。<br>git rebase：<br>使得分支历史看起来更加线性，但也会丢失了分支的原始历史记录。<h2 id="pull-和fetch的区别"><a href="#pull-和fetch的区别" class="headerlink" title="pull 和fetch的区别"></a>pull 和fetch的区别</h2>fetch拉取最新代码，本身不会产生冲突，origin/branch1 会覆盖掉本底的暂存branch1<br>pull = fetch + merge，会产生冲突</li>
-</ul>
-<h2 id="stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"><a href="#stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】" class="headerlink" title="stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"></a>stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】</h2><h2 id="git-rm的使用"><a href="#git-rm的使用" class="headerlink" title="git rm的使用"></a>git rm的使用</h2><ol>
-<li>git rm file 删除暂存区和源文件</li>
-<li>git rm –cached file 删除暂存区文件</li>
-<li>git reset file 删除暂存区文件</li>
-<li>git restore –staged file 删除暂存区文件</li>
-</ol>
-<h2 id="强制切换分支，并丢弃当前内容"><a href="#强制切换分支，并丢弃当前内容" class="headerlink" title="强制切换分支，并丢弃当前内容"></a>强制切换分支，并丢弃当前内容</h2><p>checkout -f branchname</p>
-<h2 id="切换到-某个提交-log查看提交hash，checkout过来"><a href="#切换到-某个提交-log查看提交hash，checkout过来" class="headerlink" title="切换到 某个提交 log查看提交hash，checkout过来"></a>切换到 某个提交 log查看提交hash，checkout过来</h2><h2 id="撤销一个commit"><a href="#撤销一个commit" class="headerlink" title="撤销一个commit"></a>撤销一个commit</h2><ol>
-<li>保留历史，丢弃提交<br>git reset HEAD^</li>
-<li>完全丢弃<br>git reset –hard HEAD^<br>git revert <cmmit_sha>,这会创建一个新的提交来撤销特定的提交，保留了提交历史。</cmmit_sha></li>
-</ol>
-<p>如果你已经push，不推荐使用 git reset，因为它会改变历史记录，可能会影响其他开发者。<br>git revert 会创建一个新的提交，用于撤销指定的提交，这样可以保持提交历史的完整性。</p>
-<h2 id="git-checkout-和reset-到指定版本"><a href="#git-checkout-和reset-到指定版本" class="headerlink" title="git checkout 和reset 到指定版本"></a>git checkout 和reset 到指定版本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1. checkout作用：</span><br><span class="line">主要用于切换分支、切换到某个特定的提交、或者查看历史版本的内容。</span><br><span class="line">影响：</span><br><span class="line">切换分支或切换到特定提交时，会将工作目录和暂存区的状态更新为目标分支或提交的状态。如果是切换到特定提交，会处于“分离头指针”状态。</span><br><span class="line">回滚版本：</span><br><span class="line">不能用 git checkout 直接回滚到以前的版本。如果你只是想查看以前的版本，可以使用 git checkout &lt;commit_sha&gt; 来切换到特定提交。</span><br><span class="line">1.  reset作用：</span><br><span class="line">用于重置当前分支的 HEAD 指针，可以将分支回退到以前的提交。</span><br><span class="line">影响：</span><br><span class="line">可以影响工作目录、暂存区和分支的状态，具体取决于使用的选项：</span><br><span class="line">--soft：保留工作目录和暂存区，只重置 HEAD 指针。</span><br><span class="line">--mixed（默认选项）：重置 HEAD 指针和暂存区，但保留工作目录。</span><br><span class="line">--hard：重置 HEAD 指针、暂存区和工作目录，丢弃所有本地的更改。</span><br><span class="line">回滚版本：</span><br><span class="line">可以用 git reset 回滚到以前的版本。例如，可以使用 git reset HEAD^ 将分支回滚到前一个提交。</span><br><span class="line">总结：</span><br><span class="line">如果你只是想查看以前的版本，可以使用 git checkout。</span><br><span class="line">如果你想回滚到以前的版本，可以使用 git reset，但要注意谨慎使用，因为它会影响工作目录、暂存区和分支的状态，并且在共享分支上可能会影响其他开发者。</span><br></pre></td></tr></table></figure>
-
-<h2 id="github和gitlab的区别"><a href="#github和gitlab的区别" class="headerlink" title="github和gitlab的区别"></a>github和gitlab的区别</h2><h2 id="持续集成和持续部署的区别是什么，"><a href="#持续集成和持续部署的区别是什么，" class="headerlink" title="持续集成和持续部署的区别是什么，"></a>持续集成和持续部署的区别是什么，</h2><p>持续集成（CI）注重的是团队成员之间的协作与代码的频繁集成。通过自动化的构建和测试流程，保证了每次提交的代码都能够顺利地融入共享代码库，从而快速发现并解决潜在的集成问题，使团队能够保持稳步前进。</p>
-<p>而持续部署（CD）则是在持续集成的基础上，将通过CI验证的代码自动地部署到目标环境，实现了软件交付的高效、可靠，甚至是自动化。这使得开发团队能够以更迅速的速度向生产环境中推送稳定可靠的软件，为项目的成功交付提供了坚实保障。</p>
-<h2 id="慢SQL问题如何排查"><a href="#慢SQL问题如何排查" class="headerlink" title="慢SQL问题如何排查"></a>慢SQL问题如何排查</h2><p>如果你的数据库查询变慢了，可以采取以下步骤来找出问题并解决它：</p>
-<ol>
-<li><strong>找出慢查询</strong>：首先，找出哪些数据库查询很慢。通常，这些查询会花费很长时间才能返回结果。</li>
-<li><strong>检查查询计划</strong>：查看慢查询的执行计划，看看数据库是如何执行这些查询的。这可以帮助你找到性能瓶颈。</li>
-<li><strong>考虑索引</strong>：确保查询使用了适当的索引。有时候，缺少或错误使用索引会导致查询变慢。</li>
-<li><strong>优化SQL</strong>：审查慢查询的SQL语句，看看是否可以通过改写查询或者使用更有效的SQL来提高性能。</li>
-<li><strong>检查数据库服务器</strong>：确保数据库服务器有足够的资源来处理查询。不足的CPU、内存或磁盘IO可能会导致性能问题。</li>
-<li><strong>连接池</strong>：如果你在应用程序中使用了数据库连接池，确保连接池的配置正确。连接池的设置也可能影响性能。</li>
-<li><strong>数据库统计信息</strong>：查看数据库的统计信息，了解表的大小、索引情况和数据分布。这些信息可以指导你哪些地方需要优化。</li>
-<li><strong>查询缓存</strong>：考虑使用查询缓存，将经常执行的查询结果缓存起来，以减轻数据库负担。</li>
-<li><strong>分页查询优化</strong>：如果涉及到分页查询，确保使用了有效的分页查询方式，避免一次性获取大量数据。</li>
-<li><strong>监控和性能测试</strong>：建立监控系统，随时监测数据库性能。进行性能测试，模拟高负载情况，确保数据库在压力下能够正常工作。<h2 id="SQL的优化方式有哪些"><a href="#SQL的优化方式有哪些" class="headerlink" title="SQL的优化方式有哪些"></a>SQL的优化方式有哪些</h2></li>
-<li><strong>联合索引</strong></li>
-<li></li>
-</ol>
-
-    
-
-        <a href="/2023/09/23/面经场景/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-1技术发明"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2023-05-10 14:32:09" datetime="2023-05-10T06:32:09.256Z"  itemprop="datePublished">2023-05-10</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2023/05/10/1技术发明/">No title</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        <p>本项目源自国家重点研发计划、国家自然科学基金国家重大科研仪器研制项目、国防基础科研计划重点项目、国防科技创新特区重点项目等。<br>（有什么问题，难点，提出四条问题）</p>
-<p>随着内河与海洋近岸航运业和旅游业的蓬勃发展，人们对水上交通的安全性、便捷性和舒适性的需求日益强烈，沿海地区发展水上交通的运行效率和智能化要求日趋提高。然而，水上环境复杂多变，安全隐患和事故频发，已经成为制约水上交通业发展的重要因素之一，水上无人系统的环境感知、自主导航、智能化决策能力还面临如下挑战：<br>1）复杂的水文环境和气象条件会对传感器与传统导航设备产生干扰，导致的信息损失严重影响系统可靠性，并难以对动态漂浮物等动力目标进行精准定位；<br>2）水上交通发达的旅游业城市的内河环境水文条件和地形复杂，存在狭窄航道与大量桥洞等环境，以及更复杂的停靠环境，在这些情况下的智能化决策则要求更高精度的三维环境感知能力；<br>3）多传感器的水上系统存在多源数据的协同问题，由于不同传感器的感知能力和适应范围不同，多源数据融合的效率难以处理，也难以保证融合后的信息能够真实、准确地反映复杂的动态水上环境；<br>4）存在大规模应用的成本问题与实时性问题，水上无人系统需要使用多种传感器、导航设备和计算设备，成本问题导致大规模应用难以实现。</p>
-<p>为此，本项目发明了水上无人系统多模态智能分析技术，主要技术发明内容如下：</p>
-<ol>
-<li>面向复杂近岸水上场景的环境感知系统：<br>通过视觉感知增强技术，有效减小水文环境与气象条件对视觉传感器的干扰程度，并引入水上动态目标行为预测技术，综合视觉检测与分割算法，支持水岸线、漂浮物、动力目标的感知，解决了近岸水面环境下的视觉感知退化问题，为系统的行为决策提供更准确的预测模型。</li>
-<li>规限航道环境下的精确导航技术：<br>利用雷达与摄像头数据融合技术，进行三维场景实时重建，实现内河环境下对狭窄航道区域与桥洞目标的精准距离测量与定位，（此处可能需要误差数据），并通过避障决策算法显著提升了实时的障碍物感知与避障能力。</li>
-<li>基于多模态交互的精准靠泊技术<br>综合利用多模态数据多层次融合技术，构建高效率多的传感器协同算法，并建立路径规划、碰撞检测及实时路径修正模型，求解无人船在动态场景下的行为树，实现自主靠泊过程，最优路径搜索精度≤3米，搜索时长≤3分钟，实际位置与码头边缘误差≤10cm。</li>
-<li>资源受限环境下的轻量化及协同计算技术<br>通过量化压缩方法，降低模型存储和计算资源需求，并采用自动化部署技术，实现面向复杂任务的多船载边缘节点智能组网技术，构建高扩展性分布式边缘计算架构，在此架构下的任务处理效率提升20%。</li>
-</ol>
-<p>（用在什么地方，效果，应用场景）<br>以上发明可广泛用于禁飞区域（如政治敏感区、军事管理区）的防护、高等级事件（如政要随行、大型演出）的安保、违法活动（如恐怖袭击、隐私窥探）的打击等，解决假目标类型广、数量多、排除难的问题，精准识别升非合作无人机，提升非合作无人机的实时定位准确性。</p>
-<p>本项目的发明成果具有完全的自主知识产权，申请发明专利 26 项，其中授权 13 项，多项授权专利已转让或许可中国电科36所、博宏科源元公司等使用，转让许可金额达 103 万元。发表相关论文 20 余篇，发明成果获得我国工程院院士、加拿大工程院院士、IEEE 会士的高度评价，其中贲德院士指出本项目发明的空中监测系统“填补了国内三维空间频谱仪器测量空白”。<br>本项目的发明成果已应用于探月工程、北斗卫星频谱态势系统、新一代战机/战舰一体化智能化重大系统等国家和国防重大工程；参加了在2018、2019年两届中央军委科技委、公安部主办的全国“无形截击”反无人机大赛，均取得了前三名的成绩；参加了2021年中国电力技术市场协会电力安防春业委员会主办的“电力场站无人机主动防御技术公开选拔赛”现场赛，通过了“集群侦测”分项；参与了多项重大活动保障，受到了云南省公安厅、郑州市公安局的感谢。博宏科元信息科技有限公司应用本项目成果，生产相关无人机防御系统 3000 多台套，产值超3亿元。</p>
-
-    
-
-        <a href="/2023/05/10/1技术发明/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
             <article id="post-report1"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -440,6 +267,263 @@
         <a href="/2023/03/12/report1/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-2023-01-04-面试微服务"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2023-01-24 00:00:00" datetime="2023-01-23T16:00:00.000Z"  itemprop="datePublished">2023-01-24</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Golang/">Golang</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2023/01/24/2023-01-04-面试微服务/">微服务</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        <p>持续更新</p>
+    
+
+        <a href="/2023/01/24/2023-01-04-面试微服务/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CPP，面试/">CPP，面试</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-面经设计模式"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2023-01-05 00:00:00" datetime="2023-01-04T16:00:00.000Z"  itemprop="datePublished">2023-01-05</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2023/01/05/面经设计模式/">设计模式</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        <h1 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h1><p>开闭原则：软件实体（类、函数、模块）对扩展开放，对修改封闭</p>
+<p>单一职责：每个类只做它负责的事情（一个类应该只有一个引起它修改的原因）<br>里氏替换：子类可以完全代替父类</p>
+<p>依赖倒置：细节依赖于抽象，抽象不依赖于细节，程序细节由底层完成</p>
+<p>最少知道：迪米特法则，尽量降低类与类之间的耦合。一个类不应该知道自己操作的类的细节</p>
+<p>接口隔离：一个接口实现时，如果有冗余，就应该把接口拆分，让实现的类只依赖自己需要的接口，客户端不应依赖于它不知道的接口</p>
+<h1 id="创造型模式"><a href="#创造型模式" class="headerlink" title="创造型模式"></a>创造型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">工厂方法模式：为每一类对象建立工厂，将对象交由工厂创建，客户端只和工厂打交道。</span><br><span class="line">抽象工厂模式：为每一类工厂提取出抽象接口，使得新增工厂、替换工厂变得非常容易。</span><br><span class="line">建造者模式：用于创建构造过程稳定的对象，不同的 Builder 可以定义不同的配置。</span><br><span class="line">单例模式：全局使用同一个对象，分为饿汉式和懒汉式。懒汉式有双检锁和内部类两种实现方式。</span><br><span class="line">原型模式：为一个类定义 clone 方法，使得创建相同的对象更方便。</span><br></pre></td></tr></table></figure>
+
+<p>饿汉：变量在声明时便初始化，但饿汉式有一个弊端，那就是即使这个单例不需要使用，它也会在类加载之后立即创建出来，占用一块内存，并增加类初始化时间。<br>懒汉：先声明一个空变量，需要用时才初始化。懒汉式解决了饿汉式的弊端，好处是按需加载，避免了内存浪费，减少了类初始化时间。<br>    - 但是懒汉不是线程安全的，要实现线程安全的懒汉，需要加同步锁</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"sync"</span><span class="comment">// 同步包</span></span><br><span class="line"><span class="keyword">type</span> Singleton <span class="keyword">struct</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//饿汉</span></span><br><span class="line"><span class="keyword">var</span> instance *Singleton = &amp;Singleton&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getInstance</span><span class="params">()</span> *<span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//懒汉线程安全</span></span><br><span class="line"><span class="keyword">var</span> once sync.Once</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getInstance</span><span class="params">()</span> *<span class="title">Singleton</span></span>&#123;</span><br><span class="line">    once.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">        instance := &amp;Singleton&#123;&#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>工厂模式</strong><br><strong>抽象工厂模式</strong><br><strong>单例模式</strong><br><strong>建造者模式</strong><br><strong>原型模式</strong></p>
+<h1 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">适配器模式：用于有相关性但不兼容的接口</span><br><span class="line">桥接模式：用于同等级的接口互相组合</span><br><span class="line">组合模式：用于整体与部分的结构</span><br><span class="line">外观模式：体现封装的思想</span><br><span class="line">享元模式：体现面向对象的可复用性</span><br><span class="line">代理模式：主要用于对某个对象加以控制</span><br></pre></td></tr></table></figure>
+
+<p><strong>适配器模式</strong><br><strong>装饰器模式</strong><br><strong>代理模式</strong><br><strong>享元模式</strong>：享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。</p>
+<p>FlyWeightFactory负责创建和管理享元单元，当一个客户端请求时，工厂需要检查当前对象池中是否有符合条件的对象，如果有，就返回已经存在的对象，如果没有，则创建一个新对象，FlyWeight是超类。<br>一提到共享池，我们很容易联想到Java里面的JDBC连接池，想想每个连接的特点，我们不难总结出：适用于作共享的一些个对象，他们有一些共有的属性，就拿数据库连接池来说，url、driverClassName、username、password及dbname，这些属性对于每个连接来说都是一样的，所以就适合用享元模式来处理，建一个工厂类，将上述类似属性作为内部数据，其它的作为外部数据，在方法调用时，当做参数传进来，这样就节省了空间，减少了实例的数量。</p>
+<p><strong>外观模式</strong><br><strong>桥接模式</strong><br><strong>组合模式</strong></p>
+<h1 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">行为型模式重点关注类与类之间的交互与协作。如同在工作中，每个人的行为都可能影响到其他同事，同时每个人也会受到别人的影响。我们一边接收上级的指令，一边派发任务给下级，在这样的协作中完成一项项伟大的工作。程序在运行时，每个对象都不是孤立的，他们可以通过通信与协作完成种种复杂的功能。</span><br><span class="line"></span><br><span class="line">责任链模式：处理职责相同，程度不同的对象，使其在一条链上传递</span><br><span class="line">命令模式：封装“方法调用”，将行为请求者和行为实现者解耦</span><br><span class="line">解释器模式：定义自己的语法规则</span><br><span class="line">迭代器模式：定义 next() 方法和 hasNext() 方法，让外部类使用这两个方法来遍历列表，以达到隐藏列表内部细节的目的</span><br><span class="line">中介者模式：通过引入中介者，将网状耦合结构变成星型结构</span><br><span class="line">备忘录模式：存储对象的状态，以便恢复</span><br><span class="line">观察者模式：处理一对多的依赖关系，被观察的对象改变时，多个观察者都能收到通知</span><br><span class="line">状态模式：关于多态的设计模式，每个状态类处理对象的一种状态</span><br><span class="line">策略模式：殊途同归，用多种方法做同一件事</span><br><span class="line">模板方法模式：关于继承的设计模式，父类是子类的模板</span><br><span class="line">访问者模式：将数据的结构和对数据的操作分离</span><br></pre></td></tr></table></figure>
+
+<p><strong>责任链模式</strong>：责任链模式：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止<br><strong>观察者模式</strong><br><strong>中介者模式</strong><br><strong>访问者模式</strong><br><strong>解释器模式</strong><br><strong>迭代器模式</strong><br><strong>命令模式</strong><br><strong>备忘录模式</strong></p>
+<h1 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h1><ol>
+<li>面向对象的特点是什么？</li>
+</ol>
+<p>👉查看答案👈<br>可维护、可复用、可扩展、灵活性好。</p>
+<ol start="2">
+<li>让面向对象保持结构良好的秘诀是什么？</li>
+</ol>
+<p>👉查看答案👈<br>让面向对象保持结构良好的秘诀就是设计模式，面向对象结合设计模式，才能真正体会到程序变得可维护、可复用、可扩展、灵活性好。</p>
+<ol start="3">
+<li>六大设计原则是什么？</li>
+</ol>
+<p>👉查看答案👈<br>开闭原则、单一职责原则、里氏替换原则、依赖倒置原则、迪米特原则、接口隔离原则。</p>
+<ol start="4">
+<li>什么是里氏替换原则？</li>
+</ol>
+<p>👉查看答案👈<br>子类应该可以完全替换父类。也就是说在使用继承时，只扩展新功能，而不要破坏父类原有的功能。</p>
+<ol start="5">
+<li>工厂模式是用于达到什么目的的设计模式？</li>
+</ol>
+<p>👉查看答案👈<br>封装对象。</p>
+<ol start="6">
+<li>工厂模式有哪三种？</li>
+</ol>
+<p>👉查看答案👈<br>简单工厂模式、工厂方法模式、抽象工厂模式。</p>
+<ol start="7">
+<li>工厂方法模式解决了简单工厂模式的哪两个弊端？</li>
+</ol>
+<p>👉查看答案👈<br>当生产的产品种类越来越多时，工厂类不会变成超级类。工厂类会越来越多，保持灵活。不会越来越大、变得臃肿。如果苹果的生产过程需要修改时，只需修改苹果工厂。梨子的生产过程需要修改时，只需修改梨子工厂。符合单一职责原则。<br>当需要生产新的产品时，无需更改既有的工厂，只需要添加新的工厂即可。保持了面向对象的可扩展性，符合开闭原则。</p>
+<ol start="8">
+<li>抽象工厂模式是什么样的？</li>
+</ol>
+<p>在创建时指定了具体的工厂类后，在使用时就无需再关心是哪个工厂类，只需要将此工厂当作抽象的 IFactory 接口使用即可。这种经过抽象的工厂方法模式被称作抽象工厂模式。</p>
+<ol>
+<li>抽象工厂模式很好的发挥了哪些原则？</li>
+</ol>
+<p>开闭原则、依赖倒置原则。</p>
+<ol>
+<li>抽象工厂模式的缺点是什么？</li>
+</ol>
+<p>缺点是抽象工厂模式太重了，如果 IFactory 接口需要新增功能，则会影响到所有的具体工厂类。使用抽象工厂模式，替换具体工厂时只需更改一行代码，但要新增抽象方法则需要修改所有的具体工厂类。</p>
+<ol>
+<li>抽象工厂模式适用于和不适用于哪些情况？</li>
+</ol>
+<p>适用于增加同类工厂这样的横向扩展需求，不适合新增功能这样的纵向扩展。</p>
+<ol>
+<li>什么时候可以使用单例模式？</li>
+</ol>
+<p>某个对象全局只需要一个实例时即可。</p>
+<ol>
+<li>单例模式的优点是什么？</li>
+</ol>
+<p>• 它能够避免对象重复创建，节约空间并提升效率<br>• 避免由于操作不同实例导致的逻辑错误</p>
+<ol>
+<li>单例模式有哪两种实现方式？请分别简单解释。</li>
+</ol>
+<p>饿汉式和懒汉式。饿汉式指变量在声明时便初始化。懒汉式指先声明一个空变量，需要用时才初始化。</p>
+<ol>
+<li>饿汉式的弊端是什么？</li>
+</ol>
+<p>即使这个单例不需要使用，它也会在类加载之后立即创建出来，占用一块内存，并增加类初始化时间。</p>
+<ol>
+<li>静态内部类方式是怎么保证线程安全的？</li>
+</ol>
+<p>Java 虚拟机的设计是非常稳定的，早已经考虑到了多线程并发执行的情况。虚拟机在加载类的 clinit 方法时，会保证 clinit 在多线程中被正确的加锁、同步。即使有多个线程同时去初始化一个类，一次也只有一个线程可以执行 clinit 方法，其他线程都需要阻塞等待，从而保证了线程安全。</p>
+<ol>
+<li>建造者模式用于什么时候？</li>
+</ol>
+<p>创建过程稳定，但配置多变的对象。</p>
+<ol>
+<li>建造者模式是什么意思？</li>
+</ol>
+<p>将一个复杂的构建与其表示相分离，使得同样的构建过程可以创建不同的表示。</p>
+<ol>
+<li>现在建造者模式主要用来做什么？</li>
+</ol>
+<p>通过链式调用生成不同的配置。</p>
+<ol>
+<li>使用建造者模式的好处是什么？</li>
+</ol>
+<p>不用担心忘了指定某个配置，保证了构建过程是稳定的。</p>
+<ol>
+<li>原型模式是什么？</li>
+</ol>
+<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+<ol>
+<li>适配器模式适用于什么结构？</li>
+</ol>
+<p>有相关性但不兼容的结构。</p>
+<ol>
+<li>什么是适配？什么是适配器？</li>
+</ol>
+<p>源接口通过一个中间件转换后才可以适用于目标接口，这个转换过程就是适配，这个中间件就称之为适配器。</p>
+<ol>
+<li>需要绘制矩形、圆形、三角形这三种图案，按照桥接模式的思想会怎么做？</li>
+</ol>
+<p>将形状和颜色分离，根据需要对形状和颜色进行组合。</p>
+<ol>
+<li>什么是桥接模式？</li>
+</ol>
+<p>将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体模式或接口模式。</p>
+<ol>
+<li>组合模式适用于什么结构？</li>
+</ol>
+<p>组合模式用于整体与部分的结构，当整体与部分有相似的结构，在操作时可以被一致对待时，就可以使用组合模式。</p>
+<ol>
+<li>组合模式最主要的功能是什么？</li>
+</ol>
+<p>组合模式最主要的功能是让用户可以一致对待整体和部分结构，将两者都作为一个相同的组件。</p>
+<ol>
+<li>什么是组合模式中的透明方式？</li>
+</ol>
+<p>违背了接口隔离原则的组合模式。</p>
+<ol>
+<li>什么是安全方式？</li>
+</ol>
+<p>在 Component 中不声明 add 和 remove 等管理子对象的方法，这样叶节点就无需实现它，只需在枝节点中实现管理子对象的方法即可。</p>
+<ol>
+<li>什么是透明装饰模式？</li>
+</ol>
+<p>装饰器仅用于增强功能，并不会改变 Me 原有的功能，这种装饰模式称之为透明装饰模式。</p>
+<ol>
+<li>装饰模式的缺点是什么？</li>
+</ol>
+<p>容易造成程序中有大量相似的类。</p>
+<ol>
+<li>动态代理相对于静态代理的优势是什么？</li>
+</ol>
+<p>节省代码量。</p>
+<ol>
+<li>简述责任链模式的有优点有哪些？</li>
+</ol>
+<p>• 降低了对象之间的耦合度。<br>• 扩展性强，满足开闭原则。可以根据需要增加新的请求处理类。<br>• 灵活性强。可以动态地改变链内的成员或者改变链的次序来适应流程的变化。<br>• 简化了对象之间的连接。每个对象只需保持一个指向其后继者的引用。</p>
+<ol>
+<li>什么是宏命令？</li>
+</ol>
+<p>宏命令是将多个命令合并起来组成的命令。</p>
+<ol>
+<li>请写出解释器模式的一个常见应用。</li>
+</ol>
+<p>在我们平时匹配字符串时，用到的正则表达式就是一个解释器。</p>
+<ol>
+<li>怎样使得外部类只能读取此列表中的数据，无法修改其中的任何数据，保证其安全性？</li>
+</ol>
+<p>• 提供一个 String next() 方法，使得外部类可以按照次序，一条一条的读取数据；<br>• 提供一个 boolean hasNext() 方法，告知外部类是否还有下一条数据。</p>
+
+    
+
+        <a href="/2023/01/05/面经设计模式/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
     </div>
     
 </article>
@@ -917,14 +1001,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-面经设计模式"
+            <article id="post-面经Java基础"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2023-01-04 00:00:00" datetime="2023-01-03T16:00:00.000Z"  itemprop="datePublished">2023-01-04</time>
+        <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/软件工程/">软件工程</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
 
 
 
@@ -935,7 +1019,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2023/01/04/面经设计模式/">Operating System</a>
+      <a class="post-title-link" href="/2023/01/03/面经Java基础/">Java base</a>
     </h3>
   
 
@@ -945,180 +1029,445 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        <h1 id="设计模式六大原则"><a href="#设计模式六大原则" class="headerlink" title="设计模式六大原则"></a>设计模式六大原则</h1><p>开闭原则：软件实体（类、函数、模块）对扩展开放，对修改封闭</p>
-<p>单一职责：每个类只做它负责的事情（一个类应该只有一个引起它修改的原因）<br>里氏替换：子类可以完全代替父类</p>
-<p>依赖倒置：细节依赖于抽象，抽象不依赖于细节，程序细节由底层完成</p>
-<p>最少知道：迪米特法则，尽量降低类与类之间的耦合。一个类不应该知道自己操作的类的细节</p>
-<p>接口隔离：一个接口实现时，如果有冗余，就应该把接口拆分，让实现的类只依赖自己需要的接口，客户端不应依赖于它不知道的接口</p>
-<h1 id="创造型模式"><a href="#创造型模式" class="headerlink" title="创造型模式"></a>创造型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">工厂方法模式：为每一类对象建立工厂，将对象交由工厂创建，客户端只和工厂打交道。</span><br><span class="line">抽象工厂模式：为每一类工厂提取出抽象接口，使得新增工厂、替换工厂变得非常容易。</span><br><span class="line">建造者模式：用于创建构造过程稳定的对象，不同的 Builder 可以定义不同的配置。</span><br><span class="line">单例模式：全局使用同一个对象，分为饿汉式和懒汉式。懒汉式有双检锁和内部类两种实现方式。</span><br><span class="line">原型模式：为一个类定义 clone 方法，使得创建相同的对象更方便。</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">B extends A;</span><br><span class="line">B b = <span class="keyword">new</span> A(); <span class="comment">//错误</span></span><br><span class="line">A a = <span class="keyword">new</span> B(); <span class="comment">//合法，但是通过 a 只能访问 A 类中定义的方法和属性，除非 B 类重写了这些方法</span></span><br></pre></td></tr></table></figure>
 
-<p>饿汉：变量在声明时便初始化，但饿汉式有一个弊端，那就是即使这个单例不需要使用，它也会在类加载之后立即创建出来，占用一块内存，并增加类初始化时间。<br>懒汉：先声明一个空变量，需要用时才初始化。懒汉式解决了饿汉式的弊端，好处是按需加载，避免了内存浪费，减少了类初始化时间。<br>    - 但是懒汉不是线程安全的，要实现线程安全的懒汉，需要加同步锁</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"sync"</span><span class="comment">// 同步包</span></span><br><span class="line"><span class="keyword">type</span> Singleton <span class="keyword">struct</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//饿汉</span></span><br><span class="line"><span class="keyword">var</span> instance *Singleton = &amp;Singleton&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getInstance</span><span class="params">()</span> *<span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//懒汉线程安全</span></span><br><span class="line"><span class="keyword">var</span> once sync.Once</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getInstance</span><span class="params">()</span> *<span class="title">Singleton</span></span>&#123;</span><br><span class="line">    once.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">        instance := &amp;Singleton&#123;&#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><ul>
+<li>boolean 1</li>
+<li>byte 1</li>
+<li>short 2</li>
+<li>char 2</li>
+<li>int 4 </li>
+<li>float 4</li>
+<li>long 4</li>
+<li>double <h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2></li>
+<li>Boolean</li>
+<li>Byte</li>
+<li>Short</li>
+<li>Character</li>
+<li>Integer</li>
+<li>Long</li>
+<li>Float（没有实现缓存机制）</li>
+<li>Double（没有实现缓存机制）</li>
+<li>BigDecimal（浮点精确运算的场景，传统浮点类型计算时，会出现位数不够的时候，计算机会给这个浮点表示进行截断），计算机x86一般用小端存储，高（位）存高（地址），低存低<ul>
+<li>低地址：指的是内存中较小的地址值。在大多数系统中，低地址对应于内存中的起始位置，也就是地址为0的位置。</li>
+<li>高地址：指的是内存中较大的地址值。它是相对于低地址而言的，表示内存的结束位置。</li>
+</ul>
+</li>
+<li>BigInteger（存储超过64 位 long 整型的数字）BigInteger 内部使用 int[] 数组来存储任意大小的整形数据。</li>
+</ul>
+<p><a href="https://javaguide.cn/java/basis/bigdecimal.html" target="_blank" rel="noopener">https://javaguide.cn/java/basis/bigdecimal.html</a></p>
+<p><strong>装箱</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Integer num1 = <span class="number">40</span>; <span class="comment">//发生装箱，相当于 Integer.valueOf(40);</span></span><br><span class="line">Integer num2 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line"><span class="keyword">return</span> num1 == num2; | <span class="keyword">return</span> <span class="keyword">false</span>; </span><br><span class="line">解释：num1 直接使用的是缓存中的对象: num2 直接创建了新对象</span><br><span class="line"><span class="comment">// 自动装箱函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 自动拆箱</span></span><br><span class="line">如果把第一句换成 <span class="keyword">int</span> num1 =<span class="number">40</span>;</span><br><span class="line">num1 == num2;| <span class="keyword">return</span> <span class="keyword">true</span>; <span class="comment">//会对num2发生自动拆箱，会实现两个int类型的比较，返回true</span></span><br><span class="line"><span class="comment">// 如果要用num2.equals比较:</span></span><br><span class="line">num2.equals(Integer.valueOf(num1));</span><br></pre></td></tr></table></figure>
 
-<p><strong>工厂模式</strong><br><strong>抽象工厂模式</strong><br><strong>单例模式</strong><br><strong>建造者模式</strong><br><strong>原型模式</strong></p>
-<h1 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">适配器模式：用于有相关性但不兼容的接口</span><br><span class="line">桥接模式：用于同等级的接口互相组合</span><br><span class="line">组合模式：用于整体与部分的结构</span><br><span class="line">外观模式：体现封装的思想</span><br><span class="line">享元模式：体现面向对象的可复用性</span><br><span class="line">代理模式：主要用于对某个对象加以控制</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所有<strong>整型包装类对象之间值</strong>的比较，全部使用 equals 方法比较。</li>
+<li>== 操作符会<strong>比较两个对象的引用是否相等</strong>，而不是它们的值。因为 num1 和 num2 都是通过自动装箱得到的，它们实际上是不同的对象，即使它们包装的值相同</li>
+<li>自动拆箱与装箱的例子：<ul>
+<li>Integer i = 10 等价于 Integer i = Integer.valueOf(10)</li>
+<li>int n = i 等价于 int n = i.intValue();</li>
+</ul>
+</li>
+<li>如果频繁拆装箱的话，也会严重影响系统的性能。我们应该<strong>尽量避免不必要的拆装箱操作</strong>。<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2></li>
+<li>private</li>
+<li>protected    </li>
+<li>public<h2 id="类，方法，变量修饰符"><a href="#类，方法，变量修饰符" class="headerlink" title="类，方法，变量修饰符"></a>类，方法，变量修饰符</h2></li>
+<li>class</li>
+<li>new</li>
+<li>abstract </li>
+<li>extends</li>
+<li>static:</li>
+<li>final </li>
+<li>implements</li>
+<li>interface</li>
+<li>synchronized</li>
+<li>enum</li>
+<li>native</li>
+<li>volatile</li>
+</ul>
+<ol>
+<li><p>static:static 修饰的变量和方法可以被类的所有实例共享，无论一个类创建了多少个对象，它们都共享同一份静态变量。也就是说，静态变量只会被分配一次内存，即使创建多个对象，这样可以节省内存。</p>
+</li>
+<li><p>静态方法只允许访问静态成员（即静态成员变量和静态方法），不允许访问实例成员（即实例成员变量和实例方法），而实例方法不存在这个限制。</p>
+</li>
+<li><p>【为什么不能调用非静态成员】：在类加载的时候就会分配内存，非静态成员需要实例化后才能有效访问</p>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2></li>
+</ol>
+<ul>
+<li>try</li>
+<li>catch</li>
+<li>throw</li>
+<li>throws</li>
+<li>finally<ul>
+<li>当在 try 块或 catch 块中遇到 return 语句时，finally 语句块将在方法返回之前被执行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="重写-override-和-重载-overload"><a href="#重写-override-和-重载-overload" class="headerlink" title="重写 override 和 重载 overload"></a>重写 override 和 重载 overload</h2><ul>
+<li>override是子类重写父类方法，参数需要一样</li>
+<li>overload是在一个类中重载的某个方法</li>
+<li>构造方法可以背重载，不可以重写</li>
+</ul>
+<h2 id="接口和抽象类有什么共同点和区别？"><a href="#接口和抽象类有什么共同点和区别？" class="headerlink" title="接口和抽象类有什么共同点和区别？"></a>接口和抽象类有什么共同点和区别？</h2><p>共同点：都不能被实例化。都可以包含抽象方法。都可以有默认实现的方法（Java 8 可以用 default 关键字在接口中定义默认方法）。</p>
+<p>区别：接口主要用于对类的行为进行约束，你实现了某个接口就具有了对应的行为。抽象类主要用于代码复用，强调的是所属关系。一个类只能继承一个类，但是可以实现多个接口。接口中的成员变量只能是 public static final 类型的，不能被修改且必须有初始值，而抽象类的成员变量默认 default，可在子类中被重新定义，也可被重新赋值</p>
+<h2 id="深拷贝与浅拷贝-引用拷贝"><a href="#深拷贝与浅拷贝-引用拷贝" class="headerlink" title="深拷贝与浅拷贝/引用拷贝"></a>深拷贝与浅拷贝/引用拷贝</h2><ul>
+<li>深拷贝：完整复制某个对象，包括这个对象中的内部对象，都是不同的对象</li>
+<li>浅拷贝：在堆上创建一个新对象，这个新对象与原对象使用的是同一个内部对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Person person = (Person) <span class="keyword">super</span>.clone();</span><br><span class="line">        person.setAddress(person.getAddress().clone());</span><br><span class="line">        <span class="comment">//加入这一行，内部的address对象也进行拷贝，本质上是堆上的另外一个对象。</span></span><br><span class="line">        <span class="keyword">return</span> person;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>适配器模式</strong><br><strong>装饰器模式</strong><br><strong>代理模式</strong><br><strong>享元模式</strong>：享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。</p>
-<p>FlyWeightFactory负责创建和管理享元单元，当一个客户端请求时，工厂需要检查当前对象池中是否有符合条件的对象，如果有，就返回已经存在的对象，如果没有，则创建一个新对象，FlyWeight是超类。<br>一提到共享池，我们很容易联想到Java里面的JDBC连接池，想想每个连接的特点，我们不难总结出：适用于作共享的一些个对象，他们有一些共有的属性，就拿数据库连接池来说，url、driverClassName、username、password及dbname，这些属性对于每个连接来说都是一样的，所以就适合用享元模式来处理，建一个工厂类，将上述类似属性作为内部数据，其它的作为外部数据，在方法调用时，当做参数传进来，这样就节省了空间，减少了实例的数量。</p>
-<p><strong>外观模式</strong><br><strong>桥接模式</strong><br><strong>组合模式</strong></p>
-<h1 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">行为型模式重点关注类与类之间的交互与协作。如同在工作中，每个人的行为都可能影响到其他同事，同时每个人也会受到别人的影响。我们一边接收上级的指令，一边派发任务给下级，在这样的协作中完成一项项伟大的工作。程序在运行时，每个对象都不是孤立的，他们可以通过通信与协作完成种种复杂的功能。</span><br><span class="line"></span><br><span class="line">责任链模式：处理职责相同，程度不同的对象，使其在一条链上传递</span><br><span class="line">命令模式：封装“方法调用”，将行为请求者和行为实现者解耦</span><br><span class="line">解释器模式：定义自己的语法规则</span><br><span class="line">迭代器模式：定义 next() 方法和 hasNext() 方法，让外部类使用这两个方法来遍历列表，以达到隐藏列表内部细节的目的</span><br><span class="line">中介者模式：通过引入中介者，将网状耦合结构变成星型结构</span><br><span class="line">备忘录模式：存储对象的状态，以便恢复</span><br><span class="line">观察者模式：处理一对多的依赖关系，被观察的对象改变时，多个观察者都能收到通知</span><br><span class="line">状态模式：关于多态的设计模式，每个状态类处理对象的一种状态</span><br><span class="line">策略模式：殊途同归，用多种方法做同一件事</span><br><span class="line">模板方法模式：关于继承的设计模式，父类是子类的模板</span><br><span class="line">访问者模式：将数据的结构和对数据的操作分离</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Object：基类"><a href="#Object：基类" class="headerlink" title="Object：基类"></a>Object：基类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//native 方法，用于返回当前运行时对象的 Class 对象，使用了 final 关键字修饰，故不允许子类重写。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass()</span><br><span class="line"><span class="comment">//native 方法，用于返回对象的哈希码，主要使用在哈希表中，比如 JDK 中的HashMap。获取哈希码（int 整数），也称为散列码，也可以比较两个对象是否相等。两个对象的hashCode 值相等并不代表两个对象就相等：可能发生冲突</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//用于比较 2 个对象的内存地址是否相等，String 类对该方法进行了重写以用于比较字符串的值是否相等。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function"><span class="comment">//native 方法，用于创建并返回当前对象的一份拷贝。</span></span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span></span><br><span class="line"><span class="function"><span class="comment">//返回类的名字实例的哈希码的 16 进制的字符串。建议 Object 所有的子类都重写这个方法。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//native 方法，并且不能重写。唤醒一个在此对象监视器上等待的线程(监视器相当于就是锁的概念)。如果有多个线程在等待只会任意唤醒一个。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//native 方法，并且不能重写。跟 notify 一样，唯一的区别就是会唤醒在此对象监视器上等待的所有线程，而不是一个线程。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//native方法，并且不能重写。暂停线程的执行。注意：sleep 方法没有释放锁，而 wait 方法释放了锁 ，timeout 是等待时间。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"><span class="comment">//多了 nanos 参数，这个参数表示额外时间（以纳秒为单位，范围是 0-999999）。 所以超时的时间还需要加上 nanos 纳秒。。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"><span class="comment">//跟之前的2个wait方法一样，只不过该方法一直等待，没有超时时间这个概念</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"><span class="comment">//实例被垃圾回收器回收的时候触发的操作</span></span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>责任链模式</strong>：责任链模式：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止<br><strong>观察者模式</strong><br><strong>中介者模式</strong><br><strong>访问者模式</strong><br><strong>解释器模式</strong><br><strong>迭代器模式</strong><br><strong>命令模式</strong><br><strong>备忘录模式</strong></p>
-<h1 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h1><ol>
-<li>面向对象的特点是什么？</li>
-</ol>
-<p>👉查看答案👈<br>可维护、可复用、可扩展、灵活性好。</p>
-<ol start="2">
-<li>让面向对象保持结构良好的秘诀是什么？</li>
-</ol>
-<p>👉查看答案👈<br>让面向对象保持结构良好的秘诀就是设计模式，面向对象结合设计模式，才能真正体会到程序变得可维护、可复用、可扩展、灵活性好。</p>
-<ol start="3">
-<li>六大设计原则是什么？</li>
-</ol>
-<p>👉查看答案👈<br>开闭原则、单一职责原则、里氏替换原则、依赖倒置原则、迪米特原则、接口隔离原则。</p>
-<ol start="4">
-<li>什么是里氏替换原则？</li>
-</ol>
-<p>👉查看答案👈<br>子类应该可以完全替换父类。也就是说在使用继承时，只扩展新功能，而不要破坏父类原有的功能。</p>
-<ol start="5">
-<li>工厂模式是用于达到什么目的的设计模式？</li>
-</ol>
-<p>👉查看答案👈<br>封装对象。</p>
-<ol start="6">
-<li>工厂模式有哪三种？</li>
-</ol>
-<p>👉查看答案👈<br>简单工厂模式、工厂方法模式、抽象工厂模式。</p>
-<ol start="7">
-<li>工厂方法模式解决了简单工厂模式的哪两个弊端？</li>
-</ol>
-<p>👉查看答案👈<br>当生产的产品种类越来越多时，工厂类不会变成超级类。工厂类会越来越多，保持灵活。不会越来越大、变得臃肿。如果苹果的生产过程需要修改时，只需修改苹果工厂。梨子的生产过程需要修改时，只需修改梨子工厂。符合单一职责原则。<br>当需要生产新的产品时，无需更改既有的工厂，只需要添加新的工厂即可。保持了面向对象的可扩展性，符合开闭原则。</p>
-<ol start="8">
-<li>抽象工厂模式是什么样的？</li>
-</ol>
-<p>在创建时指定了具体的工厂类后，在使用时就无需再关心是哪个工厂类，只需要将此工厂当作抽象的 IFactory 接口使用即可。这种经过抽象的工厂方法模式被称作抽象工厂模式。</p>
-<ol>
-<li>抽象工厂模式很好的发挥了哪些原则？</li>
-</ol>
-<p>开闭原则、依赖倒置原则。</p>
-<ol>
-<li>抽象工厂模式的缺点是什么？</li>
-</ol>
-<p>缺点是抽象工厂模式太重了，如果 IFactory 接口需要新增功能，则会影响到所有的具体工厂类。使用抽象工厂模式，替换具体工厂时只需更改一行代码，但要新增抽象方法则需要修改所有的具体工厂类。</p>
-<ol>
-<li>抽象工厂模式适用于和不适用于哪些情况？</li>
-</ol>
-<p>适用于增加同类工厂这样的横向扩展需求，不适合新增功能这样的纵向扩展。</p>
-<ol>
-<li>什么时候可以使用单例模式？</li>
-</ol>
-<p>某个对象全局只需要一个实例时即可。</p>
-<ol>
-<li>单例模式的优点是什么？</li>
-</ol>
-<p>• 它能够避免对象重复创建，节约空间并提升效率<br>• 避免由于操作不同实例导致的逻辑错误</p>
-<ol>
-<li>单例模式有哪两种实现方式？请分别简单解释。</li>
-</ol>
-<p>饿汉式和懒汉式。饿汉式指变量在声明时便初始化。懒汉式指先声明一个空变量，需要用时才初始化。</p>
-<ol>
-<li>饿汉式的弊端是什么？</li>
-</ol>
-<p>即使这个单例不需要使用，它也会在类加载之后立即创建出来，占用一块内存，并增加类初始化时间。</p>
-<ol>
-<li>静态内部类方式是怎么保证线程安全的？</li>
-</ol>
-<p>Java 虚拟机的设计是非常稳定的，早已经考虑到了多线程并发执行的情况。虚拟机在加载类的 clinit 方法时，会保证 clinit 在多线程中被正确的加锁、同步。即使有多个线程同时去初始化一个类，一次也只有一个线程可以执行 clinit 方法，其他线程都需要阻塞等待，从而保证了线程安全。</p>
-<ol>
-<li>建造者模式用于什么时候？</li>
-</ol>
-<p>创建过程稳定，但配置多变的对象。</p>
-<ol>
-<li>建造者模式是什么意思？</li>
-</ol>
-<p>将一个复杂的构建与其表示相分离，使得同样的构建过程可以创建不同的表示。</p>
-<ol>
-<li>现在建造者模式主要用来做什么？</li>
-</ol>
-<p>通过链式调用生成不同的配置。</p>
-<ol>
-<li>使用建造者模式的好处是什么？</li>
-</ol>
-<p>不用担心忘了指定某个配置，保证了构建过程是稳定的。</p>
-<ol>
-<li>原型模式是什么？</li>
-</ol>
-<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
-<ol>
-<li>适配器模式适用于什么结构？</li>
-</ol>
-<p>有相关性但不兼容的结构。</p>
-<ol>
-<li>什么是适配？什么是适配器？</li>
-</ol>
-<p>源接口通过一个中间件转换后才可以适用于目标接口，这个转换过程就是适配，这个中间件就称之为适配器。</p>
-<ol>
-<li>需要绘制矩形、圆形、三角形这三种图案，按照桥接模式的思想会怎么做？</li>
-</ol>
-<p>将形状和颜色分离，根据需要对形状和颜色进行组合。</p>
-<ol>
-<li>什么是桥接模式？</li>
-</ol>
-<p>将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体模式或接口模式。</p>
-<ol>
-<li>组合模式适用于什么结构？</li>
-</ol>
-<p>组合模式用于整体与部分的结构，当整体与部分有相似的结构，在操作时可以被一致对待时，就可以使用组合模式。</p>
-<ol>
-<li>组合模式最主要的功能是什么？</li>
-</ol>
-<p>组合模式最主要的功能是让用户可以一致对待整体和部分结构，将两者都作为一个相同的组件。</p>
-<ol>
-<li>什么是组合模式中的透明方式？</li>
-</ol>
-<p>违背了接口隔离原则的组合模式。</p>
-<ol>
-<li>什么是安全方式？</li>
-</ol>
-<p>在 Component 中不声明 add 和 remove 等管理子对象的方法，这样叶节点就无需实现它，只需在枝节点中实现管理子对象的方法即可。</p>
-<ol>
-<li>什么是透明装饰模式？</li>
-</ol>
-<p>装饰器仅用于增强功能，并不会改变 Me 原有的功能，这种装饰模式称之为透明装饰模式。</p>
-<ol>
-<li>装饰模式的缺点是什么？</li>
-</ol>
-<p>容易造成程序中有大量相似的类。</p>
-<ol>
-<li>动态代理相对于静态代理的优势是什么？</li>
-</ol>
-<p>节省代码量。</p>
-<ol>
-<li>简述责任链模式的有优点有哪些？</li>
-</ol>
-<p>• 降低了对象之间的耦合度。<br>• 扩展性强，满足开闭原则。可以根据需要增加新的请求处理类。<br>• 灵活性强。可以动态地改变链内的成员或者改变链的次序来适应流程的变化。<br>• 简化了对象之间的连接。每个对象只需保持一个指向其后继者的引用。</p>
-<ol>
-<li>什么是宏命令？</li>
-</ol>
-<p>宏命令是将多个命令合并起来组成的命令。</p>
-<ol>
-<li>请写出解释器模式的一个常见应用。</li>
-</ol>
-<p>在我们平时匹配字符串时，用到的正则表达式就是一个解释器。</p>
-<ol>
-<li>怎样使得外部类只能读取此列表中的数据，无法修改其中的任何数据，保证其安全性？</li>
-</ol>
-<p>• 提供一个 String next() 方法，使得外部类可以按照次序，一条一条的读取数据；<br>• 提供一个 boolean hasNext() 方法，告知外部类是否还有下一条数据。</p>
+<h2 id="String-StringBuffer-StringBuilder"><a href="#String-StringBuffer-StringBuilder" class="headerlink" title="String  StringBuffer StringBuilder"></a>String  StringBuffer StringBuilder</h2><ul>
+<li>String类不可变：创建时，采用final的字符数组表示字符串了,final char [],(java9以后用的byte[])</li>
+<li><strong>StringBuilder</strong> 与 <strong>StringBuffer</strong>都继承自 <strong>AbstractStringBuilder</strong> 类，也是使用字符数组保存字符串，不过没有使用 final 和 private 关键字修饰，最关键的是这个 AbstractStringBuilder 类还提供了很多修改字符串的方法比如 append 方法。</li>
+</ul>
+<h2 id="字符串常量池"><a href="#字符串常量池" class="headerlink" title="字符串常量池"></a>字符串常量池</h2><p>是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了<strong>避免字符串的重复创建。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在堆中创建字符串对象”ab“</span></span><br><span class="line"><span class="comment">// 将字符串对象”ab“的引用保存在字符串常量池中</span></span><br><span class="line">String aa = <span class="string">"ab"</span>;</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”ab“的引用</span></span><br><span class="line">String bb = <span class="string">"ab"</span>;</span><br><span class="line">System.out.println(aa==bb);<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>【面试题】<code>String s1 = new String(&quot;abc&quot;);</code>这句话创建了几个字符串对象？</p>
+<ul>
+<li>一个或两个：</li>
+<li>一个的情况，abc在字符串常量池里，仅需要abc的引用创建s1</li>
+<li>两个的情况，abc不存在常量池里，要先创建abc，再将其引用创建s1</li>
+</ul>
+<p>【面试题】手动将某字符串加入字符串常量池用什么方法</p>
+<ul>
+<li>String.intern()</li>
+<li>将指定的字符串对象的引用保存在字符串常量池中，可以简单分为两种情况：<ul>
+<li>如果字符串常量池中保存了对应的字符串对象的引用，就直接返回该引用。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在堆中创建字符串对象”Java“</span></span><br><span class="line"><span class="comment">// 将字符串对象”Java“的引用保存在字符串常量池中</span></span><br><span class="line">String s1 = <span class="string">"Java"</span>;</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”Java“对应的引用</span></span><br><span class="line">String s2 = s1.intern();</span><br><span class="line"><span class="comment">// 会在堆中在单独创建一个字符串对象</span></span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”Java“对应的引用</span></span><br><span class="line">String s4 = s3.intern();</span><br><span class="line"><span class="comment">// s1 和 s2 指向的是堆中的同一个对象</span></span><br><span class="line">System.out.println(s1 == s2); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// s3 和 s4 指向的是堆中不同的对象</span></span><br><span class="line">System.out.println(s3 == s4); <span class="comment">// false</span></span><br><span class="line"><span class="comment">// s1 和 s4 指向的是堆中的同一个对象</span></span><br><span class="line">System.out.println(s1 == s4); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>【面试题】字符串加号操作 str + str</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"str"</span>;<span class="comment">//创建了一个字符串常量 "str"，它会存储在常量池中</span></span><br><span class="line">String str2 = <span class="string">"ing"</span>;</span><br><span class="line">String str3 = <span class="string">"str"</span> + <span class="string">"ing"</span>;<span class="comment">//这里的 "str" 和 "ing" 都是字符串字面量，它们会在编译时就被合并成一个新的字符串常量 "string"，然后存储在常量池中。</span></span><br><span class="line">String str4 = str1 + str2;<span class="comment">//这里使用了变量 str1 和 str2 进行字符串拼接，这是在运行时进行的。因此，新的字符串对象 "string" 会在堆内存中创建，而不是常量池</span></span><br><span class="line">String str5 = <span class="string">"string"</span>;</span><br><span class="line">System.out.println(str3 == str4);<span class="comment">//false</span></span><br><span class="line">System.out.println(str3 == str5);<span class="comment">//true</span></span><br><span class="line">System.out.println(str4 == str5);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Exception-和-Error（两者继承Thorwable）"><a href="#Exception-和-Error（两者继承Thorwable）" class="headerlink" title="Exception 和 Error（两者继承Thorwable）"></a>Exception 和 Error（两者继承Thorwable）</h2><ul>
+<li><strong>Exception</strong> ：程序本身可以处理的异常，可以通过 catch 来进行捕获。Exception 又可以分为 Checked Exception (受检查异常，必须处理) 和 Unchecked Exception (不受检查异常，可以不处理)。</li>
+<li><strong>Error</strong>：Error 属于程序无法处理的错误 ，jvm一般会选择线程终止。例如 Java 虚拟机运行错误（Virtual MachineError）、虚拟机内存不够错误(OutOfMemoryError)、类定义错误（NoClassDefFoundError）等 。这些异常发生时，Java 虚拟机（JVM）一般会选择线程终止。</li>
+</ul>
+<h3 id="Checkable-Exception-受检查异常，必须用catch或者throw捕获"><a href="#Checkable-Exception-受检查异常，必须用catch或者throw捕获" class="headerlink" title="Checkable Exception 受检查异常，必须用catch或者throw捕获"></a>Checkable Exception 受检查异常，必须用catch或者throw捕获</h3><p>除了RuntimeException及其子类以外（下列），其他的Exception类及其子类都属于受检查异常</p>
+<ul>
+<li>NullPointerException(空指针错误)</li>
+<li>IllegalArgumentException(参数错误比如方法入参类型错误)</li>
+<li>NumberFormatException（字符串转换为数字格式错误，IllegalArgumentException的子类）</li>
+<li>ArrayIndexOutOfBoundsException（数组越界错误）</li>
+<li>ClassCastException（类型转换错误）</li>
+<li>ArithmeticException（算术错误）</li>
+<li>SecurityException （安全错误比如权限不够）</li>
+<li>UnsupportedOperationException(不支持的操作错误比如重复创建同一用户)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用throws关键字声明可能抛出异常</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> <span class="keyword">throws</span> MyException </span>&#123;</span><br><span class="line">        <span class="comment">// 在方法内部发现异常情况</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/* some condition */</span>) &#123;</span><br><span class="line">            <span class="comment">// 抛出自定义异常</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MyException(<span class="string">"Something went wrong"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">      &#125;<span class="keyword">catch</span>(MyException e)&#123;</span><br><span class="line">          e.printStackTrace(); <span class="comment">//在控制台上打印 Throwable 对象封装的异常信息</span></span><br><span class="line">          e.getMessage();<span class="comment">// 返回异常发生时的简要描述</span></span><br><span class="line">          e.toString();<span class="comment">// 返回异常发生时的详细信息</span></span><br><span class="line">          e.getLocalizedMessage();<span class="comment">//返回异常对象的本地化信息。</span></span><br><span class="line">      &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型-Generics-对比CPP的template"><a href="#泛型-Generics-对比CPP的template" class="headerlink" title="泛型 Generics //对比CPP的template"></a>泛型 Generics //对比CPP的template</h2><p>相同点：</p>
+<ul>
+<li><strong>参数化类型</strong>：两者都允许你定义可以接受不特定类型的数据结构或算法，从而提高代码的复用性和灵活性。</li>
+<li><strong>类型安全</strong>：Java 的泛型和 C++ 的模板都<strong>在编译时进行类型检查</strong>，确保类型的一致性。</li>
+<li><strong>支持容器类</strong>：在两者中，可以创建可以容纳任何类型的容器类（例如，List、Set、Map 等）。</li>
+</ul>
+<p>不同点：</p>
+<ul>
+<li><strong>实现方式</strong>：<ul>
+<li>Java 泛型是通过擦除（type erasure）来实现的。在编译时，泛型类型信息会被擦除，编译器会将泛型代码转化成非泛型的代码。这意味着在运行时，不会保留关于泛型类型的信息。这也是为什么在 Java 中不能直接创建泛型数组的原因。</li>
+<li>C++ 模板是通过编译器在编译时进行代码生成，每次使用模板时，都会根据模板参数生成对应的代码。这使得 C++ 模板可以实现更为复杂和灵活的类型推断。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：<br>Java 泛型使用<t>来表示泛型类型，可以在类、接口、方法等级别使用泛型。<br>C++ 模板使用<typename t>或者<class t>来声明模板参数，可以在类、函数等级别使用模板。</class></typename></t></li>
+<li><strong>泛型的通配符</strong>：<br>Java 的泛型可以使用通配符（wildcards）来表示不确定的类型。例如：List&lt;?&gt;表示一个不确定类型的 List。<br>C++ 模板可以通过模板特化来处理特定的类型。</li>
+<li><strong>模板元编程</strong>：<br>C++ 的模板系统支持模板元编程，这意味着可以在编译时进行计算和逻辑操作，从而实现更为复杂的类型处理。</li>
+<li><strong>依赖</strong>：<br>Java 的泛型不依赖于运行时类型信息（RTTI）。<br>C++ 的模板依赖于编译时类型信息（CTTI）。</li>
+</ul>
+<h2 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h2><ul>
+<li>代理机制</li>
+</ul>
+<p><strong>使用代理对象来代替对真实对象(real object)的访问，这样就可以在不修改原目标对象的前提下，提供额外的功能操作，扩展目标对象的功能。</strong></p>
+<ul>
+<li>动态代理更加灵活，不需要必须实现接口，可以直接代理实现类，并且可以不需要针对每个目标类都创建一个代理类。</li>
+<li>静态代理中，接口一旦新增加方法，目标对象和代理对象都要进行修改，这是非常麻烦的！</li>
+<li>JVM 层面：静态代理在编译时就将接口、实现类、代理类这些都变成了一个个实际的 class 文件。而动态代理是在运行时动态生成类字节码，并加载到 JVM 中的。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class alunbarClass = TargetObject.class; <span class="comment">//知道目的类名为TargetObject，直接获取</span></span><br><span class="line">Class alunbarClass1 = Class.forName(<span class="string">"cn.javaguide.TargetObject"</span>);<span class="comment">//通过类的全路径获取</span></span><br><span class="line">TargetObject instance = <span class="keyword">new</span> TargetObject();<span class="comment">//通过实例获取</span></span><br><span class="line">Class alunbarClass2 = instance.getClass();</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过类加载器进行全路径的loadclass</span></span><br><span class="line">ClassLoader.getSystemClassLoader().loadClass(<span class="string">"cn.javaguide.TargetObject"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>静态代理<br>可以在代理类中增加方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SmsService</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">send</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmsServiceImpl</span> <span class="keyword">implements</span> <span class="title">SmsService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">send</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmsProxy</span> <span class="keyword">implements</span> <span class="title">SmsService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SmsService smsService;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SmsProxy</span><span class="params">(SmsService smsService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.smsService = smsService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">SmsService smsService = <span class="keyword">new</span> SmsServiceImpl();</span><br><span class="line">SmsProxy smsProxy = <span class="keyword">new</span> SmsProxy(smsService);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态代理：JDK 动态代理、CGLIB 动态代理</p>
+<ul>
+<li>InvocationHandler 接口和 Proxy 类</li>
+<li>还必须需要实现InvocationHandler 来自定义处理逻辑。 当我们的动态代理对象调用一个方法时，这个方法的调用就会被转发到实现InvocationHandler 接口类的 invoke 方法来调用。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当你使用代理对象调用方法的时候实际会调用到这个方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">throws</span> Throwable;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><p>数据从外部存储和内存之间进出的过程就是IO。</p>
+<h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>如果我们不知道编码类型的话，使用字节流的过程中很容易出现乱码问题。</p>
+<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p>字符流是由 Java 虚拟机将字节转换得到的，这个过程还算是比较耗时</p>
+<h2 id="序列化-Protobuf，Hessian，Kyro"><a href="#序列化-Protobuf，Hessian，Kyro" class="headerlink" title="序列化 Protobuf，Hessian，Kyro"></a>序列化 Protobuf，Hessian，Kyro</h2><ul>
+<li>transient 阻止实例中那些用此关键字修饰的的变量序列化；</li>
+<li>当对象被反序列化时，被 transient 修饰的变量值不会被持久化和恢复。</li>
+<li>transient 只能修饰变量，不能修饰类和方法。</li>
+<li>static 变量因为不属于任何对象(Object)，所以无论有没有 transient 关键字修饰，均不会被序列化。</li>
+</ul>
+<h2 id="sun-misc-Unsafe类-并发工具类的组件，一个直接操作内存空间的类。"><a href="#sun-misc-Unsafe类-并发工具类的组件，一个直接操作内存空间的类。" class="headerlink" title="sun.misc.Unsafe类:并发工具类的组件，一个直接操作内存空间的类。"></a>sun.misc.Unsafe类:并发工具类的组件，一个直接操作内存空间的类。</h2><p>主要提供一些用于执行低级别、不安全操作的方法，如直接访问系统内存资源、自主管理内存资源等，这些方法在提升 Java 运行效率、增强 Java 语言底层资源操作能力方面起到了很大的作用。</p>
+<ul>
+<li>Unsafe中提供的方法需要依赖native方法，Java 代码中只是声明方法头，具体的实现则交给本地代码</li>
+</ul>
+<h3 id="堆外内存"><a href="#堆外内存" class="headerlink" title="堆外内存"></a>堆外内存</h3><p>使用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分配新的本地空间</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">allocateMemory</span><span class="params">(<span class="keyword">long</span> bytes)</span></span>;</span><br><span class="line"><span class="comment">//重新调整内存空间的大小</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">reallocateMemory</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">long</span> bytes)</span></span>;</span><br><span class="line"><span class="comment">//将内存设置为指定值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">setMemory</span><span class="params">(Object o, <span class="keyword">long</span> offset, <span class="keyword">long</span> bytes, <span class="keyword">byte</span> value)</span></span>;</span><br><span class="line"><span class="comment">//内存拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">copyMemory</span><span class="params">(Object srcBase, <span class="keyword">long</span> srcOffset,Object destBase, <span class="keyword">long</span> destOffset,<span class="keyword">long</span> bytes)</span></span>;</span><br><span class="line"><span class="comment">//清除内存</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">freeMemory</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式分配<strong>堆外内存</strong>，是无法进行垃圾回收的，需要我们把这些内存当做一种资源去手动调用freeMemory方法进行释放，否则会产生内存泄漏。通用的操作内存方式是在try中执行对内存的操作，最终在finally块中进行内存释放。</p>
+<h3 id="【面试题】为什么要用堆外内存"><a href="#【面试题】为什么要用堆外内存" class="headerlink" title="【面试题】为什么要用堆外内存"></a>【面试题】为什么要用堆外内存</h3><ul>
+<li>对GC停顿的改善。由于堆外内存是直接受操作系统管理而不是 JVM，所以当我们使用堆外内存时，即可保持较小的堆内内存规模。从而在 GC 时减少回收停顿对于应用的影响。</li>
+<li>提升程序 I/O 操作的性能。通常在 I/O 通信过程中，会存在堆内内存到堆外内存的数据拷贝操作，对于需要频繁进行内存间数据拷贝且生命周期较短的暂存数据，都建议存储到堆外内存。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单例模式的应用：</span></span><br><span class="line"><span class="comment">// 利用反射获得 Unsafe 类中已经实例化完成的单例对象 theUnsafe.</span></span><br><span class="line">Unsafe unsafe = Unsafe.reflectGetUnsafe();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="keyword">long</span> maddr = unsafe.allocateMemory(<span class="number">1024</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(OutOfMemoryError e)&#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line">  <span class="keyword">throw</span> e;</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  unsafe.freeMomory(maddr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DirectByteBuffer"><a href="#DirectByteBuffer" class="headerlink" title="DirectByteBuffer"></a>DirectByteBuffer</h3><ul>
+<li>实现堆外内存的一个重要类，通常用在通信过程中做缓冲池，在NIO中使用广泛。</li>
+<li>对于堆外内存的创建、使用、销毁等逻辑均由 Unsafe 提供的堆外内存 API 来实现</li>
+</ul>
+<h3 id="内存屏障-Memory-Barrier-组织指令重排序"><a href="#内存屏障-Memory-Barrier-组织指令重排序" class="headerlink" title="内存屏障 Memory Barrier:组织指令重排序"></a>内存屏障 Memory Barrier:组织指令重排序</h3><p>阻止屏障两边的<strong>指令重排序</strong>从而避免编译器和硬件的不正确优化情况</p>
+<ul>
+<li>屏蔽了操作系统底层的差异，允许在代码中定义、并统一由 JVM 来生成内存屏障指令，来实现内存屏障的功能<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//内存屏障，禁止load操作重排序。屏障前的load操作不能被重排序到屏障后，屏障后的load操作不能被重排序到屏障前</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">loadFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//内存屏障，禁止store操作重排序。屏障前的store操作不能被重排序到屏障后，屏障后的store操作不能被重排序到屏障前</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">storeFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//内存屏障，禁止load、store操作重排序</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">fullFence</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>运行中的线程不是直接读取主内存中的变量的，只能操作自己工作内存中的变量，然后同步到主内存中，并且线程的工作内存是不能共享的。上面的图中的流程就是子线程借助于主内存，将修改后的结果同步给了主线程，进而修改主线程中的工作空间，跳出循环。</p>
 
     
 
-        <a href="/2023/01/04/面经设计模式/" class="post-more waves-effect waves-button">
+        <a href="/2023/01/03/面经Java基础/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-面经MySQL问题"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Mysql/">Mysql</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2023/01/03/面经MySQL问题/">MySQL questions</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        <h2 id="其他数据库"><a href="#其他数据库" class="headerlink" title="其他数据库"></a>其他数据库</h2><p>mongodb(<a href="https://www.chaojimake.cn/question_8_88.html" target="_blank" rel="noopener">https://www.chaojimake.cn/question_8_88.html</a>)<br>hbase(<a href="https://www.chaojimake.cn/question_8_349.html" target="_blank" rel="noopener">https://www.chaojimake.cn/question_8_349.html</a>)</p>
+<h2 id="为什么要分库"><a href="#为什么要分库" class="headerlink" title="为什么要分库"></a>为什么要分库</h2><p>如果业务量剧增，数据库可能会出现性能瓶颈，这时候我们就需要考虑拆分数据库。</p>
+<ul>
+<li><strong>磁盘存储</strong><br>业务量剧增，MySQL单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大降低。</li>
+<li><strong>并发连接支撑</strong><br>知道数据库连接数是有限的（150个？）。在高并发的场景下，大量请求访问数据库，MySQL单机是扛不住的！高并发场景下，会出现too many connections报错。</li>
+</ul>
+<p>当前非常火的微服务架构出现，就是为了应对高并发。它把订单、用户、商品等不同模块，拆分成多个应用，并且把单个数据库也拆分成多个不同功能模块的数据库（订单库、用户库、商品库），以分担读写压力。</p>
+<h2 id="为什么要分表"><a href="#为什么要分表" class="headerlink" title="为什么要分表"></a>为什么要分表</h2><p>假如你的单表数据量非常大，存储和查询的性能就会遇到瓶颈了，如果你做了很多优化之后还是无法提升效率的时候，就需要考虑做分表了。一般千万级别数据量，就需要分表。<br>这是因为即使SQL命中了索引，如果表的数据量超过一千万的话，查询也是会明显变慢的。这是因为索引一般是B+树结构，数据千万级别的话，B+树的高度会增高，查询就变慢啦</p>
+<h2 id="考虑分库分表的时机"><a href="#考虑分库分表的时机" class="headerlink" title="考虑分库分表的时机"></a>考虑分库分表的时机</h2><p>一般数据量千万级别，B+树索引高度就会到3层以上了，查询的时候会多查磁盘的次数，SQL就会变慢。</p>
+<p>阿里巴巴的《Java开发手册》提出：<br><strong>单表行数超过500万行或者单表容量超过2GB，才推荐进行分库分表</strong>。<br>那我们是不是等到数据量到达五百万，才开始分库分表呢？<br>不是这样的，我们应该提前规划分库分表，如果估算3年后，你的表都不会到达这个五百万，则不需要分库分表。<br>MySQL服务器如果配置更好，是不是可以超过这个500万这个量级，才考虑分库分表？<br>虽然配置更好，可能数据量大之后，性能还是不错，但是如果持续发展的话，还是要考虑分库分表<br>一般什么类型业务表需要才分库分表？<br>通用是一些流水表、用户表等才考虑分库分表，如果是一些配置类的表，则完全不用考虑，因为不太可能到达这个量级。</p>
+<h2 id="如何分库分表？原则有哪些"><a href="#如何分库分表？原则有哪些" class="headerlink" title="如何分库分表？原则有哪些"></a>如何分库分表？原则有哪些</h2><h2 id="数据库垂直切分"><a href="#数据库垂直切分" class="headerlink" title="数据库垂直切分"></a>数据库垂直切分</h2><h2 id="数据库水平切分"><a href="#数据库水平切分" class="headerlink" title="数据库水平切分"></a>数据库水平切分</h2><h2 id="一定规则"><a href="#一定规则" class="headerlink" title="一定规则"></a>一定规则</h2><h2 id="分库分表的取模算法"><a href="#分库分表的取模算法" class="headerlink" title="分库分表的取模算法"></a>分库分表的取模算法</h2><h2 id="分库分表的范围限定算法"><a href="#分库分表的范围限定算法" class="headerlink" title="分库分表的范围限定算法"></a>分库分表的范围限定算法</h2><h2 id="分库后，事务问题如何解决"><a href="#分库后，事务问题如何解决" class="headerlink" title="分库后，事务问题如何解决"></a>分库后，事务问题如何解决</h2><h2 id="分表后，跨节点的join和union问题"><a href="#分表后，跨节点的join和union问题" class="headerlink" title="分表后，跨节点的join和union问题"></a>分表后，跨节点的join和union问题</h2><h2 id="分库分表后，orderby-groupby等聚合函数如何处理"><a href="#分库分表后，orderby-groupby等聚合函数如何处理" class="headerlink" title="分库分表后，orderby groupby等聚合函数如何处理"></a>分库分表后，orderby groupby等聚合函数如何处理</h2><h2 id="分库分表后，分页的处理方案"><a href="#分库分表后，分页的处理方案" class="headerlink" title="分库分表后，分页的处理方案"></a>分库分表后，分页的处理方案</h2><h2 id="如何生成全局唯一的分布式ID"><a href="#如何生成全局唯一的分布式ID" class="headerlink" title="如何生成全局唯一的分布式ID"></a>如何生成全局唯一的分布式ID</h2><h2 id="主流分库分表中间件"><a href="#主流分库分表中间件" class="headerlink" title="主流分库分表中间件"></a>主流分库分表中间件</h2><h2 id="分表要停服吗，不停服怎么做"><a href="#分表要停服吗，不停服怎么做" class="headerlink" title="分表要停服吗，不停服怎么做"></a>分表要停服吗，不停服怎么做</h2><h2 id="为了避免数据热点问题如何选择分表策略"><a href="#为了避免数据热点问题如何选择分表策略" class="headerlink" title="为了避免数据热点问题如何选择分表策略"></a>为了避免数据热点问题如何选择分表策略</h2><h2 id="阐述常用的数据库中间件"><a href="#阐述常用的数据库中间件" class="headerlink" title="阐述常用的数据库中间件"></a>阐述常用的数据库中间件</h2><h1 id="基础问题"><a href="#基础问题" class="headerlink" title="基础问题"></a>基础问题</h1><h2 id="1-数据类型"><a href="#1-数据类型" class="headerlink" title="1. 数据类型"></a>1. 数据类型</h2><ul>
+<li>int：tinyint(1byte) smallint(2byte)  mediumint(3byte)  int(4byte)  bigint(8byte) </li>
+<li>float,double</li>
+<li>decimal</li>
+</ul>
+<p><strong>字符串类型：varchar,char,text,blob</strong> </p>
+<ul>
+<li>varchar(n):n代表字符个数，不是字节个数</li>
+<li>char与varchar的区别<ul>
+<li>char定长，var不定长，存储效率较高</li>
+<li>varchar在开头两个字节存长度</li>
+</ul>
+</li>
+<li>text 和blob会使用临时表，开销损失大<br>【Tips】经常变更的数据使用char，char不容易产生碎片</li>
+</ul>
+<p><strong>时间类型</strong></p>
+<ul>
+<li><p>date</p>
+</li>
+<li><p>timestamp（优先使用，空间开销小）</p>
+<h2 id="3-数据库三大范式-，范式和反范式是什么"><a href="#3-数据库三大范式-，范式和反范式是什么" class="headerlink" title="3. 数据库三大范式 ，范式和反范式是什么"></a>3. 数据库三大范式 ，范式和反范式是什么</h2></li>
+<li><p>第一范式（1NF）：每个列都不可以再拆分，强调的是列的原子性。第一范式要求数据库中的表都是二维表。</p>
+</li>
+<li><p>第二范式（2NF）：在第一范式的基础上，一个表必须有一个主键，非主键列 完全依赖 于主键，而不能是依赖于主键的一部分。</p>
+</li>
+<li><p>第三范式（3NF）：在第二范式的基础上，非主键列只依赖（直接依赖）于主键，不依赖于其他非主键。</p>
+</li>
+<li><p><strong>范式</strong>：范式化的表减少了数据冗余，数据表更新操作快、占用存储空间少。    </p>
+</li>
+<li><p>但是查询时通常需要多表关联查询，更难进行索引优化</p>
+</li>
+<li><p><strong>反范式</strong>：反范式的过程就是通过冗余数据来提高查询性能，可以减少表关联和更好进行索引优化</p>
+</li>
+<li><p>存在大量冗余数据，并且数据的维护成本更高</p>
+</li>
+</ul>
+<h1 id="索引问题"><a href="#索引问题" class="headerlink" title="索引问题"></a>索引问题</h1><h2 id="1-索引的分类"><a href="#1-索引的分类" class="headerlink" title="1.索引的分类"></a>1.索引的分类</h2><h2 id="2-索引优缺点"><a href="#2-索引优缺点" class="headerlink" title="2.索引优缺点"></a>2.索引优缺点</h2><h2 id="3-索引设计原则"><a href="#3-索引设计原则" class="headerlink" title="3.索引设计原则"></a>3.索引设计原则</h2><ul>
+<li><p>唯一性</p>
+</li>
+<li><p>选择常用的字段</p>
+</li>
+<li><p>选用经常排序、分组、联合的字段</p>
+</li>
+<li><p>小表不建议索引（几万这种不需要，，几十万这种看情况）</p>
+<h2 id="4-索引的b-树"><a href="#4-索引的b-树" class="headerlink" title="4.索引的b+树"></a>4.索引的b+树</h2><h2 id="5-hash索引和b-索引的区别"><a href="#5-hash索引和b-索引的区别" class="headerlink" title="5.hash索引和b+索引的区别"></a>5.hash索引和b+索引的区别</h2><h2 id="6-为什么b-树打败了二叉查找树和b树"><a href="#6-为什么b-树打败了二叉查找树和b树" class="headerlink" title="6.为什么b+树打败了二叉查找树和b树"></a>6.为什么b+树打败了二叉查找树和b树</h2><h2 id="7-最左匹配原则"><a href="#7-最左匹配原则" class="headerlink" title="7.最左匹配原则"></a>7.最左匹配原则</h2><h2 id="8-覆盖索引"><a href="#8-覆盖索引" class="headerlink" title="8.覆盖索引"></a>8.覆盖索引</h2><h2 id="9-索引下推"><a href="#9-索引下推" class="headerlink" title="9.索引下推"></a>9.索引下推</h2><h1 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h1><p>InnoDB 适用于？<br>MyISAM 适用以插入为主的程序，比如博客系统、新闻门户</p>
+<h2 id="1-存储引擎InnoDB的四大特性"><a href="#1-存储引擎InnoDB的四大特性" class="headerlink" title="1.存储引擎InnoDB的四大特性"></a>1.存储引擎InnoDB的四大特性</h2><p>插入缓冲（insert buffer)<br>二次写(double write)<br>自适应哈希索引(ahi)<br>预读(read ahead)</p>
+<h2 id="2-MyISAM和InnoDB的区别"><a href="#2-MyISAM和InnoDB的区别" class="headerlink" title="2.MyISAM和InnoDB的区别"></a>2.MyISAM和InnoDB的区别</h2></li>
+<li><p>InnoDB 支持事务，而 MyISAM 不支持。</p>
+</li>
+<li><p>InnoDB 支持外键，而 MyISAM 不支持。因此将一个含有外键的 InnoDB 表 转为 MyISAM 表会失败。</p>
+</li>
+<li><p>InnoDB 和 MyISAM 均支持 B+ Tree 数据结构的索引。但 InnoDB 是聚集索引，而 MyISAM 是非聚集索引。</p>
+</li>
+<li><p>InnoDB 不保存表中数据行数，执行 select count(*) from table 时需要全表扫描。而 MyISAM 用一个变量记录了整个表的行数，速度相当快（注意不能有 WHERE 子句）。</p>
+</li>
+</ul>
+<p><strong>那为什么 InnoDB 没有使用这样的变量呢</strong> 因为InnoDB的事务特性，在同一时刻表中的行数对于不同的事务而言是不一样的。</p>
+<ul>
+<li><p>InnoDB 支持表、行（默认）级锁，而 MyISAM 支持表级锁。<br>InnoDB 的行锁是基于索引实现的，而不是物理行记录上。即访问如果没有命中索引，则也无法使用行锁，将要退化为表锁。</p>
+</li>
+<li><p>InnoDB 必须有唯一索引（如主键），如果没有指定，就会自动寻找或生产一个隐藏列 Row_id 来充当默认主键，而 Myisam 可以没有主键。</p>
+<h2 id="3-为何推荐使用自增主键"><a href="#3-为何推荐使用自增主键" class="headerlink" title="3.为何推荐使用自增主键"></a>3.为何推荐使用自增主键</h2><p>自增 ID 可以保证每次插入时 B+ 树索引是从右边扩展的，因此相比自定义 ID （如 UUID）可以避免 B+ 树的频繁合并和分裂。如果使用字符串主键和随机主键，会使得数据随机插入，效率比较差。</p>
+<h1 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h1><h2 id="1-页Page，区Extend，段Segment"><a href="#1-页Page，区Extend，段Segment" class="headerlink" title="1.页Page，区Extend，段Segment"></a>1.页Page，区Extend，段Segment</h2></li>
+</ul>
+<p><strong>页（数据页）：InnoDB中每个页16KB，Myisam是1KB</strong></p>
+<h3 id="一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"><a href="#一行数据大于16kb，会发生什么，怎么解决【行溢出问题】" class="headerlink" title="一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"></a>一行数据大于16kb，会发生什么，怎么解决【行溢出问题】</h3><p>内置的解决方式：将溢出的数据存到新页里，然后原始页里存放一个指针，需要额外一次IO去读取</p>
+<p>聚簇索引情况：</p>
+<ul>
+<li>如果表使用了聚簇索引（InnoDB的主键索引就是一个聚簇索引），那么数据行实际上是存储在聚簇索引的叶子节点中的。如果一行数据超出了页的大小，那么会发生行溢出，溢出部分会存储在一个溢出页中，而叶子节点中仍然包含原始行的数据和指向溢出页的指针。</li>
+</ul>
+<p>非聚簇索引情况：</p>
+<ul>
+<li>如果表使用了非聚簇索引（如普通索引），那么数据行是单独存储在聚簇索引的叶子节点之外的，这种情况下，如果一行数据超出了页的大小，会直接发生行溢出，溢出部分会存储在溢出页中，同时非聚簇索引中也会保留指向溢出页的指针。</li>
+</ul>
+<p><strong>区Extent：一个区默认是 64 个连续的页组成的，也就是 1MB</strong></p>
+<p><strong>段Segment：一段相邻的区的集合，逻辑上的组织，存放b+树</strong></p>
+<h2 id="2-页由哪些数据组成"><a href="#2-页由哪些数据组成" class="headerlink" title="2.页由哪些数据组成"></a>2.页由哪些数据组成</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/mysqlpagestructure.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>file header:用于描述数据页的外部信息，比如属于哪一个表空间、前后页的页号等</li>
+<li>page header:用来描述数据页中的具体信息，比如存在多少条纪录，第一条纪录的位置等。</li>
+<li>infimum 和 supremum 纪录:是系统生成的纪录，分别为最小和最大纪录值，infimum 的下一条是用户纪录中键值最小的纪录，supremum 的上一条是用户纪录中键值最大的纪录，通过 next_record 字段来相连。</li>
+<li>user records:据库表中对应的数据(Compact行格式)</li>
+<li>free space 可插入的空闲区域</li>
+<li>page dictionary：类似于字典的目录结构，根据主键大小，每隔 4-8 个纪录设置一个槽，用来纪录其位置，当根据主键查找数据时，首先一步到位找到数据所在的槽，然后在槽中线性搜素。这种方法比从前到后遍历页的链表的效率更快。</li>
+<li>File Header：存储刷盘前内存的校验和，Page Tailer储存刷盘后的校验和。当刷盘的时候，出现异常，Page Tailer和File Header中的校验和不一致，则说明出现刷盘错误。</li>
+</ul>
+<h2 id="3-页插入记录的过程"><a href="#3-页插入记录的过程" class="headerlink" title="3.页插入记录的过程"></a>3.页插入记录的过程</h2><p>1）如果 Free Space 的空间足够的话，直接分配空间来添加纪录，并将插入前最后一条纪录的 next_record 指向当前插入的纪录，将当前插入纪录的 next_record 指向 supremum 纪录。</p>
+<p>2）如果 Free Space的 空间不够的话，则首先将之前删除造成的碎片重新整理之后，按照上述步骤插入纪录。</p>
+<p>3）如果当前页空间整理碎片之后仍然不足的话，则重新申请一个页，将页初始化之后，按照上述步骤插入纪录</p>
+<h2 id="4-bufferPool"><a href="#4-bufferPool" class="headerlink" title="4.bufferPool"></a>4.bufferPool</h2><p>Buffer Pool 是 InnoDB 存储引擎层的缓冲池，不属于 MySQL 的 Server 层，注意跟 8.0 删掉的“查询缓存”功能区分。</p>
+<p>内存中以页（page）为单位缓存磁盘数据，减少磁盘IO，提升访问速度。缓冲池大小默认 128M，独立的 MySQL 服务器推荐设置缓冲池大小为总内存的 80%。主要存储数据页、索引页更新缓冲（change buffer）等。</p>
+<h2 id="5-change-buffer"><a href="#5-change-buffer" class="headerlink" title="5.change buffer"></a>5.change buffer</h2><p>​如果每次写操作，数据库都直接更新磁盘中的数据，会很占磁盘IO。为了减少磁盘IO，InnoDB在Buffer Pool中开辟了一块内存，用来存储变更记录，为了防止异常宕机丢失缓存，当事务提交时会将变更记录持久化到磁盘（redo log），等待时机更新磁盘的数据文件（刷脏），用来缓存写操作的内存，就是Change Buffer</p>
+<p>Change Buffer默认占Buffer Pool的25%，最大设置占用50%。</p>
+<h1 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h1><h2 id="1-架构设计【内存、线程】"><a href="#1-架构设计【内存、线程】" class="headerlink" title="1.架构设计【内存、线程】"></a>1.架构设计【内存、线程】</h2><ul>
+<li>内存数据区域划分<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/Innodbmem.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>四大线程<ul>
+<li>Master thread</li>
+<li>IO thread</li>
+<li>Purge thread</li>
+<li>Page Cleaner Thread</li>
+</ul>
+</li>
+</ul>
+<p>1）负责刷新内存池中的数据，保证缓冲池的内存缓冲的是最近的数据</p>
+<p>2）已修改的数据文件刷新到磁盘文件</p>
+<p>3）保证数据库发生异常的情况下InnoDB能恢复到正常状态</p>
+<h2 id="2-InnoDB有哪些线程"><a href="#2-InnoDB有哪些线程" class="headerlink" title="2.InnoDB有哪些线程"></a>2.InnoDB有哪些线程</h2><ul>
+<li>Master Thread</li>
+</ul>
+<p>负责将缓冲池中的数据异步刷新到磁盘，保证数据的一致性，包括脏页的刷新，合并插入缓冲（INSERT BUFFER），UNDO页的回收等。</p>
+<ul>
+<li>IO Thread</li>
+</ul>
+<p>负责 AIO 请求的回调处理。</p>
+<ul>
+<li>Purge Thread</li>
+</ul>
+<p>事务提交后，undo log 可能不再需要，由 Purge Thread 负责回收并重新分配的这些已经使用的 undo 页。</p>
+<ul>
+<li>Page Cleaner Thread</li>
+</ul>
+<p>将Master Threader中刷新脏页的工作移至该线程，如上面说的FLUSH LRU LIST Checkpoint以及Async/Sync Flush Checkpoint。</p>
+<h2 id="3-double-writer是什么"><a href="#3-double-writer是什么" class="headerlink" title="3.double writer是什么"></a>3.double writer是什么</h2><h2 id="4-自适应hash是什么"><a href="#4-自适应hash是什么" class="headerlink" title="4. 自适应hash是什么"></a>4. 自适应hash是什么</h2><p>InnoDB 会监控对表上各索引页的查询执行情况，如发现建立哈希索引可以提升速度，则建立哈希索引，这是过程不需要用户干预。（默认开启）</p>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="1-什么是事务"><a href="#1-什么是事务" class="headerlink" title="1.什么是事务"></a>1.什么是事务</h2><p>事务是逻辑上的一组操作，要么都执行，要么都不执行</p>
+<h2 id="2-什么是事务的四大特性ACID"><a href="#2-什么是事务的四大特性ACID" class="headerlink" title="2.什么是事务的四大特性ACID"></a>2.什么是事务的四大特性ACID</h2><h2 id="3-事务的并发问题【带来脏读、不可重复度、幻读问题】"><a href="#3-事务的并发问题【带来脏读、不可重复度、幻读问题】" class="headerlink" title="3.事务的并发问题【带来脏读、不可重复度、幻读问题】"></a>3.事务的并发问题【带来脏读、不可重复度、幻读问题】</h2><h2 id="5-事务的隔离级别"><a href="#5-事务的隔离级别" class="headerlink" title="5.事务的隔离级别"></a>5.事务的隔离级别</h2><p>串行化<br>可重复度（Innodb默认）<br>读已提交<br>读未提交</p>
+<h2 id="6-ACID的特性如何实现"><a href="#6-ACID的特性如何实现" class="headerlink" title="6.ACID的特性如何实现"></a>6.ACID的特性如何实现</h2><p>原子性是 undo 日志<br>持久性是 redo 日志</p>
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="1-数据库锁的特性，有哪些锁"><a href="#1-数据库锁的特性，有哪些锁" class="headerlink" title="1.数据库锁的特性，有哪些锁"></a>1.数据库锁的特性，有哪些锁</h2><ul>
+<li>行锁，表锁，页锁</li>
+<li>共享锁=读锁S，排他锁=写锁X，更新锁U锁</li>
+<li>乐观锁，悲观锁<h2 id="2-隔离级别和锁的关系"><a href="#2-隔离级别和锁的关系" class="headerlink" title="2.隔离级别和锁的关系"></a>2.隔离级别和锁的关系</h2></li>
+<li><h2 id="3-InnoDB的锁算法"><a href="#3-InnoDB的锁算法" class="headerlink" title="3.InnoDB的锁算法"></a>3.InnoDB的锁算法</h2><h2 id="4-快照读和当前读"><a href="#4-快照读和当前读" class="headerlink" title="4.快照读和当前读"></a>4.快照读和当前读</h2><h2 id="5-innodb的可重复度如何实现"><a href="#5-innodb的可重复度如何实现" class="headerlink" title="5.innodb的可重复度如何实现"></a>5.innodb的可重复度如何实现</h2>通过MVCC实现，为每个事务维护一个独立版本视图，执行期间保持一致性。<h2 id="6-MVCC以及实现（乐观锁）"><a href="#6-MVCC以及实现（乐观锁）" class="headerlink" title="6.MVCC以及实现（乐观锁）"></a>6.MVCC以及实现（乐观锁）</h2>MVCC 的基本思想是为每个事务创建一个独立的版本视图，以便在事务执行期间保持数据的一致性。它通过在修改数据时不覆盖原有的数据，而是为每个事务创建一个新的版本来实现。</li>
+</ul>
+<ol>
+<li>每行数据保存一个版本号/时间戳</li>
+<li>当一个事务对某行数据进行修改时，不会直接修改原始数据，而是会在数据库中创建一个新的版本，并将原始版本的数据保留下来</li>
+<li>查询时，根据版本号<h2 id="7-mysql优化手段有哪些"><a href="#7-mysql优化手段有哪些" class="headerlink" title="7. mysql优化手段有哪些"></a>7. mysql优化手段有哪些</h2></li>
+<li>给常用字段索引</li>
+<li>避免使用select *，避免全表扫描</li>
+<li>分表，分区，拆分子表</li>
+<li>使用覆盖索引：索引覆盖是指查询的列都包含在索引中，而无需再去访问表本身，可以减少IO和提高查询性能。<strong>不适合频繁变更的表和列</strong></li>
+<li>redis缓存分担压力</li>
+<li>连接池等<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><h2 id="1-mysql的常见日志"><a href="#1-mysql的常见日志" class="headerlink" title="1.mysql的常见日志"></a>1.mysql的常见日志</h2></li>
+</ol>
+<h2 id="2-主从复制的作用"><a href="#2-主从复制的作用" class="headerlink" title="2.主从复制的作用"></a>2.主从复制的作用</h2><h2 id="3-主从复制的架构"><a href="#3-主从复制的架构" class="headerlink" title="3.主从复制的架构"></a>3.主从复制的架构</h2><h2 id="4-主从复制的原理"><a href="#4-主从复制的原理" class="headerlink" title="4.主从复制的原理"></a>4.主从复制的原理</h2><h2 id="5-主从复制的异步复制和半同步"><a href="#5-主从复制的异步复制和半同步" class="headerlink" title="5.主从复制的异步复制和半同步"></a>5.主从复制的异步复制和半同步</h2><h2 id="6-主从的常见问题和解决方式"><a href="#6-主从的常见问题和解决方式" class="headerlink" title="6.主从的常见问题和解决方式"></a>6.主从的常见问题和解决方式</h2><p>主从延迟问题，不一致性问题<br><a href="https://zhuanlan.zhihu.com/p/642614348" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/642614348</a></p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="1-Where和Having的区别"><a href="#1-Where和Having的区别" class="headerlink" title="1.Where和Having的区别"></a>1.Where和Having的区别</h2><h2 id="2-In-和-Exists的区别"><a href="#2-In-和-Exists的区别" class="headerlink" title="2.In 和 Exists的区别"></a>2.In 和 Exists的区别</h2><h2 id="3-Union和Union-ALL的区别"><a href="#3-Union和Union-ALL的区别" class="headerlink" title="3. Union和Union ALL的区别"></a>3. Union和Union ALL的区别</h2><h2 id="4-Drop-Delete-Truncate的区别"><a href="#4-Drop-Delete-Truncate的区别" class="headerlink" title="4. Drop Delete Truncate的区别"></a>4. Drop Delete Truncate的区别</h2><h1 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h1><h2 id="1-如何判断是否走了索引"><a href="#1-如何判断是否走了索引" class="headerlink" title="1. 如何判断是否走了索引"></a>1. 如何判断是否走了索引</h2><h2 id="2-索引失效的几种情况"><a href="#2-索引失效的几种情况" class="headerlink" title="2. 索引失效的几种情况"></a>2. 索引失效的几种情况</h2><h2 id="3-where子句如何优化"><a href="#3-where子句如何优化" class="headerlink" title="3. where子句如何优化"></a>3. where子句如何优化</h2><h2 id="4-超大分页和深度分页"><a href="#4-超大分页和深度分页" class="headerlink" title="4. 超大分页和深度分页"></a>4. 超大分页和深度分页</h2><h2 id="5-大表查询如何优化"><a href="#5-大表查询如何优化" class="headerlink" title="5. 大表查询如何优化"></a>5. 大表查询如何优化</h2><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="1-存储过程（procedure）和函数的区别"><a href="#1-存储过程（procedure）和函数的区别" class="headerlink" title="1.存储过程（procedure）和函数的区别"></a>1.存储过程（procedure）和函数的区别</h2><h2 id="2-视图是什么"><a href="#2-视图是什么" class="headerlink" title="2.视图是什么"></a>2.视图是什么</h2><h2 id="3-Trigger是什么"><a href="#3-Trigger是什么" class="headerlink" title="3.Trigger是什么"></a>3.Trigger是什么</h2><h2 id="sql优化的经验"><a href="#sql优化的经验" class="headerlink" title="sql优化的经验"></a>sql优化的经验</h2><ol>
+<li>查询字段不使用函数或者大于等于表达式</li>
+<li>避免where中的不等于，大于小于，null等</li>
+<li>使用between and 替代in</li>
+<li>当操作字段规模大的时候，拆分delete和insert语句</li>
+<li>查询时使用索引的最左前缀原则</li>
+</ol>
+<h2 id="使用-union-和-union-all-时需要注意些什么"><a href="#使用-union-和-union-all-时需要注意些什么" class="headerlink" title="使用 union 和 union all 时需要注意些什么?"></a>使用 union 和 union all 时需要注意些什么?</h2><p>通过 union 连接的 SQL 分别单独取出的列数必须相同。 使用 union 时，多个相等的行将会被合并，由<br>于合升比较耗时，一般不直接使 用 union 进行合并，而是通常采用 union all 进行合并。</p>
+
+    
+
+        <a href="/2023/01/03/面经MySQL问题/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </div>
     
@@ -1369,227 +1718,6 @@ ON table_name(index_column_1,index_column_2,...);</code></li>
     
 
         <a href="/2023/01/03/面经MySQL/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-面经MySQL问题"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Mysql/">Mysql</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2023/01/03/面经MySQL问题/">MySQL questions</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        <h2 id="其他数据库"><a href="#其他数据库" class="headerlink" title="其他数据库"></a>其他数据库</h2><p>mongodb(<a href="https://www.chaojimake.cn/question_8_88.html" target="_blank" rel="noopener">https://www.chaojimake.cn/question_8_88.html</a>)<br>hbase(<a href="https://www.chaojimake.cn/question_8_349.html" target="_blank" rel="noopener">https://www.chaojimake.cn/question_8_349.html</a>)</p>
-<h2 id="为什么要分库"><a href="#为什么要分库" class="headerlink" title="为什么要分库"></a>为什么要分库</h2><p>如果业务量剧增，数据库可能会出现性能瓶颈，这时候我们就需要考虑拆分数据库。</p>
-<ul>
-<li><strong>磁盘存储</strong><br>业务量剧增，MySQL单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大降低。</li>
-<li><strong>并发连接支撑</strong><br>知道数据库连接数是有限的（150个？）。在高并发的场景下，大量请求访问数据库，MySQL单机是扛不住的！高并发场景下，会出现too many connections报错。</li>
-</ul>
-<p>当前非常火的微服务架构出现，就是为了应对高并发。它把订单、用户、商品等不同模块，拆分成多个应用，并且把单个数据库也拆分成多个不同功能模块的数据库（订单库、用户库、商品库），以分担读写压力。</p>
-<h2 id="为什么要分表"><a href="#为什么要分表" class="headerlink" title="为什么要分表"></a>为什么要分表</h2><p>假如你的单表数据量非常大，存储和查询的性能就会遇到瓶颈了，如果你做了很多优化之后还是无法提升效率的时候，就需要考虑做分表了。一般千万级别数据量，就需要分表。<br>这是因为即使SQL命中了索引，如果表的数据量超过一千万的话，查询也是会明显变慢的。这是因为索引一般是B+树结构，数据千万级别的话，B+树的高度会增高，查询就变慢啦</p>
-<h2 id="考虑分库分表的时机"><a href="#考虑分库分表的时机" class="headerlink" title="考虑分库分表的时机"></a>考虑分库分表的时机</h2><p>一般数据量千万级别，B+树索引高度就会到3层以上了，查询的时候会多查磁盘的次数，SQL就会变慢。</p>
-<p>阿里巴巴的《Java开发手册》提出：<br><strong>单表行数超过500万行或者单表容量超过2GB，才推荐进行分库分表</strong>。<br>那我们是不是等到数据量到达五百万，才开始分库分表呢？<br>不是这样的，我们应该提前规划分库分表，如果估算3年后，你的表都不会到达这个五百万，则不需要分库分表。<br>MySQL服务器如果配置更好，是不是可以超过这个500万这个量级，才考虑分库分表？<br>虽然配置更好，可能数据量大之后，性能还是不错，但是如果持续发展的话，还是要考虑分库分表<br>一般什么类型业务表需要才分库分表？<br>通用是一些流水表、用户表等才考虑分库分表，如果是一些配置类的表，则完全不用考虑，因为不太可能到达这个量级。</p>
-<h2 id="如何分库分表？原则有哪些"><a href="#如何分库分表？原则有哪些" class="headerlink" title="如何分库分表？原则有哪些"></a>如何分库分表？原则有哪些</h2><h2 id="数据库垂直切分"><a href="#数据库垂直切分" class="headerlink" title="数据库垂直切分"></a>数据库垂直切分</h2><h2 id="数据库水平切分"><a href="#数据库水平切分" class="headerlink" title="数据库水平切分"></a>数据库水平切分</h2><h2 id="一定规则"><a href="#一定规则" class="headerlink" title="一定规则"></a>一定规则</h2><h2 id="分库分表的取模算法"><a href="#分库分表的取模算法" class="headerlink" title="分库分表的取模算法"></a>分库分表的取模算法</h2><h2 id="分库分表的范围限定算法"><a href="#分库分表的范围限定算法" class="headerlink" title="分库分表的范围限定算法"></a>分库分表的范围限定算法</h2><h2 id="分库后，事务问题如何解决"><a href="#分库后，事务问题如何解决" class="headerlink" title="分库后，事务问题如何解决"></a>分库后，事务问题如何解决</h2><h2 id="分表后，跨节点的join和union问题"><a href="#分表后，跨节点的join和union问题" class="headerlink" title="分表后，跨节点的join和union问题"></a>分表后，跨节点的join和union问题</h2><h2 id="分库分表后，orderby-groupby等聚合函数如何处理"><a href="#分库分表后，orderby-groupby等聚合函数如何处理" class="headerlink" title="分库分表后，orderby groupby等聚合函数如何处理"></a>分库分表后，orderby groupby等聚合函数如何处理</h2><h2 id="分库分表后，分页的处理方案"><a href="#分库分表后，分页的处理方案" class="headerlink" title="分库分表后，分页的处理方案"></a>分库分表后，分页的处理方案</h2><h2 id="如何生成全局唯一的分布式ID"><a href="#如何生成全局唯一的分布式ID" class="headerlink" title="如何生成全局唯一的分布式ID"></a>如何生成全局唯一的分布式ID</h2><h2 id="主流分库分表中间件"><a href="#主流分库分表中间件" class="headerlink" title="主流分库分表中间件"></a>主流分库分表中间件</h2><h2 id="分表要停服吗，不停服怎么做"><a href="#分表要停服吗，不停服怎么做" class="headerlink" title="分表要停服吗，不停服怎么做"></a>分表要停服吗，不停服怎么做</h2><h2 id="为了避免数据热点问题如何选择分表策略"><a href="#为了避免数据热点问题如何选择分表策略" class="headerlink" title="为了避免数据热点问题如何选择分表策略"></a>为了避免数据热点问题如何选择分表策略</h2><h2 id="阐述常用的数据库中间件"><a href="#阐述常用的数据库中间件" class="headerlink" title="阐述常用的数据库中间件"></a>阐述常用的数据库中间件</h2><h1 id="基础问题"><a href="#基础问题" class="headerlink" title="基础问题"></a>基础问题</h1><h2 id="1-数据类型"><a href="#1-数据类型" class="headerlink" title="1. 数据类型"></a>1. 数据类型</h2><ul>
-<li>int：tinyint(1byte) smallint(2byte)  mediumint(3byte)  int(4byte)  bigint(8byte) </li>
-<li>float,double</li>
-<li>decimal</li>
-</ul>
-<p><strong>字符串类型：varchar,char,text,blob</strong> </p>
-<ul>
-<li>varchar(n):n代表字符个数，不是字节个数</li>
-<li>char与varchar的区别<ul>
-<li>char定长，var不定长，存储效率较高</li>
-<li>varchar在开头两个字节存长度</li>
-</ul>
-</li>
-<li>text 和blob会使用临时表，开销损失大<br>【Tips】经常变更的数据使用char，char不容易产生碎片</li>
-</ul>
-<p><strong>时间类型</strong></p>
-<ul>
-<li><p>date</p>
-</li>
-<li><p>timestamp（优先使用，空间开销小）</p>
-<h2 id="3-数据库三大范式-，范式和反范式是什么"><a href="#3-数据库三大范式-，范式和反范式是什么" class="headerlink" title="3. 数据库三大范式 ，范式和反范式是什么"></a>3. 数据库三大范式 ，范式和反范式是什么</h2></li>
-<li><p>第一范式（1NF）：每个列都不可以再拆分，强调的是列的原子性。第一范式要求数据库中的表都是二维表。</p>
-</li>
-<li><p>第二范式（2NF）：在第一范式的基础上，一个表必须有一个主键，非主键列 完全依赖 于主键，而不能是依赖于主键的一部分。</p>
-</li>
-<li><p>第三范式（3NF）：在第二范式的基础上，非主键列只依赖（直接依赖）于主键，不依赖于其他非主键。</p>
-</li>
-<li><p><strong>范式</strong>：范式化的表减少了数据冗余，数据表更新操作快、占用存储空间少。    </p>
-</li>
-<li><p>但是查询时通常需要多表关联查询，更难进行索引优化</p>
-</li>
-<li><p><strong>反范式</strong>：反范式的过程就是通过冗余数据来提高查询性能，可以减少表关联和更好进行索引优化</p>
-</li>
-<li><p>存在大量冗余数据，并且数据的维护成本更高</p>
-</li>
-</ul>
-<h1 id="索引问题"><a href="#索引问题" class="headerlink" title="索引问题"></a>索引问题</h1><h2 id="1-索引的分类"><a href="#1-索引的分类" class="headerlink" title="1.索引的分类"></a>1.索引的分类</h2><h2 id="2-索引优缺点"><a href="#2-索引优缺点" class="headerlink" title="2.索引优缺点"></a>2.索引优缺点</h2><h2 id="3-索引设计原则"><a href="#3-索引设计原则" class="headerlink" title="3.索引设计原则"></a>3.索引设计原则</h2><ul>
-<li><p>唯一性</p>
-</li>
-<li><p>选择常用的字段</p>
-</li>
-<li><p>选用经常排序、分组、联合的字段</p>
-</li>
-<li><p>小表不建议索引（几万这种不需要，，几十万这种看情况）</p>
-<h2 id="4-索引的b-树"><a href="#4-索引的b-树" class="headerlink" title="4.索引的b+树"></a>4.索引的b+树</h2><h2 id="5-hash索引和b-索引的区别"><a href="#5-hash索引和b-索引的区别" class="headerlink" title="5.hash索引和b+索引的区别"></a>5.hash索引和b+索引的区别</h2><h2 id="6-为什么b-树打败了二叉查找树和b树"><a href="#6-为什么b-树打败了二叉查找树和b树" class="headerlink" title="6.为什么b+树打败了二叉查找树和b树"></a>6.为什么b+树打败了二叉查找树和b树</h2><h2 id="7-最左匹配原则"><a href="#7-最左匹配原则" class="headerlink" title="7.最左匹配原则"></a>7.最左匹配原则</h2><h2 id="8-覆盖索引"><a href="#8-覆盖索引" class="headerlink" title="8.覆盖索引"></a>8.覆盖索引</h2><h2 id="9-索引下推"><a href="#9-索引下推" class="headerlink" title="9.索引下推"></a>9.索引下推</h2><h1 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h1><p>InnoDB 适用于？<br>MyISAM 适用以插入为主的程序，比如博客系统、新闻门户</p>
-<h2 id="1-存储引擎InnoDB的四大特性"><a href="#1-存储引擎InnoDB的四大特性" class="headerlink" title="1.存储引擎InnoDB的四大特性"></a>1.存储引擎InnoDB的四大特性</h2><p>插入缓冲（insert buffer)<br>二次写(double write)<br>自适应哈希索引(ahi)<br>预读(read ahead)</p>
-<h2 id="2-MyISAM和InnoDB的区别"><a href="#2-MyISAM和InnoDB的区别" class="headerlink" title="2.MyISAM和InnoDB的区别"></a>2.MyISAM和InnoDB的区别</h2></li>
-<li><p>InnoDB 支持事务，而 MyISAM 不支持。</p>
-</li>
-<li><p>InnoDB 支持外键，而 MyISAM 不支持。因此将一个含有外键的 InnoDB 表 转为 MyISAM 表会失败。</p>
-</li>
-<li><p>InnoDB 和 MyISAM 均支持 B+ Tree 数据结构的索引。但 InnoDB 是聚集索引，而 MyISAM 是非聚集索引。</p>
-</li>
-<li><p>InnoDB 不保存表中数据行数，执行 select count(*) from table 时需要全表扫描。而 MyISAM 用一个变量记录了整个表的行数，速度相当快（注意不能有 WHERE 子句）。</p>
-</li>
-</ul>
-<p><strong>那为什么 InnoDB 没有使用这样的变量呢</strong> 因为InnoDB的事务特性，在同一时刻表中的行数对于不同的事务而言是不一样的。</p>
-<ul>
-<li><p>InnoDB 支持表、行（默认）级锁，而 MyISAM 支持表级锁。<br>InnoDB 的行锁是基于索引实现的，而不是物理行记录上。即访问如果没有命中索引，则也无法使用行锁，将要退化为表锁。</p>
-</li>
-<li><p>InnoDB 必须有唯一索引（如主键），如果没有指定，就会自动寻找或生产一个隐藏列 Row_id 来充当默认主键，而 Myisam 可以没有主键。</p>
-<h2 id="3-为何推荐使用自增主键"><a href="#3-为何推荐使用自增主键" class="headerlink" title="3.为何推荐使用自增主键"></a>3.为何推荐使用自增主键</h2><p>自增 ID 可以保证每次插入时 B+ 树索引是从右边扩展的，因此相比自定义 ID （如 UUID）可以避免 B+ 树的频繁合并和分裂。如果使用字符串主键和随机主键，会使得数据随机插入，效率比较差。</p>
-<h1 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h1><h2 id="1-页Page，区Extend，段Segment"><a href="#1-页Page，区Extend，段Segment" class="headerlink" title="1.页Page，区Extend，段Segment"></a>1.页Page，区Extend，段Segment</h2></li>
-</ul>
-<p><strong>页（数据页）：InnoDB中每个页16KB，Myisam是1KB</strong></p>
-<h3 id="一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"><a href="#一行数据大于16kb，会发生什么，怎么解决【行溢出问题】" class="headerlink" title="一行数据大于16kb，会发生什么，怎么解决【行溢出问题】"></a>一行数据大于16kb，会发生什么，怎么解决【行溢出问题】</h3><p>内置的解决方式：将溢出的数据存到新页里，然后原始页里存放一个指针，需要额外一次IO去读取</p>
-<p>聚簇索引情况：</p>
-<ul>
-<li>如果表使用了聚簇索引（InnoDB的主键索引就是一个聚簇索引），那么数据行实际上是存储在聚簇索引的叶子节点中的。如果一行数据超出了页的大小，那么会发生行溢出，溢出部分会存储在一个溢出页中，而叶子节点中仍然包含原始行的数据和指向溢出页的指针。</li>
-</ul>
-<p>非聚簇索引情况：</p>
-<ul>
-<li>如果表使用了非聚簇索引（如普通索引），那么数据行是单独存储在聚簇索引的叶子节点之外的，这种情况下，如果一行数据超出了页的大小，会直接发生行溢出，溢出部分会存储在溢出页中，同时非聚簇索引中也会保留指向溢出页的指针。</li>
-</ul>
-<p><strong>区Extent：一个区默认是 64 个连续的页组成的，也就是 1MB</strong></p>
-<p><strong>段Segment：一段相邻的区的集合，逻辑上的组织，存放b+树</strong></p>
-<h2 id="2-页由哪些数据组成"><a href="#2-页由哪些数据组成" class="headerlink" title="2.页由哪些数据组成"></a>2.页由哪些数据组成</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/images/mysqlpagestructure.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<ul>
-<li>file header:用于描述数据页的外部信息，比如属于哪一个表空间、前后页的页号等</li>
-<li>page header:用来描述数据页中的具体信息，比如存在多少条纪录，第一条纪录的位置等。</li>
-<li>infimum 和 supremum 纪录:是系统生成的纪录，分别为最小和最大纪录值，infimum 的下一条是用户纪录中键值最小的纪录，supremum 的上一条是用户纪录中键值最大的纪录，通过 next_record 字段来相连。</li>
-<li>user records:据库表中对应的数据(Compact行格式)</li>
-<li>free space 可插入的空闲区域</li>
-<li>page dictionary：类似于字典的目录结构，根据主键大小，每隔 4-8 个纪录设置一个槽，用来纪录其位置，当根据主键查找数据时，首先一步到位找到数据所在的槽，然后在槽中线性搜素。这种方法比从前到后遍历页的链表的效率更快。</li>
-<li>File Header：存储刷盘前内存的校验和，Page Tailer储存刷盘后的校验和。当刷盘的时候，出现异常，Page Tailer和File Header中的校验和不一致，则说明出现刷盘错误。</li>
-</ul>
-<h2 id="3-页插入记录的过程"><a href="#3-页插入记录的过程" class="headerlink" title="3.页插入记录的过程"></a>3.页插入记录的过程</h2><p>1）如果 Free Space 的空间足够的话，直接分配空间来添加纪录，并将插入前最后一条纪录的 next_record 指向当前插入的纪录，将当前插入纪录的 next_record 指向 supremum 纪录。</p>
-<p>2）如果 Free Space的 空间不够的话，则首先将之前删除造成的碎片重新整理之后，按照上述步骤插入纪录。</p>
-<p>3）如果当前页空间整理碎片之后仍然不足的话，则重新申请一个页，将页初始化之后，按照上述步骤插入纪录</p>
-<h2 id="4-bufferPool"><a href="#4-bufferPool" class="headerlink" title="4.bufferPool"></a>4.bufferPool</h2><p>Buffer Pool 是 InnoDB 存储引擎层的缓冲池，不属于 MySQL 的 Server 层，注意跟 8.0 删掉的“查询缓存”功能区分。</p>
-<p>内存中以页（page）为单位缓存磁盘数据，减少磁盘IO，提升访问速度。缓冲池大小默认 128M，独立的 MySQL 服务器推荐设置缓冲池大小为总内存的 80%。主要存储数据页、索引页更新缓冲（change buffer）等。</p>
-<h2 id="5-change-buffer"><a href="#5-change-buffer" class="headerlink" title="5.change buffer"></a>5.change buffer</h2><p>​如果每次写操作，数据库都直接更新磁盘中的数据，会很占磁盘IO。为了减少磁盘IO，InnoDB在Buffer Pool中开辟了一块内存，用来存储变更记录，为了防止异常宕机丢失缓存，当事务提交时会将变更记录持久化到磁盘（redo log），等待时机更新磁盘的数据文件（刷脏），用来缓存写操作的内存，就是Change Buffer</p>
-<p>Change Buffer默认占Buffer Pool的25%，最大设置占用50%。</p>
-<h1 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h1><h2 id="1-架构设计【内存、线程】"><a href="#1-架构设计【内存、线程】" class="headerlink" title="1.架构设计【内存、线程】"></a>1.架构设计【内存、线程】</h2><ul>
-<li>内存数据区域划分<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/images/Innodbmem.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure></li>
-<li>四大线程<ul>
-<li>Master thread</li>
-<li>IO thread</li>
-<li>Purge thread</li>
-<li>Page Cleaner Thread</li>
-</ul>
-</li>
-</ul>
-<p>1）负责刷新内存池中的数据，保证缓冲池的内存缓冲的是最近的数据</p>
-<p>2）已修改的数据文件刷新到磁盘文件</p>
-<p>3）保证数据库发生异常的情况下InnoDB能恢复到正常状态</p>
-<h2 id="2-InnoDB有哪些线程"><a href="#2-InnoDB有哪些线程" class="headerlink" title="2.InnoDB有哪些线程"></a>2.InnoDB有哪些线程</h2><ul>
-<li>Master Thread</li>
-</ul>
-<p>负责将缓冲池中的数据异步刷新到磁盘，保证数据的一致性，包括脏页的刷新，合并插入缓冲（INSERT BUFFER），UNDO页的回收等。</p>
-<ul>
-<li>IO Thread</li>
-</ul>
-<p>负责 AIO 请求的回调处理。</p>
-<ul>
-<li>Purge Thread</li>
-</ul>
-<p>事务提交后，undo log 可能不再需要，由 Purge Thread 负责回收并重新分配的这些已经使用的 undo 页。</p>
-<ul>
-<li>Page Cleaner Thread</li>
-</ul>
-<p>将Master Threader中刷新脏页的工作移至该线程，如上面说的FLUSH LRU LIST Checkpoint以及Async/Sync Flush Checkpoint。</p>
-<h2 id="3-double-writer是什么"><a href="#3-double-writer是什么" class="headerlink" title="3.double writer是什么"></a>3.double writer是什么</h2><h2 id="4-自适应hash是什么"><a href="#4-自适应hash是什么" class="headerlink" title="4. 自适应hash是什么"></a>4. 自适应hash是什么</h2><p>InnoDB 会监控对表上各索引页的查询执行情况，如发现建立哈希索引可以提升速度，则建立哈希索引，这是过程不需要用户干预。（默认开启）</p>
-<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="1-什么是事务"><a href="#1-什么是事务" class="headerlink" title="1.什么是事务"></a>1.什么是事务</h2><p>事务是逻辑上的一组操作，要么都执行，要么都不执行</p>
-<h2 id="2-什么是事务的四大特性ACID"><a href="#2-什么是事务的四大特性ACID" class="headerlink" title="2.什么是事务的四大特性ACID"></a>2.什么是事务的四大特性ACID</h2><h2 id="3-事务的并发问题【带来脏读、不可重复度、幻读问题】"><a href="#3-事务的并发问题【带来脏读、不可重复度、幻读问题】" class="headerlink" title="3.事务的并发问题【带来脏读、不可重复度、幻读问题】"></a>3.事务的并发问题【带来脏读、不可重复度、幻读问题】</h2><h2 id="5-事务的隔离级别"><a href="#5-事务的隔离级别" class="headerlink" title="5.事务的隔离级别"></a>5.事务的隔离级别</h2><p>串行化<br>可重复度（Innodb默认）<br>读已提交<br>读未提交</p>
-<h2 id="6-ACID的特性如何实现"><a href="#6-ACID的特性如何实现" class="headerlink" title="6.ACID的特性如何实现"></a>6.ACID的特性如何实现</h2><p>原子性是 undo 日志<br>持久性是 redo 日志</p>
-<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="1-数据库锁的特性，有哪些锁"><a href="#1-数据库锁的特性，有哪些锁" class="headerlink" title="1.数据库锁的特性，有哪些锁"></a>1.数据库锁的特性，有哪些锁</h2><ul>
-<li>行锁，表锁，页锁</li>
-<li>共享锁=读锁S，排他锁=写锁X，更新锁U锁</li>
-<li>乐观锁，悲观锁<h2 id="2-隔离级别和锁的关系"><a href="#2-隔离级别和锁的关系" class="headerlink" title="2.隔离级别和锁的关系"></a>2.隔离级别和锁的关系</h2></li>
-<li><h2 id="3-InnoDB的锁算法"><a href="#3-InnoDB的锁算法" class="headerlink" title="3.InnoDB的锁算法"></a>3.InnoDB的锁算法</h2><h2 id="4-快照读和当前读"><a href="#4-快照读和当前读" class="headerlink" title="4.快照读和当前读"></a>4.快照读和当前读</h2><h2 id="5-innodb的可重复度如何实现"><a href="#5-innodb的可重复度如何实现" class="headerlink" title="5.innodb的可重复度如何实现"></a>5.innodb的可重复度如何实现</h2>通过MVCC实现，为每个事务维护一个独立版本视图，执行期间保持一致性。<h2 id="6-MVCC以及实现（乐观锁）"><a href="#6-MVCC以及实现（乐观锁）" class="headerlink" title="6.MVCC以及实现（乐观锁）"></a>6.MVCC以及实现（乐观锁）</h2>MVCC 的基本思想是为每个事务创建一个独立的版本视图，以便在事务执行期间保持数据的一致性。它通过在修改数据时不覆盖原有的数据，而是为每个事务创建一个新的版本来实现。</li>
-</ul>
-<ol>
-<li>每行数据保存一个版本号/时间戳</li>
-<li>当一个事务对某行数据进行修改时，不会直接修改原始数据，而是会在数据库中创建一个新的版本，并将原始版本的数据保留下来</li>
-<li>查询时，根据版本号<h2 id="7-mysql优化手段有哪些"><a href="#7-mysql优化手段有哪些" class="headerlink" title="7. mysql优化手段有哪些"></a>7. mysql优化手段有哪些</h2></li>
-<li>给常用字段索引</li>
-<li>避免使用select *，避免全表扫描</li>
-<li>分表，分区，拆分子表</li>
-<li>使用覆盖索引：索引覆盖是指查询的列都包含在索引中，而无需再去访问表本身，可以减少IO和提高查询性能。<strong>不适合频繁变更的表和列</strong></li>
-<li>redis缓存分担压力</li>
-<li>连接池等<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><h2 id="1-mysql的常见日志"><a href="#1-mysql的常见日志" class="headerlink" title="1.mysql的常见日志"></a>1.mysql的常见日志</h2></li>
-</ol>
-<h2 id="2-主从复制的作用"><a href="#2-主从复制的作用" class="headerlink" title="2.主从复制的作用"></a>2.主从复制的作用</h2><h2 id="3-主从复制的架构"><a href="#3-主从复制的架构" class="headerlink" title="3.主从复制的架构"></a>3.主从复制的架构</h2><h2 id="4-主从复制的原理"><a href="#4-主从复制的原理" class="headerlink" title="4.主从复制的原理"></a>4.主从复制的原理</h2><h2 id="5-主从复制的异步复制和半同步"><a href="#5-主从复制的异步复制和半同步" class="headerlink" title="5.主从复制的异步复制和半同步"></a>5.主从复制的异步复制和半同步</h2><h2 id="6-主从的常见问题和解决方式"><a href="#6-主从的常见问题和解决方式" class="headerlink" title="6.主从的常见问题和解决方式"></a>6.主从的常见问题和解决方式</h2><p>主从延迟问题，不一致性问题<br><a href="https://zhuanlan.zhihu.com/p/642614348" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/642614348</a></p>
-<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="1-Where和Having的区别"><a href="#1-Where和Having的区别" class="headerlink" title="1.Where和Having的区别"></a>1.Where和Having的区别</h2><h2 id="2-In-和-Exists的区别"><a href="#2-In-和-Exists的区别" class="headerlink" title="2.In 和 Exists的区别"></a>2.In 和 Exists的区别</h2><h2 id="3-Union和Union-ALL的区别"><a href="#3-Union和Union-ALL的区别" class="headerlink" title="3. Union和Union ALL的区别"></a>3. Union和Union ALL的区别</h2><h2 id="4-Drop-Delete-Truncate的区别"><a href="#4-Drop-Delete-Truncate的区别" class="headerlink" title="4. Drop Delete Truncate的区别"></a>4. Drop Delete Truncate的区别</h2><h1 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h1><h2 id="1-如何判断是否走了索引"><a href="#1-如何判断是否走了索引" class="headerlink" title="1. 如何判断是否走了索引"></a>1. 如何判断是否走了索引</h2><h2 id="2-索引失效的几种情况"><a href="#2-索引失效的几种情况" class="headerlink" title="2. 索引失效的几种情况"></a>2. 索引失效的几种情况</h2><h2 id="3-where子句如何优化"><a href="#3-where子句如何优化" class="headerlink" title="3. where子句如何优化"></a>3. where子句如何优化</h2><h2 id="4-超大分页和深度分页"><a href="#4-超大分页和深度分页" class="headerlink" title="4. 超大分页和深度分页"></a>4. 超大分页和深度分页</h2><h2 id="5-大表查询如何优化"><a href="#5-大表查询如何优化" class="headerlink" title="5. 大表查询如何优化"></a>5. 大表查询如何优化</h2><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="1-存储过程（procedure）和函数的区别"><a href="#1-存储过程（procedure）和函数的区别" class="headerlink" title="1.存储过程（procedure）和函数的区别"></a>1.存储过程（procedure）和函数的区别</h2><h2 id="2-视图是什么"><a href="#2-视图是什么" class="headerlink" title="2.视图是什么"></a>2.视图是什么</h2><h2 id="3-Trigger是什么"><a href="#3-Trigger是什么" class="headerlink" title="3.Trigger是什么"></a>3.Trigger是什么</h2><h2 id="sql优化的经验"><a href="#sql优化的经验" class="headerlink" title="sql优化的经验"></a>sql优化的经验</h2><ol>
-<li>查询字段不使用函数或者大于等于表达式</li>
-<li>避免where中的不等于，大于小于，null等</li>
-<li>使用between and 替代in</li>
-<li>当操作字段规模大的时候，拆分delete和insert语句</li>
-<li>查询时使用索引的最左前缀原则</li>
-</ol>
-<h2 id="使用-union-和-union-all-时需要注意些什么"><a href="#使用-union-和-union-all-时需要注意些什么" class="headerlink" title="使用 union 和 union all 时需要注意些什么?"></a>使用 union 和 union all 时需要注意些什么?</h2><p>通过 union 连接的 SQL 分别单独取出的列数必须相同。 使用 union 时，多个相等的行将会被合并，由<br>于合升比较耗时，一般不直接使 用 union 进行合并，而是通常采用 union all 进行合并。</p>
-
-    
-
-        <a href="/2023/01/03/面经MySQL问题/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -1925,6 +2053,74 @@ ON table_name(index_column_1,index_column_2,...);</code></li>
     
 
         <a href="/2023/01/03/面经Redis/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-面经Redis问题"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2023/01/03/面经Redis问题/">Redis questions</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        <h2 id="1-memcached和redis区别有哪些，优势劣势？"><a href="#1-memcached和redis区别有哪些，优势劣势？" class="headerlink" title="1.memcached和redis区别有哪些，优势劣势？"></a>1.memcached和redis区别有哪些，优势劣势？</h2><p>redis支持多种数据类型，并且支持持久化策略，</p>
+<h2 id="2-实现本地缓存，有哪些方案？go本地，redis"><a href="#2-实现本地缓存，有哪些方案？go本地，redis" class="headerlink" title="2.实现本地缓存，有哪些方案？go本地，redis"></a>2.实现本地缓存，有哪些方案？go本地，redis</h2><h2 id="3-redis通讯协议？特点是什么"><a href="#3-redis通讯协议？特点是什么" class="headerlink" title="3.redis通讯协议？特点是什么"></a>3.redis通讯协议？特点是什么</h2><h2 id="4-字符串最大长度是多少？512MB"><a href="#4-字符串最大长度是多少？512MB" class="headerlink" title="4.字符串最大长度是多少？512MB"></a>4.字符串最大长度是多少？512MB</h2><h2 id="5-介绍一下zset及底层实现机制"><a href="#5-介绍一下zset及底层实现机制" class="headerlink" title="5.介绍一下zset及底层实现机制"></a>5.介绍一下zset及底层实现机制</h2><h2 id="6-redis事务？原理是什么"><a href="#6-redis事务？原理是什么" class="headerlink" title="6.redis事务？原理是什么"></a>6.redis事务？原理是什么</h2><h2 id="7-事务相关命令？支持回滚吗"><a href="#7-事务相关命令？支持回滚吗" class="headerlink" title="7.事务相关命令？支持回滚吗"></a>7.事务相关命令？支持回滚吗</h2><h2 id="8-介绍一下pipeline和使用场景：批量读取写入"><a href="#8-介绍一下pipeline和使用场景：批量读取写入" class="headerlink" title="8.介绍一下pipeline和使用场景：批量读取写入"></a>8.介绍一下pipeline和使用场景：批量读取写入</h2><p>批量执行Redis命令的机制，它可以在客户端发送多个命令后，一次性将它们发送到服务器，然后一次性接收服务器的响应</p>
+<h3 id="和批量命令有什么不同"><a href="#和批量命令有什么不同" class="headerlink" title="和批量命令有什么不同"></a>和批量命令有什么不同</h3><ol>
+<li>pipeline是同时发送/执行不同命令的机制，批量是都需要执行相似的</li>
+<li>pipeline是顺序执行所有命令，执行一个一个状态，而批量需要等待所有的返回<h2 id="9-设置生存时间和过期时间用什么命令"><a href="#9-设置生存时间和过期时间用什么命令" class="headerlink" title="9.设置生存时间和过期时间用什么命令"></a>9.设置生存时间和过期时间用什么命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPIRE key n_seconds</span><br><span class="line">PEXPIRE mykey n_milseconds</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="10-介绍下redis的发布订阅功能"><a href="#10-介绍下redis的发布订阅功能" class="headerlink" title="10.介绍下redis的发布订阅功能"></a>10.介绍下redis的发布订阅功能</h2><ul>
+<li>允许多个客户端之间通过消息中间件来发送和接收消息。在这种模式下，消息的发送者称为发布者（Publisher），而消息的接收者称为订阅者（Subscriber）</li>
+<li>Redis的发布订阅功能是异步的，消息的发送和接收是非阻塞的，因此在订阅者接收消息时需要特别注意处理并发和同步的问题。<h2 id="11-redis单线程为什么那么快"><a href="#11-redis单线程为什么那么快" class="headerlink" title="11.redis单线程为什么那么快"></a>11.redis单线程为什么那么快</h2>单线程没有锁，主线程异步处理IO，避免多线程上下文切换<h2 id="12-分布式缓存要注意哪些问题"><a href="#12-分布式缓存要注意哪些问题" class="headerlink" title="12. 分布式缓存要注意哪些问题"></a>12. 分布式缓存要注意哪些问题</h2></li>
+</ul>
+<ol>
+<li>缓存一致性 </li>
+<li>缓存击穿 </li>
+<li>缓存雪崩</li>
+</ol>
+<h2 id="13-redis的key删除策略"><a href="#13-redis的key删除策略" class="headerlink" title="13. redis的key删除策略"></a>13. redis的key删除策略</h2><ol>
+<li>定期删除，每 100 毫秒检查 20 个随机选择的过期 key，如果发现有过期的 key，就会将其删除。</li>
+<li>惰性删除，<br>设置过期时间+一个随机的时间，防止缓存雪崩</li>
+</ol>
+
+    
+
+        <a href="/2023/01/03/面经Redis问题/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
