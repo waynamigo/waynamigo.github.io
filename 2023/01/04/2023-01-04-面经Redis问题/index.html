@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Redis questions | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Redis">
+    <meta name="description" content="questions">
+<meta name="keywords" content="面试,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis questions">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="questions">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T17:27:06.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis questions">
+<meta name="twitter:description" content="questions">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Redis questions</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Redis questions</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-03T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-memcached和redis区别有哪些，优势劣势？"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.memcached和redis区别有哪些，优势劣势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-实现本地缓存，有哪些方案？go本地，redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.实现本地缓存，有哪些方案？go本地，redis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-redis通讯协议？特点是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.redis通讯协议？特点是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-字符串最大长度是多少？512MB"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.字符串最大长度是多少？512MB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-介绍一下zset及底层实现机制"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.介绍一下zset及底层实现机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-redis事务？原理是什么"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.redis事务？原理是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-事务相关命令？支持回滚吗"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.事务相关命令？支持回滚吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-介绍一下pipeline和使用场景：批量读取写入"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.介绍一下pipeline和使用场景：批量读取写入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和批量命令有什么不同"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">和批量命令有什么不同</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-设置生存时间和过期时间用什么命令"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.设置生存时间和过期时间用什么命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-介绍下redis的发布订阅功能"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.介绍下redis的发布订阅功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-redis单线程为什么那么快"><span class="post-toc-number">11.</span> <span class="post-toc-text">11.redis单线程为什么那么快</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-分布式缓存要注意哪些问题"><span class="post-toc-number">12.</span> <span class="post-toc-text">12. 分布式缓存要注意哪些问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-redis的key删除策略"><span class="post-toc-number">13.</span> <span class="post-toc-text">13. redis的key删除策略</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-04-面经Redis问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Redis questions</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-04 00:00:00" datetime="2023-01-03T16:00:00.000Z"  itemprop="datePublished">2023-01-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p> questions</p>
+<a id="more"></a>
+<h2 id="1-memcached和redis区别有哪些，优势劣势？"><a href="#1-memcached和redis区别有哪些，优势劣势？" class="headerlink" title="1.memcached和redis区别有哪些，优势劣势？"></a>1.memcached和redis区别有哪些，优势劣势？</h2><p>redis支持多种数据类型，并且支持持久化策略，</p>
+<h2 id="2-实现本地缓存，有哪些方案？go本地，redis"><a href="#2-实现本地缓存，有哪些方案？go本地，redis" class="headerlink" title="2.实现本地缓存，有哪些方案？go本地，redis"></a>2.实现本地缓存，有哪些方案？go本地，redis</h2><h2 id="3-redis通讯协议？特点是什么"><a href="#3-redis通讯协议？特点是什么" class="headerlink" title="3.redis通讯协议？特点是什么"></a>3.redis通讯协议？特点是什么</h2><h2 id="4-字符串最大长度是多少？512MB"><a href="#4-字符串最大长度是多少？512MB" class="headerlink" title="4.字符串最大长度是多少？512MB"></a>4.字符串最大长度是多少？512MB</h2><h2 id="5-介绍一下zset及底层实现机制"><a href="#5-介绍一下zset及底层实现机制" class="headerlink" title="5.介绍一下zset及底层实现机制"></a>5.介绍一下zset及底层实现机制</h2><h2 id="6-redis事务？原理是什么"><a href="#6-redis事务？原理是什么" class="headerlink" title="6.redis事务？原理是什么"></a>6.redis事务？原理是什么</h2><h2 id="7-事务相关命令？支持回滚吗"><a href="#7-事务相关命令？支持回滚吗" class="headerlink" title="7.事务相关命令？支持回滚吗"></a>7.事务相关命令？支持回滚吗</h2><h2 id="8-介绍一下pipeline和使用场景：批量读取写入"><a href="#8-介绍一下pipeline和使用场景：批量读取写入" class="headerlink" title="8.介绍一下pipeline和使用场景：批量读取写入"></a>8.介绍一下pipeline和使用场景：批量读取写入</h2><p>批量执行Redis命令的机制，它可以在客户端发送多个命令后，一次性将它们发送到服务器，然后一次性接收服务器的响应</p>
+<h3 id="和批量命令有什么不同"><a href="#和批量命令有什么不同" class="headerlink" title="和批量命令有什么不同"></a>和批量命令有什么不同</h3><ol>
+<li>pipeline是同时发送/执行不同命令的机制，批量是都需要执行相似的</li>
+<li>pipeline是顺序执行所有命令，执行一个一个状态，而批量需要等待所有的返回<h2 id="9-设置生存时间和过期时间用什么命令"><a href="#9-设置生存时间和过期时间用什么命令" class="headerlink" title="9.设置生存时间和过期时间用什么命令"></a>9.设置生存时间和过期时间用什么命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPIRE key n_seconds</span><br><span class="line">PEXPIRE mykey n_milseconds</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="10-介绍下redis的发布订阅功能"><a href="#10-介绍下redis的发布订阅功能" class="headerlink" title="10.介绍下redis的发布订阅功能"></a>10.介绍下redis的发布订阅功能</h2><ul>
+<li>允许多个客户端之间通过消息中间件来发送和接收消息。在这种模式下，消息的发送者称为发布者（Publisher），而消息的接收者称为订阅者（Subscriber）</li>
+<li>Redis的发布订阅功能是异步的，消息的发送和接收是非阻塞的，因此在订阅者接收消息时需要特别注意处理并发和同步的问题。<h2 id="11-redis单线程为什么那么快"><a href="#11-redis单线程为什么那么快" class="headerlink" title="11.redis单线程为什么那么快"></a>11.redis单线程为什么那么快</h2>单线程没有锁，主线程异步处理IO，避免多线程上下文切换<h2 id="12-分布式缓存要注意哪些问题"><a href="#12-分布式缓存要注意哪些问题" class="headerlink" title="12. 分布式缓存要注意哪些问题"></a>12. 分布式缓存要注意哪些问题</h2></li>
+</ul>
+<ol>
+<li>缓存一致性 </li>
+<li>缓存击穿 </li>
+<li>缓存雪崩</li>
+</ol>
+<h2 id="13-redis的key删除策略"><a href="#13-redis的key删除策略" class="headerlink" title="13. redis的key删除策略"></a>13. redis的key删除策略</h2><ol>
+<li>定期删除，每 100 毫秒检查 20 个随机选择的过期 key，如果发现有过期的 key，就会将其删除。</li>
+<li>惰性删除，<br>设置过期时间+一个随机的时间，防止缓存雪崩</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:27:06.954Z" itemprop="dateUpdated">2023-10-31 01:27:06</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis questions》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/05/2023-01-05-面经设计模式/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">设计模式</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/04/2023-01-04-面经Redis/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Redis</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis questions》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aQW7CQAwFUO5/abpFakm+7TGi0suqKgTmZTFjvv14xNfz5Xr9z+/35Hc9f13Vbzx24eHh4Q2W/u4rr///bkHJg7hGXlOv14yHh4e3zXv3oTkjP1R670wOCTw8PLxv5l0fLTk7eTUvr/Hw8PC+mdd7dVKg4+Hh4X0bLwkjesfARqixkrXg4eHhxbxq+fsNf6/09/Dw8PDGXfWktX/q83ujBjefiYeHh7fA21vo2cGpUQsNDw8P7+O8U4BefJCHIG/XgIeHh3eUl7Sp8tGBhD0JGsojC3h4eHgLvHxBvQbV9ZGQj1gdKLvx8PDwFnjzbT3ZpnuMXoiMh4eHt8Grbvd5aZsX0NVCuTDChYeHh7fG65W8yeaeP77eY41aX3h4eHhHeb0QoVpeP8ZXEovg4eHhfYaXbOjVhll1vGAymnAzuICHh4e3xus1uvIDoxpJ5MfATfGNh4eHt8DLb6uGFNWRrFMldflmPDw8vBav2n/PI9TJ+FQv5C0j8fDw8Iq8agRwipEPaeWtrz9WgoeHh7fMq0YS1XiiV6CPog08PDy8BV6v+q6OZ/Wi214hfjMZgYeHh3eU11tutVWWHCR5VBGV3Xh4eHhHeTmsGt1GQ1HBXYcnI/Dw8PAOTSXNW1C9qCJaSvFgiA4YPDw8vDGvF9RWN/c8lq1+S+EXAx4eHt5R3qR0TsYOTrW1qmw8PDy8z/CqZe788Jis5OZ4wMPDwzvKexav6kKrvbjJyMIfn4CHh4e3wOtt+kk422trzaOH3pGGh4eHV+XlkWve0KoeDJORglFhjYeHhzfg9TblfLOujg5MApFH78nh4eHhrfEm4N54Vq9Yx8PDw/svvGqbKnkE1aIfDw8P7zO8asTQu6sXN4xaX3h4eHgLvN6P/OQrq021Ztwwv/Dw8PDS9/8A4bYW23MSqowAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

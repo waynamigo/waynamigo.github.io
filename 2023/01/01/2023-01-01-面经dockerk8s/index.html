@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Kubernetes Tutorial | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CloudComputing,Kubernetes,面试">
+    <meta name="description" content="pod生命周期 Pending Runing Succeed Failed Unknown Pending(挂起):API server已经创建pod，但是该pod还有一个或多个容器的镜像没有创建，包括正 在下载镜像的过程;  Running(运行中):Pod内所有的容器已经创建，且至少有一个容器处于运行状态、正在启动括正在重 启状态; Succeed(成功):Pod内所有容器均已退出，且不会再重">
+<meta name="keywords" content="CloudComputing,Kubernetes,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes Tutorial">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="pod生命周期 Pending Runing Succeed Failed Unknown Pending(挂起):API server已经创建pod，但是该pod还有一个或多个容器的镜像没有创建，包括正 在下载镜像的过程;  Running(运行中):Pod内所有的容器已经创建，且至少有一个容器处于运行状态、正在启动括正在重 启状态; Succeed(成功):Pod内所有容器均已退出，且不会再重">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://amos-x.com/wp-content/uploads/2019/11/image.png">
+<meta property="og:updated_time" content="2023-10-30T17:07:40.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes Tutorial">
+<meta name="twitter:description" content="pod生命周期 Pending Runing Succeed Failed Unknown Pending(挂起):API server已经创建pod，但是该pod还有一个或多个容器的镜像没有创建，包括正 在下载镜像的过程;  Running(运行中):Pod内所有的容器已经创建，且至少有一个容器处于运行状态、正在启动括正在重 启状态; Succeed(成功):Pod内所有容器均已退出，且不会再重">
+<meta name="twitter:image" content="https://amos-x.com/wp-content/uploads/2019/11/image.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Kubernetes Tutorial</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Kubernetes Tutorial</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2022-12-31T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Kubernetes/">Kubernetes</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pod生命周期-Pending-Runing-Succeed-Failed-Unknown"><span class="post-toc-number">1.</span> <span class="post-toc-text">pod生命周期 Pending Runing Succeed Failed Unknown</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker"><span class="post-toc-number">2.</span> <span class="post-toc-text">docker</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cgroup"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">cgroup</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#namespace"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">namespace</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unionFS（storage-driver：overlay2）"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">unionFS（storage driver：overlay2）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#k8s是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">k8s是什么</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件1-etcd"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">组件1 etcd</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件2-apiserver-kube-apiserver"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">组件2 apiserver: kube-apiserver</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件3-controller-kube-controller-manager"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">组件3 controller: kube-controller-manager</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件4-scheduler-kube-scheduler"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">组件4 scheduler: kube-scheduler</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件5-kubelet"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">组件5 kubelet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件6-kube-proxy"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">组件6 kube-proxy</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件7-container-runtime"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">组件7 container runtime</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组件8-container-advisor"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">组件8 container advisor</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【面试题】一个网络请求来了，还没处理要怎么办"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">【面试题】一个网络请求来了，还没处理要怎么办</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-etcd是什么？分布式键值存储系统"><span class="post-toc-number">3.10.</span> <span class="post-toc-text">1.etcd是什么？分布式键值存储系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-etcd适用场景是什么，"><span class="post-toc-number">3.11.</span> <span class="post-toc-text">2.etcd适用场景是什么，</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-简述K8s的工作流程"><span class="post-toc-number">3.12.</span> <span class="post-toc-text">1. 简述K8s的工作流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-简述控制器类型Deployment，StatefulSet，DaemonSet的区别"><span class="post-toc-number">3.13.</span> <span class="post-toc-text">2. 简述控制器类型Deployment，StatefulSet，DaemonSet的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-简述一下k8s的存储管理"><span class="post-toc-number">3.14.</span> <span class="post-toc-text">3. 简述一下k8s的存储管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】"><span class="post-toc-number">3.15.</span> <span class="post-toc-text">4. 如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-如何进行日志管理"><span class="post-toc-number">3.16.</span> <span class="post-toc-text">5. 如何进行日志管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-如何进行监控管理"><span class="post-toc-number">3.17.</span> <span class="post-toc-text">6. 如何进行监控管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-etcd的作用"><span class="post-toc-number">3.18.</span> <span class="post-toc-text">7. etcd的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-etc的基本原理"><span class="post-toc-number">3.19.</span> <span class="post-toc-text">8. etc的基本原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-k8s的kube-scheduler调度器"><span class="post-toc-number">3.20.</span> <span class="post-toc-text">9. k8s的kube-scheduler调度器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-k8s怎样负载均衡的"><span class="post-toc-number">3.21.</span> <span class="post-toc-text">10. k8s怎样负载均衡的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-k8s的Labels和Selectors的作用"><span class="post-toc-number">3.22.</span> <span class="post-toc-text">11. k8s的Labels和Selectors的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-k8s的Service是什么"><span class="post-toc-number">3.23.</span> <span class="post-toc-text">12. k8s的Service是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-Pod是什么，简述生命周期"><span class="post-toc-number">3.24.</span> <span class="post-toc-text">13. Pod是什么，简述生命周期</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pod"><span class="post-toc-number">4.</span> <span class="post-toc-text">pod</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-pod的原理"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">1. pod的原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-pod的特点"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">2. pod的特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-pause容器作用"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">3. pause容器作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-pod的重启策略"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">4. pod的重启策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-pod的镜像拉取策略"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">5. pod的镜像拉取策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-pod的存活探针有哪几种"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">6. pod的存活探针有哪几种</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-存活探针的属性参数"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">7. 存活探针的属性参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-pod的就绪探针有哪几种"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">8. pod的就绪探针有哪几种</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-就绪探针的属性参数"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">9. 就绪探针的属性参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-就绪探针和存活探针的区别是什么"><span class="post-toc-number">4.10.</span> <span class="post-toc-text">10.就绪探针和存活探针的区别是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-pod创建过程"><span class="post-toc-number">4.11.</span> <span class="post-toc-text">11. pod创建过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-pod的终止过程"><span class="post-toc-number">4.12.</span> <span class="post-toc-text">12.pod的终止过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-pod的初始化容器-init-container"><span class="post-toc-number">4.13.</span> <span class="post-toc-text">13. pod的初始化容器 init container</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-pod的资源请求、限制如何定义"><span class="post-toc-number">4.14.</span> <span class="post-toc-text">14.pod的资源请求、限制如何定义</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#service"><span class="post-toc-number">5.</span> <span class="post-toc-text">service</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-service如何与pod关联"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">1. service如何与pod关联</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-service的域名解析格式"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">2. service的域名解析格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-service的类型"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">3. service的类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-一个应用pod如何连接service"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">4. 一个应用pod如何连接service</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-如何创建一个service代理外部的服务-集群内的应用如何访问外部的数据库服务？"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">5. 如何创建一个service代理外部的服务/集群内的应用如何访问外部的数据库服务？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-service-endpoint-kubeproxy的关系"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">6. service endpoint kubeproxy的关系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kubelet的功能和作用"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">kubelet的功能和作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kube-apiserver的功能和作用，端口号是8080和6443"><span class="post-toc-number">5.8.</span> <span class="post-toc-text">kube-apiserver的功能和作用，端口号是8080和6443</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pod挂了，原本到这个pod的流量要怎么办【面试题】"><span class="post-toc-number">5.9.</span> <span class="post-toc-text">pod挂了，原本到这个pod的流量要怎么办【面试题】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#k8s的namespace是什么"><span class="post-toc-number">5.10.</span> <span class="post-toc-text">k8s的namespace是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续集成CI的好处，用途是什么"><span class="post-toc-number">5.11.</span> <span class="post-toc-text">持续集成CI的好处，用途是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-Docker-Swarm？docker集群"><span class="post-toc-number">5.12.</span> <span class="post-toc-text">14. Docker Swarm？docker集群</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-Docker-Compose？"><span class="post-toc-number">5.13.</span> <span class="post-toc-text">15. Docker Compose？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#16-Dockerfile里，ADD和COPY"><span class="post-toc-number">5.14.</span> <span class="post-toc-text">16. Dockerfile里，ADD和COPY</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#17-Dockerfile里，ONBUILD命令"><span class="post-toc-number">5.15.</span> <span class="post-toc-text">17 Dockerfile里，ONBUILD命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容灾"><span class="post-toc-number">5.16.</span> <span class="post-toc-text">容灾</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷"><span class="post-toc-number">5.17.</span> <span class="post-toc-text">【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-01-面经dockerk8s"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Kubernetes Tutorial</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-01 00:00:00" datetime="2022-12-31T16:00:00.000Z"  itemprop="datePublished">2023-01-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Kubernetes/">Kubernetes</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="pod生命周期-Pending-Runing-Succeed-Failed-Unknown"><a href="#pod生命周期-Pending-Runing-Succeed-Failed-Unknown" class="headerlink" title="pod生命周期 Pending Runing Succeed Failed Unknown"></a>pod生命周期 Pending Runing Succeed Failed Unknown</h1><ul>
+<li>Pending(挂起):API server已经创建pod，但是该pod还有一个或多个容器的镜像没有创建，包括正 在下载镜像的过程; </li>
+<li>Running(运行中):Pod内所有的容器已经创建，且至少有一个容器处于运行状态、正在启动括正在重 启状态;</li>
+<li>Succeed(成功):Pod内所有容器均已退出，且不会再重启; </li>
+<li>Failed(失败):Pod内所有容器均已退出，且至少有一个容器为退出失败状态 </li>
+<li>Unknown(未知):某于某种原因apiserver无法获取该pod的状态，可能由于网络通行问题导致<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1></li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/571931032" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/571931032</a></p>
+<h2 id="cgroup"><a href="#cgroup" class="headerlink" title="cgroup"></a>cgroup</h2><p>CGroups 全称control group，</p>
+<ul>
+<li>用来限定一个进程的资源使用，</li>
+<li>由 Linux 内核支持，可以限制和隔离Linux进程组 (process groups) 所使用的物理资源，比如cpu，内存，磁盘和网络IO，是Linux container技术的物理基础。</li>
+</ul>
+<h2 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h2><ul>
+<li><p>如果CGroup设计出来的目的是为了隔离上面描述的物理资源，那么namespace则用来隔离PID(进程ID),IPC,Network等系统资源。</p>
+</li>
+<li><p>将它们分配给特定的Namespace，每个Namespace里面的资源对其他Namespace都是透明的。</p>
+</li>
+<li><p>不同container内的进程属于不同的Namespace，彼此透明，互不干扰。</p>
+<h2 id="unionFS（storage-driver：overlay2）"><a href="#unionFS（storage-driver：overlay2）" class="headerlink" title="unionFS（storage driver：overlay2）"></a>unionFS（storage driver：overlay2）</h2></li>
+<li><p>unionFS可以把文件系统上多个目录(也叫分支)内容联合挂载到同一个目录下，而目录的物理位置是分开的</p>
+</li>
+<li><p>借助Linux的unionFS，宿主机只需要在磁盘上保存一份base镜像，内存中也只需要加载一份，就能被所有基于这个镜像的容器共享</p>
+</li>
+</ul>
+<h1 id="k8s是什么"><a href="#k8s是什么" class="headerlink" title="k8s是什么"></a>k8s是什么</h1><p>K8S 负责自动化运维管理多个 Docker 程序的集群</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://amos-x.com/wp-content/uploads/2019/11/image.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="组件1-etcd"><a href="#组件1-etcd" class="headerlink" title="组件1 etcd"></a>组件1 etcd</h2><p>分布式键值存储，用于保存Kubernetes集群的所有重要信息，例如配置数据、状态信息等</p>
+<h2 id="组件2-apiserver-kube-apiserver"><a href="#组件2-apiserver-kube-apiserver" class="headerlink" title="组件2 apiserver: kube-apiserver"></a>组件2 apiserver: kube-apiserver</h2><p>kube-apiserver是Kubernetes API的前端，提供了Kubernetes控制平面的统一接口</p>
+<h2 id="组件3-controller-kube-controller-manager"><a href="#组件3-controller-kube-controller-manager" class="headerlink" title="组件3 controller: kube-controller-manager"></a>组件3 controller: kube-controller-manager</h2><p>kube-controller-manager负责管理控制器，这些控制器包括节点控制器、副本控制器、端点控制器等，它们负责保证系统的状态符合用户定义的期望状态</p>
+<h2 id="组件4-scheduler-kube-scheduler"><a href="#组件4-scheduler-kube-scheduler" class="headerlink" title="组件4 scheduler: kube-scheduler"></a>组件4 scheduler: kube-scheduler</h2><p>kube-scheduler负责将Pod调度到具体的节点上，它考虑了诸如资源需求、硬件/软件约束等因素</p>
+<h2 id="组件5-kubelet"><a href="#组件5-kubelet" class="headerlink" title="组件5 kubelet"></a>组件5 kubelet</h2><p>kubelet是每个节点上运行的代理，负责确保Pods按照规定运行 </p>
+<h2 id="组件6-kube-proxy"><a href="#组件6-kube-proxy" class="headerlink" title="组件6 kube-proxy"></a>组件6 kube-proxy</h2><p>kube-proxy负责维护节点上的网络规则，使得服务可以被正确地路由</p>
+<h2 id="组件7-container-runtime"><a href="#组件7-container-runtime" class="headerlink" title="组件7 container runtime"></a>组件7 container runtime</h2><p>容器运行时，比如docker，containerd</p>
+<h2 id="组件8-container-advisor"><a href="#组件8-container-advisor" class="headerlink" title="组件8 container advisor"></a>组件8 container advisor</h2><p>是一个监控代理，用于收集容器资源使用情况和性能数据</p>
+<h2 id="【面试题】一个网络请求来了，还没处理要怎么办"><a href="#【面试题】一个网络请求来了，还没处理要怎么办" class="headerlink" title="【面试题】一个网络请求来了，还没处理要怎么办"></a>【面试题】一个网络请求来了，还没处理要怎么办</h2><p>kube-proxy处理，负责集群内部外部流量，正确路由到正确的pod上，实现高可用</p>
+<h2 id="1-etcd是什么？分布式键值存储系统"><a href="#1-etcd是什么？分布式键值存储系统" class="headerlink" title="1.etcd是什么？分布式键值存储系统"></a>1.etcd是什么？分布式键值存储系统</h2><h2 id="2-etcd适用场景是什么，"><a href="#2-etcd适用场景是什么，" class="headerlink" title="2.etcd适用场景是什么，"></a>2.etcd适用场景是什么，</h2><h2 id="1-简述K8s的工作流程"><a href="#1-简述K8s的工作流程" class="headerlink" title="1. 简述K8s的工作流程"></a>1. 简述K8s的工作流程</h2><ol>
+<li>创建一个包含应用程序的Deployment的yml文件，然后通过kubectl客户端工具发送给ApiServer。</li>
+<li>ApiServer接收到客户端的请求并将资源内容存储到数据库(etcd)中。</li>
+<li>Controller组件(包含scheduler、replication、endpoint)监控资源变化并作出反应。</li>
+<li>ReplicaSet检查数据库变化，创建期望数量的pod实例。</li>
+<li>Scheduler再次检查数据库变化，发现尚未被分配到具体执行节点(Node)的Pod，然后根据一组相关规则将Pod分配到可以运行它们的节点(Node)上，并更新数据库，记录Pod分配情况。</li>
+<li>Kubelet监控数据库变化，管理后续Pod的生命周期，发现被分配到它所在的节点上运行的那些Pod。如果找到新Pod，则会在该节点上运行这个新Pod。例如当有数据发送到主机时，将其路由到正确的pod或容器。<h2 id="2-简述控制器类型Deployment，StatefulSet，DaemonSet的区别"><a href="#2-简述控制器类型Deployment，StatefulSet，DaemonSet的区别" class="headerlink" title="2. 简述控制器类型Deployment，StatefulSet，DaemonSet的区别"></a>2. 简述控制器类型Deployment，StatefulSet，DaemonSet的区别</h2></li>
+<li><strong>应用场景</strong><ul>
+<li>Deployment适用于无状态的应用场景，副本可以动态增加和减少</li>
+<li>StatefulSet适用于有状态的应用场景，副本要顺序启动停止</li>
+<li>DaemonSet适用于每个节点都运行一个或多个pod的场景</li>
+</ul>
+</li>
+<li><strong>存储</strong><ul>
+<li>Deployment不需要特别的存储支持</li>
+<li>StatefulSet需要为每个Pod提供独立的存储，这可以通过后端存储完成</li>
+<li>DaemonSet的每个pod要挂载 volume<h2 id="3-简述一下k8s的存储管理"><a href="#3-简述一下k8s的存储管理" class="headerlink" title="3. 简述一下k8s的存储管理"></a>3. 简述一下k8s的存储管理</h2></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>持久卷，持久卷声明（PV，PVC）：适用于持久化数据的应用，比如数据库</li>
+<li>存储类（StroageClass），根据PVC动态创建PV，适用于需要动态创建存储的场景，如云存储、分布式存储</li>
+<li>子路径卷 (Subpath Volume)，多个pod共享存储</li>
+<li>本地卷（Local Volume），节点的本地卷映射到pod中，节点间共享存储<h2 id="4-如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】"><a href="#4-如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】" class="headerlink" title="4. 如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】"></a>4. 如何实现滚动更新和回滚【实现平滑升级和故障恢复的手段】</h2></li>
+<li>滚动更新逐步将pod下线，由新deployment进行更新<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建pod副本,在执行Deployment和升级的时候最好带上record参数，便于查看历史版本信息。</span></span><br><span class="line">kubectl apply -f abcdocker-test.yaml  --record</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新1.替换镜像版本去更新</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 我们可以看到pod执行过程是等待新的pod启动完成，在进行销毁旧的pod，这样就完成了集群的更新工作我们可以看到pod执行过程是等待新的pod启动完成，在进行销毁旧的pod，这样就完成了集群的更新工作</span></span><br><span class="line">sed -i 's#1.13.0-alpine#1.10.0-alpine#g' abcdocker-test.yaml</span><br><span class="line">kubectl apply -f abcdocker-test.yaml --record</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新2.直接更新deployment【不是修改yaml文件】，要用kubctl edit deployment</span></span><br><span class="line">kubectl get deployment</span><br><span class="line">kubectl edit deployments deployment_name</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新3. kubctl <span class="built_in">set</span>替换镜像</span></span><br><span class="line">kubectl set image deployment/SVC_NAME -n namespace_name container_name=images:v1</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>回滚,使用 kubectl rollout</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl rollout history deployment [deployment_name]查看所有的history</span><br><span class="line">kubectl rollout undo deploy_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-如何进行日志管理"><a href="#5-如何进行日志管理" class="headerlink" title="5. 如何进行日志管理"></a>5. 如何进行日志管理</h2><ol>
+<li>使用kubectl的logs，获取制定pod的日志<code>kubectl logs [pod_name]</code></li>
+<li>修改Kube-proxy的配置文件，通常位于<code>/etc/kubernetes/manifests/kube-proxy.yaml</code>将Pod的日志输出到宿主机的日志文件中，一般使用本地卷挂载</li>
+<li>重启kube-proxy，使用宿主机的日志轮转工具，logrotate，设置轮转策略<code>sudo logrotate -d /etc/logrotate.d/pod-logs</code><h2 id="6-如何进行监控管理"><a href="#6-如何进行监控管理" class="headerlink" title="6. 如何进行监控管理"></a>6. 如何进行监控管理</h2></li>
+<li>k8s提供了一个metrics，访问这个http请求就返回一个表单，是以#开头的注释行和以指标名称为前缀的键值对</li>
+<li>工具有Prometheus比较常用，Grafana进行可视化展示</li>
+<li>使用Heapster对Kubernetes集群进行监控数据的采集和存储<h2 id="7-etcd的作用"><a href="#7-etcd的作用" class="headerlink" title="7. etcd的作用"></a>7. etcd的作用</h2></li>
+<li>存储所有资源信息，保证数据的强一致性，作用是<strong>数据存储、配置管理、故障恢复</strong></li>
+<li>这些资源信息包括：服务发现、分布式锁、分布式数据队列、分布式通知和协调等功能<h2 id="8-etc的基本原理"><a href="#8-etc的基本原理" class="headerlink" title="8. etc的基本原理"></a>8. etc的基本原理</h2></li>
+<li>分布式存储：Etcd采用分布式存储方式，可以配置多节点群集，通过数据同步来保证数据可靠性。</li>
+<li>高可用性：Etcd通过选举算法来保证在任何时候都有一个领导者节点负责数据的写入和更新，从而保证了数据的强一致性。</li>
+<li>数据持久化：Etcd中的数据会定期进行持久化存储，即使在系统崩溃时也可以保证数据的完整性。<h2 id="9-k8s的kube-scheduler调度器"><a href="#9-k8s的kube-scheduler调度器" class="headerlink" title="9. k8s的kube-scheduler调度器"></a>9. k8s的kube-scheduler调度器</h2></li>
+</ol>
+<h2 id="10-k8s怎样负载均衡的"><a href="#10-k8s怎样负载均衡的" class="headerlink" title="10. k8s怎样负载均衡的"></a>10. k8s怎样负载均衡的</h2><ol>
+<li>Kubernetes的内置负载均衡器：Service组件，Service会根据服务后端的Pod IP和端口，将流量均衡地转发给每个Pod。这种方式是基于IP的负载均衡，支持TCP和UDP协议。</li>
+<li>用传统的Nginx负载均衡服务器做边车（Sidecar）容器运行，监控流量<h2 id="11-k8s的Labels和Selectors的作用"><a href="#11-k8s的Labels和Selectors的作用" class="headerlink" title="11. k8s的Labels和Selectors的作用"></a>11. k8s的Labels和Selectors的作用</h2></li>
+</ol>
+<p><strong>Label：用于标识和选择资源对象。</strong></p>
+<ul>
+<li>附加在资源对象上的键值对标签，标pod，service</li>
+<li>标在资源上，可以供Selector进行服务发现，关联选择资源，监控日志等</li>
+</ul>
+<p><strong>Selector：用于选择资源，服务发现</strong></p>
+<h2 id="12-k8s的Service是什么"><a href="#12-k8s的Service是什么" class="headerlink" title="12. k8s的Service是什么"></a>12. k8s的Service是什么</h2><p>Service为一组pod定义一个服务的入口地址，提供给前端用Ingress访问这个集群实例，可以起到服务发现，负载均衡，故障隔离的作用。</p>
+<ol>
+<li>提供服务的稳定入口：Service为前端的应用程序或者ingress提供了稳定的服务入口，这个入口拥有一个全局唯一的虚拟IP地址，前端的应用可以通过这个IP地址访问后端的Pod集群。</li>
+<li>实现负载均衡：Service内部实现了负载均衡机制，它会将所有进入的请求均匀地分配给后端的Pod副本，确保每个请求都能得到正确的响应。</li>
+<li>实现故障隔离：当某个Pod发生故障时，Service会自动将该Pod从服务池中剔除，保证请求不会被故障的Pod处理，从而实现了故障隔离。</li>
+<li>实现服务发现：Service允许前端的应用程序通过Label Selector来找到提供特定服务的Pod，从而实现了服务的自动发现。</li>
+</ol>
+<h2 id="13-Pod是什么，简述生命周期"><a href="#13-Pod是什么，简述生命周期" class="headerlink" title="13. Pod是什么，简述生命周期"></a>13. Pod是什么，简述生命周期</h2><p>Pod由一个或多个容器组成。<br>周期：创建启动运行停止</p>
+<h1 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h1><h2 id="1-pod的原理"><a href="#1-pod的原理" class="headerlink" title="1. pod的原理"></a>1. pod的原理</h2><h2 id="2-pod的特点"><a href="#2-pod的特点" class="headerlink" title="2. pod的特点"></a>2. pod的特点</h2><h2 id="3-pause容器作用"><a href="#3-pause容器作用" class="headerlink" title="3. pause容器作用"></a>3. pause容器作用</h2><h2 id="4-pod的重启策略"><a href="#4-pod的重启策略" class="headerlink" title="4. pod的重启策略"></a>4. pod的重启策略</h2><h2 id="5-pod的镜像拉取策略"><a href="#5-pod的镜像拉取策略" class="headerlink" title="5. pod的镜像拉取策略"></a>5. pod的镜像拉取策略</h2><h2 id="6-pod的存活探针有哪几种"><a href="#6-pod的存活探针有哪几种" class="headerlink" title="6. pod的存活探针有哪几种"></a>6. pod的存活探针有哪几种</h2><h2 id="7-存活探针的属性参数"><a href="#7-存活探针的属性参数" class="headerlink" title="7. 存活探针的属性参数"></a>7. 存活探针的属性参数</h2><h2 id="8-pod的就绪探针有哪几种"><a href="#8-pod的就绪探针有哪几种" class="headerlink" title="8. pod的就绪探针有哪几种"></a>8. pod的就绪探针有哪几种</h2><h2 id="9-就绪探针的属性参数"><a href="#9-就绪探针的属性参数" class="headerlink" title="9. 就绪探针的属性参数"></a>9. 就绪探针的属性参数</h2><h2 id="10-就绪探针和存活探针的区别是什么"><a href="#10-就绪探针和存活探针的区别是什么" class="headerlink" title="10.就绪探针和存活探针的区别是什么"></a>10.就绪探针和存活探针的区别是什么</h2><ul>
+<li>存活探针是将检查失败的容器杀死，创建新的启动容器来保持pod正常工作</li>
+<li>就绪探针是，当就绪探针检查失败，并不重启容器，而是将pod移出endpoint，<strong>就绪探针确保了service 中的pod都是可用的</strong>，确保客户端只与正常的pod交互并且客户端永远不会知道系统存在问题<h2 id="11-pod创建过程"><a href="#11-pod创建过程" class="headerlink" title="11. pod创建过程"></a>11. pod创建过程</h2></li>
+</ul>
+<ol>
+<li><p>kubectl run 创建pod</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、首先，用户通过kubectl或其他api客户端工具提交需要创建的pod信息给apiserver; </span><br><span class="line">2、apiserver验证客户端的用户权限信息，验证通过开始处理创建请求生成pod对象信息，并将信息存入 etcd，然后返回确认信息给客户端; </span><br><span class="line">3、apiserver开始反馈etcd中pod对象的变化，其他组件使用watch机制跟踪apiserver上的变动; </span><br><span class="line">4、scheduler发现有新的pod对象要创建，开始调用内部算法机制为pod分配最佳的主机，并将结果信息 更新至apiserver; </span><br><span class="line">5、node节点上的kubelet通过watch机制跟踪apiserver发现有pod调度到本节点，尝试调用docker启动 容器，并将结果反馈apiserver;</span><br><span class="line">6、apiserver将收到的pod状态信息存入etcd中。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用deployment创建pod</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、kubectl apply -f mydeployment.yaml</span><br><span class="line"></span><br><span class="line">2、api-server收到创建资源的请求后，会对客户端操作进行身份认证，在客户端的~/.kube文件夹下，已 经设置好了相关的用户认证信息，这样api-server会知道我是哪个用户，并对此用户进行鉴权，当api- server确定客户端的请求合法后，就会接受本次操作，并把相关的信息保存到etcd中，然后返回确认信 息给客户端。 </span><br><span class="line"></span><br><span class="line">3、apiserver开始反馈etcd中过程创建的对象的变化，其他组件使用watch机制跟踪apiserver上的变动。</span><br><span class="line"></span><br><span class="line">4、controller-manager组件会监听api-server的信息，controller-manager是有多个类型的，比如 Deployment Controller, 它的作用就是负责监听Deployment，此时Deployment Controller发现有新的deployment要创建，那么它就会去创建一个ReplicaSet，一个ReplicaSet的产生，又被另一个叫做 ReplicaSet Controller监听到了，紧接着它就会去分析ReplicaSet的语义，它了解到是要依照ReplicaSet 的template去创建Pod, 它一看这个Pod并不存在，那么就新建此Pod，当Pod刚被创建时，它的 nodeName属性值为空，代表着此Pod未被调度。 </span><br><span class="line"></span><br><span class="line">5、调度器Scheduler组件开始介入工作，Scheduler也是通过watch机制跟踪apiserver上的变动，发现 有未调度的Pod，则根据内部算法、节点资源情况，pod定义的亲和性反亲和性等等，调度器会综合的选 出一批候选节点，在候选节点中选择一个最优的节点，然后将pod绑定该该节点，将信息反馈给api- server。</span><br><span class="line"></span><br><span class="line">6、kubelet组件布署于Node之上，它也是通过watch机制跟踪apiserver上的变动，监听到有一个Pod应 该要被调度到自身所在Node上来，kubelet首先判断本地是否在此Pod，如果不存在，则会进入创建Pod 流程，创建Pod有分为几种情况，第一种是容器不需要挂载外部存储，则相当于直接docker run把容器 启动，但不会直接挂载docker网络，而是通过CNI调用网络插件配置容器网络，如果需要挂载外部存 储，则还要调用CSI来挂载存储。kubelet创建完pod，将信息反馈给api-server，api-servier将pod信息 写入etcd</span><br><span class="line"></span><br><span class="line">7、Pod建立成功后，ReplicaSet Controller会对其持续进行关注，如果Pod因意外或被我们手动退出， ReplicaSet Controller会知道，并创建新的Pod，以保持replicas数量期望值。</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-pod的终止过程"><a href="#12-pod的终止过程" class="headerlink" title="12.pod的终止过程"></a>12.pod的终止过程</h2><ol>
+<li>用户向apiserver发送pod删除的命令</li>
+<li>kubectl监控pod为terminating状态，就启动关闭pod过程</li>
+<li>endpoint控制器监控pod对象的关闭行为时，讲所有资源从endpoint列表删除</li>
+<li>如果当前pod对象定义了preStop钩子处理器，则在其被标记为terminating后会意同步的方式启动执行</li>
+<li>pod对象容器进程收到了停止信息</li>
+<li>宽限期过后，kubelet请求apiserver讲pod资源宽限期设0，对用户不可见<h2 id="13-pod的初始化容器-init-container"><a href="#13-pod的初始化容器-init-container" class="headerlink" title="13. pod的初始化容器 init container"></a>13. pod的初始化容器 init container</h2></li>
+</ol>
+<ul>
+<li>负责在主应用容器启动之前执行一些预处理工作或者初始化任务，挂载volume，等待外部服务就绪，安全检查等<h2 id="14-pod的资源请求、限制如何定义"><a href="#14-pod的资源请求、限制如何定义" class="headerlink" title="14.pod的资源请求、限制如何定义"></a>14.pod的资源请求、限制如何定义</h2>resources下的limits和requests，cpu核数和内存大小<h1 id="service"><a href="#service" class="headerlink" title="service"></a>service</h1><h2 id="1-service如何与pod关联"><a href="#1-service如何与pod关联" class="headerlink" title="1. service如何与pod关联"></a>1. service如何与pod关联</h2>pod后跟了label，然后service使用标签选择器，selector选择关联哪些pod作为后段<h2 id="2-service的域名解析格式"><a href="#2-service的域名解析格式" class="headerlink" title="2. service的域名解析格式"></a>2. service的域名解析格式</h2><code>&lt;service-name&gt;.&lt;namespace&gt;.svc.&lt;cluster-domain&gt;</code></li>
+<li><code>&lt;service-name&gt;</code> 是服务的名称，是在创建服务时指定的。</li>
+<li><code>&lt;namespace&gt;</code> 是服务所在的命名空间，默认为 “default”。</li>
+<li><code>&lt;cluster-domain&gt;</code> 是集群的域名，通常为 “cluster.local”。<h2 id="3-service的类型"><a href="#3-service的类型" class="headerlink" title="3. service的类型"></a>3. service的类型</h2></li>
+</ul>
+<p><strong>一般情况下service都是ClusterIP类型的，通过ingress接入的外部流量</strong></p>
+<ol>
+<li>ClusterIP：仅供集群内部使用，默认ClusterIP</li>
+<li>NodePort：service可以对外访问应用，在每个节点暴露一个端口，外部访问任意NodeIP:port就可以脸上service</li>
+<li>LoadBalancer：service对外访问应用，公有云环境下，需要公网IP地址</li>
+<li>ExternalName:这种类型的service会把集群外部的服务引入集群内部，这样集群内直接访问service就 可以间接的使用集群外部服务了<h2 id="4-一个应用pod如何连接service"><a href="#4-一个应用pod如何连接service" class="headerlink" title="4. 一个应用pod如何连接service"></a>4. 一个应用pod如何连接service</h2></li>
+<li>环境变量，配置注入</li>
+<li>DNS方式，k8s集群内有DNS服务器<h2 id="5-如何创建一个service代理外部的服务-集群内的应用如何访问外部的数据库服务？"><a href="#5-如何创建一个service代理外部的服务-集群内的应用如何访问外部的数据库服务？" class="headerlink" title="5. 如何创建一个service代理外部的服务/集群内的应用如何访问外部的数据库服务？"></a>5. 如何创建一个service代理外部的服务/集群内的应用如何访问外部的数据库服务？</h2>创建一个没有标签选择器的service代理集群外部服务。</li>
+<li>创建service时不指定selector，没了selector就不会自动创建endpoint</li>
+<li>手动创建一个<strong>与service同名的</strong>endpoint，在这个endpoint里定义外部服务的IP和端口，然后就自动关联了<h2 id="6-service-endpoint-kubeproxy的关系"><a href="#6-service-endpoint-kubeproxy的关系" class="headerlink" title="6. service endpoint kubeproxy的关系"></a>6. service endpoint kubeproxy的关系</h2></li>
+</ol>
+<ul>
+<li><strong>service</strong>:在kubernetes中，service是一种为一组功能相同的pod提供单一不变的接入点的资源。当 service被建立时，service的IP和端口不会改变，这样外部的客户端(也可以是集群内部的客户端)通过 service的IP和端口来建立链接，这些链接会被路由到提供该服务的任意一个pod上。通过这样的方式， 客户端不需要知道每个单独提供服务的pod地址，这样pod就可以在集群中随时被创建或销毁。 </li>
+<li><strong>endpoint</strong>:service维护一个叫endpoint的资源列表，endpoint资源对象保存着service关联的pod的ip和 端口。从表面上看，当pod消失，service会在endpoint列表中剔除pod，当有新的pod加入，service就 会将pod ip加入endpoint列表;但是正在底层的逻辑是，endpoint的这种自动剔除、添加、更新pod的 地址其实底层是由endpoint controller控制的，endpoint controller负责监听service和对应的pod副本 的变化，如果监听到service被删除，则删除和该service同名的endpoint对象，如果监听到新的service 被创建或者修改，则根据该service信息获取得相关pod列表，然后创建或更新service对应的endpoint对 象，如果监听到pod事件，则更新它所对应的service的endpoint对象。 </li>
+<li><strong>kube-proxy</strong>:kube-proxy运行在node节点上，在Node节点上实现Pod网络代理，维护网络规则和四层 负载均衡工作，kube-proxy会监听api-server中从而获取service和endpoint的变化情况，创建并维护路 由规则以提供服务IP和负载均衡功能。简单理解此进程是Service的透明代理兼负载均衡器，其核心功能 是将到某个Service的访问请求转发到后端的多个Pod实例上<h2 id="kubelet的功能和作用"><a href="#kubelet的功能和作用" class="headerlink" title="kubelet的功能和作用"></a>kubelet的功能和作用</h2></li>
+</ul>
+<ol>
+<li>Node管理，kubelet启动时向kubeproxy注册，定时向apiserver汇报节点和资源状态</li>
+<li>Pod管理，kubelet维护pod的生命周期，当kubelet监听到master的下发到自己节点的任务时，比如要创建、更新、删除一个pod，kubelet 就会通过CRI(容器运行时接口)插件来调用不同的容器运行时来创建、更新、删除容器。</li>
+<li>容器健康检查。Pod中可以定义<strong>启动探针-存活探针-就绪探针</strong>，定期调用容器的探针检测Pod的生命周期，对失败的容器进行重启等操作</li>
+<li>在Node上部署Metrics server进行资源监控<h2 id="kube-apiserver的功能和作用，端口号是8080和6443"><a href="#kube-apiserver的功能和作用，端口号是8080和6443" class="headerlink" title="kube-apiserver的功能和作用，端口号是8080和6443"></a>kube-apiserver的功能和作用，端口号是8080和6443</h2>在命名空间的kube-system命名空间里，有一个名称为kube-api-master的pod，这个pod就是运行着 kube-api-server进程，它绑定了master主机的ip地址和6443端口，但是在default命名空间下，存在一个叫kubernetes的服务，该服务对外暴露端口为443，目标端口6443，这个服务的ip地址是clusterip地 址池里面的第一个地址，同时这个服务的yaml定义里面并没有指定标签选择器，也就是说这个 kubernetes服务所对应的endpoint是手动创建的，该endpoint也是名称叫做kubernetes，该endpoint 的yaml定义里面代理到master节点的6443端口，也就是kube-api-server的IP和端口。这样一来，其他 pod 访问kube-api-server的整个流程就是: pod创建后嵌入了环境变量，pod获取到了kubernetes这个服务的ip和443端口，请求到kubernetes这个服务其实就是转发到了master节点上的6443端口的kube-api-server这个pod里面<h2 id="pod挂了，原本到这个pod的流量要怎么办【面试题】"><a href="#pod挂了，原本到这个pod的流量要怎么办【面试题】" class="headerlink" title="pod挂了，原本到这个pod的流量要怎么办【面试题】"></a>pod挂了，原本到这个pod的流量要怎么办【面试题】</h2>首先请求到<br>kubelet用存活探针检测到这个pod挂了，<h2 id="k8s的namespace是什么"><a href="#k8s的namespace是什么" class="headerlink" title="k8s的namespace是什么"></a>k8s的namespace是什么</h2>实现多套环境的资源隔离，限定不同租户能占用的资源，比如CPU和内存Usage等</li>
+</ol>
+<h2 id="持续集成CI的好处，用途是什么"><a href="#持续集成CI的好处，用途是什么" class="headerlink" title="持续集成CI的好处，用途是什么"></a>持续集成CI的好处，用途是什么</h2><p>用于整合团队开发 中不同开发者提交到开发仓库 中的项目代码变化，并即时整合编译，检查整合 编译错误的服务。它需要一天中多次整合编译代码的能力，若出现整合错误， 可以优异地准确定位提交错误源</p>
+<h2 id="14-Docker-Swarm？docker集群"><a href="#14-Docker-Swarm？docker集群" class="headerlink" title="14. Docker Swarm？docker集群"></a>14. Docker Swarm？docker集群</h2><p><strong>是原生的 Docker 集群服务工具。</strong>它将一群 Docker 主机集成为单一一个 虚拟 Docker 主机。利用一个 Docker 守护进程， 通过标准的 Docker API 和任何完善的通讯工具， Docker Swarm 提供透明地将 Docker 主机扩散到多台主机上的服务</p>
+<h2 id="15-Docker-Compose？"><a href="#15-Docker-Compose？" class="headerlink" title="15. Docker Compose？"></a>15. Docker Compose？</h2><h2 id="16-Dockerfile里，ADD和COPY"><a href="#16-Dockerfile里，ADD和COPY" class="headerlink" title="16. Dockerfile里，ADD和COPY"></a>16. Dockerfile里，ADD和COPY</h2><p>差不多，都用来向镜像加文件，一般就COPY就行<br>有必要使用 ADD 指令的最好例子是需要在本地自动解压归档文件到容器中的情况，如 ADD rootfs.tar.xz 。</p>
+<h2 id="17-Dockerfile里，ONBUILD命令"><a href="#17-Dockerfile里，ONBUILD命令" class="headerlink" title="17 Dockerfile里，ONBUILD命令"></a>17 Dockerfile里，ONBUILD命令</h2><p>构建阶段的触发器，当一个镜像被用作另一个镜像的基础镜像时，ONBUILD 指令将在构建过程中自动触发，一般后接一些COPY命令。</p>
+<p>## </p>
+<h2 id="容灾"><a href="#容灾" class="headerlink" title="容灾"></a>容灾</h2><p>主要指在发生硬件故障时，通过备份和恢复机制保证业务连续性（能够继续正常运行）的手段。适用于对业务连续性要求非常高的场景。</p>
+<h2 id="【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷"><a href="#【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷" class="headerlink" title="【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷"></a>【场景】pod都处于pending状态，调度器失败，pv没做好，无法创建存储卷</h2><ul>
+<li>使用kubectl describe podname</li>
+<li>长时间都在pending，可能是schduler无法为pod分配node，Scheduer调度器无法为pod分配一个合适的node节点。而这又会有很多种情况， 比如，node节点处在cpu、内存压力，导致无节点可调度;pod定义了资源请求，没有node节点满足资 源请求;node节点上有污点而pod没有定义容忍;pod中定义了亲和性或反亲和性而没有节点满足这些 亲和性或反亲和性;以上是调度器调度失败的几种情况。</li>
+<li>pvc，pv无法动态创建。比如要使用StatefulSet 创建redis集群，因为粗心大意，定义的storageClassName名称写错了，那么会造成 无法创建pvc，这种情况pod也会一直处于pending状态，或者，即使pvc是正常创建了，但是由于某些异 常原因导致动态供应存储无法正常创建pv，那么这种情况pod也会一直处于pending状态</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:07:40.376Z" itemprop="dateUpdated">2023-10-31 01:07:40</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CloudComputing/">CloudComputing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/&title=《Kubernetes Tutorial》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/&title=《Kubernetes Tutorial》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Kubernetes Tutorial》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/02/2023-01-02-面经Go问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Golang questions</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/01/2023-01-01-kubernets_tutorial(Overview)/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Kubernetes Tutorial and Implementation(Overview)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/&title=《Kubernetes Tutorial》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/&title=《Kubernetes Tutorial》 — waynamigo's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Kubernetes Tutorial》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/01/2023-01-01-面经dockerk8s/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3a0W7jMAwEwP7/T9+9FjjE2aXEXAuMnwIjtTQuIDIkv77i68+369Wd7/df3Uk+P6/4tXHh4eHhHWz936vlvXrmM/j5aclfvXwCHh4e3hoveVxy9D8vn2/9GZ/sGQ8PD+9n8hJqS3pG4uHh4f1GXpJSt2GjJeHh4eH9BF5SjMiLAkkJY5amL9Za8PDw8GLeSfr7vz6v9Pfw8PDwjrvqyYGbH/onbbbhbvHw8PAWePmB26bCbeOqHfkqvomHh4f3Ed5suOpWftsWMt4k33h4eHhXeW0BNBmcmqXLbUEkAePh4eFt8E4O8bbUmz9htuni+3h4eHgHvPPWfn6/TdaTVWoxHh4e3lXeSbEgQeYDAW3R4eVaeHh4eAu8Np29tZX8RcxKIXWlBA8PD+94aCBv/ycFiNmgQD64UI9b4eHh4R3wkpJEW4CYpdf5aELdVMPDw8Nb4M2KvHslibyR9hxI8PDw8PZ4+Y//u3dm4SF/uXh4eHgbvFnxtP3mxlxYtBYeHh7eGu9WmtsWak8wUZsNDw8Pb403K0k8t6Dyga228Vb8A/Dw8PAWeLPCxElKvdLKykMUHh4e3lVe28Q6aY+1gWRWCsHDw8Pb5rVt+3wrs6CSrFtPRuDh4eFd4iVFgVkIyUsMbaAqSsN4eHh4H+GdJK855jylvla6xcPDwxvx2oO+TXlnCXE+poCHh4f3eV5SeJ0Fg/bVtMXZN/vEw8PDu8o7GZnaOMTbl/gmyOHh4eEt8G6NNM3CwGxk4cIAAR4eHt4x79b0wUlgaINN/gQ8PDy8Pd6s1dQOAcwS9DaADaMWHh4e3hrvpAiblxvyJtybUISHh4f3q3izgYB8rWh1PDw8vDVePjg1O9bzltWt5+Dh4eHt8dof+ScDUucbGgLw8PDw7vD+AudVpkueN4oxAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

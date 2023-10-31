@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>分布式理论 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,分布式">
+    <meta name="description" content="questions">
+<meta name="keywords" content="面试,分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式理论">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="questions">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T17:27:22.260Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式理论">
+<meta name="twitter:description" content="questions">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">分布式理论</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">分布式理论</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-05T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/分布式/">分布式</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CAP理论"><span class="post-toc-number">1.</span> <span class="post-toc-text">CAP理论</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#raft理论"><span class="post-toc-number">2.</span> <span class="post-toc-text">raft理论</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#leader选举、日志复制、日志压缩、成员变更"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">leader选举、日志复制、日志压缩、成员变更</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如果leader节点出现了故障"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">如果leader节点出现了故障</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分布式session怎么做的，常用的"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">分布式session怎么做的，常用的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#身份认证和权限管理"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">身份认证和权限管理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-06-面经分布式"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">分布式理论</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-06 00:00:00" datetime="2023-01-05T16:00:00.000Z"  itemprop="datePublished">2023-01-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/分布式/">分布式</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p> questions</p>
+<a id="more"></a>
+<h1 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h1><p><strong>Consistency（一致性）、Availability（可用性）、Partition Tolerance（分区容错性)</strong></p>
+<h1 id="raft理论"><a href="#raft理论" class="headerlink" title="raft理论"></a>raft理论</h1><h2 id="leader选举、日志复制、日志压缩、成员变更"><a href="#leader选举、日志复制、日志压缩、成员变更" class="headerlink" title="leader选举、日志复制、日志压缩、成员变更"></a>leader选举、日志复制、日志压缩、成员变更</h2><ol>
+<li>Leader Selection</li>
+</ol>
+<p>Raft使用 (心跳机制)来触发选举。当server节点启动时，初始状态都是 follower。每一个server都有一个定时器，超时时间为 (时间长 度一般为150ms~300ms)，如果某server没有超时的情况下收到来自leader或者 candidate的任何RPC，则定时器重启，如果超时，它就开始一次选举。leader给 followers发RPC要么复制日志，要么就是用来告诉followers自己是leader，不用选举的 心跳(告诉followers对状态机应用日志的消息夹杂在心跳中)。如果某个candidate获 得了超过半数节点的选票(自己投了自己)，就称为新leader</p>
+<h3 id="如果leader节点出现了故障"><a href="#如果leader节点出现了故障" class="headerlink" title="如果leader节点出现了故障"></a>如果leader节点出现了故障</h3><p>用raft共识算法来做的</p>
+<ol start="2">
+<li>Log Relocation</li>
+</ol>
+<p>leader 在每个 heartbeat 向 follower 发送AppendEntries RPC同步日志，follower如果发现没问题，复制成功后会 给leader一个表示成功的ACK，leader收到超过半数的ACK后应用该日志，返回客户 端执行结果。若 follower 节点宕机、运行缓慢或者丢包，则 leader 节点会不断重试 AppendEntries RPC，直到所有 follower 节点最终都复制所有日志条目。</p>
+<p>乐观锁：<br>每个对象有一个版本号或者时间戳，当对象被修改时，版本号会更新。在提交更新时，检查版本号是否匹配，如果不匹配则说明有冲突发生，需要进行相应的处理。<br>悲观锁：<br>在操作对象时，先锁定该对象，其他用户无法修改该对象直到锁被释放。这种方法可以保证同时只有一个用户能够修改对象，但可能会导致并发性能下降。</p>
+<ol>
+<li>服务注册与发现 consul</li>
+<li>负载均衡，consul，用wrr算法实现的</li>
+<li>APi网关 gateway</li>
+<li>熔断器 circuitbreaker</li>
+</ol>
+<h2 id="分布式session怎么做的，常用的"><a href="#分布式session怎么做的，常用的" class="headerlink" title="分布式session怎么做的，常用的"></a>分布式session怎么做的，常用的</h2><p>java有apach shiro这两个中间件有session管理器，它是配置redis共享缓存的服务器中的，使用的是RedisSessionDAO层。</p>
+<p>golang有casbin+redis的共享缓存来实现分布式session管理</p>
+<h2 id="身份认证和权限管理"><a href="#身份认证和权限管理" class="headerlink" title="身份认证和权限管理"></a>身份认证和权限管理</h2><p><a href="https://zhuanlan.zhihu.com/p/150644469" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/150644469</a></p>
+<p><a href="https://www.cnblogs.com/alisapine/p/15080359.html" target="_blank" rel="noopener">https://www.cnblogs.com/alisapine/p/15080359.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:27:22.260Z" itemprop="dateUpdated">2023-10-31 01:27:22</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/&title=《分布式理论》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/&title=《分布式理论》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《分布式理论》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/10/2023-01-10-面经Java问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java random</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/06/2023-01-06-面试项目/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Project</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/&title=《分布式理论》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/&title=《分布式理论》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《分布式理论》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/06/2023-01-06-面经分布式/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwUlEQVR42u3aQW7jMAwF0N7/0h1gtjNx/ielNovnVeHWsZ4KUAzJr6/4+v57Pf/23+vVs893Xr3reQ2rCw8PD2+09GSJyaKf//LVZ87e/vwUHh4e3m3ecyDOg34byltGfXjg4eHh/SovP06eF50cNsfSbjw8PLwP4M3C/WbReHh4eJ/Jy0uxbami3Y78Mw/XWvDw8PBiXtsA+4SfL/b38PDw8BZd9eeA+xyIn++3ZdnZhYeHh3eDt2luzUq67dbkiXLxjQEPDw9vwZu9oA36N0J/9I/Bw8PDu8bbD1fNBgLyI6Tdejw8PLx7vE3D/uyg1ezZqJ2Gh4eHd5TXlg/ahc7Gp2ZJfF0jwcPDwxvxZiNTeaq9OQDaavTLVeHh4eEd5bXF1lmYbrej3e43KTUeHh7eBd6skT9rU81Iw0MCDw8P7wIvbzW9qQSXm5KMGszGsN7UXfDw8PDWvLwx3ya4m4GApNAcfQHAw8PDu8zbDDzlI1azIyEvf/xnpgwPDw/vGm+TChfBuuzsJ2+8cu7h4eHhBR2iNpRvirbJnSQpf3MfDw8P7zKvDf2bTdmUhov14OHh4V3g5U36Oii3hYNRCy3aJjw8PLyjvO/FlTfD2uLs5u/fpNR4eHh4a96mlTVr9udJedtse3Pu4eHh4R3l7RPlWer8fD8vSUQlDzw8PLxDvFmobQuybQqe/09W/T08PDy8C7y2MZYfD88LbbcSDw8P7yd5eSLbBv3NJ7SkSIGHh4d3iDdrerXJ9+a3bTF31d/Dw8PDO5OjnhuBKptn7SE0O6Lw8PDwZrx8uCrfofzZ2VExHBrAw8PDO8rbN7HyrclHB2YHDx4eHt7n8PKXbVLndshg2PrCw8PD+0FeXoyYDUu1m/jmE/Dw8PCu8fJixIGGU7n0iwMEeHh4eCPe7IG6nFom00kJ49jm4uHh4aW8PxDL7gO71zY6AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>生产场景问题 | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Git,MySQL">
+    <meta name="description" content="https://juejin.cn/post/6844904003998842887">
+<meta name="keywords" content="面试,Git,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生产场景问题">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="https://juejin.cn/post/6844904003998842887">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T17:27:26.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="生产场景问题">
+<meta name="twitter:description" content="https://juejin.cn/post/6844904003998842887">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">生产场景问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">生产场景问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】"><span class="post-toc-number">1.</span> <span class="post-toc-text">merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pull-和fetch的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">pull 和fetch的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"><span class="post-toc-number">3.</span> <span class="post-toc-text">stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-rm的使用"><span class="post-toc-number">4.</span> <span class="post-toc-text">git rm的使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#强制切换分支，并丢弃当前内容"><span class="post-toc-number">5.</span> <span class="post-toc-text">强制切换分支，并丢弃当前内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#切换到-某个提交-log查看提交hash，checkout过来"><span class="post-toc-number">6.</span> <span class="post-toc-text">切换到 某个提交 log查看提交hash，checkout过来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#撤销一个commit"><span class="post-toc-number">7.</span> <span class="post-toc-text">撤销一个commit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-checkout-和reset-到指定版本"><span class="post-toc-number">8.</span> <span class="post-toc-text">git checkout 和reset 到指定版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#github和gitlab的区别"><span class="post-toc-number">9.</span> <span class="post-toc-text">github和gitlab的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续集成和持续部署的区别是什么，"><span class="post-toc-number">10.</span> <span class="post-toc-text">持续集成和持续部署的区别是什么，</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#慢SQL问题如何排查"><span class="post-toc-number">11.</span> <span class="post-toc-text">慢SQL问题如何排查</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SQL的优化方式有哪些"><span class="post-toc-number">12.</span> <span class="post-toc-text">SQL的优化方式有哪些</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-11-面经场景"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">生产场景问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-11 00:00:00" datetime="2023-01-10T16:00:00.000Z"  itemprop="datePublished">2023-01-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MySQL/">MySQL</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><a href="https://juejin.cn/post/6844904003998842887" target="_blank" rel="noopener">https://juejin.cn/post/6844904003998842887</a></p>
+<a id="more"></a>
+
+<h2 id="merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】"><a href="#merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】" class="headerlink" title="merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】"></a>merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】</h2><p><strong>git merge：</strong></p>
+<ul>
+<li>将目标分支的最新提交合并到当前分支，创建一个新的合并提交，保留了分支的历史记录。</li>
+<li>合并后会产生一个新的合并提交，记录了分支的合并操作。</li>
+<li>适合公共分支的合并</li>
+</ul>
+<p><strong>git rebase：</strong></p>
+<ul>
+<li>将当前分支的提交“移动”到目标分支的最新提交之后，使得分支历史看起来更线性。</li>
+<li>实际上是将当前分支的提交重新应用在目标分支的最新提交之后，形成一系列新的提交。</li>
+<li>适合本地工作分支的合并</li>
+<li>然后rebase 合并一些提交记录<br>git merge：<br>保留了分支的整个历史记录，可以清晰地看到分支的合并过程。<br>git rebase：<br>使得分支历史看起来更加线性，但也会丢失了分支的原始历史记录。<h2 id="pull-和fetch的区别"><a href="#pull-和fetch的区别" class="headerlink" title="pull 和fetch的区别"></a>pull 和fetch的区别</h2>fetch拉取最新代码，本身不会产生冲突，origin/branch1 会覆盖掉本底的暂存branch1<br>pull = fetch + merge，会产生冲突</li>
+</ul>
+<h2 id="stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"><a href="#stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】" class="headerlink" title="stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"></a>stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】</h2><h2 id="git-rm的使用"><a href="#git-rm的使用" class="headerlink" title="git rm的使用"></a>git rm的使用</h2><ol>
+<li>git rm file 删除暂存区和源文件</li>
+<li>git rm –cached file 删除暂存区文件</li>
+<li>git reset file 删除暂存区文件</li>
+<li>git restore –staged file 删除暂存区文件</li>
+</ol>
+<h2 id="强制切换分支，并丢弃当前内容"><a href="#强制切换分支，并丢弃当前内容" class="headerlink" title="强制切换分支，并丢弃当前内容"></a>强制切换分支，并丢弃当前内容</h2><p>checkout -f branchname</p>
+<h2 id="切换到-某个提交-log查看提交hash，checkout过来"><a href="#切换到-某个提交-log查看提交hash，checkout过来" class="headerlink" title="切换到 某个提交 log查看提交hash，checkout过来"></a>切换到 某个提交 log查看提交hash，checkout过来</h2><h2 id="撤销一个commit"><a href="#撤销一个commit" class="headerlink" title="撤销一个commit"></a>撤销一个commit</h2><ol>
+<li>保留历史，丢弃提交<br>git reset HEAD^</li>
+<li>完全丢弃<br>git reset –hard HEAD^<br>git revert <cmmit_sha>,这会创建一个新的提交来撤销特定的提交，保留了提交历史。</cmmit_sha></li>
+</ol>
+<p>如果你已经push，不推荐使用 git reset，因为它会改变历史记录，可能会影响其他开发者。<br>git revert 会创建一个新的提交，用于撤销指定的提交，这样可以保持提交历史的完整性。</p>
+<h2 id="git-checkout-和reset-到指定版本"><a href="#git-checkout-和reset-到指定版本" class="headerlink" title="git checkout 和reset 到指定版本"></a>git checkout 和reset 到指定版本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1. checkout作用：</span><br><span class="line">主要用于切换分支、切换到某个特定的提交、或者查看历史版本的内容。</span><br><span class="line">影响：</span><br><span class="line">切换分支或切换到特定提交时，会将工作目录和暂存区的状态更新为目标分支或提交的状态。如果是切换到特定提交，会处于“分离头指针”状态。</span><br><span class="line">回滚版本：</span><br><span class="line">不能用 git checkout 直接回滚到以前的版本。如果你只是想查看以前的版本，可以使用 git checkout &lt;commit_sha&gt; 来切换到特定提交。</span><br><span class="line">1.  reset作用：</span><br><span class="line">用于重置当前分支的 HEAD 指针，可以将分支回退到以前的提交。</span><br><span class="line">影响：</span><br><span class="line">可以影响工作目录、暂存区和分支的状态，具体取决于使用的选项：</span><br><span class="line">--soft：保留工作目录和暂存区，只重置 HEAD 指针。</span><br><span class="line">--mixed（默认选项）：重置 HEAD 指针和暂存区，但保留工作目录。</span><br><span class="line">--hard：重置 HEAD 指针、暂存区和工作目录，丢弃所有本地的更改。</span><br><span class="line">回滚版本：</span><br><span class="line">可以用 git reset 回滚到以前的版本。例如，可以使用 git reset HEAD^ 将分支回滚到前一个提交。</span><br><span class="line">总结：</span><br><span class="line">如果你只是想查看以前的版本，可以使用 git checkout。</span><br><span class="line">如果你想回滚到以前的版本，可以使用 git reset，但要注意谨慎使用，因为它会影响工作目录、暂存区和分支的状态，并且在共享分支上可能会影响其他开发者。</span><br></pre></td></tr></table></figure>
+
+<h2 id="github和gitlab的区别"><a href="#github和gitlab的区别" class="headerlink" title="github和gitlab的区别"></a>github和gitlab的区别</h2><h2 id="持续集成和持续部署的区别是什么，"><a href="#持续集成和持续部署的区别是什么，" class="headerlink" title="持续集成和持续部署的区别是什么，"></a>持续集成和持续部署的区别是什么，</h2><p>持续集成（CI）注重的是团队成员之间的协作与代码的频繁集成。通过自动化的构建和测试流程，保证了每次提交的代码都能够顺利地融入共享代码库，从而快速发现并解决潜在的集成问题，使团队能够保持稳步前进。</p>
+<p>而持续部署（CD）则是在持续集成的基础上，将通过CI验证的代码自动地部署到目标环境，实现了软件交付的高效、可靠，甚至是自动化。这使得开发团队能够以更迅速的速度向生产环境中推送稳定可靠的软件，为项目的成功交付提供了坚实保障。</p>
+<h2 id="慢SQL问题如何排查"><a href="#慢SQL问题如何排查" class="headerlink" title="慢SQL问题如何排查"></a>慢SQL问题如何排查</h2><p>如果你的数据库查询变慢了，可以采取以下步骤来找出问题并解决它：</p>
+<ol>
+<li><strong>找出慢查询</strong>：首先，找出哪些数据库查询很慢。通常，这些查询会花费很长时间才能返回结果。</li>
+<li><strong>检查查询计划</strong>：查看慢查询的执行计划，看看数据库是如何执行这些查询的。这可以帮助你找到性能瓶颈。</li>
+<li><strong>考虑索引</strong>：确保查询使用了适当的索引。有时候，缺少或错误使用索引会导致查询变慢。</li>
+<li><strong>优化SQL</strong>：审查慢查询的SQL语句，看看是否可以通过改写查询或者使用更有效的SQL来提高性能。</li>
+<li><strong>检查数据库服务器</strong>：确保数据库服务器有足够的资源来处理查询。不足的CPU、内存或磁盘IO可能会导致性能问题。</li>
+<li><strong>连接池</strong>：如果你在应用程序中使用了数据库连接池，确保连接池的配置正确。连接池的设置也可能影响性能。</li>
+<li><strong>数据库统计信息</strong>：查看数据库的统计信息，了解表的大小、索引情况和数据分布。这些信息可以指导你哪些地方需要优化。</li>
+<li><strong>查询缓存</strong>：考虑使用查询缓存，将经常执行的查询结果缓存起来，以减轻数据库负担。</li>
+<li><strong>分页查询优化</strong>：如果涉及到分页查询，确保使用了有效的分页查询方式，避免一次性获取大量数据。</li>
+<li><strong>监控和性能测试</strong>：建立监控系统，随时监测数据库性能。进行性能测试，模拟高负载情况，确保数据库在压力下能够正常工作。<h2 id="SQL的优化方式有哪些"><a href="#SQL的优化方式有哪些" class="headerlink" title="SQL的优化方式有哪些"></a>SQL的优化方式有哪些</h2></li>
+<li><strong>联合索引</strong></li>
+<li></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:27:26.711Z" itemprop="dateUpdated">2023-10-31 01:27:26</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/&title=《生产场景问题》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/&title=《生产场景问题》 — waynamigo's blog&source=https://juejin.cn/post/6844904003998842887" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《生产场景问题》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/24/2023-01-24-面试算法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">一些算法整理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/10/2023-01-10-面经Java基础/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java base</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/&title=《生产场景问题》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/&title=《生产场景问题》 — waynamigo's blog&source=https://juejin.cn/post/6844904003998842887" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《生产场景问题》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/11/2023-01-11-面经场景/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aS47DIBBF0ex/0860B3F8XxUdCeoyihIac9wSoj6vFx7Xn3H3zd18MpOsuWDIkCFjW8b1ddzN4Ri+Av/1wxNlyJAxgEE2wedzBkGSZ8mQIUMGJ/FNkONbhgwZMjoMcmjyQ7b2ImTIkDGNQYLJGvL7avzXZbG4DBkyNmTwrPvvP/9LfUOGDBlbMa5wkCOVf88Tcw+7kiFDxtEMfsDxQDQNcWsHrgwZMuYwSKsEL0MSNlk/XUeGDBlnM9IHpKS0GJAeyvF/SYYMGRsyagFnpxjQaex4uBrKkCHjUAZJfrWWbqfSyNEsQ4aMCYy0uFgrDJBGtE5ILEOGjFMZtetajdS/XN6uIEOGjGEM3maRwlZdK1EJU4YMGYcyyBZ5UMovfPzXhyhchgwZYxi1Fq7a1ZDXV4OKqwwZMo5m8IRXJ+Ak7RfFZgsZMmQczeCbrj0ybSOLL5oyZMg4mpEWEWt4AqtVJGXIkDGHwZP16VZ42NwPdGXIkDGZUZvDX0HtMvphTRkyZIxhpEk0vq1aDp+/FBkyZMxhdNojamn9ZS0aMmTIOJRxhYMsmm6xU8KUIUPGBEZaGFhVmCQvYu21VYYMGbsz0iRXP7nWv1yiP5MhQ8ZxjDTpn171+CurIWXIkCEjDVY7jRrFI1uGDBkyGg2sfP1aUk+GDBlzGLUDlKfPyPzaTBkyZExg1FoceJiapudIkFwsZMqQIWM/xht7CkHPg5JBJQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

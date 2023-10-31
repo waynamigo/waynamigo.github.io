@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java base | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Java">
+    <meta name="description" content="ok">
+<meta name="keywords" content="面试,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java base">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="ok">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2023-10-30T17:25:40.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java base">
+<meta name="twitter:description" content="ok">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java base</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java base</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#原则：只能将一个类的实例赋值给它本身或者它的子类，而不能将一个父类的实例赋值给一个子类的引用"><span class="post-toc-number">1.</span> <span class="post-toc-text">原则：只能将一个类的实例赋值给它本身或者它的子类，而不能将一个父类的实例赋值给一个子类的引用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关键字"><span class="post-toc-number">2.</span> <span class="post-toc-text">关键字</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本类型"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">基本类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#包装类型"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">包装类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问控制"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">访问控制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类，方法，变量修饰符"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">类，方法，变量修饰符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#错误处理"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">错误处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重写-override-和-重载-overload"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">重写 override 和 重载 overload</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#接口和抽象类有什么共同点和区别？"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">接口和抽象类有什么共同点和区别？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#深拷贝与浅拷贝-引用拷贝"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">深拷贝与浅拷贝/引用拷贝</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Object：基类"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">Object：基类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#String-StringBuffer-StringBuilder"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">String  StringBuffer StringBuilder</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字符串常量池"><span class="post-toc-number">2.11.</span> <span class="post-toc-text">字符串常量池</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exception-和-Error（两者继承Thorwable）"><span class="post-toc-number">2.12.</span> <span class="post-toc-text">Exception 和 Error（两者继承Thorwable）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Checkable-Exception-受检查异常，必须用catch或者throw捕获"><span class="post-toc-number">2.12.1.</span> <span class="post-toc-text">Checkable Exception 受检查异常，必须用catch或者throw捕获</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#泛型-Generics-对比CPP的template"><span class="post-toc-number">2.13.</span> <span class="post-toc-text">泛型 Generics //对比CPP的template</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#反射机制"><span class="post-toc-number">2.14.</span> <span class="post-toc-text">反射机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IO流"><span class="post-toc-number">2.15.</span> <span class="post-toc-text">IO流</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字节流"><span class="post-toc-number">2.15.1.</span> <span class="post-toc-text">字节流</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字符流"><span class="post-toc-number">2.15.2.</span> <span class="post-toc-text">字符流</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#序列化-Protobuf，Hessian，Kyro"><span class="post-toc-number">2.16.</span> <span class="post-toc-text">序列化 Protobuf，Hessian，Kyro</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sun-misc-Unsafe类-并发工具类的组件，一个直接操作内存空间的类。"><span class="post-toc-number">2.17.</span> <span class="post-toc-text">sun.misc.Unsafe类:并发工具类的组件，一个直接操作内存空间的类。</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#堆外内存"><span class="post-toc-number">2.17.1.</span> <span class="post-toc-text">堆外内存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【面试题】为什么要用堆外内存"><span class="post-toc-number">2.17.2.</span> <span class="post-toc-text">【面试题】为什么要用堆外内存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DirectByteBuffer"><span class="post-toc-number">2.17.3.</span> <span class="post-toc-text">DirectByteBuffer</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内存屏障-Memory-Barrier-组织指令重排序"><span class="post-toc-number">2.17.4.</span> <span class="post-toc-text">内存屏障 Memory Barrier:组织指令重排序</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-10-面经Java基础"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java base</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-10 00:00:00" datetime="2023-01-09T16:00:00.000Z"  itemprop="datePublished">2023-01-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>ok</p>
+<a id="more"></a>
+<h1 id="原则：只能将一个类的实例赋值给它本身或者它的子类，而不能将一个父类的实例赋值给一个子类的引用"><a href="#原则：只能将一个类的实例赋值给它本身或者它的子类，而不能将一个父类的实例赋值给一个子类的引用" class="headerlink" title="原则：只能将一个类的实例赋值给它本身或者它的子类，而不能将一个父类的实例赋值给一个子类的引用"></a>原则：只能将一个类的实例赋值给它本身或者它的子类，而不能将一个父类的实例赋值给一个子类的引用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">B extends A;</span><br><span class="line">B b = <span class="keyword">new</span> A(); <span class="comment">//错误</span></span><br><span class="line">A a = <span class="keyword">new</span> B(); <span class="comment">//合法，但是通过 a 只能访问 A 类中定义的方法和属性，除非 B 类重写了这些方法</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><ul>
+<li>boolean 1</li>
+<li>byte 1</li>
+<li>short 2</li>
+<li>char 2</li>
+<li>int 4 </li>
+<li>float 4</li>
+<li>long 4</li>
+<li>double <h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2></li>
+<li>Boolean</li>
+<li>Byte</li>
+<li>Short</li>
+<li>Character</li>
+<li>Integer</li>
+<li>Long</li>
+<li>Float（没有实现缓存机制）</li>
+<li>Double（没有实现缓存机制）</li>
+<li>BigDecimal（浮点精确运算的场景，传统浮点类型计算时，会出现位数不够的时候，计算机会给这个浮点表示进行截断），计算机x86一般用小端存储，高（位）存高（地址），低存低<ul>
+<li>低地址：指的是内存中较小的地址值。在大多数系统中，低地址对应于内存中的起始位置，也就是地址为0的位置。</li>
+<li>高地址：指的是内存中较大的地址值。它是相对于低地址而言的，表示内存的结束位置。</li>
+</ul>
+</li>
+<li>BigInteger（存储超过64 位 long 整型的数字）BigInteger 内部使用 int[] 数组来存储任意大小的整形数据。</li>
+</ul>
+<p><a href="https://javaguide.cn/java/basis/bigdecimal.html" target="_blank" rel="noopener">https://javaguide.cn/java/basis/bigdecimal.html</a></p>
+<p><strong>装箱</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Integer num1 = <span class="number">40</span>; <span class="comment">//发生装箱，相当于 Integer.valueOf(40);</span></span><br><span class="line">Integer num2 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line"><span class="keyword">return</span> num1 == num2; | <span class="keyword">return</span> <span class="keyword">false</span>; </span><br><span class="line">解释：num1 直接使用的是缓存中的对象: num2 直接创建了新对象</span><br><span class="line"><span class="comment">// 自动装箱函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 自动拆箱</span></span><br><span class="line">如果把第一句换成 <span class="keyword">int</span> num1 =<span class="number">40</span>;</span><br><span class="line">num1 == num2;| <span class="keyword">return</span> <span class="keyword">true</span>; <span class="comment">//会对num2发生自动拆箱，会实现两个int类型的比较，返回true</span></span><br><span class="line"><span class="comment">// 如果要用num2.equals比较:</span></span><br><span class="line">num2.equals(Integer.valueOf(num1));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所有<strong>整型包装类对象之间值</strong>的比较，全部使用 equals 方法比较。</li>
+<li>== 操作符会<strong>比较两个对象的引用是否相等</strong>，而不是它们的值。因为 num1 和 num2 都是通过自动装箱得到的，它们实际上是不同的对象，即使它们包装的值相同</li>
+<li>自动拆箱与装箱的例子：<ul>
+<li>Integer i = 10 等价于 Integer i = Integer.valueOf(10)</li>
+<li>int n = i 等价于 int n = i.intValue();</li>
+</ul>
+</li>
+<li>如果频繁拆装箱的话，也会严重影响系统的性能。我们应该<strong>尽量避免不必要的拆装箱操作</strong>。<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2></li>
+<li>private</li>
+<li>protected    </li>
+<li>public<h2 id="类，方法，变量修饰符"><a href="#类，方法，变量修饰符" class="headerlink" title="类，方法，变量修饰符"></a>类，方法，变量修饰符</h2></li>
+<li>class</li>
+<li>new</li>
+<li>abstract </li>
+<li>extends</li>
+<li>static:</li>
+<li>final </li>
+<li>implements</li>
+<li>interface</li>
+<li>synchronized</li>
+<li>enum</li>
+<li>native</li>
+<li>volatile</li>
+</ul>
+<ol>
+<li><p>static:static 修饰的变量和方法可以被类的所有实例共享，无论一个类创建了多少个对象，它们都共享同一份静态变量。也就是说，静态变量只会被分配一次内存，即使创建多个对象，这样可以节省内存。</p>
+</li>
+<li><p>静态方法只允许访问静态成员（即静态成员变量和静态方法），不允许访问实例成员（即实例成员变量和实例方法），而实例方法不存在这个限制。</p>
+</li>
+<li><p>【为什么不能调用非静态成员】：在类加载的时候就会分配内存，非静态成员需要实例化后才能有效访问</p>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2></li>
+</ol>
+<ul>
+<li>try</li>
+<li>catch</li>
+<li>throw</li>
+<li>throws</li>
+<li>finally<ul>
+<li>当在 try 块或 catch 块中遇到 return 语句时，finally 语句块将在方法返回之前被执行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="重写-override-和-重载-overload"><a href="#重写-override-和-重载-overload" class="headerlink" title="重写 override 和 重载 overload"></a>重写 override 和 重载 overload</h2><ul>
+<li>override是子类重写父类方法，参数需要一样</li>
+<li>overload是在一个类中重载的某个方法</li>
+<li>构造方法可以背重载，不可以重写</li>
+</ul>
+<h2 id="接口和抽象类有什么共同点和区别？"><a href="#接口和抽象类有什么共同点和区别？" class="headerlink" title="接口和抽象类有什么共同点和区别？"></a>接口和抽象类有什么共同点和区别？</h2><p>共同点：都不能被实例化。都可以包含抽象方法。都可以有默认实现的方法（Java 8 可以用 default 关键字在接口中定义默认方法）。</p>
+<p>区别：接口主要用于对类的行为进行约束，你实现了某个接口就具有了对应的行为。抽象类主要用于代码复用，强调的是所属关系。一个类只能继承一个类，但是可以实现多个接口。接口中的成员变量只能是 public static final 类型的，不能被修改且必须有初始值，而抽象类的成员变量默认 default，可在子类中被重新定义，也可被重新赋值</p>
+<h2 id="深拷贝与浅拷贝-引用拷贝"><a href="#深拷贝与浅拷贝-引用拷贝" class="headerlink" title="深拷贝与浅拷贝/引用拷贝"></a>深拷贝与浅拷贝/引用拷贝</h2><ul>
+<li>深拷贝：完整复制某个对象，包括这个对象中的内部对象，都是不同的对象</li>
+<li>浅拷贝：在堆上创建一个新对象，这个新对象与原对象使用的是同一个内部对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Person person = (Person) <span class="keyword">super</span>.clone();</span><br><span class="line">        person.setAddress(person.getAddress().clone());</span><br><span class="line">        <span class="comment">//加入这一行，内部的address对象也进行拷贝，本质上是堆上的另外一个对象。</span></span><br><span class="line">        <span class="keyword">return</span> person;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Object：基类"><a href="#Object：基类" class="headerlink" title="Object：基类"></a>Object：基类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//native 方法，用于返回当前运行时对象的 Class 对象，使用了 final 关键字修饰，故不允许子类重写。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass()</span><br><span class="line"><span class="comment">//native 方法，用于返回对象的哈希码，主要使用在哈希表中，比如 JDK 中的HashMap。获取哈希码（int 整数），也称为散列码，也可以比较两个对象是否相等。两个对象的hashCode 值相等并不代表两个对象就相等：可能发生冲突</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//用于比较 2 个对象的内存地址是否相等，String 类对该方法进行了重写以用于比较字符串的值是否相等。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function"><span class="comment">//native 方法，用于创建并返回当前对象的一份拷贝。</span></span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span></span><br><span class="line"><span class="function"><span class="comment">//返回类的名字实例的哈希码的 16 进制的字符串。建议 Object 所有的子类都重写这个方法。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//native 方法，并且不能重写。唤醒一个在此对象监视器上等待的线程(监视器相当于就是锁的概念)。如果有多个线程在等待只会任意唤醒一个。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//native 方法，并且不能重写。跟 notify 一样，唯一的区别就是会唤醒在此对象监视器上等待的所有线程，而不是一个线程。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//native方法，并且不能重写。暂停线程的执行。注意：sleep 方法没有释放锁，而 wait 方法释放了锁 ，timeout 是等待时间。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"><span class="comment">//多了 nanos 参数，这个参数表示额外时间（以纳秒为单位，范围是 0-999999）。 所以超时的时间还需要加上 nanos 纳秒。。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"><span class="comment">//跟之前的2个wait方法一样，只不过该方法一直等待，没有超时时间这个概念</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span></span><br><span class="line"><span class="function"><span class="comment">//实例被垃圾回收器回收的时候触发的操作</span></span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="String-StringBuffer-StringBuilder"><a href="#String-StringBuffer-StringBuilder" class="headerlink" title="String  StringBuffer StringBuilder"></a>String  StringBuffer StringBuilder</h2><ul>
+<li>String类不可变：创建时，采用final的字符数组表示字符串了,final char [],(java9以后用的byte[])</li>
+<li><strong>StringBuilder</strong> 与 <strong>StringBuffer</strong>都继承自 <strong>AbstractStringBuilder</strong> 类，也是使用字符数组保存字符串，不过没有使用 final 和 private 关键字修饰，最关键的是这个 AbstractStringBuilder 类还提供了很多修改字符串的方法比如 append 方法。</li>
+</ul>
+<h2 id="字符串常量池"><a href="#字符串常量池" class="headerlink" title="字符串常量池"></a>字符串常量池</h2><p>是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了<strong>避免字符串的重复创建。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在堆中创建字符串对象”ab“</span></span><br><span class="line"><span class="comment">// 将字符串对象”ab“的引用保存在字符串常量池中</span></span><br><span class="line">String aa = <span class="string">"ab"</span>;</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”ab“的引用</span></span><br><span class="line">String bb = <span class="string">"ab"</span>;</span><br><span class="line">System.out.println(aa==bb);<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>【面试题】<code>String s1 = new String(&quot;abc&quot;);</code>这句话创建了几个字符串对象？</p>
+<ul>
+<li>一个或两个：</li>
+<li>一个的情况，abc在字符串常量池里，仅需要abc的引用创建s1</li>
+<li>两个的情况，abc不存在常量池里，要先创建abc，再将其引用创建s1</li>
+</ul>
+<p>【面试题】手动将某字符串加入字符串常量池用什么方法</p>
+<ul>
+<li>String.intern()</li>
+<li>将指定的字符串对象的引用保存在字符串常量池中，可以简单分为两种情况：<ul>
+<li>如果字符串常量池中保存了对应的字符串对象的引用，就直接返回该引用。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在堆中创建字符串对象”Java“</span></span><br><span class="line"><span class="comment">// 将字符串对象”Java“的引用保存在字符串常量池中</span></span><br><span class="line">String s1 = <span class="string">"Java"</span>;</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”Java“对应的引用</span></span><br><span class="line">String s2 = s1.intern();</span><br><span class="line"><span class="comment">// 会在堆中在单独创建一个字符串对象</span></span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"Java"</span>);</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”Java“对应的引用</span></span><br><span class="line">String s4 = s3.intern();</span><br><span class="line"><span class="comment">// s1 和 s2 指向的是堆中的同一个对象</span></span><br><span class="line">System.out.println(s1 == s2); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// s3 和 s4 指向的是堆中不同的对象</span></span><br><span class="line">System.out.println(s3 == s4); <span class="comment">// false</span></span><br><span class="line"><span class="comment">// s1 和 s4 指向的是堆中的同一个对象</span></span><br><span class="line">System.out.println(s1 == s4); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>【面试题】字符串加号操作 str + str</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"str"</span>;<span class="comment">//创建了一个字符串常量 "str"，它会存储在常量池中</span></span><br><span class="line">String str2 = <span class="string">"ing"</span>;</span><br><span class="line">String str3 = <span class="string">"str"</span> + <span class="string">"ing"</span>;<span class="comment">//这里的 "str" 和 "ing" 都是字符串字面量，它们会在编译时就被合并成一个新的字符串常量 "string"，然后存储在常量池中。</span></span><br><span class="line">String str4 = str1 + str2;<span class="comment">//这里使用了变量 str1 和 str2 进行字符串拼接，这是在运行时进行的。因此，新的字符串对象 "string" 会在堆内存中创建，而不是常量池</span></span><br><span class="line">String str5 = <span class="string">"string"</span>;</span><br><span class="line">System.out.println(str3 == str4);<span class="comment">//false</span></span><br><span class="line">System.out.println(str3 == str5);<span class="comment">//true</span></span><br><span class="line">System.out.println(str4 == str5);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Exception-和-Error（两者继承Thorwable）"><a href="#Exception-和-Error（两者继承Thorwable）" class="headerlink" title="Exception 和 Error（两者继承Thorwable）"></a>Exception 和 Error（两者继承Thorwable）</h2><ul>
+<li><strong>Exception</strong> ：程序本身可以处理的异常，可以通过 catch 来进行捕获。Exception 又可以分为 Checked Exception (受检查异常，必须处理) 和 Unchecked Exception (不受检查异常，可以不处理)。</li>
+<li><strong>Error</strong>：Error 属于程序无法处理的错误 ，jvm一般会选择线程终止。例如 Java 虚拟机运行错误（Virtual MachineError）、虚拟机内存不够错误(OutOfMemoryError)、类定义错误（NoClassDefFoundError）等 。这些异常发生时，Java 虚拟机（JVM）一般会选择线程终止。</li>
+</ul>
+<h3 id="Checkable-Exception-受检查异常，必须用catch或者throw捕获"><a href="#Checkable-Exception-受检查异常，必须用catch或者throw捕获" class="headerlink" title="Checkable Exception 受检查异常，必须用catch或者throw捕获"></a>Checkable Exception 受检查异常，必须用catch或者throw捕获</h3><p>除了RuntimeException及其子类以外（下列），其他的Exception类及其子类都属于受检查异常</p>
+<ul>
+<li>NullPointerException(空指针错误)</li>
+<li>IllegalArgumentException(参数错误比如方法入参类型错误)</li>
+<li>NumberFormatException（字符串转换为数字格式错误，IllegalArgumentException的子类）</li>
+<li>ArrayIndexOutOfBoundsException（数组越界错误）</li>
+<li>ClassCastException（类型转换错误）</li>
+<li>ArithmeticException（算术错误）</li>
+<li>SecurityException （安全错误比如权限不够）</li>
+<li>UnsupportedOperationException(不支持的操作错误比如重复创建同一用户)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用throws关键字声明可能抛出异常</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> <span class="keyword">throws</span> MyException </span>&#123;</span><br><span class="line">        <span class="comment">// 在方法内部发现异常情况</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/* some condition */</span>) &#123;</span><br><span class="line">            <span class="comment">// 抛出自定义异常</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MyException(<span class="string">"Something went wrong"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">      &#125;<span class="keyword">catch</span>(MyException e)&#123;</span><br><span class="line">          e.printStackTrace(); <span class="comment">//在控制台上打印 Throwable 对象封装的异常信息</span></span><br><span class="line">          e.getMessage();<span class="comment">// 返回异常发生时的简要描述</span></span><br><span class="line">          e.toString();<span class="comment">// 返回异常发生时的详细信息</span></span><br><span class="line">          e.getLocalizedMessage();<span class="comment">//返回异常对象的本地化信息。</span></span><br><span class="line">      &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型-Generics-对比CPP的template"><a href="#泛型-Generics-对比CPP的template" class="headerlink" title="泛型 Generics //对比CPP的template"></a>泛型 Generics //对比CPP的template</h2><p>相同点：</p>
+<ul>
+<li><strong>参数化类型</strong>：两者都允许你定义可以接受不特定类型的数据结构或算法，从而提高代码的复用性和灵活性。</li>
+<li><strong>类型安全</strong>：Java 的泛型和 C++ 的模板都<strong>在编译时进行类型检查</strong>，确保类型的一致性。</li>
+<li><strong>支持容器类</strong>：在两者中，可以创建可以容纳任何类型的容器类（例如，List、Set、Map 等）。</li>
+</ul>
+<p>不同点：</p>
+<ul>
+<li><strong>实现方式</strong>：<ul>
+<li>Java 泛型是通过擦除（type erasure）来实现的。在编译时，泛型类型信息会被擦除，编译器会将泛型代码转化成非泛型的代码。这意味着在运行时，不会保留关于泛型类型的信息。这也是为什么在 Java 中不能直接创建泛型数组的原因。</li>
+<li>C++ 模板是通过编译器在编译时进行代码生成，每次使用模板时，都会根据模板参数生成对应的代码。这使得 C++ 模板可以实现更为复杂和灵活的类型推断。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：<br>Java 泛型使用<t>来表示泛型类型，可以在类、接口、方法等级别使用泛型。<br>C++ 模板使用<typename t>或者<class t>来声明模板参数，可以在类、函数等级别使用模板。</class></typename></t></li>
+<li><strong>泛型的通配符</strong>：<br>Java 的泛型可以使用通配符（wildcards）来表示不确定的类型。例如：List&lt;?&gt;表示一个不确定类型的 List。<br>C++ 模板可以通过模板特化来处理特定的类型。</li>
+<li><strong>模板元编程</strong>：<br>C++ 的模板系统支持模板元编程，这意味着可以在编译时进行计算和逻辑操作，从而实现更为复杂的类型处理。</li>
+<li><strong>依赖</strong>：<br>Java 的泛型不依赖于运行时类型信息（RTTI）。<br>C++ 的模板依赖于编译时类型信息（CTTI）。</li>
+</ul>
+<h2 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h2><ul>
+<li>代理机制</li>
+</ul>
+<p><strong>使用代理对象来代替对真实对象(real object)的访问，这样就可以在不修改原目标对象的前提下，提供额外的功能操作，扩展目标对象的功能。</strong></p>
+<ul>
+<li>动态代理更加灵活，不需要必须实现接口，可以直接代理实现类，并且可以不需要针对每个目标类都创建一个代理类。</li>
+<li>静态代理中，接口一旦新增加方法，目标对象和代理对象都要进行修改，这是非常麻烦的！</li>
+<li>JVM 层面：静态代理在编译时就将接口、实现类、代理类这些都变成了一个个实际的 class 文件。而动态代理是在运行时动态生成类字节码，并加载到 JVM 中的。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class alunbarClass = TargetObject.class; <span class="comment">//知道目的类名为TargetObject，直接获取</span></span><br><span class="line">Class alunbarClass1 = Class.forName(<span class="string">"cn.javaguide.TargetObject"</span>);<span class="comment">//通过类的全路径获取</span></span><br><span class="line">TargetObject instance = <span class="keyword">new</span> TargetObject();<span class="comment">//通过实例获取</span></span><br><span class="line">Class alunbarClass2 = instance.getClass();</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过类加载器进行全路径的loadclass</span></span><br><span class="line">ClassLoader.getSystemClassLoader().loadClass(<span class="string">"cn.javaguide.TargetObject"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>静态代理<br>可以在代理类中增加方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SmsService</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">send</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmsServiceImpl</span> <span class="keyword">implements</span> <span class="title">SmsService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">send</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmsProxy</span> <span class="keyword">implements</span> <span class="title">SmsService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SmsService smsService;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SmsProxy</span><span class="params">(SmsService smsService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.smsService = smsService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">SmsService smsService = <span class="keyword">new</span> SmsServiceImpl();</span><br><span class="line">SmsProxy smsProxy = <span class="keyword">new</span> SmsProxy(smsService);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态代理：JDK 动态代理、CGLIB 动态代理</p>
+<ul>
+<li>InvocationHandler 接口和 Proxy 类</li>
+<li>还必须需要实现InvocationHandler 来自定义处理逻辑。 当我们的动态代理对象调用一个方法时，这个方法的调用就会被转发到实现InvocationHandler 接口类的 invoke 方法来调用。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当你使用代理对象调用方法的时候实际会调用到这个方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">throws</span> Throwable;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><p>数据从外部存储和内存之间进出的过程就是IO。</p>
+<h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>如果我们不知道编码类型的话，使用字节流的过程中很容易出现乱码问题。</p>
+<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p>字符流是由 Java 虚拟机将字节转换得到的，这个过程还算是比较耗时</p>
+<h2 id="序列化-Protobuf，Hessian，Kyro"><a href="#序列化-Protobuf，Hessian，Kyro" class="headerlink" title="序列化 Protobuf，Hessian，Kyro"></a>序列化 Protobuf，Hessian，Kyro</h2><ul>
+<li>transient 阻止实例中那些用此关键字修饰的的变量序列化；</li>
+<li>当对象被反序列化时，被 transient 修饰的变量值不会被持久化和恢复。</li>
+<li>transient 只能修饰变量，不能修饰类和方法。</li>
+<li>static 变量因为不属于任何对象(Object)，所以无论有没有 transient 关键字修饰，均不会被序列化。</li>
+</ul>
+<h2 id="sun-misc-Unsafe类-并发工具类的组件，一个直接操作内存空间的类。"><a href="#sun-misc-Unsafe类-并发工具类的组件，一个直接操作内存空间的类。" class="headerlink" title="sun.misc.Unsafe类:并发工具类的组件，一个直接操作内存空间的类。"></a>sun.misc.Unsafe类:并发工具类的组件，一个直接操作内存空间的类。</h2><p>主要提供一些用于执行低级别、不安全操作的方法，如直接访问系统内存资源、自主管理内存资源等，这些方法在提升 Java 运行效率、增强 Java 语言底层资源操作能力方面起到了很大的作用。</p>
+<ul>
+<li>Unsafe中提供的方法需要依赖native方法，Java 代码中只是声明方法头，具体的实现则交给本地代码</li>
+</ul>
+<h3 id="堆外内存"><a href="#堆外内存" class="headerlink" title="堆外内存"></a>堆外内存</h3><p>使用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分配新的本地空间</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">allocateMemory</span><span class="params">(<span class="keyword">long</span> bytes)</span></span>;</span><br><span class="line"><span class="comment">//重新调整内存空间的大小</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">reallocateMemory</span><span class="params">(<span class="keyword">long</span> address, <span class="keyword">long</span> bytes)</span></span>;</span><br><span class="line"><span class="comment">//将内存设置为指定值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">setMemory</span><span class="params">(Object o, <span class="keyword">long</span> offset, <span class="keyword">long</span> bytes, <span class="keyword">byte</span> value)</span></span>;</span><br><span class="line"><span class="comment">//内存拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">copyMemory</span><span class="params">(Object srcBase, <span class="keyword">long</span> srcOffset,Object destBase, <span class="keyword">long</span> destOffset,<span class="keyword">long</span> bytes)</span></span>;</span><br><span class="line"><span class="comment">//清除内存</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">freeMemory</span><span class="params">(<span class="keyword">long</span> address)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式分配<strong>堆外内存</strong>，是无法进行垃圾回收的，需要我们把这些内存当做一种资源去手动调用freeMemory方法进行释放，否则会产生内存泄漏。通用的操作内存方式是在try中执行对内存的操作，最终在finally块中进行内存释放。</p>
+<h3 id="【面试题】为什么要用堆外内存"><a href="#【面试题】为什么要用堆外内存" class="headerlink" title="【面试题】为什么要用堆外内存"></a>【面试题】为什么要用堆外内存</h3><ul>
+<li>对GC停顿的改善。由于堆外内存是直接受操作系统管理而不是 JVM，所以当我们使用堆外内存时，即可保持较小的堆内内存规模。从而在 GC 时减少回收停顿对于应用的影响。</li>
+<li>提升程序 I/O 操作的性能。通常在 I/O 通信过程中，会存在堆内内存到堆外内存的数据拷贝操作，对于需要频繁进行内存间数据拷贝且生命周期较短的暂存数据，都建议存储到堆外内存。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单例模式的应用：</span></span><br><span class="line"><span class="comment">// 利用反射获得 Unsafe 类中已经实例化完成的单例对象 theUnsafe.</span></span><br><span class="line">Unsafe unsafe = Unsafe.reflectGetUnsafe();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="keyword">long</span> maddr = unsafe.allocateMemory(<span class="number">1024</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(OutOfMemoryError e)&#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line">  <span class="keyword">throw</span> e;</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">  unsafe.freeMomory(maddr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DirectByteBuffer"><a href="#DirectByteBuffer" class="headerlink" title="DirectByteBuffer"></a>DirectByteBuffer</h3><ul>
+<li>实现堆外内存的一个重要类，通常用在通信过程中做缓冲池，在NIO中使用广泛。</li>
+<li>对于堆外内存的创建、使用、销毁等逻辑均由 Unsafe 提供的堆外内存 API 来实现</li>
+</ul>
+<h3 id="内存屏障-Memory-Barrier-组织指令重排序"><a href="#内存屏障-Memory-Barrier-组织指令重排序" class="headerlink" title="内存屏障 Memory Barrier:组织指令重排序"></a>内存屏障 Memory Barrier:组织指令重排序</h3><p>阻止屏障两边的<strong>指令重排序</strong>从而避免编译器和硬件的不正确优化情况</p>
+<ul>
+<li>屏蔽了操作系统底层的差异，允许在代码中定义、并统一由 JVM 来生成内存屏障指令，来实现内存屏障的功能<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//内存屏障，禁止load操作重排序。屏障前的load操作不能被重排序到屏障后，屏障后的load操作不能被重排序到屏障前</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">loadFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//内存屏障，禁止store操作重排序。屏障前的store操作不能被重排序到屏障后，屏障后的store操作不能被重排序到屏障前</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">storeFence</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//内存屏障，禁止load、store操作重排序</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">fullFence</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>运行中的线程不是直接读取主内存中的变量的，只能操作自己工作内存中的变量，然后同步到主内存中，并且线程的工作内存是不能共享的。上面的图中的流程就是子线程借助于主内存，将修改后的结果同步给了主线程，进而修改主线程中的工作空间，跳出循环。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:25:40.272Z" itemprop="dateUpdated">2023-10-31 01:25:40</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/&title=《Java base》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/&title=《Java base》 — waynamigo's blog&source=ok" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java base》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/11/2023-01-11-面经场景/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">生产场景问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/10/2023-01-10-面经Java集合/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java collection</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/&title=《Java base》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/&title=《Java base》 — waynamigo's blog&source=ok" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java base》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经Java基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACxklEQVR42u3a0W7CMAwFUP7/p7fXSazl3jhhTDp9QmykOUGqje3HI76+flw/33n+n6tP5Vd+x20XHh4e3mDryc2e/3q/ofZQ8sNNdoWHh4d3jne16P3r/K8vNhEcRxIk8PDw8D6Zd//O2kHc/yceHh7ef+etPbjzg8uDBB4eHt5f8SZL50WHvGCRBJXNtRY8PDy8mJd3kT7n9ZH+Hh4eHt64q54/yicjCG3xotgtHh4e3gHevHl/ny63JYY8OBXHh4eHh7eV15YG2rGqvAHWjnBFK+Ph4eEd47XtpXxQoB0FyFdI9oOHh4d3gtduIq+Urt1+knZHd8HDw8PbxGuXS8LGvKSbl3fr2+Dh4eENeMnQUp5Ar5Uw2kQ5WedFfw8PDw9vwJv8cs9f7xquypP7Ih7i4eHhDXjt0FXbrMpDTlukiEoeeHh4eG/h5fic3QahfNjrRfDAw8PD28TLSwxJY2ztaNrBrPxY8fDw8E7w2tLD/YO+DR5ty200moCHh4f3Rl7eoJqUDPKkeTF9x8PDw9vESx70a3NNk+DRljMujwMPDw/vGK+NJMlx5Mn0WlofJeh4eHh4B3jzFDb/VJugt9flCnh4eHhbeW1jvm2M5cn62pBB1PTCw8PD28rLo8faGFY+RDUZOMiTfjw8PLxzvDblzUPL6LEerFB0+fDw8PAGvPxhXdc5yiNbO8roG8PDw8M7wGuHA9qHdX408+LIZQMMDw8Pbyuv3UpRAjhwcElCj4eHh3eC91Vea2WI+ThXm3D/Mo2Lh4eHt4k3f4i3wwdtEytJtSfBCQ8PD2+Nt9aeb9tR98iclwSVIrHGw8PDG/DadLlNgkdxqQxgxTeAh4eH9xbefLwgXzkvW1zuBw8PD+8DeJNSQpIK5+Ao5ODh4eEd4+0tH+SfzYu8i60vPDw8vAO89kf+5Dbtprd18PDw8PD28L4B2Ah9gkPiKMQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

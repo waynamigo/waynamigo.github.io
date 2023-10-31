@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>MySQL | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Mysql">
+    <meta name="description" content="questions">
+<meta name="keywords" content="面试,Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="questions">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://waynamigo.github.io/images/mysql查询流程.png.webp">
+<meta property="og:image" content="http://waynamigo.github.io/images/mysqltablestructure.drawio.webp">
+<meta property="og:image" content="http://waynamigo.github.io/images/COMPACT.drawio.png.webp">
+<meta property="og:image" content="https://cdn.xiaolincoding.com//mysql/other/3c3af16e7a948833ccb6409e8b51daf8.png">
+<meta property="og:image" content="https://cdn.xiaolincoding.com//mysql/other/1aa886fe95e7bc791c296e2d342fa435.png">
+<meta property="og:updated_time" content="2023-10-30T17:26:58.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL">
+<meta name="twitter:description" content="questions">
+<meta name="twitter:image" content="http://waynamigo.github.io/images/mysql查询流程.png.webp">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MySQL</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MySQL</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-02T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Mysql/">Mysql</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql分为哪些层，各用来干嘛的"><span class="post-toc-number">1.</span> <span class="post-toc-text">mysql分为哪些层，各用来干嘛的</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mysql基于什么协议传输"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">mysql基于什么协议传输</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【面试题】执行一条-SQL-查询语句，期间发生了什么？"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">【面试题】执行一条 SQL 查询语句，期间发生了什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何查看我的sql被几个客户端链接了"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">如何查看我的sql被几个客户端链接了</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mysql推荐使用长链接，但会产生的问题："><span class="post-toc-number">1.4.</span> <span class="post-toc-text">mysql推荐使用长链接，但会产生的问题：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MYSQL的数据存储方式"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">MYSQL的数据存储方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表空间文件的结构"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">表空间文件的结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Innodb的行格式"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">Innodb的行格式</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql读取时的几个情况"><span class="post-toc-number">2.</span> <span class="post-toc-text">mysql读取时的几个情况</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MySQL什么情况下索引会失效"><span class="post-toc-number">3.</span> <span class="post-toc-text">MySQL什么情况下索引会失效</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql四种隔离级别"><span class="post-toc-number">4.</span> <span class="post-toc-text">mysql四种隔离级别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生产环境数据库一般用的什么隔离级别呢？"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">生产环境数据库一般用的什么隔离级别呢？</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#索引"><span class="post-toc-number">5.</span> <span class="post-toc-text">索引</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是索引"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">什么是索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引的分类（按字段特性）"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">索引的分类（按字段特性）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【面试考点】联合索引如何使用的"><span class="post-toc-number">5.2.1.</span> <span class="post-toc-text">【面试考点】联合索引如何使用的</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#行锁"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">行锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#记录锁-Record-Lock"><span class="post-toc-number">5.3.1.</span> <span class="post-toc-text">记录锁 Record Lock</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#间隙锁-Gap-Lock"><span class="post-toc-number">5.3.2.</span> <span class="post-toc-text">间隙锁 Gap Lock</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#临键锁-Next-key-Lock"><span class="post-toc-number">5.3.3.</span> <span class="post-toc-text">临键锁 Next-key Lock</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【面试题】MYSQL怎么加锁"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">【面试题】MYSQL怎么加锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通查询，没有使用索引的话，会导致什么情况？"><span class="post-toc-number">5.4.1.</span> <span class="post-toc-text">普通查询，没有使用索引的话，会导致什么情况？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#那-update-语句的-where-带上索引就能避免全表记录加锁了吗？"><span class="post-toc-number">5.4.2.</span> <span class="post-toc-text">那 update 语句的 where 带上索引就能避免全表记录加锁了吗？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#update-没加索引，加的是表锁还是行锁"><span class="post-toc-number">5.4.3.</span> <span class="post-toc-text">update 没加索引，加的是表锁还是行锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#避免全表锁定"><span class="post-toc-number">5.4.4.</span> <span class="post-toc-text">避免全表锁定</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL-记录锁-间隙锁可以防止删除操作而导致的幻读吗？【可以】"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">MySQL 记录锁+间隙锁可以防止删除操作而导致的幻读吗？【可以】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插入意向锁"><span class="post-toc-number">5.5.1.</span> <span class="post-toc-text">插入意向锁</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-03-面经MySQL"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MySQL</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-03 00:00:00" datetime="2023-01-02T16:00:00.000Z"  itemprop="datePublished">2023-01-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Mysql/">Mysql</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p> questions</p>
+<a id="more"></a>
+<h1 id="mysql分为哪些层，各用来干嘛的"><a href="#mysql分为哪些层，各用来干嘛的" class="headerlink" title="mysql分为哪些层，各用来干嘛的"></a>mysql分为哪些层，各用来干嘛的</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/mysql查询流程.png.webp" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>mysql架构共分为两层：Server 层和存储引擎层</li>
+<li>Server 层负责建立连接、分析和执行 SQL</li>
+<li>存储引擎层负责数据的存储和提取<h2 id="mysql基于什么协议传输"><a href="#mysql基于什么协议传输" class="headerlink" title="mysql基于什么协议传输"></a>mysql基于什么协议传输</h2>TCP。<br>三次握手建立后，连接器验证用户名和密码。</li>
+</ul>
+<p><strong>连接器作用</strong></p>
+<ul>
+<li>TCP三次握手</li>
+<li>校检用户名密码，返回用户权限</li>
+</ul>
+<p><strong>查询缓存作用</strong></p>
+<ul>
+<li>select语句输入，执行，先去查询缓存中找，查询缓存中存的是之前执行过的sql语句，以key-value保存的，底层数据结构为哈希表。</li>
+<li>8.0.3后移除了这一层，在一些问题，包括性能问题、锁的竞争问题以及难以扩展。</li>
+</ul>
+<p><strong>解析器作用</strong></p>
+<ul>
+<li><code>词法分析-语法分析-语法树</code>结构</li>
+<li>词法分析（Lexical Analysis）</li>
+<li>语法分析（Syntax Analysis）语法分析器会将其转化为一个抽象语法树（<strong>AST</strong>）</li>
+<li><strong>AST</strong>的作用：编译器或解释器用来理解代码含义的数据结构，它可以被后续的步骤用来进行语义分析、优化和生成目标代码等。</li>
+<li>【查询优化】：对AST进行查询优化，选择合适的索引和决定连接顺序</li>
+</ul>
+<h2 id="【面试题】执行一条-SQL-查询语句，期间发生了什么？"><a href="#【面试题】执行一条-SQL-查询语句，期间发生了什么？" class="headerlink" title="【面试题】执行一条 SQL 查询语句，期间发生了什么？"></a>【面试题】执行一条 SQL 查询语句，期间发生了什么？</h2><ul>
+<li>连接器：建立连接，管理连接、校验用户身份；</li>
+<li>查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块；</li>
+<li>解析 SQL，通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型；</li>
+<li>执行 SQL：执行 SQL 共有三个阶段：</li>
+<li>prepare 预处理阶段：检查表或字段是否存在；将 select * 中的 * 符号扩展为表上的所有列。</li>
+<li>optimize 优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划；</li>
+<li>execute 执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端；</li>
+</ul>
+<h2 id="如何查看我的sql被几个客户端链接了"><a href="#如何查看我的sql被几个客户端链接了" class="headerlink" title="如何查看我的sql被几个客户端链接了"></a>如何查看我的sql被几个客户端链接了</h2><p>show processlist;会有ID user host等字段</p>
+<h2 id="mysql推荐使用长链接，但会产生的问题："><a href="#mysql推荐使用长链接，但会产生的问题：" class="headerlink" title="mysql推荐使用长链接，但会产生的问题："></a>mysql推荐使用长链接，但会产生的问题：</h2><p>随着长连接一直不释放，内存占用大。【解决方式】定期释放，主动重置连接mysql_reset_connection()</p>
+<h2 id="MYSQL的数据存储方式"><a href="#MYSQL的数据存储方式" class="headerlink" title="MYSQL的数据存储方式"></a>MYSQL的数据存储方式</h2><ol>
+<li>show variable like ‘datadir’; 可以查找mysql的文件在哪<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.opt  用来存储当前数据库的默认字符集和字符校验规则。</span><br><span class="line">t_order.frm  存放表结构，在 MySQL 中建立一张表都会生成一个.frm 文件，该文件是用来保存每个表的元数据信息的，主要包含表结构定义。</span><br><span class="line">t_order.ibd  存放表数据。表数据既可以存在共享表空间文件（文件名：ibdata1）里，也可以存放在独占表空间文件（文件名：表名字.ibd）。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="表空间文件的结构"><a href="#表空间文件的结构" class="headerlink" title="表空间文件的结构"></a>表空间文件的结构</h3><p>表空间由段（segment）、区（extent）、页（page）、行（row）组成</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/mysqltablestructure.drawio.webp" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>表中的数据在Page里，数据是按「页」为单位来读写的，当需要读一条记录的时候，并不是将这个行记录从磁盘读出来，而是以页为单位，将其整体读入内存。</li>
+<li>默认每个页的大小为 16KB，也就是最多能保证 16KB 的连续存储空间</li>
+</ul>
+<p><strong>按区分配空间的情况</strong></p>
+<ul>
+<li>在表中数据量大的时候，为某个索引分配空间的时候就不再按照页为单位分配了，而是按照区（extent）为单位分配。每个区的大小为 1MB，对于 16KB 的页来说，连续的 64 个页会被划为一个区，这样就使得链表中相邻的页的物理位置也相邻，就能使用顺序 I/O 了。</li>
+</ul>
+<p><strong>段一般分为数据段、索引段和回滚段等。</strong></p>
+<ul>
+<li>索引段：存放 B + 树的非叶子节点的区的集合；</li>
+<li>数据段：存放 B + 树的叶子节点的区的集合；</li>
+<li>回滚段：存放的是回滚数据的区的集合，之前讲事务隔离 (opens new window)的时候就介绍到了 MVCC 利用了回滚段实现了多版本查询数据。<h2 id="Innodb的行格式"><a href="#Innodb的行格式" class="headerlink" title="Innodb的行格式"></a>Innodb的行格式</h2>InnoDB 提供了 4 种行格式，分别是 Redundant、Compact、Dynamic和 Compressed 行格式。</li>
+</ul>
+<p><strong>COMPACT 行格式</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/COMPACT.drawio.png.webp" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li><p>数据类型：char 是定长的，varchar 是变长的，变长字段实际存储的数据的长度（大小）不固定的。</p>
+</li>
+<li><p>row_id：<br>如果我们建表的时候指定了主键或者唯一约束列，那么就没有 row_id 隐藏字段了。如果既没有指定主键，又没有唯一约束，那么 InnoDB 就会为记录添加 row_id 隐藏字段。row_id不是必需的，占用 6 个字节。</p>
+</li>
+<li><p>trx_id：<br>事务id，表示这个数据是由哪个事务生成的。 trx_id是必需的，占用 6 个字节。</p>
+</li>
+<li><p>roll_pointer：<br>这条记录上一个版本的指针。roll_pointer 是必需的，占用 7 个字节</p>
+</li>
+<li><p>NULL值列表：用位图存储的。压缩行存储通过一种称为”Dynamic Prefix”的技术，动态地存储每一行的前缀信息和 NULL 列的位图。这使得它可以更加高效地存储具有大量 NULL 列的行。</p>
+<h1 id="mysql读取时的几个情况"><a href="#mysql读取时的几个情况" class="headerlink" title="mysql读取时的几个情况"></a>mysql读取时的几个情况</h1></li>
+<li><p>脏读：读到其他事务未提交的数据；</p>
+</li>
+<li><p>不可重复读：前后读取的数据不一致；</p>
+</li>
+<li><p>幻读：前后读取的记录数量不一致。</p>
+</li>
+</ul>
+<p><strong>脏读</strong>: A事务读取到了B事务未提交的内容,而B事务后面进行了回滚. </p>
+<p><strong>不可重复读</strong>: 当设置A事务只能读取B事务已经提交的部分,会造成在A事务内的两次查询,结果竟然不一样,因为在此期间B事务进行了提交操作. </p>
+<p><strong>幻读</strong>: A事务读取了一个范围的内容,而同时B事务在此期间插入了一条数据.造成”幻觉”. </p>
+<h1 id="MySQL什么情况下索引会失效"><a href="#MySQL什么情况下索引会失效" class="headerlink" title="MySQL什么情况下索引会失效"></a>MySQL什么情况下索引会失效</h1><ol>
+<li>组合索引时，如果查询条件没有使用最左边的字段，就不会使用索引</li>
+<li>like进行匹配时，如果字符串前面含有%百分号，就会全表扫描时，不使用索引，</li>
+<li>还有一种情况，是如果查询条件中类型是字符串，没有引号，发生了隐式转换就不会使用索引</li>
+<li>对索引列进行运算</li>
+<li>判断索引列是否不等于某个值时</li>
+<li>查询条件使用or连接，也会导致索引失效</li>
+</ol>
+<h1 id="mysql四种隔离级别"><a href="#mysql四种隔离级别" class="headerlink" title="mysql四种隔离级别"></a>mysql四种隔离级别</h1><ol>
+<li>Serializable (串行化) :可避免脏读、不可重复读、幻读的发生。 </li>
+<li>Repeatable read (可重复读) :可避免脏读、不可重复读的发生。 </li>
+<li>Read committed (读已提交) :可避免脏读的发生。</li>
+<li>Read uncommitted (读未提交) :最低级别，任何情况都无法保证。 </li>
+</ol>
+<p>SQL查看隔离级别：</p>
+<figure class="highlight plain"><figcaption><span>@@transaction_isolation;```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">设置隔离级别：</span><br><span class="line">```set session transaction isolation level read uncommitted;</span><br></pre></td></tr></table></figure>
+
+<h2 id="生产环境数据库一般用的什么隔离级别呢？"><a href="#生产环境数据库一般用的什么隔离级别呢？" class="headerlink" title="生产环境数据库一般用的什么隔离级别呢？"></a>生产环境数据库一般用的什么隔离级别呢？</h2><p>生产环境大多使用RC(读已提交)，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">缘由一：在可重复读RR隔离级别下，存在**间隙锁**，导致出现死锁的几率比RC大的多！ </span><br><span class="line">缘由二：在RR隔离级别下，条件列未命中索引会锁表！而在RC隔离级别下，只锁行!</span><br></pre></td></tr></table></figure>
+
+<p>InnoDB的默认隔离级别：可重复读，不能避免幻读<br>多版本并发控制协议MVCC(Multi- Version Concurrency Control) </p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h2><p>索引是存储引擎用于提高数据库表的访问速度的一种数据结构。它可以比作一本字典的目录，可以帮你快速找到对应的记录。<br>索引一般存储在磁盘的文件中，它是占用物理空间的。</p>
+<h2 id="索引的分类（按字段特性）"><a href="#索引的分类（按字段特性）" class="headerlink" title="索引的分类（按字段特性）"></a>索引的分类（按字段特性）</h2><ol>
+<li>主键索引：primary key，在创建表的时候一起创建，一张表最多只有一个主键索引，索引列的值不允许有空值。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> A(</span><br><span class="line">    x <span class="built_in">int</span> primary <span class="keyword">key</span>, </span><br><span class="line">    //或</span><br><span class="line">    x <span class="built_in">int</span>,</span><br><span class="line">    primary <span class="keyword">key</span>(x) <span class="keyword">using</span> BTREE</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>建表后，创建主键索引<br><code>CREATE INDEX a ON tableA(a);</code><br>再将其添加主键约束<br><code>ALTER TABLE tableA ADD CONTRAINT id PRIMARY KEY</code></p>
+<p>如果仅改一个主键<code>ALTER TABLE tableA ADD PRIMARY KEY(a)</code></p>
+<ol start="2">
+<li>唯一索引：unique key建立在 UNIQUE 字段上的索引，一张表可以有多个唯一索引，<strong>索引列的值必须唯一，但是允许有空值</strong>。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> A&#123;</span><br><span class="line">    x <span class="built_in">int</span> <span class="keyword">unique</span> <span class="keyword">key</span>,</span><br><span class="line">    <span class="keyword">unique</span> <span class="keyword">key</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>建表后，创建唯一索引<code>create UNIQUE INDEX index_name
+ON table_name(index_column_1,index_column_2,...);</code></li>
+</ul>
+<ol start="3">
+<li><p>普通索引/二级索引:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> idx <span class="keyword">on</span> tableA(a,b,x,y);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>前缀索引: 对字符类型字段的前几个字符建立的索引，而不是在整个字段上建立的索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tableA(</span><br><span class="line">    a <span class="built_in">varchar</span>(<span class="number">255</span>),</span><br><span class="line">    <span class="keyword">INDEX</span>(a(<span class="number">10</span>))//字符串前<span class="number">10</span>个字符匹配。</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="【面试考点】联合索引如何使用的"><a href="#【面试考点】联合索引如何使用的" class="headerlink" title="【面试考点】联合索引如何使用的"></a>【面试考点】联合索引如何使用的</h3><ol>
+<li>联合索引范围查询</li>
+</ol>
+<p>联合索引的最左匹配原则会一直向右匹配直到遇到「范围查询」就会停止匹配。也就是范围查询的字段可以用到联合索引，但是在范围查询字段的后面的字段无法用到联合索引。</p>
+<p>【例子】</p>
+<figure class="highlight plain"><figcaption><span>* from  tableA where a> 10 and b</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">```select * from  tableA where a&gt;= 10 and b=2;```的区别：</span><br><span class="line">a都用了索引，一个没用，一个用了。因为对于联合索引，是先按照 a 字段的值排序，然后在 a 字段的值相同的情况下，再按照 b 字段的值进行排序</span><br><span class="line">   </span><br><span class="line">## 索引的优缺点？</span><br><span class="line"></span><br><span class="line">优点：</span><br><span class="line">- 加快数据查找的速度</span><br><span class="line">- 为用来排序或者是分组的字段添加索引，可以加快分组和排序的速度</span><br><span class="line">- 加快表与表之间的连接</span><br><span class="line"></span><br><span class="line">缺点：</span><br><span class="line">- 建立索引需要占用物理空间</span><br><span class="line">- 会降低表的增删改的效率，因为每次对表记录进行增删改，需要进行动态维护索引，导致增删改时间变长</span><br><span class="line">## 什么情况下需要建索引？</span><br><span class="line"></span><br><span class="line">- 经常**用于查询**的字段</span><br><span class="line">- 经常**用于连接**的字段建立索引，可以加快连接的速度</span><br><span class="line">- 经常**需要排序**的字段建立索引，因为索引已经排好序，可以加快排序查询速度</span><br><span class="line"></span><br><span class="line">## 什么情况下不建索引？</span><br><span class="line"></span><br><span class="line">- where条件中用不到的字段不适合建立索引</span><br><span class="line">- 表记录较少。比如只有几百条数据，没必要加索引。</span><br><span class="line">- 需要经常增删改。需要评估是否适合加索引</span><br><span class="line">- 参与列计算的列不适合建索引</span><br><span class="line">- 区分度不高的字段不适合建立索引，如性别，只有男/女/未知三个值。加了索引，查询效率也不会提高。</span><br><span class="line"></span><br><span class="line">## 哈希索引</span><br><span class="line">哈希索引是基于哈希表实现的，对于每一行数据，存储引擎会对索引列进行哈希计算得到哈希码，并且哈希算法要尽量保证不同的列值计算出的哈希码值是不同的，将哈希码的值作为哈希表的key值，将指向数据行的指针作为哈希表的value值。这样查找一个数据的时间复杂度就是O(1)，一般多用于精确查找。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 【面试题】InnoDB为什么用B+树做索引</span><br><span class="line">从数据结构和考虑磁盘 I/O 操作次数回答</span><br><span class="line">![](/images/innodbb%2Btree.webp)</span><br><span class="line">因为B+树可以实现**有序存放**和**减少磁盘IO**</span><br><span class="line">知识点：</span><br><span class="line">1. 适合范围查找：普通二分查找树</span><br><span class="line">   由于树是存储在磁盘中的，访问每个节点，都对应一次磁盘 I/O 操作（假设一个节点的大小「小于」操作系统的最小读写单位块的大小），也就是说树的高度就等于每次查询数据时磁盘 IO 操作的次数，所以树的高度越高，就会影响查询性能。</span><br><span class="line">2.  在 B+ 树中，叶子节点和非叶子节点的数据结构是一样的，区别在于，叶子节点存放的是实际的行数据，而非叶子节点存放的是主键和页号。</span><br><span class="line"></span><br><span class="line">### 【再问】为什么不用B树</span><br><span class="line">B树和B+的时间复杂度查找都是O(logN)，但是B 树可能会因为树的分支过多，导致需要进行多次磁盘访问。并且B+支持多级索引，很容易扩展。</span><br><span class="line">- 更适合磁盘存储：</span><br></pre></td></tr></table></figure>
+
+<p>B+ 树的叶子节点形成了一个有序链表，这使得范围查询的效率非常高，因为相邻的元素会被存储在相邻的位置，可以在一个或者很少几个相邻的节点中找到所有需要的数据。<br>B+ 树的叶子节点包含了所有的数据记录，这意味着每次查找都可以直接定位到具体的数据行，而不需要额外的中间层节点来获取实际数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 支持多级索引</span><br><span class="line"></span><br><span class="line">B+ 树可以很容易地扩展为多级索引。在多级索引中，每一层都是一个独立的 B+ 树，它们之间通过指针进行连接。这样的设计使得在大量数据的情况下也可以保持高效的检索速度。</span><br></pre></td></tr></table></figure>
+
+<p>举例来说，假设我们有一个三级索引 (a, b, c)，那么：<br>第一级索引以 a 为键构建一颗 B+ 树，每个节点中存储 b 的值以及指向第二级索引的指针。<br>第二级索引以 b 为键构建一颗 B+ 树，每个节点中存储 c 的值以及指向第三级索引的指针。<br>第三级索引以 c 为键构建一颗 B+ 树，叶子节点中存储了对应的数据记录。<br>这样的设计使得在多级索引中，每一层都能帮助缩小搜索范围，从而提高查询效</p>
+<p>其中，叶子节点和非叶子节点的数据结构是一样的，区别在于，叶子节点存放的是实际的行数据，而非叶子节点存放的是主键和页号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">## 为什么B+ 和 B树</span><br><span class="line">- 从存储情况来说，B+只有叶子村数据，B树所有节点都有数据，这样就增加了磁盘IO次数</span><br><span class="line">- B+ 的非叶子结点仅有关键字，适合搜索</span><br><span class="line"></span><br><span class="line">B 树的内部节点既包含关键字也包含指向实际数据的指针，而 B+ 树的内部节点仅包含关键字，实际数据只存储在叶子节点中。这使得 B+ 树在磁盘存储和范围查询等方面具有优势，适合作为数据库索引的数据结构</span><br><span class="line"></span><br><span class="line">## 【面试】 索引失效的情况</span><br><span class="line">- 左/左右模糊匹配`like %a`</span><br><span class="line">- 使用函数，但是8.0之后出现了函数索引</span><br><span class="line">- 表达式计算</span><br><span class="line">- 隐式类型转换，比如name是varchar，查询时使用`select 8 from A where name=11111;`</span><br><span class="line">- 联合索引的非**最左匹配**：</span><br><span class="line">- WHERE 里面的 OR操作，导致全表扫描：OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，解决办法将其都加上索引。</span><br><span class="line">## 【面试题】索引下推是什么，回表是什么</span><br><span class="line">- **explain会显示Extra字段为using index condition，表示使用了索引下推**</span><br><span class="line">- 回表也叫二次查询，指在数据库中执行一个查询，如果查询的字段不在查询的索引中，数据库可能需要通过索引定位到相应的行，然后再去实际的数据页中获取所需的字段值，这个过程就被称为回表。</span><br><span class="line">以索引举例，查了两个索引，那么就是先根据第一个索引找到符合要求的值，然后在这些行里用第二个索引进行过滤。</span><br><span class="line"></span><br><span class="line">截断的字段不会在 Server 层进行条件判断，而是会被下推到「存储引擎层」进行条件判断（因为 c 字段的值是在 (a, b, c) 联合索引里的），然后过滤出符合条件的数据后再返回给 Server 层。由于在引擎层就过滤掉大量的数据，无需再回表读取数据来进行判断，减少回表次数，从而提升了性能。</span><br><span class="line"></span><br><span class="line">## 【面试】最左匹配的一个问题：当where a=1 and c=3时，符合最左匹配吗</span><br><span class="line">答案：符合最左，只有a用了索引，c字段没使用</span><br><span class="line">严格意义上来说是属于索引截断。</span><br><span class="line"></span><br><span class="line">- MySQL 5.5 的话，前面 a 会走索引，在联合索引找到主键值后，开始回表，到主键索引读取数据行，Server 层从存储引擎层获取到数据行后，然后在 Server 层再比对 c 字段的值。</span><br><span class="line">- 从 MySQL 5.6 之后，有一个索引下推功能，可以在存储引擎层进行索引遍历过程中，对索引中包含的字段先做判断，直接过滤掉不满足条件的记录，再返还给 Server 层，从而减少回表次数。</span><br><span class="line">## 【面试】讲一下回表和索引下推的区别</span><br><span class="line">- **表是先通过索引查询行，再访问数据行涉及到两次磁盘访问**</span><br><span class="line">- **先在索引上执行一部分或全部的查询条件，大大减少磁盘访问次数**</span><br><span class="line"></span><br><span class="line">**表（Lookup）：**</span><br><span class="line"></span><br><span class="line">定义：</span><br><span class="line">回表是指在使用索引定位到符合查询条件的行后，再次访问实际的数据行，从中获取所需的字段值的过程。</span><br><span class="line"></span><br><span class="line">过程：</span><br><span class="line">使用索引定位到符合查询条件的行的位置。</span><br><span class="line">从定位到的位置中读取行的指针或主键。</span><br><span class="line">使用指针或主键再次访问实际的数据行，从中获取所需的字段值。</span><br><span class="line"></span><br><span class="line">代价：</span><br><span class="line">回表的代价相对较高，因为它涉及了两次磁盘/内存访问。</span><br><span class="line"></span><br><span class="line">**索引下推（Index Pushdown）：**</span><br><span class="line"></span><br><span class="line">定义：</span><br><span class="line">索引下推是指在查询执行过程中，数据库管理系统会尝试在索引上执行部分或全部的查询条件，从而减少需要访问实际数据行的次数。</span><br><span class="line"></span><br><span class="line">过程：</span><br><span class="line">当查询中的条件可以在索引中找到匹配项时，数据库会尝试在索引上执行这部分查询条件，以过滤掉不符合条件的行。 只有符合索引条件的行才会被返回给用户。</span><br><span class="line"></span><br><span class="line">优势：</span><br><span class="line">减少了回表的次数，降低了查询的代价，提高了查询的性能。</span><br><span class="line">减少了磁盘/内存访问次数，尤其在大型数据集中，效果显著。</span><br><span class="line"></span><br><span class="line">适用情况：</span><br><span class="line">索引下推通常在涉及到范围查询、排序、聚合等操作时可以发挥较大的优化作用。</span><br><span class="line"></span><br><span class="line">## Hash索引和B+树索引的区别？</span><br><span class="line"></span><br><span class="line">哈希索引**不支持排序**，因为哈希表是无序的。</span><br><span class="line">哈希索引**不支持范围查找**。</span><br><span class="line">哈希索引**不支持模糊查询**及组合索引的最左前缀匹配。</span><br><span class="line">因为哈希表中会存在哈希冲突，所以哈希索引的性能是**不稳定**的，</span><br><span class="line">而B+树索引的性能是**相对稳定的**，每次查询都是从根节点到叶子节点。</span><br><span class="line"></span><br><span class="line">## 为什么B+树比B树更适合实现数据库索引？</span><br><span class="line"></span><br><span class="line">- 由于B+树的数据都存储在叶子结点中，叶子结点均为索引，方便扫库，只需要扫一遍叶子结点即可，但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来扫，所以B+树更加适合在区间查询的情况，而在数据库中基于范围的查询是非常频繁的，所以通常B+树用于数据库索引。</span><br><span class="line"></span><br><span class="line">B+树的节点只存储索引key值，具体信息的地址存在于叶子节点的地址中。这就使以页为单位的索引中可以存放更多的节点。减少更多的I/O支出。</span><br><span class="line"></span><br><span class="line">B+树的查询效率更加稳定，任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当</span><br><span class="line"></span><br><span class="line">## 什么是覆盖索引？</span><br><span class="line"></span><br><span class="line">select的数据列只用从索引中就能够取得，不需要回表进行二次查询，也就是说查询列要被所使用的索引覆盖。对于innodb表的二级索引，如果索引能覆盖到查询的列，那么就可以避免对主键索引的二次查询。</span><br><span class="line"></span><br><span class="line">不是所有类型的索引都可以成为覆盖索引。覆盖索引要存储索引列的值，而哈希索引、全文索引不存储索引列的值，所以MySQL使用b+树索引做覆盖索引。</span><br><span class="line"></span><br><span class="line">对于使用了覆盖索引的查询，在查询前面使用explain，输出的extra列会显示为using index。</span><br><span class="line"></span><br><span class="line">比如user_like 用户点赞表，组合索引为(user_id, blog_id)，user_id和blog_id都不为null。</span><br><span class="line"></span><br><span class="line">```explain select blog_id from user_like where user_id = 13;</span><br></pre></td></tr></table></figure>
+
+<p>explain结果的Extra列为Using index，查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过索引查找就能直接找到符合条件的数据，不需要回表查询数据。</p>
+<figure class="highlight plain"><figcaption><span>select user_id from user_like where blog_id </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">explain结果的Extra列为Using where; Using index， 查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过索引扫描找到符合条件的数据，也不需要回表查询数据。</span><br><span class="line"></span><br><span class="line"># 数据库引擎</span><br><span class="line">## InnoDB存储引擎</span><br><span class="line"></span><br><span class="line">InnoDB是MySQL默认的事务型存储引擎，使用最广泛，基于**聚簇索引**建立的。InnoDB内部做了很多优化，如能够自动在内存中创建自适应hash索引，以加速读操作。</span><br><span class="line"></span><br><span class="line">**优点**：支持事务和崩溃修复能力；引入了行级锁和外键约束。</span><br><span class="line"></span><br><span class="line">**缺点**：占用的数据空间相对较大。</span><br><span class="line"></span><br><span class="line">**适用场景**：需要事务支持，并且有较高的并发读写频率。</span><br><span class="line">### 什么是聚集索引？</span><br><span class="line"></span><br><span class="line">InnoDB使用**表的主键构造主键索引树**，同时叶子节点中存放的即为整张表的记录数据。聚集索引叶子节点的存储是逻辑上连续的，使用双向链表连接，叶子节点按照主键的顺序排序，因此对于主键的排序查找和范围查找速度比较快。</span><br><span class="line"></span><br><span class="line">聚集索引的叶子节点就是整张表的行记录。InnoDB 主键使用的是聚簇索引。聚集索引要比非聚集索引查询效率高很多。</span><br><span class="line"></span><br><span class="line">对于InnoDB来说，聚集索引一般是表中的主键索引，如果表中没有显示指定主键，则会选择表中的第一个不允许为NULL的唯一索引。如果没有主键也没有合适的唯一索引，那么InnoDB内部会生成一个隐藏的主键作为聚集索引，这个隐藏的主键长度为6个字节，它的值会随着数据的插入自增。</span><br><span class="line"></span><br><span class="line">## MyISAM存储引擎</span><br><span class="line"></span><br><span class="line">数据以紧密格式存储。对于只读数据，或者表比较小、可以容忍修复操作，可以使用MyISAM引擎。MyISAM会将表存储在两个文件中，数据文件.MYD和索引文件.MYI。</span><br><span class="line"></span><br><span class="line">**优点**: 访问速度快。</span><br><span class="line"></span><br><span class="line">**缺点**：MyISAM不支持事务和行级锁，不支持崩溃后的安全恢复，也不支持外键。</span><br><span class="line"></span><br><span class="line">**适用场景**：对事务完整性没有要求；表的数据都会只读的。</span><br><span class="line"></span><br><span class="line">## InnoDB和MyISAM的区别</span><br><span class="line">1. myisam支持表锁，Innodb支持行锁，解决脏读和不可重复度</span><br><span class="line">2. myisam没有事务日志，innodb有binlog可以恢复数据库</span><br><span class="line">3. myisam数据存储是直接查到内存地址，innodb是有数据缓存，myisam更快一些</span><br><span class="line">4. 使用场景myisam适合读场景多，crud场景少的场景，比如博客这些；innodb适合事务支持，高并发等情况</span><br><span class="line">## 两者索引的区别【非聚簇索引myisam，看3.】</span><br><span class="line">1. myisam使用非聚簇索引，B树，innodb使用聚簇索引，B+树</span><br><span class="line">2. myisam的索引和数据存储是分开的，聚簇索引是将数据和索引存储在一起</span><br><span class="line">3. 将数据存储于索引分开结构，索引结构的叶子节点指向了数 据的对应行，myisam 通 过 key_buffer 把索引先缓存到内存中，当需要访问 数据时(通过索引访问数据)，在内存中直接 搜索索引，然后通过索引找 到磁盘相应数据，这也就是为什么索引不在 key buffer 命中时，速度慢 的 原因。</span><br><span class="line">## 【面试】为什么innodb用b+而不用b树</span><br><span class="line">b+树在范围查询和顺序访问上有优势：</span><br><span class="line">b+树叶子节点形成了一个有序链表，有利于范围查询和顺序访问，不需遍历整棵树</span><br><span class="line">## 【重点】为什么innodb比myisam慢了点</span><br><span class="line">- myisam是非聚簇，索引和数据是分开的，在查询时，可以直接访问到索引文件，而不需要额外的查找操作。</span><br><span class="line">- 而在 InnoDB 中，由于使用了聚簇索引，查询时可能需要在索引中定位到主键，再根据主键访问数据行</span><br><span class="line"># 事务Transaction</span><br><span class="line">## InnoDB 引擎通过什么技术来保证事务的这ACID特性的？</span><br><span class="line"></span><br><span class="line">- 持久性Durability是通过 redo log（重做日志）来保证的；</span><br><span class="line">- 原子性Atomicity 是通过 undo log（回滚日志）来保证的；</span><br><span class="line">- 隔离性Isolation是通过 MVCC（多版本并发控制） 或锁机制来保证的；</span><br><span class="line">- 一致性Consistency则是通过持久性+原子性+隔离性来保证；</span><br><span class="line"></span><br><span class="line">*MySQL 并不会使用「串行化」隔离级别来避免幻读现象的发生，因为使用「串行化」隔离级别会影响性能*</span><br><span class="line">https://xiaolincoding.com/mysql/transaction/phantom.html#什么是幻读</span><br><span class="line">## 可重复读隔离级别是启动事务时生成一个 Read View，然后整个事务期间都在用这个 Read View。</span><br><span class="line"></span><br><span class="line">## 【面试题】为什么事务要有隔离性，我们就要知道并发事务时会引发什么问题。</span><br><span class="line">数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致，因为多个事务同时使用相同的数据时，不会相互干扰，每个事务都有一个完整的数据空间，对其他并发事务是隔离的。</span><br><span class="line"></span><br><span class="line">## 多事务的并发进行一般会造成以下几个问题: </span><br><span class="line"></span><br><span class="line">锁：共享锁和排他锁（读写锁）</span><br><span class="line"></span><br><span class="line"># 【面试重点】锁</span><br><span class="line">锁分为全局锁，表锁，行锁，下面介绍各锁的使用和场景</span><br><span class="line">## 全局锁</span><br><span class="line">**应用场景**：全局锁主要应用于做全库逻辑备份，这样在备份数据库期间，不会因为数据或表结构的更新，而出现备份文件的数据与预期的不一样。</span><br><span class="line"></span><br><span class="line">**缺点**：意味着整个数据库都是只读状态，备份花时间长，无法执行其他操作。</span><br><span class="line">但是MYSQL解决了这个问题，通过**可重复度**，使用ReadView，事务操作时用ReadView，MVCC支持备份与事务同时进行。</span><br><span class="line"></span><br><span class="line">- 上锁1`flush tables with READ lock;`锁定所有的表，防止其他会话对这些表进行写操作，但允许读操作</span><br><span class="line">- 上锁2`lock tables [tablename] READ/WRITE`</span><br><span class="line">- `unlock tables;`</span><br><span class="line"></span><br><span class="line">## 表级锁</span><br><span class="line">### 表锁</span><br><span class="line">**应用场景**:表级别的共享锁=读锁,独占锁=写锁</span><br><span class="line">- 尽量避免在使用 InnoDB 引擎的表使用表锁，因为表锁的颗粒度太大，会影响并发性能</span><br><span class="line">- `lock tables [tablename] read/write;` </span><br><span class="line">### 元数据锁</span><br><span class="line">**应用场景**不需要显式使用，在CRUD/alter中自动创建，select执行完才可以执行其他操作，</span><br><span class="line">- MDL 是在事务提交后才会释放，这意味着事务执行期间，MDL 是一直持有的。</span><br><span class="line">  </span><br><span class="line">【引申问题】</span><br><span class="line">那如果数据库有一个长事务（所谓的长事务，就是开启了事务，但是一直还没提交），</span><br><span class="line">首先，线程 A 先启用了事务（但是一直不提交），然后执行一条 select 语句，此时就先对该表加上 MDL 读锁；</span><br><span class="line"></span><br><span class="line">然后，线程 B 也执行了同样的 select 语句，此时并不会阻塞，因为「读读」并不冲突；</span><br><span class="line"></span><br><span class="line">接着，线程 C 修改了表字段，此时由于线程 A 的事务并没有提交，也就是 MDL 读锁还在占用着，这时线程 C 就无法申请到 MDL 写锁，就会被阻塞，</span><br><span class="line"></span><br><span class="line">那么在线程 C 阻塞后，后续有对该表的 select 语句，就都会被阻塞，如果此时有大量该表的 select 语句的请求到来，就会有大量的线程被阻塞住，这时数据库的线程很快就会爆满了。</span><br><span class="line"></span><br><span class="line">**那么为什么线程 C 因为申请不到 MDL 写锁，而导致后续的申请读锁的查询操作也会被阻塞？**</span><br><span class="line"></span><br><span class="line">因为申请 MDL 锁的操作会形成一个队列，队列中写锁获取优先级高于读锁，一旦出现 MDL 写锁等待，会阻塞后续该表的所有 CRUD 操作。</span><br><span class="line"></span><br><span class="line">### 意向锁</span><br><span class="line">**用于快速判断表是否加了锁**。因为：</span><br><span class="line"></span><br><span class="line">如果没有「意向锁」，那么加「独占表锁」时，就需要遍历表里所有记录，查看是否有记录存在独占锁，这样效率会很慢。</span><br><span class="line"></span><br><span class="line">### 自增锁</span><br><span class="line">```java</span><br><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY) // 指定自动生成主键的策略</span><br><span class="line">@Column(name = &quot;id&quot;)</span><br><span class="line">private int id;</span><br></pre></td></tr></table></figure>
+
+<p>在插入数据的时候，会为被 AUTO_INCREMENT 修饰的字段加上轻量级锁，然后给该字段赋值一个自增的值，就把这个轻量级锁释放了，而不需要等待整个插入语句执行完后才释放锁。</p>
+<p><strong>应用场景</strong></p>
+<h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><p><strong>记录锁 Record Lock</strong>，仅仅把一条记录锁上；</p>
+<p><strong>间隙锁 Gap Lock</strong>，锁定一个范围，但是不包含记录本身；间隙锁的意义只在于阻止区间被插入</p>
+<p><strong>临键锁 Next-Key Lock</strong>：Record Lock + Gap Lock 的组合，锁定一个范围，并且锁定记录本身。</p>
+<ul>
+<li>【普通的select没有行锁】普通的 select 是不会加行级锁的，普通的 select 语句是利用 MVCC 实现一致性读，是无锁的。<h3 id="记录锁-Record-Lock"><a href="#记录锁-Record-Lock" class="headerlink" title="记录锁 Record Lock"></a>记录锁 Record Lock</h3>记录锁分为S锁和X锁。</li>
+<li>当一个事务对一条记录加了 S 型记录锁后，其他事务也可以继续对该记录加 S 型记录锁（S 型与 S 锁兼容），但是不可以对该记录加 X 型记录锁（S 型与 X 锁不兼容）;</li>
+<li>当一个事务对一条记录加了 X 型记录锁后，其他事务既不可以对该记录加 S 型记录锁（S 型与 X 锁不兼容），也不可以对该记录加 X 型记录锁（X 型与 X 锁不兼容）。<h3 id="间隙锁-Gap-Lock"><a href="#间隙锁-Gap-Lock" class="headerlink" title="间隙锁 Gap Lock"></a>间隙锁 Gap Lock</h3>只存在于可重复读隔离级别，目的是为了解决可重复读隔离级别下幻读的现象。</li>
+<li>对间隙加锁是为了防止插入/删除的时候出现幻读</li>
+<li>间隙锁之间是兼容的，即两个事务可以同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入幻影记录而提出的。<h3 id="临键锁-Next-key-Lock"><a href="#临键锁-Next-key-Lock" class="headerlink" title="临键锁 Next-key Lock"></a>临键锁 Next-key Lock</h3>理解为一个范围的间隙锁</li>
+</ul>
+<h2 id="【面试题】MYSQL怎么加锁"><a href="#【面试题】MYSQL怎么加锁" class="headerlink" title="【面试题】MYSQL怎么加锁"></a>【面试题】MYSQL怎么加锁</h2><ol>
+<li>【加行锁】在查询时对记录加行级锁，这两种查询会加锁的语句称为锁定读。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//对读取的记录加共享锁(S型锁)</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">lock</span> <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span>;</span><br><span class="line"></span><br><span class="line">//对读取的记录加独占锁(X型锁)</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"></span><br><span class="line">//对操作的记录加独占锁(X型锁)</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">table</span> .... <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">//对操作的记录加独占锁(X型锁)</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>上面这两条语句必须在一个事务中，因为当事务提交了，锁就会被释放，所以在使用这两条语句的时候，要加上 begin 或者 start transaction 开启事务的语句。</p>
+<h3 id="普通查询，没有使用索引的话，会导致什么情况？"><a href="#普通查询，没有使用索引的话，会导致什么情况？" class="headerlink" title="普通查询，没有使用索引的话，会导致什么情况？"></a>普通查询，没有使用索引的话，会导致什么情况？</h3><p>没有使用索引字段作查询条件的话，导致扫描是全表扫描。那么，每一条记录的索引上都会加 临键（NK）锁，这样就相当于锁住的全表，这时如果其他事务对该表进行增、删、改操作的时候，都会被阻塞。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.xiaolincoding.com//mysql/other/3c3af16e7a948833ccb6409e8b51daf8.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>如果在 update 语句的 where 条件没有使用索引，就会全表扫描，于是就会对所有记录加上 next-key 锁（记录锁 + 间隙锁），相当于把整个表锁住了。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.xiaolincoding.com//mysql/other/1aa886fe95e7bc791c296e2d342fa435.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+这条 update 语句产生了 4 个记录锁（有几条记录就有几个Record锁）和 5 个间隙锁（范围+1），相当于锁住了全表。</li>
+</ul>
+<h3 id="那-update-语句的-where-带上索引就能避免全表记录加锁了吗？"><a href="#那-update-语句的-where-带上索引就能避免全表记录加锁了吗？" class="headerlink" title="那 update 语句的 where 带上索引就能避免全表记录加锁了吗？"></a>那 update 语句的 where 带上索引就能避免全表记录加锁了吗？</h3><p>关键还得看这条语句在执行过程种，优化器最终选择的是索引扫描，还是全表扫描，如果走了全表扫描，就会对全表的记录加锁了。</p>
+<h3 id="update-没加索引，加的是表锁还是行锁"><a href="#update-没加索引，加的是表锁还是行锁" class="headerlink" title="update 没加索引，加的是表锁还是行锁"></a>update 没加索引，加的是表锁还是行锁</h3><p>对每一行都加了NK锁，就锁了整张表。</p>
+<h3 id="避免全表锁定"><a href="#避免全表锁定" class="headerlink" title="避免全表锁定"></a>避免全表锁定</h3><p>将 MySQL 里的 <strong>sql_safe_updates 参数设置为 1</strong>，开启安全更新模式。</p>
+<ul>
+<li><p>update 语句必须满足如下条件之一才能执行成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用 where，并且 where 条件中必须有索引列；</span><br><span class="line">使用 limit；</span><br><span class="line">同时使用 where 和 limit，此时 where 条件中可以没有索引列；</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>delete 语句必须满足以下条件能执行成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">同时使用 where 和 limit，此时 where 条件中可以没有索引列；</span><br><span class="line"></span><br><span class="line">另外：如果 where 条件带上了索引列，但是优化器最终扫描选择的是全表，而不是索引的话，我们可以使用 FORCE INDEX([index_name]) 可以告诉优化器使用哪个索引，以此避免有几率锁全表带来的隐患。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="MySQL-记录锁-间隙锁可以防止删除操作而导致的幻读吗？【可以】"><a href="#MySQL-记录锁-间隙锁可以防止删除操作而导致的幻读吗？【可以】" class="headerlink" title="MySQL 记录锁+间隙锁可以防止删除操作而导致的幻读吗？【可以】"></a>MySQL 记录锁+间隙锁可以防止删除操作而导致的幻读吗？【可以】</h2><h3 id="插入意向锁"><a href="#插入意向锁" class="headerlink" title="插入意向锁"></a>插入意向锁</h3><p>插入意向锁的生成时机：</p>
+<p>每插入一条新记录，都需要看一下待插入记录的下一条记录上是否已经被加了间隙锁，如果已加间隙锁，此时会生成一个插入意向锁，然后锁的状态设置为等待状态（PS：MySQL 加锁时，是先生成锁结构，然后设置锁的状态，如果锁状态是等待状态，并不是意味着事务成功获取到了锁，只有当锁状态为正常状态时，才代表事务成功获取到了锁），现象就是 Insert 语句会被阻塞。<br>#</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:26:58.056Z" itemprop="dateUpdated">2023-10-31 01:26:58</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/&title=《MySQL》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/&title=《MySQL》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/04/2023-01-04-面经计算机网络/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">NetWorking</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/03/2023-01-03-面经MySQL问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MySQL questions</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/&title=《MySQL》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/&title=《MySQL》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/03/2023-01-03-面经MySQL/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3aO27DMBAFwNz/0k6bIpHfW8oBRI6qwBZojYrN/r6+4uv142o//+uen3den3bbhYGB8VjG6/KaMa4f8frz5NtffhEDA+MARvIQ+f05I0Emv4WBgYHRhs7k5PUTMDAwMGYBN0/mrj/HwMDAmBWx9xauSZD9SC2OgYHxQEbedf//vz8y38DAwHgU41VeeUC8TgHbxtybp8LAwNiakQe49cSxPaFe/sDAwDiAUQe4hSWMNhBHySIGBsaRjHtL31k4LsI6BgbGpoxk6aFF5osUd41LMTAw9mYkwfE6jZs12u5KRjEwMM5h5C37JOGbnVA31/KYjYGB8XDGvcVqWwDnAf3NCRgYGAcw8vKyBSSt/6QNN2y3YWBgbMG4/jpfgGhXJdoz6yocAwNjI0YSahPkSpqYr5QNa1wMDIyHM9rO3KzUzNcs8qD/5r8HBgbGRozZ8kSyGJEPO9ux6A1BFgMD41GM2QCgfTV5qM0TVgwMjDMZ+RrWrLn2uWEnBgbGCYz86LoyDhr91y8rH2piYGCcw2gjWNIsW2nPFQMDDAyMAxjrKVrbjFtPE4dFOgYGxqMYr/LK8SujzXYIgYGBsTdj1iZrI3qbJrYhGwMD4wRGEmTbt7Ly5oZDCAwMjAMY+Rggb+63lebSEBQDAwMjTvvyda7Z/R8MuBgYGBsxZq232ZAyH0JgYGCcwJgtSSTlbrvmNSyMMTAwtmbM1ixmqxjtWsbsSTAwMDZifANIgXRyOrqpswAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

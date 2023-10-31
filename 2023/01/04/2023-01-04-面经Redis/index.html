@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Redis | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Redis">
+    <meta name="description" content="questions">
+<meta name="keywords" content="面试,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="questions">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/八股文/五种数据类型.png">
+<meta property="og:image" content="http://waynamigo.github.io/images/redisAOF.webp">
+<meta property="og:updated_time" content="2023-10-30T17:27:03.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis">
+<meta name="twitter:description" content="questions">
+<meta name="twitter:image" content="https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/八股文/五种数据类型.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Redis</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Redis</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-03T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis数据类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis数据类型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#特殊数据类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">特殊数据类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【重点】一致性问题：Redis和数据库的一致性"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">【重点】一致性问题：Redis和数据库的一致性</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#三种缓存读写策略"><span class="post-toc-number">3.</span> <span class="post-toc-text">三种缓存读写策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Cache-Aside-Pattern（旁路缓存模式）"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1. Cache Aside Pattern（旁路缓存模式）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#【问题】可以先删cache，再更新db吗？"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">【问题】可以先删cache，再更新db吗？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#缺陷有哪些"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">缺陷有哪些</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决方法"><span class="post-toc-number">3.1.3.</span> <span class="post-toc-text">解决方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-Read-Write-Through-Pattern（读写穿透）"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2. Read/Write Through Pattern（读写穿透）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-Write-Behind-Pattern（异步缓存写入）"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">3. Write Behind Pattern（异步缓存写入）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis持久化"><span class="post-toc-number">4.</span> <span class="post-toc-text">Redis持久化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis持久化的方式"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Redis持久化的方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RDB快照"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">RDB快照</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AOF日志"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">AOF日志</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#redis事务【不建议开发时使用，和mysql不一致的时候会造成缓存读写的限制问题】"><span class="post-toc-number">5.</span> <span class="post-toc-text">redis事务【不建议开发时使用，和mysql不一致的时候会造成缓存读写的限制问题】</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#数据类型实现"><span class="post-toc-number">6.</span> <span class="post-toc-text">数据类型实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#String-字符串-应用场景-缓存对象、常规计数、分布式锁、共享-session-信息等。"><span class="post-toc-number">6.0.1.</span> <span class="post-toc-text">String(字符串) 应用场景:缓存对象、常规计数、分布式锁、共享 session 信息等。</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis缓存"><span class="post-toc-number">7.</span> <span class="post-toc-text">Redis缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#介绍缓存雪崩，缓存击穿，缓存穿透"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">介绍缓存雪崩，缓存击穿，缓存穿透</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#热点数据缓存策略"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">热点数据缓存策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【面试题】缓存更新策略"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">【面试题】缓存更新策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【面试题】数据库和缓存如何保证一致性"><span class="post-toc-number">7.4.</span> <span class="post-toc-text">【面试题】数据库和缓存如何保证一致性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【面试题】常见性能问题和解决方案"><span class="post-toc-number">7.5.</span> <span class="post-toc-text">【面试题】常见性能问题和解决方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#过期key的删除策略"><span class="post-toc-number">7.6.</span> <span class="post-toc-text">过期key的删除策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis回收-淘汰策略"><span class="post-toc-number">7.7.</span> <span class="post-toc-text">Redis回收/淘汰策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何选取上述策略？"><span class="post-toc-number">7.8.</span> <span class="post-toc-text">如何选取上述策略？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis的同步机制是什么【全量复制和部分复制】"><span class="post-toc-number">7.9.</span> <span class="post-toc-text">redis的同步机制是什么【全量复制和部分复制】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#部分复制"><span class="post-toc-number">7.9.1.</span> <span class="post-toc-text">部分复制</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis集群的原理"><span class="post-toc-number">7.10.</span> <span class="post-toc-text">redis集群的原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集群会有写操作丢失吗【会】为什么？"><span class="post-toc-number">7.11.</span> <span class="post-toc-text">集群会有写操作丢失吗【会】为什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis事务了解吗"><span class="post-toc-number">7.12.</span> <span class="post-toc-text">redis事务了解吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何优化redis内存占用和性能【内存优化】"><span class="post-toc-number">7.13.</span> <span class="post-toc-text">如何优化redis内存占用和性能【内存优化】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#假如-Redis-里面有-1-亿个-key，其中有-10w-个-key-是以某-个固定的已知的前缀开头的，如果将它们全部找出来"><span class="post-toc-number">7.14.</span> <span class="post-toc-text">假如 Redis 里面有 1 亿个 key，其中有 10w 个 key 是以某 个固定的已知的前缀开头的，如果将它们全部找出来?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis队列和延时队列"><span class="post-toc-number">7.15.</span> <span class="post-toc-text">redis队列和延时队列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis内存回收进程"><span class="post-toc-number">7.16.</span> <span class="post-toc-text">redis内存回收进程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何使用redis实现一个分布式锁"><span class="post-toc-number">7.17.</span> <span class="post-toc-text">如何使用redis实现一个分布式锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis内存耗尽会怎样"><span class="post-toc-number">7.18.</span> <span class="post-toc-text">Redis内存耗尽会怎样</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LRU-最近最长时间未被使用"><span class="post-toc-number">7.19.</span> <span class="post-toc-text">LRU 最近最长时间未被使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LFU-最近最少频率使用"><span class="post-toc-number">7.20.</span> <span class="post-toc-text">LFU 最近最少频率使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stream数据结构"><span class="post-toc-number">7.21.</span> <span class="post-toc-text">stream数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缓存穿透miss-和击穿breakdown-怎么解决"><span class="post-toc-number">7.22.</span> <span class="post-toc-text">缓存穿透miss 和击穿breakdown 怎么解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#穿透的解决方式"><span class="post-toc-number">7.23.</span> <span class="post-toc-text">穿透的解决方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如果有大量的key需要同一时间过期，要如何解决缓存雪崩问题"><span class="post-toc-number">7.24.</span> <span class="post-toc-text">如果有大量的key需要同一时间过期，要如何解决缓存雪崩问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#热key问题怎么解决"><span class="post-toc-number">7.25.</span> <span class="post-toc-text">热key问题怎么解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单例的redis能承载多少个连接？【默认1w个，可以用maxclients修改】"><span class="post-toc-number">7.26.</span> <span class="post-toc-text">单例的redis能承载多少个连接？【默认1w个，可以用maxclients修改】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis-6-0-前后不支持与支持多线程的理由"><span class="post-toc-number">7.27.</span> <span class="post-toc-text">redis 6.0 前后不支持与支持多线程的理由</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提高命中率的方式"><span class="post-toc-number">7.28.</span> <span class="post-toc-text">提高命中率的方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis-如何解决key冲突"><span class="post-toc-number">7.29.</span> <span class="post-toc-text">redis 如何解决key冲突</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis-如何解决大key问题【key的value过大】"><span class="post-toc-number">7.30.</span> <span class="post-toc-text">redis 如何解决大key问题【key的value过大】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#大key产生的问题"><span class="post-toc-number">7.30.1.</span> <span class="post-toc-text">大key产生的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理方式"><span class="post-toc-number">7.30.2.</span> <span class="post-toc-text">处理方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis慢查询如何排查"><span class="post-toc-number">7.31.</span> <span class="post-toc-text">redis慢查询如何排查</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-04-面经Redis"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Redis</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-04 00:00:00" datetime="2023-01-03T16:00:00.000Z"  itemprop="datePublished">2023-01-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p> questions</p>
+<a id="more"></a>
+<h1 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/八股文/五种数据类型.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<table>
+<thead>
+<tr>
+<th>String</th>
+<th>List</th>
+<th>Hash</th>
+<th>Set</th>
+<th>Zset</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SDS</td>
+<td>LinkedList/ZipList/QuickList</td>
+<td>Dict、ZipList</td>
+<td>Dict、Intset</td>
+<td>ZipList、SkipList</td>
+</tr>
+<tr>
+<td># redis内存模型？</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>hashtable</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="特殊数据类型"><a href="#特殊数据类型" class="headerlink" title="特殊数据类型"></a>特殊数据类型</h1><ul>
+<li>BitMap：签到、行为统计（点赞）</li>
+<li>hyperloglog：不太了解</li>
+<li>Geospatial：基于sort set，GEO 中存储的地理位置信息的经纬度数据通过 GeoHash 算法转换成了一个整数，这个整数作为 Sorted Set 的 score(权重参数)使用。<h2 id="【重点】一致性问题：Redis和数据库的一致性"><a href="#【重点】一致性问题：Redis和数据库的一致性" class="headerlink" title="【重点】一致性问题：Redis和数据库的一致性"></a>【重点】一致性问题：Redis和数据库的一致性</h2><a href="https://juejin.cn/post/7287026079066800168#heading-1" target="_blank" rel="noopener">https://juejin.cn/post/7287026079066800168#heading-1</a></li>
+</ul>
+<h1 id="三种缓存读写策略"><a href="#三种缓存读写策略" class="headerlink" title="三种缓存读写策略"></a>三种缓存读写策略</h1><h2 id="1-Cache-Aside-Pattern（旁路缓存模式）"><a href="#1-Cache-Aside-Pattern（旁路缓存模式）" class="headerlink" title="1. Cache Aside Pattern（旁路缓存模式）"></a>1. <strong>Cache Aside Pattern（旁路缓存模式）</strong></h2><ul>
+<li>写：先更新DB，再删除cache</li>
+<li>读：先从cache读，读到就返回；读不到就读db，将数据写到cache<h3 id="【问题】可以先删cache，再更新db吗？"><a href="#【问题】可以先删cache，再更新db吗？" class="headerlink" title="【问题】可以先删cache，再更新db吗？"></a>【问题】可以先删cache，再更新db吗？</h3>不能，因为写的时间远大于读，出现数据不一致（和缓存击穿？）的可能性更高<h3 id="缺陷有哪些"><a href="#缺陷有哪些" class="headerlink" title="缺陷有哪些"></a>缺陷有哪些</h3><ol>
+<li>数据不在cache，导致缓存击穿（大量数据访问db）</li>
+<li>不适合写操作频繁的操作<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3>解决办法：</li>
+</ol>
+<ul>
+<li>数据库和缓存数据强一致场景：更新 db 的时候同样更新 cache，不过我们需要加一个锁/分布式锁来保证更新 cache 的时候不存在线程安全问题。</li>
+<li>可以短暂地允许数据库和缓存数据不一致的场景：更新 db 的时候同样更新 cache，但是给缓存加一个比较短的过期时间，这样的话就可以保证即使数据不一致的话影响也比较小</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Read-Write-Through-Pattern（读写穿透）"><a href="#2-Read-Write-Through-Pattern（读写穿透）" class="headerlink" title="2. Read/Write Through Pattern（读写穿透）"></a>2. <strong>Read/Write Through Pattern（读写穿透）</strong></h2><ul>
+<li>写：先查cache，没有就直接更新db；有的话， 先更新cache，cache服务自己更新db</li>
+<li>读：先从cache读，读到就返回；读不到就读db，写入到cache<h2 id="3-Write-Behind-Pattern（异步缓存写入）"><a href="#3-Write-Behind-Pattern（异步缓存写入）" class="headerlink" title="3. Write Behind Pattern（异步缓存写入）"></a>3. <strong>Write Behind Pattern（异步缓存写入）</strong></h2></li>
+<li>写：先查cache，没有直接更新db；有的话，只更新缓存，异步批量写db</li>
+<li>读：先从cache读，读到就返回；读不到就读db，写入到cache<br><strong>与读写穿透的区别：</strong>：Read/Write Through 是同步更新 cache 和 db，而 Write Behind 则是只更新缓存，不直接更新 db，而是改为异步批量的方式来更新 db。<h1 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h1></li>
+</ul>
+<h2 id="Redis持久化的方式"><a href="#Redis持久化的方式" class="headerlink" title="Redis持久化的方式"></a>Redis持久化的方式</h2><p>Redis 共有三种数据持久化的方式：</p>
+<ul>
+<li>AOF（Append Only File）日志：每执行一条写操作命令，就把该命令以追加的方式写入到一个文件里；</li>
+<li>RDB（Redis Database Backup file） 快照：将某一时刻的内存数据，以二进制的方式写入磁盘；</li>
+<li>混合持久化方式：Redis 4.0 新增的方式，集成了 AOF 和 RBD 的优点<h3 id="RDB快照"><a href="#RDB快照" class="headerlink" title="RDB快照"></a>RDB快照</h3>提供两个命令实现快照</li>
+<li>save：在主线程实现，可能会导致阻塞</li>
+<li>bgsave：background save，在后台的子进程生成RDB快照</li>
+</ul>
+<p><strong>RDB 在执行快照的时候，数据能修改吗？</strong></p>
+<p>执行 bgsave 过程中，Redis 依然可以继续处理操作命令的，也就是数据是能被修改的，关键的技术就在于【写时复制技术】（Copy-On-Write, COW）。</p>
+<p>技术原理：bgsave会通过 fork() 创建子进程，此时子进程和父进程是共享同一片内存数据的，因为创建子进程的时候，会复制父进程的页表，但是页表指向的物理内存还是一个，此时如果主线程执行读操作，则主线程和 bgsave 子进程互相不影响。</p>
+<h3 id="AOF日志"><a href="#AOF日志" class="headerlink" title="AOF日志"></a>AOF日志</h3><p>在执行完一条写操作命令后，就会把该命令以追加的方式写入到一个文件里，然后 Redis 重启时，会读取该文件记录的命令，然后逐一执行命令的方式来进行数据恢复。<br><strong>它们的区别是什么</strong><br>AOF：三种写回方式</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/redisAOF.webp" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>所以，RDB 快照就是记录某一个瞬间的内存数据，记录的是实际数据，而 AOF 文件记录的是命令操作的日志，而不是实际的数据。</p>
+<p>因此在 Redis 恢复数据时， RDB 恢复数据的效率会比 AOF 高些，因为直接将 RDB 文件读入内存就可以，不需要像 AOF 那样还需要额外执行操作命令的步骤才能恢复数据。</p>
+<p><strong>AOF 日志过大，会触发什么机制</strong></p>
+<p>【AOF 重写机制】，压缩AOF文件：<br>【压缩方式】：在重写时，读取当前数据库中的所有键值对，然后将每一个键值对用一条命令记录到「新的 AOF 文件」，等到全部记录完后，就将新的 AOF 文件替换掉现有的 AOF 文件。但是对KV的记录就保持最新的那一条</p>
+<h1 id="redis事务【不建议开发时使用，和mysql不一致的时候会造成缓存读写的限制问题】"><a href="#redis事务【不建议开发时使用，和mysql不一致的时候会造成缓存读写的限制问题】" class="headerlink" title="redis事务【不建议开发时使用，和mysql不一致的时候会造成缓存读写的限制问题】"></a>redis事务【不建议开发时使用，和mysql不一致的时候会造成缓存读写的限制问题】</h1><p><strong>不支持回滚</strong></p>
+<ol>
+<li>ULTI/EXEC 命令：<br>在 Redis 中，事务的开始由 MULTI 命令表示，结束由 EXEC 命令表示。在 MULTI 和 EXEC 之间的所有命令会被添加到事务队列中，但不会立即执行。</li>
+<li>WATCH 命令：<br>Redis 提供了 WATCH 命令，可以用于在事务执行之前监视一个或多个键。如果在事务执行过程中，被监视的键被其他客户端修改了，事务将会被打断。</li>
+</ol>
+<h1 id="数据类型实现"><a href="#数据类型实现" class="headerlink" title="数据类型实现"></a>数据类型实现</h1><h3 id="String-字符串-应用场景-缓存对象、常规计数、分布式锁、共享-session-信息等。"><a href="#String-字符串-应用场景-缓存对象、常规计数、分布式锁、共享-session-信息等。" class="headerlink" title="String(字符串) 应用场景:缓存对象、常规计数、分布式锁、共享 session 信息等。"></a>String(字符串) 应用场景:缓存对象、常规计数、分布式锁、共享 session 信息等。</h3><ul>
+<li><strong>底层数据结构是SDS（Simple Dynamic String）简单动态字符串</strong>，保存文本数据，还可以保存二进制数据 。因为 SDS 使用 len 属性 的值而不是空字符来判断字符串是否结束，并且 SDS 的所有 API 都会以处理二进制的方式来处理 SDS 存放在 buf[] 数组里的数据。所以 SDS 不光能存放文本数据，而且能保存图片、音频、视频、压缩文件这样的二进制数据。</li>
+<li>Redis 的 SDS API 是安全的，<strong>拼接字符串不会造成缓冲区溢出</strong> ：因为 SDS 在拼接字符串之前会检查 SDS 空间是否满足要求，如果<strong>空间不够会自动扩容</strong>，所以不会导致缓冲区溢出的问题。</li>
+</ul>
+<p><strong>使用 String 来缓存对象有两种方式</strong>：</p>
+<p>直接缓存整个对象的 JSON，命令例子： <figure class="highlight plain"><figcaption><span>user:1 '&#123;"name":"xiaolin", "age":18&#125;'```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">采用将 key 进行分离为 user:ID:属性，采用 MSET 存储，用 MGET 获取各属性值，命令例子： MSET user:1:name xiaolin user:1:age 18 user:2:name xiaomei user:2:age 20**</span><br><span class="line">### List(列表)</span><br><span class="line">- **数据结构**：quicklist（双向链表+压缩列表）</span><br><span class="line">- **类型的应用场景**:消息队列(但是有两个问题:1. 生产者需要自行实现全局唯一ID;2. 不能以消费组形式消费数据)等</span><br><span class="line"></span><br><span class="line">**List 可以使用 LPUSH + RPOP （或者反过来，RPUSH+LPOP）命令实现消息队列。**</span><br><span class="line"></span><br><span class="line">- 生产者使用 LPUSH key value[value...] 将消息插入到队列的头部，如果 key 不存在则会创建一个空的队列再插入消息。</span><br><span class="line">  </span><br><span class="line">- 消费者使用 RPOP key 依次读取队列的消息，先进先出。</span><br><span class="line"></span><br><span class="line">### Set(集合) 类型:聚合计算(并集、交集、差集)场景，比如点赞、共同关注、抽奖活动等。</span><br><span class="line">- **数据结构**：是由哈希表或整数集合实现的</span><br><span class="line">- 如果集合中的元素都是整数且元素个数小于 512 （默认值，set-maxintset-entries配置）个，Redis 会使用整数集合作为 Set 类型的底层数据结构；</span><br><span class="line">- 如果集合中的元素不满足上面条件，则 Redis 使用哈希表作为 Set 类型的底层数据结构。</span><br><span class="line">### Zset(有序集合) 类型:排序场景，比如排行榜、电话和姓名排序等</span><br><span class="line">- **数据结构** ：7.0以后，使用 **listpack** 数据结构</span><br><span class="line">### Hash(哈希) 类型:缓存对象、购物车等。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### BitMap(2.2 版新增):二值状态统计的场景，比如签到、判断用户登陆状态、 连续签到用户总数等;</span><br><span class="line">### HyperLogLog(2.8 版新增):海量数据基数统计的场景，比如百万级网页 UV 计数等;</span><br><span class="line">### GEO</span><br><span class="line">### Stream</span><br><span class="line"># Redis 的线程模型</span><br><span class="line"></span><br><span class="line">**首先**，是单线程模型，它指的是```「接收客户端请求-&gt;解析请求 -&gt;进行数据读写等操作-&gt;发送数据给客户端」```这个过程是由一个线程（主线程）来完成的，这也是我们常说 Redis 是单线程的原因。</span><br><span class="line"></span><br><span class="line">但是，Redis 程序并不是单线程的，Redis 在启动的时候，是会启动后台线程（BIO）</span><br><span class="line"></span><br><span class="line">### Redis 6.0 之后为什么引入了多线程？</span><br><span class="line">回答：网络IO出现瓶颈，对网络IO引入了多线程处理，命令执行仍然是主线程完成。</span><br><span class="line"></span><br><span class="line">虽然 Redis 的主要工作（网络 I/O 和执行命令）一直是单线程模型，但是在 Redis 6.0 版本之后，也采用了多个 I/O 线程来处理网络请求，这是因为```随着网络硬件的性能提升，Redis 的性能瓶颈有时会出现在网络 I/O 的处理上```。</span><br><span class="line"></span><br><span class="line">所以为了提高网络 I/O 的并行度，Redis 6.0 **对于网络 I/O 采用多线程来处理**。但是对于命令的执行，Redis 仍然使用单线程来处理，所以大家不要误解 Redis 有多线程同时执行命令。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### Redis的零拷贝技术是什么</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Redis集群</span><br><span class="line"></span><br><span class="line"> 主从复制，主节点故障时要手动恢复</span><br><span class="line">### 主从模式</span><br><span class="line">读写分离，主节点负责写，从节点负责读。</span><br><span class="line">### 哨兵模式</span><br><span class="line">多个哨兵监控主节点服务器，提供故障转移功能：</span><br><span class="line">【故障转移】：主节点挂了之后，在从节点中选取一个作为主节点</span><br><span class="line"></span><br><span class="line">### 切片集群模式</span><br><span class="line">缓存数据量大到一台服务器无法缓存时，就需要使用 Redis 切片集群。</span><br><span class="line">将数据分布在不同的服务器上，以此来降低系统对单主节点的依赖，从而提高 Redis 服务的读写性能。</span><br><span class="line">- 切片就是一个redis实例分成多个hash slot，这些哈希槽类似于数据分区，每个键值对都会根据它的 key，被映射到一个哈希槽中。</span><br><span class="line">- 默认部署的slot个数有16384个，平均分配到各节点上，如果有n个redis实例，那么每个节点有16384/n个slot。</span><br><span class="line"></span><br><span class="line">### 可能出现的问题：</span><br><span class="line">**集群脑裂是什么**：</span><br><span class="line"></span><br><span class="line">由于网络问题，导致主节点与哨兵失联后，哨兵多选举出来一个主节点，当旧节点恢复正常时，降级从节点后，向新master请求同步复制时，清空了自己的缓冲区，产生了之前客户端写入的数据丢失的问题。</span><br><span class="line"></span><br><span class="line">- 如果旧节点又好了，就把旧主节点降级为普通节点，作为从节点向新master进行同步复制的时候，由于会从节点会清空自己的缓冲区，所以导致之前客户端写入的数据丢失了。</span><br><span class="line"></span><br><span class="line">【解决方案】</span><br><span class="line">当主节点发现从节点下线或者通信超时的总数量小于阈值时，那么禁止主节点进行写数据，直接把错误返回给客户端。</span><br><span class="line"></span><br><span class="line">【配置文件】</span><br><span class="line">- min-slaves-to-write x，主节点必须要有至少 x 个从节点连接，如果小于这个数，主节点会禁止写数据。</span><br><span class="line">- min-slaves-max-lag x，主从数据复制和同步的延迟不能超过 x 秒，如果超过，主节点会禁止写数据。</span><br><span class="line">### Redis过期删除与内存淘汰</span><br><span class="line"></span><br><span class="line">【过期删除：惰性删除+定期删除】当我们对一个 key 设置了过期时间时，Redis 会把该 key 带上过期时间存储到一个过期字典（expires dict）中，也就是说「过期字典」保存了数据库中所有 key 的过期时间。</span><br><span class="line"></span><br><span class="line">- 惰性删除：惰性删除策略的做法是，不主动删除过期键，每次从数据库访问 key 时，都检测 key 是否过期，如果过期则删除该 key。</span><br><span class="line">- 每隔一段时间「随机」从数据库中取出一定数量的 key 进行检查，并删除其中的过期key。</span><br><span class="line">【内存淘汰：不进行数据淘汰的策略/进行数据淘汰的策略】</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 集群与哨兵模式的区别</span><br><span class="line">- 主从集群模式适合对读写性能要求高，且可以容忍一定程度的数据同步延迟的场景</span><br><span class="line">- 哨兵模式适用于对高可用性要求较高的场景，能够实现自动故障切换</span><br><span class="line">## Redis的lua支持</span><br><span class="line">如果你想在 Redis 中定时执行 Lua 脚本，可以考虑使用 Redis 的定时任务功能，例如使用 Redis 的BGSAVE和MONITOR命令配合实现。</span><br><span class="line"></span><br><span class="line">1. 编写 Lua 脚本</span><br><span class="line">首先，你需要编写一个 Lua 脚本，命名为 a.lua 或其他你喜欢的名字。在该脚本中编写你想要定时执行的逻辑。</span><br><span class="line">2. 使用 BGSAVE</span><br><span class="line">Redis 的 BGSAVE 命令用于在后台执行持久化操作（将数据写入磁盘），这会创建一个快照文件。你可以利用这个特性来触发 Lua 脚本的执行。</span><br><span class="line">客户端执行```BGSAVE</span><br></pre></td></tr></table></figure></p>
+<p>请注意，BGSAVE 不会阻塞 Redis 的主线程，因此可以在 Redis 运行时执行。</p>
+<ol start="3">
+<li>使用 MONITOR<br>Redis 的 MONITOR 命令可以用于实时监控 Redis 的命令执行情况。你可以通过监控 Redis 的命令来捕捉 BGSAVE 命令的执行，一旦发现 BGSAVE 命令执行完毕，就可以在 Lua 脚本中调用 EVAL 来执行你的逻辑。</li>
+</ol>
+<h1 id="Redis缓存"><a href="#Redis缓存" class="headerlink" title="Redis缓存"></a>Redis缓存</h1><h2 id="介绍缓存雪崩，缓存击穿，缓存穿透"><a href="#介绍缓存雪崩，缓存击穿，缓存穿透" class="headerlink" title="介绍缓存雪崩，缓存击穿，缓存穿透"></a>介绍缓存雪崩，缓存击穿，缓存穿透</h2><ul>
+<li><strong>缓存雪崩</strong> 指大量缓存数据在同一时间过期时，大量的用户请求全部直接访问数据库，从而导致数据库崩溃的问题，从而形成一系列连锁反应，造成整个系统崩溃。</li>
+<li><strong>缓存击穿</strong> 指某个数据过期时，大量用户请求直接访问该数据，导致高并发的数据库请求</li>
+<li><strong>缓存穿透</strong> 当用户访问的数据，既不在缓存中，也不在数据库中，导致请求在访问缓存时，发现缓存缺失，再去访问数据库时，发现数据库中也没有要访问的数据，没办法构建缓存数据，来服务后续的请求。那么当有大量这样的请求到来时，数据库的压力骤增，这就是缓存穿透的问题。</li>
+</ul>
+<p>【缓存雪崩解决方法】</p>
+<ol>
+<li>设置缓存失效时间随机打乱</li>
+<li>设置缓存不过期，使用后台接口进行操作redis</li>
+</ol>
+<p>【缓存击穿解决方法】</p>
+<ol>
+<li>互斥锁方案（Redis 中使用 setNX 方法设置一个状态位，表示这是一种锁定状态），保证同一时间只有一个业务线程请求缓存，未能获取互斥锁的请求，要么等待锁释放后重新读取缓存，要么就返回空值或者默认值。</li>
+<li>不给热点数据设置过期时间，由后台异步更新缓存，或者在热点数据准备要过期前，提前通知后台线程更新缓存以及重新设置过期时间；</li>
+</ol>
+<p>【缓存穿透解决方法】</p>
+<ol>
+<li><p><strong>布隆过滤器</strong>：快速判断数据是否存在，避免通过查询数据库来判断数据是否存在：我们可以在写入数据库数据时，使用布隆过滤器做个标记，然后在用户请求到来时，业务线程确认缓存失效后，可以通过查询布隆过滤器快速判断数据是否存在，如果不存在，就不用通过查询数据库来判断数据是否存在，即使发生了缓存穿透，大量请求只会查询 Redis 和布隆过滤器，而不会查询数据库，保证了数据库能正常运行，Redis 自身也是支持布隆过滤器的。</p>
+</li>
+<li><p>设置空值或者默认值</p>
+</li>
+<li><p>在API入口处判断请求参数有没有非法值/是否存在</p>
+</li>
+</ol>
+<h2 id="热点数据缓存策略"><a href="#热点数据缓存策略" class="headerlink" title="热点数据缓存策略"></a>热点数据缓存策略</h2><p>热点数据动态缓存的策略总体思路：通过数据最新访问时间来做排名，并过滤掉不常访问的数据，只留下经常访问的数据。</p>
+<h2 id="【面试题】缓存更新策略"><a href="#【面试题】缓存更新策略" class="headerlink" title="【面试题】缓存更新策略"></a>【面试题】缓存更新策略</h2><ul>
+<li>Cache Aside（旁路缓存）策略；</li>
+<li>Read/Write Through（读穿 / 写穿）策略；</li>
+<li>Write Back（写回）策略；</li>
+</ul>
+<h2 id="【面试题】数据库和缓存如何保证一致性"><a href="#【面试题】数据库和缓存如何保证一致性" class="headerlink" title="【面试题】数据库和缓存如何保证一致性"></a>【面试题】数据库和缓存如何保证一致性</h2><h2 id="【面试题】常见性能问题和解决方案"><a href="#【面试题】常见性能问题和解决方案" class="headerlink" title="【面试题】常见性能问题和解决方案"></a>【面试题】常见性能问题和解决方案</h2><ol>
+<li>Master 最好不要写内存快照，如果 Master 写内存快照，save 命令调度 rdbSave 函数，会阻塞主线程的工作，当快照比较大时对性能影响是非常大 的，会间断性暂停服务</li>
+<li>如果数据比较重要，某个 Slave 开启 AOF 备份数据，策略设置为每秒同步一次</li>
+<li>为了主从复制的速度和连接的稳定性，Master 和 Slave 最好在同一个局 域网</li>
+<li>尽量避免在压力很大的主库上增加从</li>
+<li>主从复制不要用图状结构，用单向链表结构更为稳定，即:Master &lt;- Slave1&lt;- Slave2 &lt;- Slave3… 这样的结构方便解决单点故障问题，实现 Slave 对 Master 的替换。如果 Master 挂了，可以立刻启 用 Slave1 做 Master，其他不变。</li>
+</ol>
+<h2 id="过期key的删除策略"><a href="#过期key的删除策略" class="headerlink" title="过期key的删除策略"></a>过期key的删除策略</h2><ul>
+<li>定时删除单key：一个是添加的key的时候， expire指定时间</li>
+<li>惰性删除：每次查找key时，都会判断是否过期</li>
+<li>定期批量删除：每隔一段时间扫库，删除过期key<h2 id="Redis回收-淘汰策略"><a href="#Redis回收-淘汰策略" class="headerlink" title="Redis回收/淘汰策略"></a>Redis回收/淘汰策略</h2></li>
+</ul>
+<ol>
+<li>volatile-lru:从已设置过期时间的数据集(server.db[i].expires)中挑选 最近最少使用的数据淘汰</li>
+<li>volatile-ttl:从已设置过期时间的数据集(server.db[i].expires)中挑选 将要过期的数据淘汰</li>
+<li>volatile-random:从已设置过期时间的数据集(server.db[i].expires)中任 意选择数据淘汰</li>
+<li>allkeys-lru:从数据集(server.db[i].dict)中挑选最近最少使用的数据淘 汰</li>
+<li>allkeys-random:从数据集(server.db[i].dict)中任意选择数据淘汰</li>
+<li>no-enviction(驱逐):禁止驱逐数据 注意这里的 6 种机制，volatile 和 allkeys 规定了是对已设置 过期时间的数 据集淘汰数据还是从全部数据集淘汰数据，后面的 lru、ttl 以及 random 是 三种不同 的淘汰策略，再加上一种no-enviction 永不回收的策略。<h2 id="如何选取上述策略？"><a href="#如何选取上述策略？" class="headerlink" title="如何选取上述策略？"></a>如何选取上述策略？</h2></li>
+<li>如果数据分布的差不多，使用allkeys random</li>
+<li>如果数据分布差别大，使用allkeys lru<h2 id="redis的同步机制是什么【全量复制和部分复制】"><a href="#redis的同步机制是什么【全量复制和部分复制】" class="headerlink" title="redis的同步机制是什么【全量复制和部分复制】"></a>redis的同步机制是什么【全量复制和部分复制】</h2></li>
+</ol>
+<ul>
+<li>salve 发送sync请求到master，开始第一次同步</li>
+<li>第一次同步时使用bgsave做rdb快照，同时将后续修改记录加到内存缓冲区，完成后将rdb文件同步到从节点，复制完后由从节点加载到内存</li>
+<li>加载完成后通知master，master将缓冲区的写操作记录发给slave，slave再执行剩余的这些写操作，与master保持一致<h3 id="部分复制"><a href="#部分复制" class="headerlink" title="部分复制"></a>部分复制</h3></li>
+<li>slave发送psync请求到master，开始第一次同步</li>
+<li>slave再发一个偏移量，master从这个偏移量开始同步数据<h2 id="redis集群的原理"><a href="#redis集群的原理" class="headerlink" title="redis集群的原理"></a>redis集群的原理</h2></li>
+</ul>
+<ol>
+<li><p>哨兵模式，高可用性，在master宕机时自动将slave提升为master</p>
+</li>
+<li><p>集群模式，扩展性，单个redis内存不足时，使用cluster进行分片存储</p>
+<ul>
+<li>集群没用一致性hash，而是用了hash槽，有16384个hash槽，每个节点负责一部分槽</li>
+<li>主从复制模型，每个节点都是其他节点的副本<h2 id="集群会有写操作丢失吗【会】为什么？"><a href="#集群会有写操作丢失吗【会】为什么？" class="headerlink" title="集群会有写操作丢失吗【会】为什么？"></a>集群会有写操作丢失吗【会】为什么？</h2></li>
+</ul>
+</li>
+<li><p>当发生故障转移（failover）时，在连接丢失的情况下，部分写操作无法完成</p>
+</li>
+<li><p>另外如果用了RDB，主节点写操作存在buffer里，转移主节点时，这部分不进行复制，导致写操作丢失，所以可以使用混合方式，写操作使用AOF持久化一下，转移主节点后重放AOF日志</p>
+<h2 id="redis事务了解吗"><a href="#redis事务了解吗" class="headerlink" title="redis事务了解吗"></a>redis事务了解吗</h2><p>multi exec discard watch</p>
+<h2 id="如何优化redis内存占用和性能【内存优化】"><a href="#如何优化redis内存占用和性能【内存优化】" class="headerlink" title="如何优化redis内存占用和性能【内存优化】"></a>如何优化redis内存占用和性能【内存优化】</h2></li>
+<li><p>对小数据合并到一个对象中，用hash存储</p>
+</li>
+<li><p>设置合理的过期策略，和内存淘汰策略等</p>
+</li>
+<li><p>使用持久化保证高可用性</p>
+</li>
+<li><p>使用布隆过滤器，防止缓存穿透和击穿问题，查看一个元素是否存在于一个集合中</p>
+</li>
+<li><p>删除key后的碎片整理：Redis 会在删除键值对后，释放内存并且尝试整理内存碎片。可以通过配置文件中的 activerehashing 参数来控制内存碎片整理的行为。</p>
+<h2 id="假如-Redis-里面有-1-亿个-key，其中有-10w-个-key-是以某-个固定的已知的前缀开头的，如果将它们全部找出来"><a href="#假如-Redis-里面有-1-亿个-key，其中有-10w-个-key-是以某-个固定的已知的前缀开头的，如果将它们全部找出来" class="headerlink" title="假如 Redis 里面有 1 亿个 key，其中有 10w 个 key 是以某 个固定的已知的前缀开头的，如果将它们全部找出来?"></a>假如 Redis 里面有 1 亿个 key，其中有 10w 个 key 是以某 个固定的已知的前缀开头的，如果将它们全部找出来?</h2></li>
+</ol>
+<ul>
+<li>使用scan无阻塞地去提取正则字符串，然后在客户端用一个set去重</li>
+<li>keys也可以扫，但是会导致阻塞，线上服务会停<h2 id="redis队列和延时队列"><a href="#redis队列和延时队列" class="headerlink" title="redis队列和延时队列"></a>redis队列和延时队列</h2></li>
+<li>队列使用list，当队列为空，rpush生产消息，使用blpop消费消息。</li>
+<li>延时队列使用zset，每个消息对应的时间戳作为score，消息内容当key，<strong>zadd生产消息</strong>，消费者用 <strong>zrangebyscore 指令获取 N 秒之前的数据轮询进行处理</strong></li>
+</ul>
+<h2 id="redis内存回收进程"><a href="#redis内存回收进程" class="headerlink" title="redis内存回收进程"></a>redis内存回收进程</h2><p><a href="https://cloud.tencent.com/developer/article/2315748" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/2315748</a><br>Redis回收进程指对那些已过期但是尚未被删除的 keys 进行标记，这样它们就可以在之后被立即释放并回收所占用的内存</p>
+<ol>
+<li>基本原理是周期性地扫描存储数据库中所有的键<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Redis 提供了三个与内存回收相关的命令：</span><br><span class="line"></span><br><span class="line">MEMORY USAGE key：</span><br><span class="line">用于返回指定键所占用的内存字节数。可以通过传递键的名称作为参数来获取相应键的内存使用情况。</span><br><span class="line">MEMORY PURGE：</span><br><span class="line">该命令用于在 Redis Enterprise 中手动触发内存回收。</span><br><span class="line">MEMORY DOCTOR：</span><br><span class="line">该命令用于诊断 Redis 内存分配和使用情况，帮助识别内存泄漏或者不正常的内存使用情况。</span><br><span class="line">需要注意的是，MEMORY PURGE 和 MEMORY DOCTOR 是 Redis Enterprise 特有的命令，而 MEMORY USAGE 是 Redis 通用的命令。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="如何使用redis实现一个分布式锁"><a href="#如何使用redis实现一个分布式锁" class="headerlink" title="如何使用redis实现一个分布式锁"></a>如何使用redis实现一个分布式锁</h2><ul>
+<li>setnx拿锁，拿到之后expire给锁加一个过期时间，</li>
+</ul>
+<h2 id="Redis内存耗尽会怎样"><a href="#Redis内存耗尽会怎样" class="headerlink" title="Redis内存耗尽会怎样"></a>Redis内存耗尽会怎样</h2><p>崩溃，可能导致缓存失效，命中率下降，虚拟内存<br><a href="https://juejin.cn/post/6932711444404256781" target="_blank" rel="noopener">https://juejin.cn/post/6932711444404256781</a></p>
+<ol>
+<li>会使用LRU和LFU的内存淘汰策略<h2 id="LRU-最近最长时间未被使用"><a href="#LRU-最近最长时间未被使用" class="headerlink" title="LRU 最近最长时间未被使用"></a>LRU 最近最长时间未被使用</h2><h2 id="LFU-最近最少频率使用"><a href="#LFU-最近最少频率使用" class="headerlink" title="LFU 最近最少频率使用"></a>LFU 最近最少频率使用</h2></li>
+</ol>
+<h2 id="stream数据结构"><a href="#stream数据结构" class="headerlink" title="stream数据结构"></a>stream数据结构</h2><ol>
+<li>基于基数树</li>
+</ol>
+<h2 id="缓存穿透miss-和击穿breakdown-怎么解决"><a href="#缓存穿透miss-和击穿breakdown-怎么解决" class="headerlink" title="缓存穿透miss 和击穿breakdown 怎么解决"></a>缓存穿透miss 和击穿breakdown 怎么解决</h2><ul>
+<li>击穿是breakdown，要查找的热点缓存突然过期，导致大量请求向mysql涌入，导致崩溃等问题</li>
+<li>穿透是缓存中没有这些key，没有方法满足这些请求<h2 id="穿透的解决方式"><a href="#穿透的解决方式" class="headerlink" title="穿透的解决方式"></a>穿透的解决方式</h2></li>
+</ul>
+<ol>
+<li>在缓存之前再加一层布隆过滤器，在查询的时候先去布隆过滤器查询 key 是否存在，如果不存在就直接返回</li>
+<li>简单处理，存无效key，value设为null</li>
+</ol>
+<h2 id="如果有大量的key需要同一时间过期，要如何解决缓存雪崩问题"><a href="#如果有大量的key需要同一时间过期，要如何解决缓存雪崩问题" class="headerlink" title="如果有大量的key需要同一时间过期，要如何解决缓存雪崩问题"></a>如果有大量的key需要同一时间过期，要如何解决缓存雪崩问题</h2><ul>
+<li>设置过期时间时加上随机值，使得缓存失效的时间点尽量均匀分布。</li>
+<li>使用 Redis 集群，将缓存数据分散到多个节点上，避免单点故障。</li>
+<li>在缓存失效后采用加锁或者队列来控制<strong>读数据库写缓存</strong>的线程数量，避免大量线程同时读数据库。</li>
+<li>针对热点数据可以设置永不过期，或者使用手动过期的方式来控制缓存的使用时间</li>
+<li>高并发时，使用限流和熔断机制控制请求访问量</li>
+<li>本地和分布式缓存结合，服务器本地当二级缓存</li>
+</ul>
+<h2 id="热key问题怎么解决"><a href="#热key问题怎么解决" class="headerlink" title="热key问题怎么解决"></a>热key问题怎么解决</h2><p>热key问题是由于某部分热点key分布在不同的节点上，导致负载不均衡</p>
+<ul>
+<li>解决方法，1使用分布式缓存，读写分离架构 2 数据分片策略 3 缓存失效策略避免一直是热key</li>
+<li>如果热Key的产生<strong>来自于读请求</strong>使用读写分离架构<br>您可以将实例改造成读写分离架构来降低每个数据分片的读请求压力，甚至可以不断地增加从节点。但是读写分离架构在增加业务代码复杂度的同时，也会增加Redis集群架构复杂度。不仅要为多个从节点提供转发层（如Proxy，LVS等）来实现负载均衡，还要考虑从节点数量显著增加后带来故障率增加的问题。<h2 id="单例的redis能承载多少个连接？【默认1w个，可以用maxclients修改】"><a href="#单例的redis能承载多少个连接？【默认1w个，可以用maxclients修改】" class="headerlink" title="单例的redis能承载多少个连接？【默认1w个，可以用maxclients修改】"></a>单例的redis能承载多少个连接？【默认1w个，可以用maxclients修改】</h2></li>
+</ul>
+<h2 id="redis-6-0-前后不支持与支持多线程的理由"><a href="#redis-6-0-前后不支持与支持多线程的理由" class="headerlink" title="redis 6.0 前后不支持与支持多线程的理由"></a>redis 6.0 前后不支持与支持多线程的理由</h2><ol>
+<li>6.0前，避免竞态条件，上下文切换的开销，充分利用CPU</li>
+<li>6.0后的多线程主要引入的是IO和AOF和RDB备份</li>
+</ol>
+<h2 id="提高命中率的方式"><a href="#提高命中率的方式" class="headerlink" title="提高命中率的方式"></a>提高命中率的方式</h2><ol>
+<li>缓存过期时间</li>
+<li>缓存预热</li>
+<li>LRU LFU分别基于访问时间和频率来确定缓存中的数据</li>
+<li>使用分布式缓存，将缓存数据分布到多节点上<!-- 5. 使用分布式锁，布隆过滤器等手段去提高可用性，提供维护时间长 -->
+
+
+</li>
+</ol>
+<h2 id="redis-如何解决key冲突"><a href="#redis-如何解决key冲突" class="headerlink" title="redis 如何解决key冲突"></a>redis 如何解决key冲突</h2><ol>
+<li><p>命名时注意不冲突，比如加前缀后缀</p>
+</li>
+<li><p>不同数据存合适的数据结构</p>
+</li>
+<li><p>分布式锁来保证并发冲突</p>
+</li>
+<li><p>单线程下使用mutex方法<br>内存模型是hashtable，解决key冲突可能就链地址 开地址哪些吧</p>
+</li>
+</ol>
+<h2 id="redis-如何解决大key问题【key的value过大】"><a href="#redis-如何解决大key问题【key的value过大】" class="headerlink" title="redis 如何解决大key问题【key的value过大】"></a>redis 如何解决大key问题【key的value过大】</h2><p><a href="https://help.aliyun.com/zh/redis/user-guide/identify-and-handle-large-keys-and-hotkeys" target="_blank" rel="noopener">bigkey solution</a></p>
+<h3 id="大key产生的问题"><a href="#大key产生的问题" class="headerlink" title="大key产生的问题"></a>大key产生的问题</h3><ol>
+<li>执行变慢，删除时产生阻塞，内存溢出</li>
+</ol>
+<h3 id="处理方式"><a href="#处理方式" class="headerlink" title="处理方式"></a>处理方式</h3><ol>
+<li>如果已经发现了一个大key，就遍历把它插成大key1 key2 key3，限制长度</li>
+<li>不要这个大key时，使用UNLINK删除</li>
+<li><strong>使用redis分片技术</strong>：</li>
+</ol>
+<ul>
+<li><p>一致性hash:<br>将哈希值映射到一个固定大小的环形空间中。客户端根据键的哈希值定位到环上的某个位置，然后找到离该位置最近的节点，将数据存储在该节点上。</p>
+<ul>
+<li><strong>优点</strong>：在节点的增减时，只有少量的数据需要重新映射，保持了相对的稳定性。</li>
+<li><strong>缺点</strong>：可能会出现不均匀的数据分布，导致节点负载不均</li>
+</ul>
+</li>
+<li><p>CRC16:<br>循环冗余校验来生成哈希值</p>
+<ul>
+<li><strong>优点</strong>：计算速度快，适用于一些简单的分布式场景。</li>
+<li><strong>缺点</strong>：可能会导致节点负载不均衡。</li>
+</ul>
+</li>
+<li><p>RedisCluster<br>它将数据分片到多个节点上，同时提供了节点间的数据复制和故障恢复机制</p>
+<ul>
+<li><strong>优点</strong>自动进行数据分片和复制，实现了高可用性。</li>
+<li><strong>缺点</strong>好用但是复杂 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Key本身的数据量过大：一个String类型的Key，它的值为5 MB。</span><br><span class="line">Key中的成员数过多：一个ZSET类型的Key，它的成员数量为10,000个。</span><br><span class="line">Key中成员的数据量过大：一个Hash类型的Key，它的成员数量虽然只有1,000个但这些成员的Value（值）总大小为100 MB。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="redis慢查询如何排查"><a href="#redis慢查询如何排查" class="headerlink" title="redis慢查询如何排查"></a>redis慢查询如何排查</h2><p>命令：</p>
+<ol>
+<li>慢查询日志：SHOWLOG GET</li>
+<li>redis-cli的INFO</li>
+<li>redis有一个时延监控命令，–latency查询命令</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-10-30T17:27:03.674Z" itemprop="dateUpdated">2023-10-31 01:27:03</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/&title=《Redis》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/&title=《Redis》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/04/2023-01-04-面经Redis问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Redis questions</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/04/2023-01-04-面经计算机网络/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">NetWorking</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/&title=《Redis》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/&title=《Redis》 — waynamigo's blog&source= questions" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQY7CMAwFUO5/6c52JKB82wWpycsKlZLmdRHs2I9HPI6n8Xz9/P7ne/7feT7bZQMDA+O2jON05MvNl3h+Pfn2xRMxMDA2YCSLyO/PGQkyeRYGBgbG+efeIpJtHQMDA+N7jCSYO7+OgYGB0Utik20xWW51totzcQwMjBsy8lP333/+Sn0DAwPjVoxeYJenpvkMo3ATAwNjaUa+wVUDx2/M8CEBxsDA2IBRbYOYNGHkZYBCyoqBgbEoo3eYlb+hHrt85IeBgbE0YzL1vJFi3oKGgYGxA2NShuw1Rhyt8eE1YWBgLM2Yt3zlW23SiDYKRjEwMBZlVB+Qlx57DRzV2V78b2BgYCzKyIPCybfl3Dr+M8DAwFibMakATjbKyeb+dn4MDIwNGNVmiLyQMAkQC0kvBgbGBoy8PDn5bR4+jpotMDAwFmJUm8CqSWZCze8clT8wMDCWY+Qbbh6hVRs4CmvAwMBYmlFNZZPDtbyEcFWxEwMDYwdG7xC/ekyWz5Af873IxTEwMJZmTIqRc3DvnB8DA2NPRrWpolfyvCpMHJ0dYmBg3IRxFEc1EJy8oEKrBwYGxtKMasDX/PHgTKzQM4KBgbE0I99kz+OxPIhMkt7qPBgYGDswqhtf0hKRJK69JPbthouBgYFRLABMws28WQ0DAwNjnhPn8/e2bwwMjH0Yk2JAL92tBp0YGBg7M6oH+nlZMd+me8dzGBgYGzD+ANrEaphrYyKbAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
