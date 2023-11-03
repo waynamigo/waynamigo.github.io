@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="questions">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-10-30T17:27:14.937Z">
+<meta property="og:updated_time" content="2023-11-03T07:16:14.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Operating System">
 <meta name="twitter:description" content="questions">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础概念</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程和线程的区别"><span class="post-toc-number"></span> <span class="post-toc-text">进程和线程的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#共享资源指的是哪些资源"><span class="post-toc-number">0.1.</span> <span class="post-toc-text">共享资源指的是哪些资源</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#协程和线程的区别"><span class="post-toc-number"></span> <span class="post-toc-text">协程和线程的区别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程切换："><span class="post-toc-number"></span> <span class="post-toc-text">进程切换：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#与线程切换的区别："><span class="post-toc-number">1.</span> <span class="post-toc-text">与线程切换的区别：</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程间的通信方式"><span class="post-toc-number"></span> <span class="post-toc-text">进程间的通信方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线程同步的方式有哪些"><span class="post-toc-number"></span> <span class="post-toc-text">线程同步的方式有哪些</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#fork子进程与父进程的区别"><span class="post-toc-number"></span> <span class="post-toc-text">fork子进程与父进程的区别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#死锁定义-amp-产生条件"><span class="post-toc-number"></span> <span class="post-toc-text">死锁定义&amp; 产生条件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程调度策略"><span class="post-toc-number"></span> <span class="post-toc-text">进程调度策略</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#页面置换算法"><span class="post-toc-number"></span> <span class="post-toc-text">页面置换算法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#磁盘调度"><span class="post-toc-number"></span> <span class="post-toc-text">磁盘调度</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分页是什么，内存页面"><span class="post-toc-number"></span> <span class="post-toc-text">分页是什么，内存页面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分段是什么，存在碎片问题"><span class="post-toc-number"></span> <span class="post-toc-text">分段是什么，存在碎片问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#虚拟内存"><span class="post-toc-number"></span> <span class="post-toc-text">虚拟内存</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#局部性原理"><span class="post-toc-number"></span> <span class="post-toc-text">局部性原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#交换空间（Swap分区）"><span class="post-toc-number"></span> <span class="post-toc-text">交换空间（Swap分区）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#缓冲区泄漏"><span class="post-toc-number"></span> <span class="post-toc-text">缓冲区泄漏</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#僵尸进程和孤儿进程"><span class="post-toc-number"></span> <span class="post-toc-text">僵尸进程和孤儿进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#僵尸进程：子进程结束，父进程不知道"><span class="post-toc-number">1.</span> <span class="post-toc-text">僵尸进程：子进程结束，父进程不知道</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#孤儿进程：父进程结束，子进程还在执行，会被init进程接管"><span class="post-toc-number">2.</span> <span class="post-toc-text">孤儿进程：父进程结束，子进程还在执行，会被init进程接管</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重点：IO多路复用"><span class="post-toc-number"></span> <span class="post-toc-text">重点：IO多路复用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#硬连接-软连接"><span class="post-toc-number"></span> <span class="post-toc-text">硬连接 软连接</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#中断的处理过程"><span class="post-toc-number"></span> <span class="post-toc-text">中断的处理过程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#中断和轮训"><span class="post-toc-number"></span> <span class="post-toc-text">中断和轮训</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#零拷贝"><span class="post-toc-number"></span> <span class="post-toc-text">零拷贝</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#堆和栈的区别"><span class="post-toc-number"></span> <span class="post-toc-text">堆和栈的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CPU占用率-使用率-负载"><span class="post-toc-number">1.</span> <span class="post-toc-text">CPU占用率 使用率 负载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linux进程间通信：管道（匿名管道和有名管道）、信号、消息队列、共享内存、信号量、套接字（socket）"><span class="post-toc-number">2.</span> <span class="post-toc-text">Linux进程间通信：管道（匿名管道和有名管道）、信号、消息队列、共享内存、信号量、套接字（socket）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linus线程间通信：互斥量、信号量、条件变量"><span class="post-toc-number">3.</span> <span class="post-toc-text">Linus线程间通信：互斥量、信号量、条件变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#linux启动"><span class="post-toc-number">4.</span> <span class="post-toc-text">linux启动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#linux删除命令rm，发生了什么"><span class="post-toc-number">5.</span> <span class="post-toc-text">linux删除命令rm，发生了什么</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础概念"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础概念</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#用户态和内核态"><span class="post-toc-number"></span> <span class="post-toc-text">用户态和内核态</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何切换用户态和内核态"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何切换用户态和内核态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程上下文包括哪些"><span class="post-toc-number">2.</span> <span class="post-toc-text">进程上下文包括哪些</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程和线程的区别"><span class="post-toc-number"></span> <span class="post-toc-text">进程和线程的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#共享资源指的是哪些资源"><span class="post-toc-number">0.1.</span> <span class="post-toc-text">共享资源指的是哪些资源</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#协程和线程的区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">协程和线程的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程切换："><span class="post-toc-number">2.</span> <span class="post-toc-text">进程切换：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#与线程切换的区别："><span class="post-toc-number">3.</span> <span class="post-toc-text">与线程切换的区别：</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程间的通信方式"><span class="post-toc-number"></span> <span class="post-toc-text">进程间的通信方式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线程同步的方式有哪些"><span class="post-toc-number"></span> <span class="post-toc-text">线程同步的方式有哪些</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#fork子进程与父进程的区别"><span class="post-toc-number"></span> <span class="post-toc-text">fork子进程与父进程的区别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#死锁定义-amp-产生条件"><span class="post-toc-number"></span> <span class="post-toc-text">死锁定义&amp; 产生条件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进程调度策略"><span class="post-toc-number"></span> <span class="post-toc-text">进程调度策略</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#页面置换算法"><span class="post-toc-number"></span> <span class="post-toc-text">页面置换算法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#磁盘调度"><span class="post-toc-number"></span> <span class="post-toc-text">磁盘调度</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分页是什么，内存页面"><span class="post-toc-number"></span> <span class="post-toc-text">分页是什么，内存页面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分段是什么，存在碎片问题"><span class="post-toc-number"></span> <span class="post-toc-text">分段是什么，存在碎片问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#虚拟内存"><span class="post-toc-number"></span> <span class="post-toc-text">虚拟内存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如果没有虚拟内存的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">如果没有虚拟内存的话</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#局部性原理"><span class="post-toc-number"></span> <span class="post-toc-text">局部性原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TLB是什么快表，或者叫cache"><span class="post-toc-number"></span> <span class="post-toc-text">TLB是什么快表，或者叫cache</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#交换空间（Swap分区）"><span class="post-toc-number"></span> <span class="post-toc-text">交换空间（Swap分区）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#缓冲区泄漏"><span class="post-toc-number"></span> <span class="post-toc-text">缓冲区泄漏</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#僵尸进程和孤儿进程"><span class="post-toc-number"></span> <span class="post-toc-text">僵尸进程和孤儿进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#僵尸进程：子进程结束，父进程不知道"><span class="post-toc-number">1.</span> <span class="post-toc-text">僵尸进程：子进程结束，父进程不知道</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#孤儿进程：父进程结束，子进程还在执行，会被init进程接管"><span class="post-toc-number">2.</span> <span class="post-toc-text">孤儿进程：父进程结束，子进程还在执行，会被init进程接管</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重点：IO多路复用"><span class="post-toc-number"></span> <span class="post-toc-text">重点：IO多路复用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#硬连接-软连接"><span class="post-toc-number"></span> <span class="post-toc-text">硬连接 软连接</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#中断的处理过程"><span class="post-toc-number"></span> <span class="post-toc-text">中断的处理过程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#中断和轮训"><span class="post-toc-number"></span> <span class="post-toc-text">中断和轮训</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#零拷贝"><span class="post-toc-number"></span> <span class="post-toc-text">零拷贝</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#堆和栈的区别"><span class="post-toc-number"></span> <span class="post-toc-text">堆和栈的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CPU占用率-使用率-负载"><span class="post-toc-number">1.</span> <span class="post-toc-text">CPU占用率 使用率 负载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linux进程间通信：管道（匿名管道和有名管道）、信号、消息队列、共享内存、信号量、套接字（socket）"><span class="post-toc-number">2.</span> <span class="post-toc-text">Linux进程间通信：管道（匿名管道和有名管道）、信号、消息队列、共享内存、信号量、套接字（socket）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linus线程间通信：互斥量、信号量、条件变量"><span class="post-toc-number">3.</span> <span class="post-toc-text">Linus线程间通信：互斥量、信号量、条件变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#linux启动"><span class="post-toc-number">4.</span> <span class="post-toc-text">linux启动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#linux删除命令rm，发生了什么"><span class="post-toc-number">5.</span> <span class="post-toc-text">linux删除命令rm，发生了什么</span></a></li></ol>
         </nav>
     </aside>
 
@@ -192,6 +192,19 @@
 <li>线程不安全（Thread Unsafe）：</li>
 </ul>
 <p>相反，当多个线程访问某个类或者对象时，如果没有适当的同步措施，就可能导致对象的状态变得不可预测或者不正确，那么这个类或者对象就是线程不安全的。<br>在线程不安全的情况下，多个线程可能会在同一时间访问、修改相同的数据，这可能导致数据损坏或者不一致。</p>
+<h1 id="用户态和内核态"><a href="#用户态和内核态" class="headerlink" title="用户态和内核态"></a>用户态和内核态</h1><p>用户态(User Mode) : 用户态运行的进程可以直接读取用户程序的数据<br>内核态(Kernel Mode)：内核态运行的进程几乎可以访问计算机的任何资源包括系统的内存空间、设备、驱动程序等</p>
+<h2 id="如何切换用户态和内核态"><a href="#如何切换用户态和内核态" class="headerlink" title="如何切换用户态和内核态"></a>如何切换用户态和内核态</h2><ul>
+<li>系统调用：比如open close write read，还有一堆IO函数</li>
+<li>中断：当外围设备完成用户请求的操作后，会向 CPU 发出相应的中断信号</li>
+<li>异常：缺页异常等<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 系统调用：是一种软中断处理程序，用于让程序从用户态陷入内核态，以执行相应的操作</span><br><span class="line">流程：中断，保存现场，陷入内核态，执行完恢复现场（上下文），从保存的地址开始继续执行（产生中断的那一句）</span><br><span class="line"></span><br><span class="line">2. 中断分软和硬中断，由中断向量表（中断号-中断程序入口地址）和中断处理程序完成。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="进程上下文包括哪些"><a href="#进程上下文包括哪些" class="headerlink" title="进程上下文包括哪些"></a>进程上下文包括哪些</h2><ul>
+<li>进程控制块 PCB</li>
+<li>CPU寄存器状态</li>
+<li>程序计数器</li>
+</ul>
 <h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ul>
 <li><p>进程是系统资源分配的基本单位，一个程序对应一个进程。每个进程都有自己独立的内存空间，相互之间不会共享。它包括了程序代码、内存空间、资源和文件等。</p>
 </li>
@@ -199,8 +212,8 @@
 </li>
 </ul>
 <h3 id="共享资源指的是哪些资源"><a href="#共享资源指的是哪些资源" class="headerlink" title="共享资源指的是哪些资源"></a>共享资源指的是哪些资源</h3><p>内存、全局变量、对象、文件等</p>
-<h1 id="协程和线程的区别"><a href="#协程和线程的区别" class="headerlink" title="协程和线程的区别"></a>协程和线程的区别</h1><p>协程（goroutine）可以理解为轻量化的用户态线程的实现，区别是<br><strong>协程由goruntime进行调度，线程由操作系统内核调度</strong></p>
-<h1 id="进程切换："><a href="#进程切换：" class="headerlink" title="进程切换："></a>进程切换：</h1><ul>
+<h2 id="协程和线程的区别"><a href="#协程和线程的区别" class="headerlink" title="协程和线程的区别"></a>协程和线程的区别</h2><p>协程（goroutine）可以理解为轻量化的用户态线程的实现，区别是<br><strong>协程由goruntime进行调度，线程由操作系统内核调度</strong></p>
+<h2 id="进程切换："><a href="#进程切换：" class="headerlink" title="进程切换："></a>进程切换：</h2><ul>
 <li>保存当前进程上下文：当操作系统决定要切换到另一个进程时，首先会保存当前进程的上下文信息，包括寄存器的值、程序计数器（PC）等。</li>
 <li>加载目标进程的上下文：接下来，操作系统会从进程调度队列中选择一个新的进程，将其保存的上下文信息加载到 CPU 寄存器中，以便开始执行该进程。</li>
 <li>切换页表：在多进程的环境下，<strong>每个进程都有自己独立的地址空间</strong>（虚拟内存），因此在切换进程时，需要将当前进程的页表（用于地址映射）切换为目标进程的页表。</li>
@@ -215,15 +228,15 @@
 <li><strong>管道</strong> 半双工</li>
 <li><strong>信号</strong> signal ，用于处理异步事件，如外部中断、错误、异常等情况</li>
 <li><strong>信号量</strong> semaphore（mutex）实现进程间的互斥与同步，int计数器</li>
-<li><strong>消息队列</strong> 保存在内核中的消息链表<h1 id="线程同步的方式有哪些"><a href="#线程同步的方式有哪些" class="headerlink" title="线程同步的方式有哪些"></a>线程同步的方式有哪些</h1></li>
+<li><strong>消息队列</strong> 保存在内核中的消息链表</li>
+<li><strong>socket</strong><h1 id="线程同步的方式有哪些"><a href="#线程同步的方式有哪些" class="headerlink" title="线程同步的方式有哪些"></a>线程同步的方式有哪些</h1></li>
 <li><strong>互斥锁</strong></li>
 <li><strong>读写锁</strong></li>
 <li><strong>自旋锁</strong> 适用于锁被持有时间较短的情况：线程尝试获得锁时，如果锁已被占用，线程会一直忙等待直到锁被释放</li>
 <li><strong>信号量</strong></li>
 <li><strong>条件变量</strong></li>
-<li><strong>原子操作</strong></li>
+<li><strong>原子操作</strong><h1 id="fork子进程与父进程的区别"><a href="#fork子进程与父进程的区别" class="headerlink" title="fork子进程与父进程的区别"></a>fork子进程与父进程的区别</h1>在调用 fork() 函数时，操作系统会创建一个新的进程，这个新的进程称为子进程。子进程是父进程的一个复制，它将继承父进程的内存空间、文件描述符等资源。<br>fork之后，子进程和父进程之间是完全独立进行，互不干扰。</li>
 </ul>
-<h1 id="fork子进程与父进程的区别"><a href="#fork子进程与父进程的区别" class="headerlink" title="fork子进程与父进程的区别"></a>fork子进程与父进程的区别</h1><p>在调用 fork() 函数时，操作系统会创建一个新的进程，这个新的进程称为子进程。子进程是父进程的一个复制，它将继承父进程的内存空间、文件描述符等资源。<br>fork之后，子进程和父进程之间是完全独立进行，互不干扰。</p>
 <h1 id="死锁定义-amp-产生条件"><a href="#死锁定义-amp-产生条件" class="headerlink" title="死锁定义&amp; 产生条件"></a>死锁定义&amp; 产生条件</h1><p>定义：<br>死锁（Deadlock）是指在多个进程或线程之间，每个进程或线程都在等待一个事件，而这个事件只能由其他等待的进程或线程触发，从而导致所有进程或线程都无法继续执行的一种状态。</p>
 <p>产生条件</p>
 <ul>
@@ -268,8 +281,23 @@
 <li>内存保护：可以通过设置段的权限来保护程序的关键部分，防止非法访问。例如，将代码段设置为只读，防止在运行时修改代码</li>
 </ul>
 <h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>通过将程序的逻辑地址空间映射到物理内存或磁盘上的存储空间来实现。<br>实现技术：分页和分段技术</p>
+<ul>
+<li>隔离进程：物理内存通过虚拟地址空间访问，虚拟地址空间与进程一一对应。每个进程都认为自己拥有了整个物理内存，进程之间彼此隔离，一个进程中的代码无法更改正在由另一进程或操作系统使用的物理内存。</li>
+<li>提升物理内存利用率：有了虚拟地址空间后，操作系统只需要将进程当前正在使用的部分数据或指令加载入物理内存。</li>
+<li>简化内存管理：进程都有一个一致且私有的虚拟地址空间，程序员不用和真正的物理内存打交道，而是借助虚拟地址空间访问物理内存，从而简化了内存管理。</li>
+<li>多个进程共享物理内存：进程在运行过程中，会加载许多操作系统的动态库。这些库对于每个进程而言都是公用的，它们在内存中实际只会加载一份，这部分称为共享内存。</li>
+<li>提高内存使用安全性：控制进程对物理内存的访问，隔离不同进程的访问权限，提高系统的安全性。</li>
+<li>提供更大的可使用内存空间：可以让程序拥有超过系统物理内存大小的可用内存空间。这是因为当物理内存不够用时，可以利用磁盘充当，将物理内存页（通常大小为 4 KB）保存到磁盘文件（会影响读写速度），数据或代码页会根据需要在物理内存与磁盘之间移动。</li>
+</ul>
+<h2 id="如果没有虚拟内存的话"><a href="#如果没有虚拟内存的话" class="headerlink" title="如果没有虚拟内存的话"></a>如果没有虚拟内存的话</h2><ol>
+<li>容易爆内存，内存不够用</li>
+<li>浪费内存，内存崩溃等，根据局部性原理</li>
+</ol>
 <h1 id="局部性原理"><a href="#局部性原理" class="headerlink" title="局部性原理"></a>局部性原理</h1><p>时间局部性：如果一个数据项被访问，那么在不久的将来它很可能再次被访问。这意味着程序往往会重复使用相同的数据。</p>
 <p>空间局部性：如果一个数据项被访问，那么在它附近的数据也很可能会被访问。这意味着程序往往会以块或连续区域的方式访问数据。</p>
+<h1 id="TLB是什么快表，或者叫cache"><a href="#TLB是什么快表，或者叫cache" class="headerlink" title="TLB是什么快表，或者叫cache"></a>TLB是什么快表，或者叫cache</h1><p>缓存了虚拟页号到物理页号的映射关系，你可以将其简单看作是存储着键（虚拟页号）值（物理页号）对的哈希表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">使用 TLB 之后的地址翻译流程是这样的：</span><br><span class="line"></span><br><span class="line">1. 用虚拟地址中的虚拟页号作为 key 去 TLB 中查询；</span><br><span class="line">2. 如果能查到对应的物理页的话，就不用再查询页表了，这种情况称为 TLB 命中（TLB hit)。</span><br><span class="line">3. 如果不能查到对应的物理页的话，还是需要去查询主存中的页表，同时将页表中的该映射表项添加到 TLB 中，这种情况称为 TLB 未命中（TLB miss)。</span><br><span class="line">4. 当 TLB 填满后，又要登记新页时，就按照一定的淘汰策略淘汰掉快表中的一</span><br></pre></td></tr></table></figure>
+
 <h1 id="交换空间（Swap分区）"><a href="#交换空间（Swap分区）" class="headerlink" title="交换空间（Swap分区）"></a>交换空间（Swap分区）</h1><p>当物理内存不足时，操作系统会将一部分不常用的数据（可能是程序的代码、数据等）从物理内存移动到磁盘上的交换文件（Swap File）或者交换分区（Swap Partition）中。这样，物理内存就会腾出空间来运行当前活动的程序。当需要访问被移到交换空间的数据时，操作系统会将其再次加载到物理内存中。</p>
 <h1 id="缓冲区泄漏"><a href="#缓冲区泄漏" class="headerlink" title="缓冲区泄漏"></a>缓冲区泄漏</h1><p>当程序向缓冲区写入超过其容量的数据时，会覆盖相邻内存区域的数据或者控制程序的执行流程，从而可能导致程序崩溃或者执行意外的行为。</p>
 <ul>
@@ -300,6 +328,7 @@
 <li>不能连接目录，防止形成环<br>软连接</li>
 <li>软链接是一个单独的文件，其中包含了指向目标文件的路径信息。</li>
 <li>能连接目录</li>
+<li>删除源文件，软连接失效，硬连接还嫩用，因为原来的Inode还在用</li>
 </ul>
 <h1 id="中断的处理过程"><a href="#中断的处理过程" class="headerlink" title="中断的处理过程"></a>中断的处理过程</h1><ol>
 <li>中断触发，事件可能包括定时器结束，系统调用，异常等</li>
@@ -353,7 +382,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2023-10-30T17:27:14.937Z" itemprop="dateUpdated">2023-10-31 01:27:14</time>
+    Last updated: <time datetime="2023-11-03T07:16:14.257Z" itemprop="dateUpdated">2023-11-03 15:16:14</time>
 </span><br>
 
 
@@ -435,18 +464,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2023/01/06/2023-01-06-面试项目/" id="post-prev" class="post-nav-link">
+      <a href="/2023/01/05/2023-01-05-面经设计模式/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Project</h4>
+        <h4 class="title">设计模式</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/01/05/2023-01-05-面经设计模式/" id="post-next" class="post-nav-link">
+      <a href="/2023/01/04/2023-01-04-面经Redis/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">设计模式</h4>
+        <h4 class="title">Redis</h4>
       </a>
     </div>
   

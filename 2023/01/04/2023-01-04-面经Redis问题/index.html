@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="questions">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-10-30T17:27:06.954Z">
+<meta property="og:updated_time" content="2023-11-02T05:48:09.394Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis questions">
 <meta name="twitter:description" content="questions">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-memcached和redis区别有哪些，优势劣势？"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.memcached和redis区别有哪些，优势劣势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-实现本地缓存，有哪些方案？go本地，redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.实现本地缓存，有哪些方案？go本地，redis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-redis通讯协议？特点是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.redis通讯协议？特点是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-字符串最大长度是多少？512MB"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.字符串最大长度是多少？512MB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-介绍一下zset及底层实现机制"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.介绍一下zset及底层实现机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-redis事务？原理是什么"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.redis事务？原理是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-事务相关命令？支持回滚吗"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.事务相关命令？支持回滚吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-介绍一下pipeline和使用场景：批量读取写入"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.介绍一下pipeline和使用场景：批量读取写入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和批量命令有什么不同"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">和批量命令有什么不同</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-设置生存时间和过期时间用什么命令"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.设置生存时间和过期时间用什么命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-介绍下redis的发布订阅功能"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.介绍下redis的发布订阅功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-redis单线程为什么那么快"><span class="post-toc-number">11.</span> <span class="post-toc-text">11.redis单线程为什么那么快</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-分布式缓存要注意哪些问题"><span class="post-toc-number">12.</span> <span class="post-toc-text">12. 分布式缓存要注意哪些问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-redis的key删除策略"><span class="post-toc-number">13.</span> <span class="post-toc-text">13. redis的key删除策略</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-memcached和redis区别有哪些，优势劣势？"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.memcached和redis区别有哪些，优势劣势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-实现本地缓存，有哪些方案？go本地，redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.实现本地缓存，有哪些方案？go本地，redis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-redis通讯协议？特点是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.redis通讯协议？特点是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-字符串最大长度是多少？512MB"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.字符串最大长度是多少？512MB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-介绍一下zset及底层实现机制"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.介绍一下zset及底层实现机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-redis事务？原理是什么"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.redis事务？原理是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-事务相关命令？支持回滚吗"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.事务相关命令？支持回滚吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-介绍一下pipeline和使用场景：批量读取写入"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.介绍一下pipeline和使用场景：批量读取写入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和批量命令有什么不同"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">和批量命令有什么不同</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-设置生存时间和过期时间用什么命令"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.设置生存时间和过期时间用什么命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-介绍下redis的发布订阅功能"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.介绍下redis的发布订阅功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-redis单线程为什么那么快"><span class="post-toc-number">11.</span> <span class="post-toc-text">11.redis单线程为什么那么快</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-分布式缓存要注意哪些问题"><span class="post-toc-number">12.</span> <span class="post-toc-text">12. 分布式缓存要注意哪些问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-redis的key删除策略"><span class="post-toc-number">13.</span> <span class="post-toc-text">13. redis的key删除策略</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lua"><span class="post-toc-number"></span> <span class="post-toc-text">lua</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lua的基本数据类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">lua的基本数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-pairs-和ipairs"><span class="post-toc-number">2.</span> <span class="post-toc-text">1. pairs 和ipairs</span></a></li></ol>
         </nav>
     </aside>
 
@@ -205,6 +205,23 @@
 <li>定期删除，每 100 毫秒检查 20 个随机选择的过期 key，如果发现有过期的 key，就会将其删除。</li>
 <li>惰性删除，<br>设置过期时间+一个随机的时间，防止缓存雪崩</li>
 </ol>
+<h1 id="lua"><a href="#lua" class="headerlink" title="lua"></a>lua</h1><p><a href="https://zhuanlan.zhihu.com/p/383994942?utm_oi=757371723308879872" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/383994942?utm_oi=757371723308879872</a></p>
+<h2 id="lua的基本数据类型"><a href="#lua的基本数据类型" class="headerlink" title="lua的基本数据类型"></a>lua的基本数据类型</h2><ul>
+<li>nil    这个最简单，只有值nil属于该类，表示一个无效值（在条件表达式中相当于false）。</li>
+<li>boolean    包含两个值：false和true。</li>
+<li>number    表示双精度类型的实浮点数</li>
+<li>string    字符串由一对双引号或单引号来表示</li>
+<li>function    由 C 或 Lua 编写的函数</li>
+<li>userdata    表示任意存储在变量中的C数据结构</li>
+<li>thread    表示执行的独立线路，用于执行协同程序</li>
+<li>table    Lua 中的表（table）其实是一个”关联数组”（associative  arrays），数组的索引可以是数字、字符串或表类型。在 Lua 里，table 的创建是通过”构造表达式”来完成，最简单构造表达式是{}，用来创建一个空表。</li>
+</ul>
+<h2 id="1-pairs-和ipairs"><a href="#1-pairs-和ipairs" class="headerlink" title="1. pairs 和ipairs"></a>1. pairs 和ipairs</h2><ol>
+<li><p>ipairs遇到nil会停止，pairs会输出nil值然后继续下去</p>
+</li>
+<li><p>ipairs并不会输出table中存储的键值对,会跳过键值对，然后顺序输出table中的值。而pairs会输出table的键值对，先顺序输出值，再乱序(键的哈希值)输出键值对。</p>
+</li>
+</ol>
 
         </div>
 
@@ -213,7 +230,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2023-10-30T17:27:06.954Z" itemprop="dateUpdated">2023-10-31 01:27:06</time>
+    Last updated: <time datetime="2023-11-02T05:48:09.394Z" itemprop="dateUpdated">2023-11-02 13:48:09</time>
 </span><br>
 
 
@@ -295,18 +312,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2023/01/05/2023-01-05-面经设计模式/" id="post-prev" class="post-nav-link">
+      <a href="/2023/01/04/2023-01-04-面经Redis/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">设计模式</h4>
+        <h4 class="title">Redis</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/01/04/2023-01-04-面经Redis/" id="post-next" class="post-nav-link">
+      <a href="/2023/01/04/2023-01-04-面经计算机网络/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Redis</h4>
+        <h4 class="title">NetWorking</h4>
       </a>
     </div>
   

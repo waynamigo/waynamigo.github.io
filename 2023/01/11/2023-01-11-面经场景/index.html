@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="https://juejin.cn/post/6844904003998842887">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-10-30T17:27:26.711Z">
+<meta property="og:updated_time" content="2023-11-02T15:12:26.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生产场景问题">
 <meta name="twitter:description" content="https://juejin.cn/post/6844904003998842887">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】"><span class="post-toc-number">1.</span> <span class="post-toc-text">merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pull-和fetch的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">pull 和fetch的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"><span class="post-toc-number">3.</span> <span class="post-toc-text">stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-rm的使用"><span class="post-toc-number">4.</span> <span class="post-toc-text">git rm的使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#强制切换分支，并丢弃当前内容"><span class="post-toc-number">5.</span> <span class="post-toc-text">强制切换分支，并丢弃当前内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#切换到-某个提交-log查看提交hash，checkout过来"><span class="post-toc-number">6.</span> <span class="post-toc-text">切换到 某个提交 log查看提交hash，checkout过来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#撤销一个commit"><span class="post-toc-number">7.</span> <span class="post-toc-text">撤销一个commit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-checkout-和reset-到指定版本"><span class="post-toc-number">8.</span> <span class="post-toc-text">git checkout 和reset 到指定版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#github和gitlab的区别"><span class="post-toc-number">9.</span> <span class="post-toc-text">github和gitlab的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续集成和持续部署的区别是什么，"><span class="post-toc-number">10.</span> <span class="post-toc-text">持续集成和持续部署的区别是什么，</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#慢SQL问题如何排查"><span class="post-toc-number">11.</span> <span class="post-toc-text">慢SQL问题如何排查</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SQL的优化方式有哪些"><span class="post-toc-number">12.</span> <span class="post-toc-text">SQL的优化方式有哪些</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CICD的区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">CICD的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#serverless-和微服务的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">serverless 和微服务的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】"><span class="post-toc-number">3.</span> <span class="post-toc-text">merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pull-和fetch的区别"><span class="post-toc-number">4.</span> <span class="post-toc-text">pull 和fetch的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"><span class="post-toc-number">5.</span> <span class="post-toc-text">stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-rm的使用"><span class="post-toc-number">6.</span> <span class="post-toc-text">git rm的使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#强制切换分支，并丢弃当前内容"><span class="post-toc-number">7.</span> <span class="post-toc-text">强制切换分支，并丢弃当前内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#切换到-某个提交-log查看提交hash，checkout过来"><span class="post-toc-number">8.</span> <span class="post-toc-text">切换到 某个提交 log查看提交hash，checkout过来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#撤销一个commit"><span class="post-toc-number">9.</span> <span class="post-toc-text">撤销一个commit</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-checkout-和reset-到指定版本"><span class="post-toc-number">10.</span> <span class="post-toc-text">git checkout 和reset 到指定版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#github和gitlab的区别"><span class="post-toc-number">11.</span> <span class="post-toc-text">github和gitlab的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#持续集成和持续部署的区别是什么，"><span class="post-toc-number">12.</span> <span class="post-toc-text">持续集成和持续部署的区别是什么，</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#慢SQL问题如何排查"><span class="post-toc-number">13.</span> <span class="post-toc-text">慢SQL问题如何排查</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#explain的字段有哪些【主要看-type-key-rows-extra】"><span class="post-toc-number">14.</span> <span class="post-toc-text">explain的字段有哪些【主要看 type key rows extra】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#select-type有哪些"><span class="post-toc-number">14.1.</span> <span class="post-toc-text">select type有哪些</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SQL的优化方式有哪些"><span class="post-toc-number">15.</span> <span class="post-toc-text">SQL的优化方式有哪些</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis-Lua常用的命令"><span class="post-toc-number">16.</span> <span class="post-toc-text">Redis Lua常用的命令</span></a></li></ol>
         </nav>
     </aside>
 
@@ -185,6 +185,20 @@
             <p><a href="https://juejin.cn/post/6844904003998842887" target="_blank" rel="noopener">https://juejin.cn/post/6844904003998842887</a></p>
 <a id="more"></a>
 
+<h2 id="CICD的区别"><a href="#CICD的区别" class="headerlink" title="CICD的区别"></a>CICD的区别</h2><p><a href="https://zhuanlan.zhihu.com/p/103554905" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/103554905</a></p>
+<ul>
+<li><p><strong>持续集成</strong>是对仓库每次更新完就跟进测试，每次提交远程仓库时，CI工具都会重建分支，并运行所有相关的测试用例，以验证新更改不会破坏现有应用程序的运行。然而要实施持续集成，必须满足一些先决条件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">条件如下</span><br><span class="line">为了使应用程序做好持续集成的准备，需要事先采取一些措施。最显而易见的是如果没有构建系统或测试要运行，则无法构建和测试应用程序。尽管看起来可能要花费额外的精力（特别是在代码没有进行过任何测试的情况下），持续集成可以带来很多好处。例如，自动化单元和集成测试能够在 bug 进入生产环境之前就捕获它们，这样一来更少的 bug 会被交付到生产中。事实上，防止一个潜在 bug 进入生产阶段的有效措施就是用一个测试用例覆盖它们，以确保它们不会导致产品回滚。除此之外，由于持续集成可以在短短几分钟内运行数百个测试用例，花费在手动测试上的时间也将大大减少，这意味着测试人员可以专注于更重要的改进而不是耗费大量精力在反复测试现有功能上。</span><br><span class="line"></span><br><span class="line">为了进一步开发和拓展持续集成机制以实现更高的自动化程度，我们引进了持续交付这一理念。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>持续交付</strong><br>每次代码更改通过测试时都要对其进行重新部署。把构建和测试，发布三阶段自动化了，运维人员只要点一下按钮就可以部署应用程序。</p>
+</li>
+<li><p><strong>持续部署</strong><br>部署则建立在交付之上。与持续交付相比，持续部署自动将代码更改部署到生产中而无需人工干预。这也意味着为了避免出现回滚和其他问题，您的测试包必须是一流的，因为它决定了您的发布过程。</p>
+</li>
+</ul>
+<p>项目团队将获取更快的部署速度，因为每项更改都可以进行自动处理，代码合并后几分钟就能够在生产环境中看到本地开发的功能；另一方面，代码发布的风险也能够进一步降低，因为您应该尽可能进行小批量部署，所以比较合适的场景是微服务和serverless场景。</p>
+<h2 id="serverless-和微服务的区别"><a href="#serverless-和微服务的区别" class="headerlink" title="serverless 和微服务的区别"></a>serverless 和微服务的区别</h2><ul>
+<li>视频处理的后端系统，常见功能需求如下：视频转码、抽取数据、人脸识别等，这些均为通用计算任务，可由函数计算执行。<br><a href="https://developer.aliyun.com/article/80521" target="_blank" rel="noopener">aliyun serverless的场景</a></li>
+</ul>
 <h2 id="merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】"><a href="#merge-和-rebase-的区别【合并方式和历史记录，冲突解决方式】" class="headerlink" title="merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】"></a>merge 和 rebase 的区别【合并方式和历史记录，冲突解决方式】</h2><p><strong>git merge：</strong></p>
 <ul>
 <li>将目标分支的最新提交合并到当前分支，创建一个新的合并提交，保留了分支的历史记录。</li>
@@ -196,7 +210,9 @@
 <li>将当前分支的提交“移动”到目标分支的最新提交之后，使得分支历史看起来更线性。</li>
 <li>实际上是将当前分支的提交重新应用在目标分支的最新提交之后，形成一系列新的提交。</li>
 <li>适合本地工作分支的合并</li>
-<li>然后rebase 合并一些提交记录<br>git merge：<br>保留了分支的整个历史记录，可以清晰地看到分支的合并过程。<br>git rebase：<br>使得分支历史看起来更加线性，但也会丢失了分支的原始历史记录。<h2 id="pull-和fetch的区别"><a href="#pull-和fetch的区别" class="headerlink" title="pull 和fetch的区别"></a>pull 和fetch的区别</h2>fetch拉取最新代码，本身不会产生冲突，origin/branch1 会覆盖掉本底的暂存branch1<br>pull = fetch + merge，会产生冲突</li>
+<li>然后rebase 合并一些提交记录<br>git merge：<br>保留了分支的整个历史记录，可以清晰地看到分支的合并过程。<br>git rebase：<br>使得分支历史看起来更加线性，但也会丢失了分支的原始历史记录。<h2 id="pull-和fetch的区别"><a href="#pull-和fetch的区别" class="headerlink" title="pull 和fetch的区别"></a>pull 和fetch的区别</h2></li>
+<li>fetch拉取最新代码，本身不会产生冲突，origin/branch1 会覆盖掉本底的暂存branch1</li>
+<li>pull = fetch + merge，会产生冲突</li>
 </ul>
 <h2 id="stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"><a href="#stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】" class="headerlink" title="stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】"></a>stash的使用【在merge之前，把本地stash起来，或者当前版本需要临时存到一个分支里】</h2><h2 id="git-rm的使用"><a href="#git-rm的使用" class="headerlink" title="git rm的使用"></a>git rm的使用</h2><ol>
 <li>git rm file 删除暂存区和源文件</li>
@@ -225,10 +241,51 @@
 <li><strong>数据库统计信息</strong>：查看数据库的统计信息，了解表的大小、索引情况和数据分布。这些信息可以指导你哪些地方需要优化。</li>
 <li><strong>查询缓存</strong>：考虑使用查询缓存，将经常执行的查询结果缓存起来，以减轻数据库负担。</li>
 <li><strong>分页查询优化</strong>：如果涉及到分页查询，确保使用了有效的分页查询方式，避免一次性获取大量数据。</li>
-<li><strong>监控和性能测试</strong>：建立监控系统，随时监测数据库性能。进行性能测试，模拟高负载情况，确保数据库在压力下能够正常工作。<h2 id="SQL的优化方式有哪些"><a href="#SQL的优化方式有哪些" class="headerlink" title="SQL的优化方式有哪些"></a>SQL的优化方式有哪些</h2></li>
-<li><strong>联合索引</strong></li>
-<li></li>
+<li><strong>监控和性能测试</strong>：建立监控系统，随时监测数据库性能。进行性能测试，模拟高负载情况，确保数据库在压力下能够正常工作。</li>
 </ol>
+<h2 id="explain的字段有哪些【主要看-type-key-rows-extra】"><a href="#explain的字段有哪些【主要看-type-key-rows-extra】" class="headerlink" title="explain的字段有哪些【主要看 type key rows extra】"></a>explain的字段有哪些【主要看 type key rows extra】</h2><ul>
+<li><p>id    查询序号</p>
+</li>
+<li><p>select_type    查询类型</p>
+</li>
+<li><p>table    表名</p>
+</li>
+<li><p>partitions    匹配的分区</p>
+</li>
+<li><p><strong>type(主要)</strong>    查询使用了什么类型，是index还是全表扫描，同时用了index还会在extra里显示using index</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system --&gt; const --&gt; eq_ref --&gt; ref --&gt; fulltext --&gt; ref_or_null --&gt; index_merge --&gt; unique_subquery --&gt; index_subquery --&gt; range --&gt; index --&gt; ALL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>prossible_keys    可能会选择的索引</p>
+</li>
+<li><p><strong>key（主要）</strong>    实际选择的索引</p>
+</li>
+<li><p>key_len    索引的长度</p>
+</li>
+<li><p>ref    与索引作比较的列</p>
+</li>
+<li><p><strong>rows（主要）</strong>    要检索的行数(估算值)</p>
+</li>
+<li><p>filtered    查询条件过滤的行数的百分比</p>
+</li>
+<li><p><strong>Extra（主要）</strong>    额外信息，dictinct，using index，using filesort，using temporary，最好是using index，filesort和tmp都可能导致性能下降</p>
+</li>
+</ul>
+<h3 id="select-type有哪些"><a href="#select-type有哪些" class="headerlink" title="select type有哪些"></a>select type有哪些</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SIMPLE	简单SELECT(不使用UNION或子查询)</span><br><span class="line">PRIMARY	最外层的SELECT</span><br><span class="line">UNION	UNION中第二个或之后的SELECT语句</span><br><span class="line">DEPENDENT UNION	UNION中第二个或之后的SELECT语句取决于外面的查询</span><br><span class="line">UNION RESULT	UNION的结果</span><br><span class="line">SUBQUERY	子查询中的第一个SELECT</span><br><span class="line">DEPENDENT SUBQUERY	子查询中的第一个SELECT, 取决于外面的查询</span><br><span class="line">DERIVED	衍生表(FROM子句中的子查询)</span><br><span class="line">MATERIALIZED	物化子查询</span><br><span class="line">UNCACHEABLE SUBQUERY	结果集无法缓存的子查询，必须重新评估外部查询的每一行</span><br><span class="line">UNCACHEABLE UNION	UNION中第二个或之后的SELECT，属于无法缓存的子查询</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQL的优化方式有哪些"><a href="#SQL的优化方式有哪些" class="headerlink" title="SQL的优化方式有哪些"></a>SQL的优化方式有哪些</h2><ol>
+<li><strong>联合索引</strong></li>
+</ol>
+<h2 id="Redis-Lua常用的命令"><a href="#Redis-Lua常用的命令" class="headerlink" title="Redis Lua常用的命令"></a>Redis Lua常用的命令</h2><ul>
+<li>EVAL：EVAL script numkeys key [key …] arg [arg …]</li>
+<li>EVALSHA：EVALSHA sha1 numkeys key [key …] arg [arg …]<br>SCRIPT LOAD命令格式：SCRIPT LOAD script<br>EVALSHA命令格式：</li>
+</ul>
+<p>这两个命令放在一起讲的原因是：EVALSHA 命令中的sha1参数，就是SCRIPT LOAD 命令执行的结果。</p>
+<ul>
+<li>SCRIPT LOAD </li>
+<li>SCRIPT EXISTS</li>
+<li>SCRIPT FLUSH</li>
+<li>SCRIPT KILL</li>
+</ul>
 
         </div>
 
@@ -237,7 +294,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2023-10-30T17:27:26.711Z" itemprop="dateUpdated">2023-10-31 01:27:26</time>
+    Last updated: <time datetime="2023-11-02T15:12:26.459Z" itemprop="dateUpdated">2023-11-02 23:12:26</time>
 </span><br>
 
 
@@ -328,9 +385,9 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/01/10/2023-01-10-面经Java基础/" id="post-next" class="post-nav-link">
+      <a href="/2023/01/10/2023-01-10-面经Java并发/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Java base</h4>
+        <h4 class="title">Java concur</h4>
       </a>
     </div>
   
