@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="waynamigo&#39;s blog">
 <meta property="og:description" content="questions">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-10-30T17:27:22.260Z">
+<meta property="og:updated_time" content="2023-12-07T18:08:08.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式理论">
 <meta name="twitter:description" content="questions">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CAP理论"><span class="post-toc-number">1.</span> <span class="post-toc-text">CAP理论</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#raft理论"><span class="post-toc-number">2.</span> <span class="post-toc-text">raft理论</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#leader选举、日志复制、日志压缩、成员变更"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">leader选举、日志复制、日志压缩、成员变更</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如果leader节点出现了故障"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">如果leader节点出现了故障</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分布式session怎么做的，常用的"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">分布式session怎么做的，常用的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#身份认证和权限管理"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">身份认证和权限管理</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何设计一个高并发系统"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何设计一个高并发系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何解决10万非结构化数据查询请求"><span class="post-toc-number">2.</span> <span class="post-toc-text">如何解决10万非结构化数据查询请求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如果是百台以内的机器"><span class="post-toc-number">3.</span> <span class="post-toc-text">如果是百台以内的机器</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CAP理论"><span class="post-toc-number"></span> <span class="post-toc-text">CAP理论</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#raft理论"><span class="post-toc-number"></span> <span class="post-toc-text">raft理论</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#leader选举、日志复制、日志压缩、成员变更"><span class="post-toc-number">1.</span> <span class="post-toc-text">leader选举、日志复制、日志压缩、成员变更</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如果leader节点出现了故障"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">如果leader节点出现了故障</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#raft算法流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">raft算法流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分布式session怎么做的，常用的"><span class="post-toc-number">3.</span> <span class="post-toc-text">分布式session怎么做的，常用的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#身份认证和权限管理"><span class="post-toc-number">4.</span> <span class="post-toc-text">身份认证和权限管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分布式事务和分布式锁"><span class="post-toc-number">5.</span> <span class="post-toc-text">分布式事务和分布式锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#场景问题集合"><span class="post-toc-number">6.</span> <span class="post-toc-text">场景问题集合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目开放性问题"><span class="post-toc-number">7.</span> <span class="post-toc-text">项目开放性问题</span></a></li></ol>
         </nav>
     </aside>
 
@@ -184,7 +184,23 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p> questions</p>
 <a id="more"></a>
-<h1 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h1><p><strong>Consistency（一致性）、Availability（可用性）、Partition Tolerance（分区容错性)</strong></p>
+
+<h2 id="如何设计一个高并发系统"><a href="#如何设计一个高并发系统" class="headerlink" title="如何设计一个高并发系统"></a>如何设计一个高并发系统</h2><ol>
+<li>高并发系统的目的是处理网络请求和数据的关系，瓶颈主要在内存，网络IO </li>
+<li></li>
+</ol>
+<h2 id="如何解决10万非结构化数据查询请求"><a href="#如何解决10万非结构化数据查询请求" class="headerlink" title="如何解决10万非结构化数据查询请求"></a>如何解决10万非结构化数据查询请求</h2><p>这个问题要解决的主要是网络IO和非结构化存储的瓶颈问题。</p>
+<ol>
+<li>首先数据库要支持非结构化的存储比如使用MongoDB的文档存储使用gridFS进行分布式存储</li>
+<li>然后对于每秒的十万的网络请求，最常见的方法，以及目前的主流方法是拆分微服务，使用负载均衡策略将请求有效分发到不同</li>
+<li>对于数据的存储和查询，现在主流也是分布式数据库，比如ES和MongoDB，PG的集群都可以创建非结构化数据的索引，在业务逻辑中优化sql查询语句等</li>
+<li>使用redis做缓存，对于某些大型的非结构化数据，可以使用cdn去存储静态资源</li>
+</ol>
+<h2 id="如果是百台以内的机器"><a href="#如果是百台以内的机器" class="headerlink" title="如果是百台以内的机器"></a>如果是百台以内的机器</h2><ol>
+<li>常用的有两种方便的方法，一个是fabric多个ssh同步文件，这也是阿里云和百度云针对个人用户提供的一种解决方案</li>
+<li>配置集群以后，rsync同步一个文件夹下的某个文件。<h1 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h1></li>
+</ol>
+<p><strong>Consistency（一致性）、Availability（可用性）、Partition Tolerance（分区容错性）</strong></p>
 <h1 id="raft理论"><a href="#raft理论" class="headerlink" title="raft理论"></a>raft理论</h1><h2 id="leader选举、日志复制、日志压缩、成员变更"><a href="#leader选举、日志复制、日志压缩、成员变更" class="headerlink" title="leader选举、日志复制、日志压缩、成员变更"></a>leader选举、日志复制、日志压缩、成员变更</h2><ol>
 <li>Leader Selection</li>
 </ol>
@@ -199,12 +215,21 @@
 <li>服务注册与发现 consul</li>
 <li>负载均衡，consul，用wrr算法实现的</li>
 <li>APi网关 gateway</li>
-<li>熔断器 circuitbreaker</li>
+<li>熔断器 circuitbreaker<h2 id="raft算法流程"><a href="#raft算法流程" class="headerlink" title="raft算法流程"></a>raft算法流程</h2>Raft算法分为两个阶段，首先是选举过程，然后在选举出来的领导人带领进行正常操作，主要用于管理复制日志的一致性算法。<br>Raft算法三模块：领导人选举、日志复制、安全性。<br>领导人Leader选举<br>Raft通过选举一个领导人，然后给予他全部的管理复制日志的责任来实现一致性。<br>三个角色(任何服务器都可以当三个角色之一)：<br>领导者(leader)：处理客户端交互，日志复制等动作，一般一次只有一个领导者<br>候选者(candidate)：候选者就是在选举过程中提名自己的实体，一旦选举成功，则成为领导者<br>跟随者(follower)：类似选民，完全被动的角色，这样的服务器等待被通知投票<br>理解：当服务启动的时候，所有服务器follower都是初始状态，每个服务器都有一个定时器，超时时间为election timeout（一般为150-300ms），当某个服务器达到超时时间，他就成为了候选者，先给自己投上一票，然后发送消息给其他服务器，当其他服务器超过半数收到了他的消息，相当于获取到了选票，他就成了领导者，而其他服务器全部成了跟随者，这时候领导者就开始根据间隔时间向跟随者发送心跳检测包，证明我还活在，也就是心跳机制，而跟随者每次接受到消息，就初始化自己内部的定时器，当某个服务器定时器达到超时时间，没有收到领导者的消息，那么跟随者会觉得领导者挂了，他就摇身一变称为候选者，开始篡位，重复之前的过程，成为领导者，当他成为领导者之后，当前任领导者就算回来了，也只能变成跟随者。<br>特殊情况：四个服务器，当其中两个服务器同时达到超时成为候选者，并且每个服务器拿到自己一票，另外一个服务器一票，这时候的机制就是这两个服务器重新定时，先达到超时的服务器成为候选者，并发送通知进一步成为选举者。</li>
 </ol>
+<p>日志复制（保证数据一致性）<br>Leader选出后，就开始接收客户端的请求。Leader把请求作为日志条目（Log entries）加入到它的日志中，然后并行的向其他服务器发起 AppendEntries RPC复制日志条目。当这条日志被复制到大多数服务器上，Leader将这条 日志应用到它的状态机并向客户端返回执行结果。<br>1）客户端的每一个请求都包含被复制状态机执行的指令。<br>2）leader把这个指令作为一条新的日志条目添加到日志中，然后并行发起 RPC 给其他的服务器，让他们复制这条 信息。<br>3）跟随者响应ACK,如果 follower 宕机或者运行缓慢或者丢包，leader会不断的重试，直到所有的 follower 最终都 复制了所有的日志条目。<br>4）通知所有的Follower提交日志，同时领导人提交这条日志到自己的状态机中，并返回给客户端。</p>
 <h2 id="分布式session怎么做的，常用的"><a href="#分布式session怎么做的，常用的" class="headerlink" title="分布式session怎么做的，常用的"></a>分布式session怎么做的，常用的</h2><p>java有apach shiro这两个中间件有session管理器，它是配置redis共享缓存的服务器中的，使用的是RedisSessionDAO层。</p>
 <p>golang有casbin+redis的共享缓存来实现分布式session管理</p>
 <h2 id="身份认证和权限管理"><a href="#身份认证和权限管理" class="headerlink" title="身份认证和权限管理"></a>身份认证和权限管理</h2><p><a href="https://zhuanlan.zhihu.com/p/150644469" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/150644469</a></p>
 <p><a href="https://www.cnblogs.com/alisapine/p/15080359.html" target="_blank" rel="noopener">https://www.cnblogs.com/alisapine/p/15080359.html</a></p>
+<h2 id="分布式事务和分布式锁"><a href="#分布式事务和分布式锁" class="headerlink" title="分布式事务和分布式锁"></a>分布式事务和分布式锁</h2><ul>
+<li><p>分布式锁<br>通常用于控制多个节点或进程之间对共享资源的并发访问，以避免竞态条件和数据损坏。</p>
+</li>
+<li><p>分布式事务<br>通常涉及多个事务性操作后的一致性，如数据库更新、消息发布等，需要确保这些操作在分布式系统中以事务的方式执行。 </p>
+</li>
+</ul>
+<h2 id="场景问题集合"><a href="#场景问题集合" class="headerlink" title="场景问题集合"></a>场景问题集合</h2><p>一个外卖平台上有一个外卖单子，现在有多名骑手想接这一单，如何保证只有一个骑手可以接到单子？<br>如何把一个文件快速下发到100w个服务器？<br>给每个组分配不同的IP段，怎么设计一种结构使的快速得知IP是哪个组的?<br>典型TOPk系列的问题：10亿个数，找出最大的10个。等(10万个数，输出从小到大？有十万个单词，找出重复次数最高十个？)<br>让你设计一个微信发红包的api，你会怎么设计，不能有人领到的红包里面没钱，红包数值精确到分。<br>分布式多个机器生成id，如何保证不重复?<br>扫码登录是如何实现的？<br>分布式集群中如何保证线程安全？<br>某网站/app首页每天会从10000个商家里面推荐50个商家置顶，每个商家有一个权值，你如何来推荐？第二天怎么更新推荐的商家？<br>如何设计一个本地缓存？需要考虑哪些方面？</p>
+<h2 id="项目开放性问题"><a href="#项目开放性问题" class="headerlink" title="项目开放性问题"></a>项目开放性问题</h2><p>1、找个印象最深的项目说说？(简历中不止一个项目)<br>2、你项目中遇到的最大的问题是什么？你是怎么解决的？<br>3、你项目中用到的技术栈是如何学习的？<br>4、为什么做这个项目，技术选型为什么是这样的？<br>5、登录怎么做的？单点登录说说你的理解？<br>6、项目遇到的最大挑战是什么？(类似问题2)<br>7、说说项目中的闪光点和亮点？<br>8、项目怎么没有尝试部署上线呢？<br>9、介绍项目具体做了什么？(项目背景)<br>10、如果让你对这个项目优化，你会从哪几个点来优化呢？</p>
 
         </div>
 
@@ -213,7 +238,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2023-10-30T17:27:22.260Z" itemprop="dateUpdated">2023-10-31 01:27:22</time>
+    Last updated: <time datetime="2023-12-07T18:08:08.771Z" itemprop="dateUpdated">2023-12-08 02:08:08</time>
 </span><br>
 
 

@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="面试,Redis">
-    <meta name="description" content="questions">
+    <meta name="description" content="questions https://github.com/redisson/redisson/wiki/目录">
 <meta name="keywords" content="面试,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis questions">
 <meta property="og:url" content="http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/index.html">
 <meta property="og:site_name" content="waynamigo&#39;s blog">
-<meta property="og:description" content="questions">
+<meta property="og:description" content="questions https://github.com/redisson/redisson/wiki/目录">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-11-02T05:48:09.394Z">
+<meta property="og:updated_time" content="2023-11-25T10:19:46.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis questions">
-<meta name="twitter:description" content="questions">
+<meta name="twitter:description" content="questions https://github.com/redisson/redisson/wiki/目录">
     
         <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
     
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-memcached和redis区别有哪些，优势劣势？"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.memcached和redis区别有哪些，优势劣势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-实现本地缓存，有哪些方案？go本地，redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.实现本地缓存，有哪些方案？go本地，redis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-redis通讯协议？特点是什么"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.redis通讯协议？特点是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-字符串最大长度是多少？512MB"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.字符串最大长度是多少？512MB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-介绍一下zset及底层实现机制"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.介绍一下zset及底层实现机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-redis事务？原理是什么"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.redis事务？原理是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-事务相关命令？支持回滚吗"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.事务相关命令？支持回滚吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-介绍一下pipeline和使用场景：批量读取写入"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.介绍一下pipeline和使用场景：批量读取写入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和批量命令有什么不同"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">和批量命令有什么不同</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-设置生存时间和过期时间用什么命令"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.设置生存时间和过期时间用什么命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-介绍下redis的发布订阅功能"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.介绍下redis的发布订阅功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-redis单线程为什么那么快"><span class="post-toc-number">11.</span> <span class="post-toc-text">11.redis单线程为什么那么快</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-分布式缓存要注意哪些问题"><span class="post-toc-number">12.</span> <span class="post-toc-text">12. 分布式缓存要注意哪些问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-redis的key删除策略"><span class="post-toc-number">13.</span> <span class="post-toc-text">13. redis的key删除策略</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lua"><span class="post-toc-number"></span> <span class="post-toc-text">lua</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lua的基本数据类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">lua的基本数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-pairs-和ipairs"><span class="post-toc-number">2.</span> <span class="post-toc-text">1. pairs 和ipairs</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-memcached和redis区别有哪些，优势劣势？"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.memcached和redis区别有哪些，优势劣势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-实现本地缓存，有哪些方案？go本地，redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.实现本地缓存，有哪些方案？go本地，redis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-redis通讯协议？特点是什么【TCP】"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.redis通讯协议？特点是什么【TCP】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-字符串最大长度是多少？512MB"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.字符串最大长度是多少？512MB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-介绍一下zset及底层实现机制"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.介绍一下zset及底层实现机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-redis事务？原理是什么"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.redis事务？原理是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-事务相关命令？支持回滚吗"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.事务相关命令？支持回滚吗</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-介绍一下pipeline和使用场景：批量读取写入"><span class="post-toc-number">8.</span> <span class="post-toc-text">8.介绍一下pipeline和使用场景：批量读取写入</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#和批量命令有什么不同"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">和批量命令有什么不同</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-设置生存时间和过期时间用什么命令"><span class="post-toc-number">9.</span> <span class="post-toc-text">9.设置生存时间和过期时间用什么命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-介绍下redis的发布订阅功能"><span class="post-toc-number">10.</span> <span class="post-toc-text">10.介绍下redis的发布订阅功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-redis单线程为什么那么快"><span class="post-toc-number">11.</span> <span class="post-toc-text">11.redis单线程为什么那么快</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-分布式缓存要注意哪些问题"><span class="post-toc-number">12.</span> <span class="post-toc-text">12. 分布式缓存要注意哪些问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-redis的key删除策略【redis同时使用了惰性删除和定期删除】"><span class="post-toc-number">13.</span> <span class="post-toc-text">13. redis的key删除策略【redis同时使用了惰性删除和定期删除】</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lua"><span class="post-toc-number"></span> <span class="post-toc-text">lua</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lua的基本数据类型"><span class="post-toc-number">1.</span> <span class="post-toc-text">lua的基本数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-pairs-和ipairs"><span class="post-toc-number">2.</span> <span class="post-toc-text">1. pairs 和ipairs</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#高频问题"><span class="post-toc-number"></span> <span class="post-toc-text">高频问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Redis为什么那么快"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. Redis为什么那么快</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-Redis对于过期key的处理"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. Redis对于过期key的处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-key没设置过期时间为什么还被删除了【在内存使用超阈值之后，会自动清一波没有使用的内存】"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. key没设置过期时间为什么还被删除了【在内存使用超阈值之后，会自动清一波没有使用的内存】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-删除key的命令会阻塞redis吗？【会发生阻塞】"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. 删除key的命令会阻塞redis吗？【会发生阻塞】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-主从-哨兵-集群-优缺点"><span class="post-toc-number">5.</span> <span class="post-toc-text">5. 主从 哨兵 集群 优缺点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-集群模式，数据的hash分片算法"><span class="post-toc-number">6.</span> <span class="post-toc-text">6. 集群模式，数据的hash分片算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-主从切换为什么会导致缓存雪崩【从节点所在系统时间戳不同】"><span class="post-toc-number">7.</span> <span class="post-toc-text">7. 主从切换为什么会导致缓存雪崩【从节点所在系统时间戳不同】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#8-RDB快照和AOF问题"><span class="post-toc-number">8.</span> <span class="post-toc-text">8. RDB快照和AOF问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#9-线上数据如何备份"><span class="post-toc-number">9.</span> <span class="post-toc-text">9. 线上数据如何备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10-主从复制风暴是什么【发生在从节点特别多的情况】"><span class="post-toc-number">10.</span> <span class="post-toc-text">10. 主从复制风暴是什么【发生在从节点特别多的情况】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#11-网络抖动导致频繁主从切换，怎么处理【redis-timeout超过一定阈值，才认定故障，发生主从切换】"><span class="post-toc-number">11.</span> <span class="post-toc-text">11. 网络抖动导致频繁主从切换，怎么处理【redis timeout超过一定阈值，才认定故障，发生主从切换】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#12-为什么redis至少需要三个master"><span class="post-toc-number">12.</span> <span class="post-toc-text">12. 为什么redis至少需要三个master</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#13-mset-mget批量指令支持redis集群吗【支持】"><span class="post-toc-number">13.</span> <span class="post-toc-text">13. mset mget批量指令支持redis集群吗【支持】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#14-lua可以在集群执行吗【可以，但是有要求，同13问】"><span class="post-toc-number">14.</span> <span class="post-toc-text">14. lua可以在集群执行吗【可以，但是有要求，同13问】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-主从切换导致分布式锁丢失"><span class="post-toc-number">15.</span> <span class="post-toc-text">15. 主从切换导致分布式锁丢失</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#16-大公司使用旁路写回的情况，是建立在设置好超时时间的前提下的"><span class="post-toc-number">16.</span> <span class="post-toc-text">16. 大公司使用旁路写回的情况，是建立在设置好超时时间的前提下的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#【redis集群一致性】：主从复制，分片算法"><span class="post-toc-number">17.</span> <span class="post-toc-text">【redis集群一致性】：主从复制，分片算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#17-解决缓存数据库双写不一致情况【双写指两个-多个写操作，其中有一个在查db和更新缓存之间顿了一下导致】"><span class="post-toc-number">18.</span> <span class="post-toc-text">17. 解决缓存数据库双写不一致情况【双写指两个/多个写操作，其中有一个在查db和更新缓存之间顿了一下导致】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#18-分布式锁在遇到高并发时，出现串行征用问题"><span class="post-toc-number">19.</span> <span class="post-toc-text">18. 分布式锁在遇到高并发时，出现串行征用问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#19-一个创建某个cache的操作进行上锁，几万个请求来搞这个请求，如何优化【使用redission的trylock】"><span class="post-toc-number">20.</span> <span class="post-toc-text">19. 一个创建某个cache的操作进行上锁，几万个请求来搞这个请求，如何优化【使用redission的trylock】</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis和MongoDB的区别"><span class="post-toc-number">21.</span> <span class="post-toc-text">Redis和MongoDB的区别</span></a></li></ol>
         </nav>
     </aside>
 
@@ -182,10 +182,10 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p> questions</p>
+            <p> questions<br> <a href="https://github.com/redisson/redisson/wiki/目录" target="_blank" rel="noopener">https://github.com/redisson/redisson/wiki/目录</a></p>
 <a id="more"></a>
 <h2 id="1-memcached和redis区别有哪些，优势劣势？"><a href="#1-memcached和redis区别有哪些，优势劣势？" class="headerlink" title="1.memcached和redis区别有哪些，优势劣势？"></a>1.memcached和redis区别有哪些，优势劣势？</h2><p>redis支持多种数据类型，并且支持持久化策略，</p>
-<h2 id="2-实现本地缓存，有哪些方案？go本地，redis"><a href="#2-实现本地缓存，有哪些方案？go本地，redis" class="headerlink" title="2.实现本地缓存，有哪些方案？go本地，redis"></a>2.实现本地缓存，有哪些方案？go本地，redis</h2><h2 id="3-redis通讯协议？特点是什么"><a href="#3-redis通讯协议？特点是什么" class="headerlink" title="3.redis通讯协议？特点是什么"></a>3.redis通讯协议？特点是什么</h2><h2 id="4-字符串最大长度是多少？512MB"><a href="#4-字符串最大长度是多少？512MB" class="headerlink" title="4.字符串最大长度是多少？512MB"></a>4.字符串最大长度是多少？512MB</h2><h2 id="5-介绍一下zset及底层实现机制"><a href="#5-介绍一下zset及底层实现机制" class="headerlink" title="5.介绍一下zset及底层实现机制"></a>5.介绍一下zset及底层实现机制</h2><h2 id="6-redis事务？原理是什么"><a href="#6-redis事务？原理是什么" class="headerlink" title="6.redis事务？原理是什么"></a>6.redis事务？原理是什么</h2><h2 id="7-事务相关命令？支持回滚吗"><a href="#7-事务相关命令？支持回滚吗" class="headerlink" title="7.事务相关命令？支持回滚吗"></a>7.事务相关命令？支持回滚吗</h2><h2 id="8-介绍一下pipeline和使用场景：批量读取写入"><a href="#8-介绍一下pipeline和使用场景：批量读取写入" class="headerlink" title="8.介绍一下pipeline和使用场景：批量读取写入"></a>8.介绍一下pipeline和使用场景：批量读取写入</h2><p>批量执行Redis命令的机制，它可以在客户端发送多个命令后，一次性将它们发送到服务器，然后一次性接收服务器的响应</p>
+<h2 id="2-实现本地缓存，有哪些方案？go本地，redis"><a href="#2-实现本地缓存，有哪些方案？go本地，redis" class="headerlink" title="2.实现本地缓存，有哪些方案？go本地，redis"></a>2.实现本地缓存，有哪些方案？go本地，redis</h2><h2 id="3-redis通讯协议？特点是什么【TCP】"><a href="#3-redis通讯协议？特点是什么【TCP】" class="headerlink" title="3.redis通讯协议？特点是什么【TCP】"></a>3.redis通讯协议？特点是什么【TCP】</h2><h2 id="4-字符串最大长度是多少？512MB"><a href="#4-字符串最大长度是多少？512MB" class="headerlink" title="4.字符串最大长度是多少？512MB"></a>4.字符串最大长度是多少？512MB</h2><h2 id="5-介绍一下zset及底层实现机制"><a href="#5-介绍一下zset及底层实现机制" class="headerlink" title="5.介绍一下zset及底层实现机制"></a>5.介绍一下zset及底层实现机制</h2><h2 id="6-redis事务？原理是什么"><a href="#6-redis事务？原理是什么" class="headerlink" title="6.redis事务？原理是什么"></a>6.redis事务？原理是什么</h2><h2 id="7-事务相关命令？支持回滚吗"><a href="#7-事务相关命令？支持回滚吗" class="headerlink" title="7.事务相关命令？支持回滚吗"></a>7.事务相关命令？支持回滚吗</h2><h2 id="8-介绍一下pipeline和使用场景：批量读取写入"><a href="#8-介绍一下pipeline和使用场景：批量读取写入" class="headerlink" title="8.介绍一下pipeline和使用场景：批量读取写入"></a>8.介绍一下pipeline和使用场景：批量读取写入</h2><p>批量执行Redis命令的机制，它可以在客户端发送多个命令后，一次性将它们发送到服务器，然后一次性接收服务器的响应</p>
 <h3 id="和批量命令有什么不同"><a href="#和批量命令有什么不同" class="headerlink" title="和批量命令有什么不同"></a>和批量命令有什么不同</h3><ol>
 <li>pipeline是同时发送/执行不同命令的机制，批量是都需要执行相似的</li>
 <li>pipeline是顺序执行所有命令，执行一个一个状态，而批量需要等待所有的返回<h2 id="9-设置生存时间和过期时间用什么命令"><a href="#9-设置生存时间和过期时间用什么命令" class="headerlink" title="9.设置生存时间和过期时间用什么命令"></a>9.设置生存时间和过期时间用什么命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPIRE key n_seconds</span><br><span class="line">PEXPIRE mykey n_milseconds</span><br></pre></td></tr></table></figure>
@@ -201,10 +201,11 @@
 <li>缓存击穿 </li>
 <li>缓存雪崩</li>
 </ol>
-<h2 id="13-redis的key删除策略"><a href="#13-redis的key删除策略" class="headerlink" title="13. redis的key删除策略"></a>13. redis的key删除策略</h2><ol>
-<li>定期删除，每 100 毫秒检查 20 个随机选择的过期 key，如果发现有过期的 key，就会将其删除。</li>
-<li>惰性删除，<br>设置过期时间+一个随机的时间，防止缓存雪崩</li>
+<h2 id="13-redis的key删除策略【redis同时使用了惰性删除和定期删除】"><a href="#13-redis的key删除策略【redis同时使用了惰性删除和定期删除】" class="headerlink" title="13. redis的key删除策略【redis同时使用了惰性删除和定期删除】"></a>13. redis的key删除策略【redis同时使用了惰性删除和定期删除】</h2><ol>
+<li>定期删除，每 100 毫秒检查 20 个随机选择的过期 key，这个过期的key存储在expire字典中，如果发现有过期的 key，就会将其删除。</li>
+<li>惰性删除，访问时检查key有没有过期，然后删除。</li>
 </ol>
+<p>设置过期时间+一个随机的时间，防止缓存雪崩</p>
 <h1 id="lua"><a href="#lua" class="headerlink" title="lua"></a>lua</h1><p><a href="https://zhuanlan.zhihu.com/p/383994942?utm_oi=757371723308879872" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/383994942?utm_oi=757371723308879872</a></p>
 <h2 id="lua的基本数据类型"><a href="#lua的基本数据类型" class="headerlink" title="lua的基本数据类型"></a>lua的基本数据类型</h2><ul>
 <li>nil    这个最简单，只有值nil属于该类，表示一个无效值（在条件表达式中相当于false）。</li>
@@ -222,6 +223,77 @@
 <li><p>ipairs并不会输出table中存储的键值对,会跳过键值对，然后顺序输出table中的值。而pairs会输出table的键值对，先顺序输出值，再乱序(键的哈希值)输出键值对。</p>
 </li>
 </ol>
+<h1 id="高频问题"><a href="#高频问题" class="headerlink" title="高频问题"></a>高频问题</h1><h2 id="1-Redis为什么那么快"><a href="#1-Redis为什么那么快" class="headerlink" title="1. Redis为什么那么快"></a>1. Redis为什么那么快</h2><ol>
+<li>redis存储是基于内存的</li>
+<li>命令的读写过程单线程执行，6.0之后引入了IO多线程，使用IO多路复用，提升网络IO的利用率和提速</li>
+<li>底层数据存储结构使用的是全局hash，也就是kv存储，还有几种数据类型用了高效的压缩列表，哈希表跳表等等<ul>
+<li>String 简单动态字符串，线程安全，使用incr也线程安全，一个是incr原子操作，一个是string根据len去判断</li>
+<li>Zset 有序集合，使用的跳表：有序链表的优化，<h2 id="2-Redis对于过期key的处理"><a href="#2-Redis对于过期key的处理" class="headerlink" title="2. Redis对于过期key的处理"></a>2. Redis对于过期key的处理</h2></li>
+</ul>
+</li>
+<li>惰性删除，一个key发生读写时，去判断是否过期，过期了直接删</li>
+<li>定时删除，默认每100ms主动淘汰一批过期的key</li>
+<li>定期删除，server.hz配置每秒钟执行serverCron()的次数，周期性轮询redis库中的时效性数据，采用随机抽取的策略</li>
+</ol>
+<h2 id="3-key没设置过期时间为什么还被删除了【在内存使用超阈值之后，会自动清一波没有使用的内存】"><a href="#3-key没设置过期时间为什么还被删除了【在内存使用超阈值之后，会自动清一波没有使用的内存】" class="headerlink" title="3. key没设置过期时间为什么还被删除了【在内存使用超阈值之后，会自动清一波没有使用的内存】"></a>3. key没设置过期时间为什么还被删除了【在内存使用超阈值之后，会自动清一波没有使用的内存】</h2><p>对于没有过期时间的key，使用allkeys-lru/allkeys-lfu/allkeys-random三种策略去淘汰</p>
+<h2 id="4-删除key的命令会阻塞redis吗？【会发生阻塞】"><a href="#4-删除key的命令会阻塞redis吗？【会发生阻塞】" class="headerlink" title="4. 删除key的命令会阻塞redis吗？【会发生阻塞】"></a>4. 删除key的命令会阻塞redis吗？【会发生阻塞】</h2><p>因为在数据结构中删除存在一个，时间复杂度O(k)，n为存在的数量，是个常数，返回值是删除的数量</p>
+<h2 id="5-主从-哨兵-集群-优缺点"><a href="#5-主从-哨兵-集群-优缺点" class="headerlink" title="5. 主从 哨兵 集群 优缺点"></a>5. 主从 哨兵 集群 优缺点</h2><ol>
+<li>主从，主负责写，从负责读，主要作用相当于一个备份</li>
+<li>哨兵三个sentinel去监控节点，master发生故障进行切换，提供服务的还是只有一个主节点，无法支持特别高的并发</li>
+<li>集群，<strong>复制，高可用，分片</strong>，配置简单，</li>
+</ol>
+<h2 id="6-集群模式，数据的hash分片算法"><a href="#6-集群模式，数据的hash分片算法" class="headerlink" title="6. 集群模式，数据的hash分片算法"></a>6. 集群模式，数据的hash分片算法</h2><ol>
+<li>redis集群时，有数据分片存储，找kv分在了哪个节点上</li>
+<li>分片算法首先对key做CRC16得到一个中间值，然后mod 16384，根据分片规则，就能算到请求要到哪个master上<h2 id="7-主从切换为什么会导致缓存雪崩【从节点所在系统时间戳不同】"><a href="#7-主从切换为什么会导致缓存雪崩【从节点所在系统时间戳不同】" class="headerlink" title="7. 主从切换为什么会导致缓存雪崩【从节点所在系统时间戳不同】"></a>7. 主从切换为什么会导致缓存雪崩【从节点所在系统时间戳不同】</h2></li>
+</ol>
+<h2 id="8-RDB快照和AOF问题"><a href="#8-RDB快照和AOF问题" class="headerlink" title="8. RDB快照和AOF问题"></a>8. RDB快照和AOF问题</h2><p>主从复制只用RDB</p>
+<h2 id="9-线上数据如何备份"><a href="#9-线上数据如何备份" class="headerlink" title="9. 线上数据如何备份"></a>9. 线上数据如何备份</h2><ol>
+<li>定时把rdb或者aof持久化文件存到备份硬盘或者机器上，可以用crontab 分时日月周</li>
+</ol>
+<h2 id="10-主从复制风暴是什么【发生在从节点特别多的情况】"><a href="#10-主从复制风暴是什么【发生在从节点特别多的情况】" class="headerlink" title="10. 主从复制风暴是什么【发生在从节点特别多的情况】"></a>10. 主从复制风暴是什么【发生在从节点特别多的情况】</h2><p>节点重起的多，要求主节点发rdb文件，如果从节点只连接主节点，压力就特别大<br>如果要减轻压力，rdb复制的路线就采用树形结构，从节点发到下一级的从节点</p>
+<h2 id="11-网络抖动导致频繁主从切换，怎么处理【redis-timeout超过一定阈值，才认定故障，发生主从切换】"><a href="#11-网络抖动导致频繁主从切换，怎么处理【redis-timeout超过一定阈值，才认定故障，发生主从切换】" class="headerlink" title="11. 网络抖动导致频繁主从切换，怎么处理【redis timeout超过一定阈值，才认定故障，发生主从切换】"></a>11. 网络抖动导致频繁主从切换，怎么处理【redis timeout超过一定阈值，才认定故障，发生主从切换】</h2><h2 id="12-为什么redis至少需要三个master"><a href="#12-为什么redis至少需要三个master" class="headerlink" title="12. 为什么redis至少需要三个master"></a>12. 为什么redis至少需要三个master</h2><p>选举主节点时，要求半数以上的节点去选一个新主节点</p>
+<h2 id="13-mset-mget批量指令支持redis集群吗【支持】"><a href="#13-mset-mget批量指令支持redis集群吗【支持】" class="headerlink" title="13. mset mget批量指令支持redis集群吗【支持】"></a>13. mset mget批量指令支持redis集群吗【支持】</h2><p>要借助hashtag，保证每次批量执行的key落在明确的节点上，要用大括号括一个值，在hash分片的时候查找</p>
+<h2 id="14-lua可以在集群执行吗【可以，但是有要求，同13问】"><a href="#14-lua可以在集群执行吗【可以，但是有要求，同13问】" class="headerlink" title="14. lua可以在集群执行吗【可以，但是有要求，同13问】"></a>14. lua可以在集群执行吗【可以，但是有要求，同13问】</h2><p>操作的key必须落在明确的节点上，hash分片</p>
+<h2 id="15-主从切换导致分布式锁丢失"><a href="#15-主从切换导致分布式锁丢失" class="headerlink" title="15. 主从切换导致分布式锁丢失"></a>15. 主从切换导致分布式锁丢失</h2><p>主节点把分布式锁的key发给slave是，因为是异步的，可能中间master挂了，导致丢失了</p>
+<ul>
+<li>有一种redlock的方法，要搞半数以上的独立redis节点，服务端才认定加锁成功。类似于zookeeper，但是</li>
+</ul>
+<h2 id="16-大公司使用旁路写回的情况，是建立在设置好超时时间的前提下的"><a href="#16-大公司使用旁路写回的情况，是建立在设置好超时时间的前提下的" class="headerlink" title="16. 大公司使用旁路写回的情况，是建立在设置好超时时间的前提下的"></a>16. 大公司使用旁路写回的情况，是建立在设置好超时时间的前提下的</h2><h2 id="【redis集群一致性】：主从复制，分片算法"><a href="#【redis集群一致性】：主从复制，分片算法" class="headerlink" title="【redis集群一致性】：主从复制，分片算法"></a>【redis集群一致性】：主从复制，分片算法</h2><ol>
+<li><p>主从复制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）从节点连接主节点，并发送SYNC命令请求同步数据。</span><br><span class="line">2）主节点在接收到SYNC命令后，开始执行BGSAVE命令，将数据持久化到磁盘中，并将生成的RDB文件发送给从节点。</span><br><span class="line">3）从节点在接收到RDB文件后，通过LOAD命令将其加载到内存中，从而与主节点的数据保持一致。</span><br><span class="line">4）从节点开始接收主节点的增量数据，并将其应用到自己的数据集中，保持与主节点的同步。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分片算法，每次对key的CRC16值mod 16384 ，判定放置的slot号，然后落在哪个实例上</p>
+</li>
+<li><p>更改、增加、删除实例时，就更改slot和实例的分配，不会影响集群总体的一致性，但是不是强一致性。</p>
+<h2 id="17-解决缓存数据库双写不一致情况【双写指两个-多个写操作，其中有一个在查db和更新缓存之间顿了一下导致】"><a href="#17-解决缓存数据库双写不一致情况【双写指两个-多个写操作，其中有一个在查db和更新缓存之间顿了一下导致】" class="headerlink" title="17. 解决缓存数据库双写不一致情况【双写指两个/多个写操作，其中有一个在查db和更新缓存之间顿了一下导致】"></a>17. 解决缓存数据库双写不一致情况【双写指两个/多个写操作，其中有一个在查db和更新缓存之间顿了一下导致】</h2></li>
+<li><p>加个分布式锁，在查db和更缓存这两个过程绑一起，更新完再delete这把锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RLock wlock = redission.createReadWriteLock(lockname);<span class="comment">//在一个上锁的事务,两边都要</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    Rlock wlock = redission.getReadWriteLock(lockname + id);</span><br><span class="line">    wlock.lock();</span><br><span class="line">    <span class="comment">//transaction code</span></span><br><span class="line">    <span class="comment">//1. update db</span></span><br><span class="line">    <span class="comment">//2. set redis key</span></span><br><span class="line">&#125;<span class="keyword">catch</span>()&#123;</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    wlock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="18-分布式锁在遇到高并发时，出现串行征用问题"><a href="#18-分布式锁在遇到高并发时，出现串行征用问题" class="headerlink" title="18. 分布式锁在遇到高并发时，出现串行征用问题"></a>18. 分布式锁在遇到高并发时，出现串行征用问题</h2><p>解决方法：读写锁<br>读写锁底层如何实现的？1.为什么写写互斥，写读互斥，读读不互斥？</p>
+<h2 id="19-一个创建某个cache的操作进行上锁，几万个请求来搞这个请求，如何优化【使用redission的trylock】"><a href="#19-一个创建某个cache的操作进行上锁，几万个请求来搞这个请求，如何优化【使用redission的trylock】" class="headerlink" title="19. 一个创建某个cache的操作进行上锁，几万个请求来搞这个请求，如何优化【使用redission的trylock】"></a>19. 一个创建某个cache的操作进行上锁，几万个请求来搞这个请求，如何优化【使用redission的trylock】</h2><p>就是所有线程都在自旋等待unlock锁，默认是非公平抢占锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Rlock lock = redission.getlock()</span><br><span class="line">lock.lock() <span class="comment">// 改成lock.trylock()</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis和MongoDB的区别"><a href="#Redis和MongoDB的区别" class="headerlink" title="Redis和MongoDB的区别"></a>Redis和MongoDB的区别</h2><p>Redis和MongoDB都是流行的开源NoSQL数据库，但它们的设计理念和使用场景有所不同。本文将重点介绍Redis和MongoDB的区别和使用场景。</p>
+<p>Redis是一个高性能的数据存储系统，常被用作缓存和消息中间件。<br>Redis以内存为主要存储介质，但它也支持将数据持久化到磁盘上。Redis是一款键值数据库，它支持多种数据结构（例如字符串、列表、哈希表、有序集合等），并提供了丰富的命令和API供开发者使用。</p>
+<ol>
+<li>MongoDB是一个面向文档的数据库，它以JSON格式存储数据。MongoDB是一款NoSQL数据库，它支持复杂的查询和数据聚合操作。MongoDB的数据模型和关系型数据库有所不同，它不需要事先定义表结构和字段，可以动态地添加或删除数据字段。MongoDB也支持数据的分片和复制，以实现数据的高可用和横向扩展。</li>
+</ol>
+<p>Redis和MongoDB的区别<br>（1）数据模型</p>
+<p>Redis是一个键值数据库，数据结构简单，适用于存储缓存数据和消息队列等场景。Redis支持字符串、列表、哈希表、有序集合等基本数据结构，同时还支持订阅与发布机制、Lua脚本等高级特性。Redis的数据操作速度非常快，可以达到单机每秒数百万次读写的性能。</p>
+<p>MongoDB是一个面向文档的数据库，数据结构相对复杂，适用于存储各种应用数据。MongoDB的数据以BSON格式存储，类似于JSON，但支持更多的数据类型和地理位置信息等特性。MongoDB支持文档级别的事务和复杂的数据聚合操作。</p>
+<p>（2）持久化机制</p>
+<p>Redis最初是一个基于内存的缓存系统，但它提供了多种持久化机制来保证数据安全。Redis的持久化是异步的，默认情况下，Redis将数据写入内存，然后将数据异步地写入磁盘上的RDB文件或AOF文件。RDB文件是一个快照文件，可以定期保存数据库的状态，而AOF是一个日志文件，可以记录每个写操作的命令序列。</p>
+<p>MongoDB支持多种持久化机制，包括基于写前日志（Write Ahead Log，WAL）和基于快照的持久化机制。MongoDB将每个写操作写入WAL，然后异步地将WAL中的操作应用到数据集中。MongoDB还可以定期创建数据集的快照，并将快照写入磁盘中的文件。WAL和数据集的快照可以用于数据的恢复和复制。</p>
+<p>（3）查询特性</p>
+<p>Redis的查询特性相对简单，主要支持基于键值的查询和基本的条件查询。Redis的查询速度非常快，因为它的数据都在内存中，可以直接访问。Redis还支持数据交集、并集和差集等高级查询特性。</p>
+<p>MongoDB的查询特性非常强大，支持复杂的查询和数据聚合操作。MongoDB支持索引、分片、复制和副本集等技术，以提高查询的速度和可靠性。MongoDB还支持地理位置查询、全文搜索和图形查询等特性，可以满足不同应用场景的需求。</p>
+<p>Redis和MongoDB的使用场景<br>（1）Redis的使用场景</p>
+<p>Redis的内存存储特性和高性能的数据读写能力，使它非常适合作为缓存系统和消息队列。Redis也可以用于会话管理、分布式锁和实时计数器等场景。Redis的数据结构和高级特性（例如Lua脚本和发布订阅机制）可以实现智能匹配、排行榜和广告推广等应用。</p>
+<p>（2）MongoDB的使用场景</p>
+<p>MongoDB的文档存储特性和丰富的查询特性，使它非常适合作为Web应用和移动应用的后端数据库。MongoDB可以处理复杂的数据结构和数据关系，支持动态增加和删除数据字段，可以快速地适应应用的变化。MongoDB还可以用于数据分析、数据挖掘和机器学习等领域，以支持大规模数据的处理和分析。</p>
+<p>总结<br>Redis和MongoDB都是优秀的NoSQL数据库，在不同的应用场景中有着不同的表现。Redis的内存存储和高性能的数据读写能力，使它适用于缓存和消息队列等场景。MongoDB的文档存储和强大的查询特性，使它适用于Web应用和移动应用的后端数据库。在选择Redis或MongoDB作为数据存储系统时，需要考虑应用的性能需求、数据模型和查询特性等因素。</p>
 
         </div>
 
@@ -230,7 +302,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2023-11-02T05:48:09.394Z" itemprop="dateUpdated">2023-11-02 13:48:09</time>
+    Last updated: <time datetime="2023-11-25T10:19:46.331Z" itemprop="dateUpdated">2023-11-25 18:19:46</time>
 </span><br>
 
 
@@ -274,7 +346,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&source= questions" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&source= questions https://github.com/redisson/redisson/wiki/目录" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -312,18 +384,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2023/01/04/2023-01-04-面经Redis/" id="post-prev" class="post-nav-link">
+      <a href="/2023/01/05/2023-01-05-面经设计模式/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Redis</h4>
+        <h4 class="title">设计模式</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/01/04/2023-01-04-面经计算机网络/" id="post-next" class="post-nav-link">
+      <a href="/2023/01/04/2023-01-04-面经Redis/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">NetWorking</h4>
+        <h4 class="title">Redis</h4>
       </a>
     </div>
   
@@ -450,7 +522,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&source= questions" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/04/2023-01-04-面经Redis问题/&title=《Redis questions》 — waynamigo's blog&source= questions https://github.com/redisson/redisson/wiki/目录" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

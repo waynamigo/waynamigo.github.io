@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java collection | waynamigo&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="面试,Java">
+    <meta name="description" content="ok">
+<meta name="keywords" content="面试,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java collection">
+<meta property="og:url" content="http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/index.html">
+<meta property="og:site_name" content="waynamigo&#39;s blog">
+<meta property="og:description" content="ok">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/374544735d0dd4104601ef98749c7f89.png">
+<meta property="og:updated_time" content="2023-11-19T12:38:36.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java collection">
+<meta name="twitter:description" content="ok">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/374544735d0dd4104601ef98749c7f89.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="waynamigo&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">waynamigo</h5>
+          <a href="mailto:waynamigo@gmail.com" title="waynamigo@gmail.com" class="mail">waynamigo@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Homepage
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/waynamigo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java collection</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java collection</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2023-01-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MVC"><span class="post-toc-number">1.</span> <span class="post-toc-text">MVC</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#AOP和IOC的理解"><span class="post-toc-number">2.</span> <span class="post-toc-text">AOP和IOC的理解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Bean的生命周期"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Bean的生命周期</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环依赖怎么解决？【使用了三级缓存】"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">循环依赖怎么解决？【使用了三级缓存】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如果一个对象需要被代理，需不需要先实例化一个普通对象（要，必须传参数给wrapifnecessary）"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">如果一个对象需要被代理，需不需要先实例化一个普通对象（要，必须传参数给wrapifnecessary）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringAOP的底层原理"><span class="post-toc-number">3.</span> <span class="post-toc-text">SpringAOP的底层原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Spring的设计模式"><span class="post-toc-number">4.</span> <span class="post-toc-text">Spring的设计模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#事务"><span class="post-toc-number">5.</span> <span class="post-toc-text">事务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring事务如何实现的，如何回滚"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Spring事务如何实现的，如何回滚</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringBoot的优点"><span class="post-toc-number">6.</span> <span class="post-toc-text">SpringBoot的优点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Spring-Bean"><span class="post-toc-number">7.</span> <span class="post-toc-text">Spring Bean</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Bean和-Component的区别"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">1. @Bean和@Component的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-可以注入Bean的注解有哪些"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">2. 可以注入Bean的注解有哪些</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Spring事务"><span class="post-toc-number">8.</span> <span class="post-toc-text">Spring事务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Transactional"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">1. @Transactional</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringBoot"><span class="post-toc-number">9.</span> <span class="post-toc-text">SpringBoot</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-SpringBootApplication"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">1. @SpringBootApplication</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-常用注解："><span class="post-toc-number">9.2.</span> <span class="post-toc-text">2. 常用注解：</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#面试问题"><span class="post-toc-number">10.</span> <span class="post-toc-text">面试问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-BeanFactory"><span class="post-toc-number">10.1.</span> <span class="post-toc-text">1.BeanFactory</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-常用注解"><span class="post-toc-number">10.2.</span> <span class="post-toc-text">2.常用注解</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023-01-10-面经JavaSpring"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java collection</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-10 00:00:00" datetime="2023-01-09T16:00:00.000Z"  itemprop="datePublished">2023-01-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>ok</p>
+<a id="more"></a>
+<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><ul>
+<li>Ioc，控制反转，将对象的创建和控制权交给spring，Ioc容器</li>
+<li>AOP的直接体现就是注解</li>
+</ul>
+<h1 id="AOP和IOC的理解"><a href="#AOP和IOC的理解" class="headerlink" title="AOP和IOC的理解"></a>AOP和IOC的理解</h1><ol>
+<li>AOP面向切面编程，起到了解耦的作用，完成一个日志/事务/权限处理等不属于业务里的功能，不需要更改过多业务代码，而是通过一个AOP动态代理（JDK/GClib）完成，调用时将公共逻辑添加到项目中</li>
+<li>IOC，控制反转+依赖注入，通过IOC容器控制对象/对象的依赖 的创建，反转是用IOC容器创建后注入到对象中，由主动创建变成了被动创建<ul>
+<li>IOC底层实现过程：核心原理是反射，使用BeanFactory的工厂模式实现的</li>
+</ul>
+<ol>
+<li><code>createBeanfactory</code>创建bean工厂</li>
+<li>循环创建对象，先通过<code>getBean</code>，<code>doGetBean</code>从容器中查找，没有的话去<code>createBean，doGreateBean</code>，以反射的方法创建对象</li>
+<li>进行对象的属性填充populateBean和进行其他初始化initializingBean<h2 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/img_convert/374544735d0dd4104601ef98749c7f89.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ol>
+</li>
+<li>反射的方式实例化Bean</li>
+<li>对象属性用<code>populateBean</code>填充，循环依赖使用三级缓存</li>
+<li><code>invokeAwareMethod</code>，设置相关依赖：<code>BeanName</code> <code>BeanFactory</code> <code>BeanClassloader</code></li>
+<li>调用<code>BeanPostProcessor()</code>前置处理方法，<code>ApplicationContextPostPostProcessor</code>，设置上下文，环境，resourceloader等对象</li>
+<li>调用<code>invokeInitmethod()</code>，判断是否实现<code>initializingBean</code>，调用了就再调用<code>afterpropertiesSet</code>方法</li>
+<li>调用<code>BeanPostProcessor</code>的后置处理方法，AOP在该过程实现，<code>AbstractAutoProxyCreator()</code>，advice切面切点</li>
+<li>获取完整的对象，可以用getbean获取了</li>
+<li>执行完后，销毁流程，先判断是否实现<code>DisposableBean</code>接口，再判断是否实现<code>DestroyMethod</code>接口</li>
+</ol>
+<h2 id="循环依赖怎么解决？【使用了三级缓存】"><a href="#循环依赖怎么解决？【使用了三级缓存】" class="headerlink" title="循环依赖怎么解决？【使用了三级缓存】"></a>循环依赖怎么解决？【使用了三级缓存】</h2><p>使用了三级缓存，AOP，提前暴露对象</p>
+<ol>
+<li>问题：对象循环依赖产生的问题，A依赖B，B依赖A，提前暴露对象导致的</li>
+<li>Bean创建流程是先实例化，再进行属性填充初始化</li>
+<li>A如果属性里有B，在填充时需要从IOC容器里查找B，找不到的话，就创建B；然后B在属性填充的时候查找A，但是A没有创建完毕，</li>
+<li>一级缓存中放的是完整对象，二级是没有完全创建的对象</li>
+<li>第三级为什么需要？第三级缓存的value类型是ObjectFactory类型的函数接口，保证在整个容器的作用域中只有一个版本的同名Bean对象。</li>
+<li>创建bean对象后，要放到三级缓存中是用于先判断是否需要被代理，选择取的是普通对象还是代理对象。</li>
+</ol>
+<h3 id="如果一个对象需要被代理，需不需要先实例化一个普通对象（要，必须传参数给wrapifnecessary）"><a href="#如果一个对象需要被代理，需不需要先实例化一个普通对象（要，必须传参数给wrapifnecessary）" class="headerlink" title="如果一个对象需要被代理，需不需要先实例化一个普通对象（要，必须传参数给wrapifnecessary）"></a>如果一个对象需要被代理，需不需要先实例化一个普通对象（要，必须传参数给wrapifnecessary）</h3><p>普通对象和代理对象不能同时出现在容器中，当需要被代理时，就需要覆盖普通对象</p>
+<h1 id="SpringAOP的底层原理"><a href="#SpringAOP的底层原理" class="headerlink" title="SpringAOP的底层原理"></a>SpringAOP的底层原理</h1><p>底层原理就是使用的jvm或者gclibs的动态代理功能。AOP的实现阶段是IOC的BeanPostProcessor的后置方法中实现的扩展功能。</p>
+<ol>
+<li>介绍一下jvm gclib的原理，反射</li>
+</ol>
+<h1 id="Spring的设计模式"><a href="#Spring的设计模式" class="headerlink" title="Spring的设计模式"></a>Spring的设计模式</h1><ol>
+<li>Bean都是单例模式</li>
+<li>工厂模式，BeanFactory</li>
+<li>观察者模式，Listener，Event</li>
+<li>适配器模式，Adapter</li>
+<li>装饰者模式：Bean的Wrapper</li>
+<li>责任链模式：使用AOP时，先生成一个拦截器</li>
+<li>代理模式：AOP使用的动态代理<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="Spring事务如何实现的，如何回滚"><a href="#Spring事务如何实现的，如何回滚" class="headerlink" title="Spring事务如何实现的，如何回滚"></a>Spring事务如何实现的，如何回滚</h2>答：事务是AOP实现的声明式事务。也就是首先要生成具体的代理对象，按AOP的流程来执行具体操作逻辑。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(propagation = Propagation.REQUIRED,</span><br><span class="line">                isolation = Isolation.DEFAULT, readOnly = <span class="keyword">false</span>, timeout = -<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>底层具体到代码里是用jdbc的<code>datasourceTransactionManager</code>实现的，注解声明的事务逻辑是通过一个<code>TransationInterceptor</code>类实现，调用invoke函数体里，最后返回一个invokewithtransaction实现具体逻辑（对传参的方法使用getmethod获取）</p>
+<ul>
+<li>回滚的方式如下：</li>
+</ul>
+<ol>
+<li>执行失败使用<code>completeTransactionAfterthrowing</code></li>
+<li>执行成功用<code>completeTransactionAfterreturning</code></li>
+<li>执行失败的回滚在transactional的doRollback里实现,里面是先获取object.getconn连接，然后conn.rollback回滚，只对于这个特定连接进行，而不是全局的。</li>
+<li>执行成功的提交在transactional里的doCommit，也是获取连接，用jdbc连接的conn.commit()方法提交。</li>
+<li>最后<code>cleanTransactionInfo</code>清除当前事务信息</li>
+</ol>
+<h1 id="SpringBoot的优点"><a href="#SpringBoot的优点" class="headerlink" title="SpringBoot的优点"></a>SpringBoot的优点</h1><ol>
+<li>独立运行<br>Spring Boot 而且内嵌了各种 servlet 容器，Tomcat、Jetty 等，现在不再需要打成war 包部署到容器中，Spring Boot 只要打成一个可执行的 jar 包就能独立运行，所有的依赖包都在一个 jar 包内。</li>
+<li>简化配置<br>spring-boot-starter-web 启动器自动依赖其他组件，简少了 maven 的配置。</li>
+<li>自动配置<br>Spring Boot 能根据当前类路径下的类、jar 包来自动配置 bean，如添加一个 spring<br>boot-starter-web 启动器就能拥有 web 的功能，无需其他配置。</li>
+<li>无代码生成和XML配置<br>Spring Boot 配置过程中无代码生成，也无需 XML 配置文件就能完成所有配置工作，这一切都是借助于条件注解完成的，这也是 Spring4.x 的核心功能之一。</li>
+<li>应用监控<br>Spring Boot 提供一系列端点可以监控服务及应用，做健康检测<h1 id="Spring-Bean"><a href="#Spring-Bean" class="headerlink" title="Spring Bean"></a>Spring Bean</h1>被Ioc容器管理的对象，通过xml或者Entity等注解</li>
+</ol>
+<ul>
+<li><p>org.springframework.beans </p>
+</li>
+<li><p>org.springframework.context</p>
+</li>
+<li><p><strong>@Component</strong>：通用的注解，可标注任意类为 Spring 组件。如果一个 Bean 不知道属于哪个层，可以使用@Component 注解标注。</p>
+</li>
+<li><p><strong>@Repository</strong> : 对应持久层即 Dao 层，主要用于数据库相关操作。</p>
+</li>
+<li><p><strong>@Service</strong> : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao 层。</p>
+</li>
+<li><p><strong>@Controller</strong> : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 Service 层返回数据给前端页面</p>
+</li>
+</ul>
+<h2 id="1-Bean和-Component的区别"><a href="#1-Bean和-Component的区别" class="headerlink" title="1. @Bean和@Component的区别"></a>1. @Bean和@Component的区别</h2><ol>
+<li>bean用于方法，component用于注解</li>
+<li>@Component通常是通过<strong>类路径扫描</strong>来自动侦测以及自动装配到 Spring 容器中（我们可以<strong>使用 @ComponentScan 注解定义要扫描的路径从中找出标识了需要装配的类自动装配</strong>到 Spring 的 bean 容器中）。</li>
+<li>@Bean注解通常是我们<strong>在标有该注解的方法中定义</strong>产生这个 bean,@Bean告诉了 Spring 这是某个类的实例，当我需要用它的时候还给我<h2 id="2-可以注入Bean的注解有哪些"><a href="#2-可以注入Bean的注解有哪些" class="headerlink" title="2. 可以注入Bean的注解有哪些"></a>2. 可以注入Bean的注解有哪些</h2></li>
+<li>@Autowired</li>
+<li>@Resource</li>
+</ol>
+<h1 id="Spring事务"><a href="#Spring事务" class="headerlink" title="Spring事务"></a>Spring事务</h1><p>Spring 管理事务的方式有几种？</p>
+<ul>
+<li>编程式事务：在代码中硬编码(不推荐使用) : 通过 TransactionTemplate或者 TransactionManager 手动管理事务，实际应用中很少使用，但是对于你理解 Spring 事务管理原理有帮助。</li>
+<li>声明式事务：在 XML 配置文件中配置或者直接基于注解（推荐使用） : 实际是通过 AOP 实现（基于@Transactional 的全注解方式使用最多）</li>
+</ul>
+<h2 id="1-Transactional"><a href="#1-Transactional" class="headerlink" title="1. @Transactional"></a>1. @Transactional</h2><p>使用场景：hibernate的删除事务，更新事务</p>
+<ul>
+<li>使用<code>@Transactional(rollbackFor = Exception.class)</code>：<ul>
+<li>用于保证事务一致性，发生异常时回滚</li>
+<li>不配置for exception的话，只有在runtime err时回滚，为了保证可靠性</li>
+</ul>
+</li>
+</ul>
+<h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><ol>
+<li>从常用注解和生命周期，启动，监控，测试等考察</li>
+<li>是@Configuration、@EnableAutoConfiguration、@ComponentScan的集合体</li>
+</ol>
+<h2 id="1-SpringBootApplication"><a href="#1-SpringBootApplication" class="headerlink" title="1. @SpringBootApplication"></a>1. @SpringBootApplication</h2><p>自动装配原理是什么？</p>
+<ol>
+<li>@EnableAutoConfiguration：启用 SpringBoot 的自动配置机制</li>
+<li>@Configuration：允许在上下文中注册额外的 bean 或导入其他配置类</li>
+<li>@ComponentScan：扫描被@Component (@Service,@Controller)注解的 bean，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些 bean。</li>
+</ol>
+<h2 id="2-常用注解："><a href="#2-常用注解：" class="headerlink" title="2. 常用注解："></a>2. 常用注解：</h2><ol>
+<li>@RestController和@Controller指定一个类，作为控制器的注解 </li>
+<li>@RequestMapping方法级别的映射注解，这一个用过Spring MVC的小伙伴相信都很熟悉 </li>
+<li>@EnableAutoConfiguration和@SpringBootApplication是类级别的注解，根据maven依赖的jar来自动猜测完成正确的spring的对应配置，只要引入了spring-boot-starter-web的依赖，默认会自动配置Spring MVC和tomcat容器</li>
+<li>@Configuration类级别的注解，一般这个注解，我们用来标识main方法所在的类,完成元数据bean的初始化。</li>
+<li>@ComponentScan类级别的注解，自动扫描加载所有的Spring组件包括Bean注入，一般用在main方法所在的类上 </li>
+<li>@ImportResource类级别注解，当我们必须使用一个xml的配置时，使用@ImportResource和@Configuration来标识这个文件资源的类。 </li>
+<li>@Autowired注解，一般结合@ComponentScan注解，来自动注入一个Service或Dao级别的Bean</li>
+<li>@Component类级别注解，用来标识一个组件，比如我自定了一个filter，则需要此注解标识之后，Spring Boot才会正确识别。</li>
+</ol>
+<h1 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h1><h2 id="1-BeanFactory"><a href="#1-BeanFactory" class="headerlink" title="1.BeanFactory"></a>1.BeanFactory</h2><h2 id="2-常用注解"><a href="#2-常用注解" class="headerlink" title="2.常用注解"></a>2.常用注解</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2023-11-19T12:38:36.788Z" itemprop="dateUpdated">2023-11-19 20:38:36</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://waynamigo.cn">
+            <img src="/img/avatar.jpg" alt="waynamigo">
+            waynamigo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/&title=《Java collection》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/&title=《Java collection》 — waynamigo's blog&source=ok" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java collection》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/01/11/2023-01-11-面经场景-mysql-redis-并发/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">生产场景问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/01/10/2023-01-10-面经Java基础/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java base</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '1c48e09d4abbbe0f86a1',
+          clientSecret: 'd42e38dee9898d2c2a362f9feac360efdd5e8e41',
+          repo: 'waynamigo.github.io',
+          owner: 'waynamigo',
+          admin: ['waynamigo'],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        disabled
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>waynamigo &copy; 2018 - 2023</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备18055379号</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/&title=《Java collection》 — waynamigo's blog&pic=http://waynamigo.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/&title=《Java collection》 — waynamigo's blog&source=ok" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java collection》 — waynamigo's blog&url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/&via=http://waynamigo.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://waynamigo.github.io/2023/01/10/2023-01-10-面经JavaSpring/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvUlEQVR42u3aQU4DMRAEwPz/0yBxAiVsusd2glDtKQKTdRnJHrXndoufj6/n+vP3n9yPuR95/9tk5O3Eg4eHhzea+vVr2klfj7nGtPN5sjR4eHh4x3jJYXD9smT7zhfueiGKwwMPDw/vrbyVz/nmfl2s4+Hh4f0/XnIwJEdCPh88PDy8d/FObNPXL26j2+NZCx4eHl7M23UB9srPb7jfw8PDwwu219k11a6rtdkMf3wbHh4e3gHe7JKpLbITfN520LYp4OHh4e3lta0AeaCQRwwry/Fk/nh4eHgHeCvB68r4NnjNj5ziOMHDw8Mb8drNtw0aZqXwrAR/sBx4eHh4B3j5Zj2LBnJMGxAPTzk8PDy8Zd56OduGBdcxxEoa/WvWgoeHh3eAtyswTS7M2qaB9i14eHh4r+GtX/DvqmZ3dUPg4eHhnePNpjhrVG0PmLaF60mAi4eHh7eJl5Sqbby73oDVhh1FSY2Hh4f3El5e/q4vRPsUTVd4eHh4x3izi/y8AWs9zE0WBQ8PD+9dvDzSPbi5j2aCh4eHd5qXtEnl5e8snG2bD6JvxsPDwzvGyyeXY9ox+VExbLrCw8PD28Rrt/K2wG3jhvXA98FIPDw8vK28WYGbx7VtQNweDEutA3h4eHgj3qzJqWXPQtjZZduvM8TDw8PbxMuD2jzwnUW67VFRNF3h4eHhHeYlU8+jgfZyK1+IuisBDw8PbxNvZXJtuZxHuiukpf8zHh4eXnyr3qYXefibB6/53+YLhIeHh3eCN9tw14+E2UTbZcXDw8M7x8tfnF/hJwdAewGWx83DdcXDw8Nb6EfKN+KVi7H8CGkPLTw8PLy/w5s1CuRBcLHdx7PCw8PD+zu8pDiepSD5mOjIwcPDwzvGmwUB+bXZiWJ6QwMBHh4e3rHWq7xEnl2n5ciojF5fDzw8PLzH7/0EU4t9guTvt50AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'mole';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'mole';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
